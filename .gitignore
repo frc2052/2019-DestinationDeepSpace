@@ -1,0 +1,14 @@
+# Gradle
+.gradle
+
+# Build files
+/bin
+/dist
+/*/build
+/build
+
+# IntelliJ
+*.iml
+*.ipr
+*.iws
+.idea/
