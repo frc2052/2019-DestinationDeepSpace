@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.team2052.deepSpace;
+package com.team2052.deepspace;
 
 import edu.wpi.first.wpilibj.RobotBase;
 
