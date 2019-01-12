@@ -112,8 +112,7 @@ public class DriveTrain {
         leftMaster.setSelectedSensorPosition(0, Constants.DriveTrain.kVelocityControlSlot, Constants.DriveTrain.kCANBusConfigTimeoutMS);
         rightMaster.setSelectedSensorPosition(0, Constants.DriveTrain.kVelocityControlSlot, Constants.DriveTrain.kCANBusConfigTimeoutMS);
     }
-
-
+    
     public void zeroGyro() {
         if (navXGyro != null) {
             System.out.println("Reseting Gyro");
