@@ -1,5 +1,6 @@
 package com.team2052.deepspace;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
@@ -10,13 +11,16 @@ import edu.wpi.first.wpilibj.TimedRobot;
  * project.
  */
 public class Robot extends TimedRobot {
+    Compressor compressor = null;
 
-    /**
-     * This function is run when the robot is first started up and should be
-     * used for any initialization code.
-     */
     @Override
     public void robotInit() {
+        try {
+            compressor = new Compressor();
+            compressor.setClosedLoopControl(true);
+        } catch (Exception exc) {
+            System.out.println("DANGER: No compressor!");
+        }
     }
 
     /**

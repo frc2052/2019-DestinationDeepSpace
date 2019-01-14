@@ -42,6 +42,12 @@ public class DriveTrain {
         rightSlave.set(ControlMode.Follower, rightMaster.getDeviceID());
         leftSlave.set(ControlMode.Follower, leftMaster.getDeviceID());
 
+        //copied from 2017
+        rightMaster.config_kP(0, 0.2);
+        rightMaster.config_kI(0, 0.0);
+        rightMaster.config_kD(0, 3.0);
+        rightMaster.config_kF(0, 0.3);
+
         try {
             /***********************************************************************
              * navX-MXP:
@@ -86,6 +92,14 @@ public class DriveTrain {
         System.out.println("Left Speed = " + left + " rightSpeed = " + right);
         leftMaster.set(ControlMode.PercentOutput, left);
         rightMaster.set(ControlMode.PercentOutput, right);
+    }
+
+    public void driveAutoVelocityControl(double left, double right){
+
+    }
+
+    public void driveAutoMotionProfileControl(){
+
     }
 
     private double checkbounds(double Speed){ //this checks to make sure the speed is between 1 & -1
