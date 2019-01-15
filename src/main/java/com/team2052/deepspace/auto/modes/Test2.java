@@ -15,16 +15,16 @@ public class Test2 extends AutoMode{
         Path testBPath = new Path();
 
         System.out.println("init");
-        testPath.addWaypoint(new Waypoint(new Position2d(0,0), 25));
-        testPath.addWaypoint(new Waypoint(new Position2d(48,0), 25));
-        testPath.addWaypoint(new Waypoint(new Position2d(48,-48), 25));
-        testPath.addWaypoint(new Waypoint(new Position2d(96,-48), 25));
-        testPath.addWaypoint(new Waypoint(new Position2d(96,0), 25));
-        testPath.addWaypoint(new Waypoint(new Position2d(144,0), 25));
+        testPath.addWaypoint(new Waypoint(new Position2d(0,0), 60));
+        testPath.addWaypoint(new Waypoint(new Position2d(48,0), 60));
+        testPath.addWaypoint(new Waypoint(new Position2d(48,-48), 60));
+        testPath.addWaypoint(new Waypoint(new Position2d(96,-48), 60));
+        testPath.addWaypoint(new Waypoint(new Position2d(96,0), 60));
+        testPath.addWaypoint(new Waypoint(new Position2d(144,0), 60));
         runAction(new FollowPathAction(testPath, FollowPathAction.Direction.FORWARD));
 
-        testBPath.addWaypoint(new Waypoint(new Position2d(144,0), 25));
-        testBPath.addWaypoint(new Waypoint(new Position2d(0,0), 25));
+        testBPath.addWaypoint(new Waypoint(new Position2d(144,0), 60));
+        testBPath.addWaypoint(new Waypoint(new Position2d(0,0), 60));
         runAction(new FollowPathAction(testBPath, FollowPathAction.Direction.BACKWARD));
     }
 }

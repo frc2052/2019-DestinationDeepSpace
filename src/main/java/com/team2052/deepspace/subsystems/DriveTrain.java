@@ -2,6 +2,7 @@ package com.team2052.deepspace.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 import com.team2052.deepspace.Constants;
@@ -10,7 +11,7 @@ import edu.wpi.first.wpilibj.SPI;
 
 public class DriveTrain {
 
-    // Instance of DriveTrain class to be created in Robot.java class by running get instance
+    // Instance of Drive class to be created in Robot.java class by running get instance
     private static DriveTrain singleDriveTrainInstance = new DriveTrain();
     public static DriveTrain getInstance() { return singleDriveTrainInstance; }
 
@@ -22,13 +23,18 @@ public class DriveTrain {
     private final TalonSRX leftSlave;
 
     DriveTrain(){
-        rightMaster = new TalonSRX(Constants.DriveTrain.kDriveRightMasterId);
-        leftMaster = new TalonSRX(Constants.DriveTrain.kDriveLeftMasterId);
-        rightSlave = new TalonSRX(Constants.DriveTrain.kDriveRightSlaveId);
-        leftSlave = new TalonSRX(Constants.DriveTrain.kDriveLeftSlaveId);
+        rightMaster = new TalonSRX(Constants.Drive.kDriveRightMasterId);
+        leftMaster = new TalonSRX(Constants.Drive.kDriveLeftMasterId);
+        rightSlave = new TalonSRX(Constants.Drive.kDriveRightSlaveId);
+        leftSlave = new TalonSRX(Constants.Drive.kDriveLeftSlaveId);
 
-        rightMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.DriveTrain.kVelocityControlSlot, Constants.DriveTrain.kCANBusConfigTimeoutMS);
-        leftMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.DriveTrain.kVelocityControlSlot, Constants.DriveTrain.kCANBusConfigTimeoutMS);
+        rightMaster.configFactoryDefault();
+        rightSlave.configFactoryDefault();
+        leftMaster.configFactoryDefault();
+        leftSlave.configFactoryDefault();
+
+        rightMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.Drive.kVelocityControlSlot, Constants.Drive.kCANBusConfigTimeoutMS);
+        leftMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.Drive.kVelocityControlSlot, Constants.Drive.kCANBusConfigTimeoutMS);
 
         rightMaster.setInverted(false);
         rightSlave.setInverted(false);
@@ -38,15 +44,21 @@ public class DriveTrain {
         rightMaster.setSensorPhase(false);
         leftMaster.setSensorPhase(false);
 
+        rightMaster.setNeutralMode(NeutralMode.Brake);
+        leftMaster.setNeutralMode(NeutralMode.Brake);
         //Configure talons for follower mode
         rightSlave.set(ControlMode.Follower, rightMaster.getDeviceID());
         leftSlave.set(ControlMode.Follower, leftMaster.getDeviceID());
 
-        //copied from 2017
-        rightMaster.config_kP(0, 0.2);
-        rightMaster.config_kI(0, 0.0);
-        rightMaster.config_kD(0, 3.0);
-        rightMaster.config_kF(0, 0.3);
+        rightMaster.config_kP(0, Constants.Autonomous.kTp);
+        rightMaster.config_kI(0, Constants.Autonomous.kTi);
+        rightMaster.config_kD(0, Constants.Autonomous.kTd);
+        rightMaster.config_kF(0, Constants.Autonomous.kTf);
+
+        leftMaster.config_kP(0, Constants.Autonomous.kTp);
+        leftMaster.config_kI(0, Constants.Autonomous.kTi);
+        leftMaster.config_kD(0, Constants.Autonomous.kTd);
+        leftMaster.config_kF(0, Constants.Autonomous.kTf);
 
         try {
             /***********************************************************************
@@ -89,12 +101,23 @@ public class DriveTrain {
     }
 
     public void driveTank(double left, double right){
-        System.out.println("Left Speed = " + left + " rightSpeed = " + right);
+        if(left != 0 && right != 0) {
+            System.out.println("Left Speed = " + left + " rightSpeed = " + right);
+            System.out.println("Left Vel = " + left / Constants.Autonomous.kV + " right Vel = " + right/Constants.Autonomous.kV);
+            System.out.println("SENSOR VEL:" + leftMaster.getSelectedSensorVelocity() * (1.0/Constants.Drive.kTicksPerRot) * Constants.Drive.kDriveWheelCircumferenceInches * 10);
+        }
         leftMaster.set(ControlMode.PercentOutput, left);
         rightMaster.set(ControlMode.PercentOutput, right);
     }
 
-    public void driveAutoVelocityControl(double left, double right){
+    public void driveAutoVelocityControl(double leftVel, double rightVel){
+        //in/sec * rot/in * ticks/rot * .1 to get ticks/100ms
+        System.out.println("Left Vel = " + leftVel + " right Vel = " + rightVel);
+        leftMaster.set(ControlMode.Velocity, ((leftVel * Constants.Drive.kTicksPerRot)/Constants.Drive.kDriveWheelCircumferenceInches)/3);
+        rightMaster.set(ControlMode.Velocity, ((rightVel * Constants.Drive.kTicksPerRot)/Constants.Drive.kDriveWheelCircumferenceInches)/3);
+
+        System.out.println("SENSOR VEL:" + leftMaster.getSelectedSensorVelocity() * (1.0/Constants.Drive.kTicksPerRot) * Constants.Drive.kDriveWheelCircumferenceInches * 10);
+
 
     }
 
@@ -123,8 +146,8 @@ public class DriveTrain {
     }
 
     public void resetEncoders(){
-        leftMaster.setSelectedSensorPosition(0, Constants.DriveTrain.kVelocityControlSlot, Constants.DriveTrain.kCANBusConfigTimeoutMS);
-        rightMaster.setSelectedSensorPosition(0, Constants.DriveTrain.kVelocityControlSlot, Constants.DriveTrain.kCANBusConfigTimeoutMS);
+        leftMaster.setSelectedSensorPosition(0, Constants.Drive.kVelocityControlSlot, Constants.Drive.kCANBusConfigTimeoutMS);
+        rightMaster.setSelectedSensorPosition(0, Constants.Drive.kVelocityControlSlot, Constants.Drive.kCANBusConfigTimeoutMS);
     }
     
     public void zeroGyro() {

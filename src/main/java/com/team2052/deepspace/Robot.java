@@ -1,5 +1,9 @@
 package com.team2052.deepspace;
 
+import com.team2052.deepspace.auto.AutoModeRunner;
+import com.team2052.deepspace.auto.AutoModeSelector;
+import com.team2052.deepspace.subsystems.DriveTrain;
+import com.team2052.lib.ControlLoop;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 
@@ -11,16 +15,25 @@ import edu.wpi.first.wpilibj.TimedRobot;
  * project.
  */
 public class Robot extends TimedRobot {
-    Compressor compressor = null;
+    private DriveTrain driveTrain = DriveTrain.getInstance();
+    private Controls controls = Controls.getInstance();
+    private RobotState robotstate = RobotState.getInstance();
+    private RobotStateCalculator robotStateCalculator = RobotStateCalculator.getInstance();
+    private AutoModeRunner autoModeRunner = new AutoModeRunner();
+    private ControlLoop controlLoop = new ControlLoop(Constants.Autonomous.kloopPeriodSec);
+    private Compressor compressor = null;
 
     @Override
     public void robotInit() {
+        controlLoop.addLoopable(robotStateCalculator);
         try {
             compressor = new Compressor();
             compressor.setClosedLoopControl(true);
         } catch (Exception exc) {
             System.out.println("DANGER: No compressor!");
         }
+
+        AutoModeSelector.putToSmartDashboard();
     }
 
     /**
@@ -40,6 +53,11 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
+        controlLoop.start();
+        driveTrain.zeroGyro();
+        robotStateCalculator.resetRobotState();
+        AutoModeSelector.AutoModeDefinition currentAutoMode = AutoModeSelector.getAutoDefinition();
+        autoModeRunner.start(currentAutoMode.getInstance());
     }
 
     /**
@@ -47,6 +65,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
+        robotstate.outputToSmartDashboard();
     }
 
     /**
@@ -54,7 +73,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopInit(){
-
+        controlLoop.start();
     }
 
     /**
@@ -62,6 +81,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
+        driveTrain.drive(controls.getTankJoy1(), controls.getTurnJoy2());
     }
 
     /**
@@ -69,5 +89,12 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void testPeriodic() {
+    }
+
+    @Override
+    public void disabledPeriodic(){
+        autoModeRunner.stop();
+        controlLoop.stop();
+        driveTrain.stop();
     }
 }

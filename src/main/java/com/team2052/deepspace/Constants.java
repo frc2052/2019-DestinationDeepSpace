@@ -8,7 +8,7 @@ public class Constants {
     public class Controls{
     }
 
-    public class DriveTrain{
+    public class Drive {
         public static final int kDriveLeftMasterId = 1;
         public static final int kDriveLeftSlaveId = 2;
         public static final int kDriveRightMasterId = 4;
@@ -16,7 +16,7 @@ public class Constants {
 
         public static final int kVelocityControlSlot = 0;
         public static final int kCANBusConfigTimeoutMS = 10;
-        public static final int kkTicksPerRot = 1024;
+        public static final int kTicksPerRot = 1024;
         public static final double kDriveWheelCircumferenceInches = 6.0 * Math.PI;
     }
 
@@ -36,6 +36,12 @@ public class Constants {
         public static final double kV = 1/(kMaxVelocity+8);
         public static final double kA = 0.003; //0.002
         public static final double kP = 0.002; //0.002
+        //pidf copied from 2017 needs testing
+        public static final double kTp = 0.2;
+        public static final double kTi = 0.0;
+        public static final double kTd = 3.0;
+        public static final double kTf = 0.3;
+
 
         public static final double kMinVelocity = 0.05; //range 0-1: minimum amount of power to overcome static friction
 

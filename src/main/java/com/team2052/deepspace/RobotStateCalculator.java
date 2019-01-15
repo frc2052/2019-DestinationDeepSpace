@@ -58,7 +58,7 @@ public class RobotStateCalculator implements ILoopable{
 
     @Override
     public void update() {
-        estimatePositionAverageHeading((driveTrain.getLeftEncoder() / Constants.DriveTrain.kkTicksPerRot) * Constants.DriveTrain.kDriveWheelCircumferenceInches, (driveTrain.getRightEncoder() / Constants.DriveTrain.kkTicksPerRot) * Constants.DriveTrain.kDriveWheelCircumferenceInches, driveTrain.getGyroAngleRadians());
+        estimatePositionAverageHeading((driveTrain.getLeftEncoder() / Constants.Drive.kTicksPerRot) * Constants.Drive.kDriveWheelCircumferenceInches, (driveTrain.getRightEncoder() / Constants.Drive.kTicksPerRot) * Constants.Drive.kDriveWheelCircumferenceInches, driveTrain.getGyroAngleRadians());
         robotState.setVelocityInch((lastVels[0] + lastVels[1] + lastVels[2])/3);
         robotState.setLeftVelocityInch(deltaLeftInches);
         robotState.setRightVelocityInch(deltaRightInches);
