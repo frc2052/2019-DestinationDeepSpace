@@ -19,6 +19,9 @@ public class Constants {
         public static final int kkTicksPerRot = 1024;
         public static final double kDriveWheelCircumferenceInches = 6.0 * Math.PI;
     }
+    public class Intake {
+        public static final int kIntakeMotorId = 1;
+    }
 
 
     public class Autonomous{ //all units for distances, velocity, and acceleration are in inches
