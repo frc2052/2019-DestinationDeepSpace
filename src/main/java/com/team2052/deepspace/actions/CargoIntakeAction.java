@@ -10,14 +10,14 @@ public class CargoIntakeAction implements Action {
     private double intakeDelay;
     private boolean finished = false;
     private cargoIntakeStateEnum state;
-    IntakeController intake = IntakeController.getInstance();
+    private IntakeController intake = IntakeController.getInstance();
     public CargoIntakeAction(cargoIntakeStateEnum state, double intakeDelay){
         this.state = state;
         this.intakeDelay = intakeDelay;
     }
 
     public void done(){
-        intake.cargoIntake(0);
+        intake.setNeutralCargoSpeed();
         finished = true;
     }
 
@@ -37,13 +37,13 @@ public class CargoIntakeAction implements Action {
     public void update(){
         switch(state) {
             case OUTTAKE:
-                intake.cargoIntake(Constants.Intake.kOuttakePercentSpeed);
+                intake.setCargoIntake(Constants.Intake.kOuttakePercentSpeed);
                 if(Timer.getFPGATimestamp() - outtakeTimer >= intakeDelay) {
                     intake.setCargoIntakeState(false);
                     done();
                 }
             case INTAKE:
-                 intake.cargoIntake(Constants.Intake.kIntakePercentSpeed);
+                 intake.setCargoIntake(Constants.Intake.kIntakePercentSpeed);
                 if(Timer.getFPGATimestamp() - intakeTimer >= intakeDelay) {
                     intake.setCargoIntakeState(true);
                     done();
