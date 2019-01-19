@@ -1,13 +1,8 @@
 package com.team2052.deepspace.actions;
 
-import com.team2052.deepspace.Constants;
 import com.team2052.deepspace.subsystems.IntakeController;
-import edu.wpi.first.wpilibj.Timer;
-
 
 public class HatchIntakeAction implements Action {
-    private double intakeTimer;
-    private double outtakeTimer;
     private boolean finished = false;
     private hatchIntakeStateEnum state;
     IntakeController intake = IntakeController.getInstance();
@@ -16,11 +11,11 @@ public class HatchIntakeAction implements Action {
     }
 
     public void done(){
-
+        finished = true;
     }
 
     public boolean isFinished(){
-        return finished = true; //Requirement of Action
+        return finished; //Requirement of Action
     }
 
     public void start(){
@@ -31,22 +26,15 @@ public class HatchIntakeAction implements Action {
         switch(state) {
             case OUTTAKE:
                     intake.sethatchIntakeState(false);
-                    if(Timer.getFPGATimestamp() - (2*outtakeTimer) >= Constants.Intake.kIntakeDelay) {
-                        isFinished(); //Releases hatch, and waits before reporting it's done.
-                    }
+                    done();//Releases hatch, and waits before reporting it's done.
 
             case INTAKE:
                     intake.sethatchIntakeState(true);
-                    if(Timer.getFPGATimestamp() - (2*intakeTimer) >= Constants.Intake.kIntakeDelay) {
-                        isFinished();
-                    }
-
-            case FINISHED:
+                    done();
         }
 
     }
     public enum hatchIntakeStateEnum {
-        FINISHED,
         OUTTAKE,
         INTAKE,
     }
