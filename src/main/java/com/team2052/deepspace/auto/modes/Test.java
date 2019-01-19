@@ -1,6 +1,5 @@
 package com.team2052.deepspace.auto.modes;
 
-
 import com.team2052.deepspace.auto.AutoMode;
 import com.team2052.deepspace.auto.actions.FollowPathAction;
 import com.team2052.deepspace.auto.actions.SeriesAction;
@@ -24,6 +23,5 @@ public class Test extends AutoMode {
                 new FollowPathAction(forwardPath),
                 new FollowPathAction(backwardPath)
         )));
-
     }
 }
