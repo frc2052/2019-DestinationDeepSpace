@@ -19,21 +19,21 @@ public class HatchIntakeAction implements Action {
     }
 
     public void start(){
-
+        switch(state) {
+            case INTAKE:
+                if(!intake.gethatchIntakeState())
+                intake.sethatchIntakeState(true);
+                done();
+            case OUTTAKE:
+                intake.sethatchIntakeState(false);
+                done();//Releases hatch
+        }
     }
 
     public void update(){
-        switch(state) {
-            case OUTTAKE:
-                    intake.sethatchIntakeState(false);
-                    done();//Releases hatch, and waits before reporting it's done.
 
-            case INTAKE:
-                    intake.sethatchIntakeState(true);
-                    done();
         }
 
-    }
     public enum hatchIntakeStateEnum {
         OUTTAKE,
         INTAKE,

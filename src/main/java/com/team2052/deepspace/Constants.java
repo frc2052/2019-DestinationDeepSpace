@@ -21,6 +21,8 @@ public class Constants {
     }
     public class Intake {
         public static final int kIntakeMotorId = 1;
+        public static final int kCargoId = 2;
+        public static final int kHatchId = 3;
         public static final int kOuttakePercentSpeed = -50;
         public static final int kIntakePercentSpeed = 50;
     }
