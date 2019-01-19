@@ -37,7 +37,7 @@ public class IntakeController {
 
     public void sethatchIntakeState(boolean val){
         hatchIntakeState = val;
-        hatchIntakeSolenoid.set(hatchIntakeState)
+        hatchIntakeSolenoid.set(hatchIntakeState);
     } //Getter and setter for hatch state
 
 }
