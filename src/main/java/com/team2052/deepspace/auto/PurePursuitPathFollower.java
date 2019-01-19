@@ -1,10 +1,9 @@
 package com.team2052.deepspace.auto;
 
 import com.team2052.deepspace.Constants;
-import com.team2052.deepspace.Controls;
 import com.team2052.deepspace.RobotState;
+import com.team2052.deepspace.auto.paths.Path;
 import com.team2052.deepspace.subsystems.DriveTrain;
-import com.team2052.lib.Autonomous.Path;
 import com.team2052.lib.Autonomous.Position2d;
 import com.team2052.lib.Autonomous.RateLimiter;
 import edu.wpi.first.wpilibj.drive.Vector2d;
@@ -31,12 +30,8 @@ public class PurePursuitPathFollower{
     private Path path;
 
     private RateLimiter rateLimiter = new RateLimiter();
-    private PathCreator pathCreator = new PathCreator();
     private DriveTrain driveTrain = DriveTrain.getInstance();
     private RobotState robotState = RobotState.getInstance();
-
-    //temp
-    private Controls controls = Controls.getInstance();
 
     private int closestPointIndex;
     private Position2d lookaheadPoint;
@@ -77,15 +72,11 @@ public class PurePursuitPathFollower{
     /**
      * Start takes a path and runs it through the path creator class to set it up for following
      * @see #resetPathFollower()
-     * @see PathCreator
      * @param path is a path created in an automode class
      */
-    public void start(Path path, boolean isForward) {
-        this.isForward = isForward;
+    public void start(Path path) {
+        this.path = path;
         resetPathFollower();
-        System.out.println("creating path");
-        this.path = new Path(pathCreator.createPath(path.getWaypoints(), isForward)); //more detailed path from smaller path
-        System.out.println("created path");
     }
 
     /**
@@ -200,21 +191,17 @@ public class PurePursuitPathFollower{
             rightWheelVel*=scaling;
         }
 
-        if(controls.trigger()) {
-            driveTrain.driveAutoVelocityControl(leftWheelVel, rightWheelVel);
-        }else {
-            double leftFeedForward = Constants.Autonomous.kV * leftWheelVel + Constants.Autonomous.kA * deltaVelocity;
-            double rightFeedForward = Constants.Autonomous.kV * rightWheelVel + Constants.Autonomous.kA * deltaVelocity;
-            double leftFeedBack = Constants.Autonomous.kP * (leftWheelVel - robotState.getLeftVelocityInch());
-            double rightFeedBack = Constants.Autonomous.kP * (rightWheelVel - robotState.getRightVelocityInch());
+        double leftFeedForward = Constants.Autonomous.kV * leftWheelVel + Constants.Autonomous.kA * deltaVelocity;
+        double rightFeedForward = Constants.Autonomous.kV * rightWheelVel + Constants.Autonomous.kA * deltaVelocity ;
+        double leftFeedBack = Constants.Autonomous.kP * (leftWheelVel - robotState.getLeftVelocityInch());
+        double rightFeedBack = Constants.Autonomous.kP * (rightWheelVel - robotState.getRightVelocityInch());
 
-            double leftSpeed = leftFeedForward + leftFeedBack;
-            double rightSpeed = rightFeedForward + rightFeedBack;
+        double leftSpeed = leftFeedForward + leftFeedBack;
+        double rightSpeed = rightFeedForward + rightFeedBack;
 
-            //System.out.println("leftvel: " + leftWheelVel + "rightvel: " + rightWheelVel + "vel: " + velocity + "dv:" + deltaVelocity + "tarVel: " + path.getWaypoints().get(closestPointIndex).getVelocity());
+        //System.out.println("leftvel: " + leftWheelVel + "rightvel: " + rightWheelVel + "vel: " + velocity + "dv:" + deltaVelocity + "tarVel: " + path.getWaypoints().get(closestPointIndex).getVelocity());
 
-            driveTrain.driveTank(leftSpeed, rightSpeed);
-        }
+        driveTrain.driveTank(leftSpeed, rightSpeed);
     }
 
     /**

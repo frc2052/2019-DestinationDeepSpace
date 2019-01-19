@@ -39,8 +39,8 @@ public class AutoModeSelector {
 
     public enum AutoModeDefinition
     {
-        DONT_MOVE("Don't Move", DontMove.class),
         TEST("Test", Test.class),
+        DONT_MOVE("Don't Move", DontMove.class),
         TEST2("Test2", Test2.class)
         ;
 
