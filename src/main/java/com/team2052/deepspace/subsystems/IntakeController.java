@@ -11,16 +11,24 @@ public class IntakeController {
 
 
     private TalonSRX inTakeMotor = new TalonSRX (Constants.Intake.kIntakeMotorId);
-    private Solenoid openIntakeSolenoid;
-    public void intake (double speed) {
+    private Solenoid cargoIntakeSolenoid;
+    private Solenoid hatchIntakeSolenoid;
+    public void cargoIntake(double speed) {
         inTakeMotor.set(ControlMode.PercentOutput, speed);
     }
-    private boolean intakeState;
-    public boolean getIntakeState() {
-        return intakeState;
+    private boolean cargoIntakeState;
+    public boolean getCargoIntakeState() {
+        return cargoIntakeState;
     }
-    public void setIntakeState(boolean val){
-        intakeState = val;
+    public void setCargoIntakeState(boolean val){
+        cargoIntakeState = val;
+    }
+    private boolean hatchIntakeState;
+    public boolean gethatchIntakeState() {
+        return hatchIntakeState;
+    }
+    public void sethatchIntakeState(boolean val){
+        hatchIntakeState = val;
     }
 
 }
