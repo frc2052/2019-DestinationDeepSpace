@@ -33,7 +33,7 @@ public class Robot extends TimedRobot {
             System.out.println("DANGER: No compressor!");
         }
 
-        AutoModeSelector.putToSmartDashboard();
+        AutoModeSelector.putToShuffleBoard();
     }
 
     /**
@@ -56,7 +56,7 @@ public class Robot extends TimedRobot {
         controlLoop.start();
         driveTrain.zeroGyro();
         robotStateCalculator.resetRobotState();
-        AutoModeSelector.AutoModeDefinition currentAutoMode = AutoModeSelector.getAutoDefinition();
+        AutoModeSelector.AutoModeDefinition currentAutoMode = AutoModeSelector.getSelectedAutomode();
         autoModeRunner.start(currentAutoMode.getInstance());
     }
 
@@ -96,5 +96,6 @@ public class Robot extends TimedRobot {
         autoModeRunner.stop();
         controlLoop.stop();
         driveTrain.stop();
+        AutoModeSelector.getSelectedAutomode();
     }
 }
