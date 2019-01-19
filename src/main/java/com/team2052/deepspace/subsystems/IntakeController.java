@@ -15,12 +15,12 @@ public class IntakeController {
     public void intake (double speed) {
         inTakeMotor.set(ControlMode.PercentOutput, speed);
     }
-    public void openIntake(boolean open) {
-        if (open){
-            openIntakeSolenoid.set(true);
-        }else{
-            openIntakeSolenoid.set(false);
-        }
-
+    private boolean intakeState;
+    public boolean getIntakeState() {
+        return intakeState;
     }
+    public void setIntakeState(boolean val){
+        intakeState = val;
+    }
+
 }
