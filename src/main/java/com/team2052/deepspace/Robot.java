@@ -1,5 +1,7 @@
 package com.team2052.deepspace;
 
+import com.team2052.deepspace.subsystems.IntakeController;
+import com.team2052.deepspace.subsystems.LegClimberController;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
@@ -11,12 +13,24 @@ import edu.wpi.first.wpilibj.TimedRobot;
  */
 public class Robot extends TimedRobot {
 
+    private IntakeController intakeController = null;
+    private Controls controls = null;
+    private LegClimberController legClimberController = null;
+
+
+
+
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     @Override
     public void robotInit() {
+
+        intakeController = IntakeController.getInstance();
+        controls = Controls.getInstance();
+        legClimberController = LegClimberController.getInstance();
+
     }
 
     /**
@@ -58,6 +72,10 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
+
+        intakeController.intake(controls.getTankJoy2());
+        legClimberController.setLegClimber(controls.legClimber());
+
     }
 
     /**
