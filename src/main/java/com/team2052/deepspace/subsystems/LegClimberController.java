@@ -1,31 +1,63 @@
 package com.team2052.deepspace.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.team2052.deepspace.Constants;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
 
 public class LegClimberController {
 
-        private static LegClimberController singleLegClimberControllerInstance = new LegClimberController();
-        public static LegClimberController getInstance() { return singleLegClimberControllerInstance; }
+    private static LegClimberController singleLegClimberControllerInstance = new LegClimberController();
+    public static LegClimberController getInstance() { return singleLegClimberControllerInstance; }
 
-        private TalonSRX legClimberMotor = new TalonSRX(Constants.LegClimber.kLegClimberTalon1id);
-        //with assistance
-        private Solenoid LegClimberSolenoid1 = new Solenoid(Constants.LegClimber.kLegClimberSolenoid1id);
-        private Solenoid LegClimberSolenoid2 = new Solenoid(Constants.LegClimber.klegClimbersolenoid2id);
+    private TalonSRX legClimberMotor = new TalonSRX(Constants.LegClimber.kLegClimberTalon1id);
+    private double pos = (Constants.LegClimber.kClimbMotorRotations * Constants.LegClimber.kEncoderTicksPerRotation);
 
-        public void setLegClimber(boolean on) {
-            if (on){
-                legClimberMotor.set(ControlMode.PercentOutput, Constants.LegClimber.kLegClimberMotorVelocity);
-                //with Assistance
-                LegClimberSolenoid1.set(true);
-                LegClimberSolenoid2.set(false);
 
-            }
-            else {
-                legClimberMotor.set(ControlMode.PercentOutput, 0.0);
-                
-            }
+    //with assistance
+    private Solenoid LegClimberSolenoid1 = new Solenoid(Constants.LegClimber.kLegClimberSolenoid1id);
+
+    private LegClimberController(){
+        legClimberMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.DriveTrain.kVelocityControlSlot, Constants.DriveTrain.kCANBusConfigTimeoutMS);
+        legClimberMotor.setNeutralMode(NeutralMode.Coast);
     }
+
+    public void resetEncoders() {
+        legClimberMotor.setSelectedSensorPosition(0, Constants.DriveTrain.kVelocityControlSlot, Constants.DriveTrain.kCANBusConfigTimeoutMS);
+    }
+
+    private int legClimberButton = 0;
+    private boolean isPressed = false;
+    public void setLegClimber(boolean on) {
+        double time = DriverStation.getInstance().getMatchTime();
+        if (on && !isPressed){
+            legClimberButton++;
+        }
+
+        //keep track of whether button is up or down
+        isPressed = on;
+
+        if (time <= 40) {
+            if (on) {
+                legClimberMotor.set(ControlMode.MotionMagic, pos);
+                //with Assistance
+                //LegClimberSolenoid1.set(true);
+
+            }
+        }
+        else if (legClimberButton == 4){
+                legClimberMotor.set(ControlMode.MotionMagic, pos);
+                //with assistance
+                //LegClimberSolenoid1.set(true);
+        }
+        if(!on){
+            legClimberMotor.set(ControlMode.PercentOutput, 0.0);
+        }
+
+
+    }
+
 }

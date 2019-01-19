@@ -38,6 +38,8 @@ public class Constants {
         public static final int kLegClimberButton = 5;
         public static final int kLegClimberSolenoid1id = 21;
         public static final int klegClimbersolenoid2id = 22;
+        public static final double kEncoderTicksPerRotation = 256;
+        public static final double kClimbMotorRotations = 20;
     }
 
 }

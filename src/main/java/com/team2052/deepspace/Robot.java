@@ -30,6 +30,7 @@ public class Robot extends TimedRobot {
         intakeController = IntakeController.getInstance();
         controls = Controls.getInstance();
         legClimberController = LegClimberController.getInstance();
+        legClimberController.resetEncoders();
 
     }
 
