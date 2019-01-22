@@ -41,12 +41,17 @@ public class AutoModeSelector {
                 sendableChooserSecondTarget.addOption(mode.name, mode);
             }
         }
+        SmartDashboard.putData("Auto Start Pos", sendableChooserPosition);
+        SmartDashboard.putData("First Target", sendableChooserFirstTarget);
+        SmartDashboard.putData("Second Target", sendableChooserSecondTarget);
     }
+
     public static AutoModeDefinition getSelectedAutomode(){
         String selected = sendableChooserPosition.getSelected().name + sendableChooserFirstTarget.getSelected().name
-                + (sendableChooserSecondTarget.getSelected().name.equals("none") ? "" : sendableChooserSecondTarget.getSelected().name);
+                + (sendableChooserSecondTarget.getSelected().name.equals("None") ? "" : sendableChooserSecondTarget.getSelected().name);
         AutoModeDefinition selectedMode = null;
         try{
+            System.out.println("Selected" + selected);
             selectedMode = AutoModeDefinition.valueOf(selected);
             SmartDashboard.putBoolean("Does AutoMode Exist?", true);
         }catch(Exception e){

@@ -7,19 +7,22 @@ import com.team2052.deepspace.auto.actions.SeriesAction;
 import com.team2052.deepspace.auto.paths.CenterLeftHatchStart.CLeftHatchStartLeftHatchPickUpPath;
 import com.team2052.deepspace.auto.paths.CenterStart.CStartCenterLeftHatchPath;
 import com.team2052.deepspace.auto.paths.Path;
+import com.team2052.deepspace.auto.paths.leftPickUpStart.LeftPickupStartCenterRightPath;
 
 import java.util.Arrays;
 
-public class CStartCenterLeftHatch extends AutoMode {
+public class CenterStartCenterLeftHatch extends AutoMode {
     @Override
     protected void init() {
         Path firstPath = new CStartCenterLeftHatchPath();
         Path secondPath = new CLeftHatchStartLeftHatchPickUpPath();
+        Path thirdPath = new LeftPickupStartCenterRightPath();
         runAction(new SeriesAction(Arrays.asList(
                 new FollowPathAction(firstPath),
                 new HatchAction(HatchAction.Mode.OUT),
                 new FollowPathAction(secondPath),
-                new HatchAction(HatchAction.Mode.IN)
+                new HatchAction(HatchAction.Mode.IN),
+                new FollowPathAction(thirdPath)
         )));
     }
 }

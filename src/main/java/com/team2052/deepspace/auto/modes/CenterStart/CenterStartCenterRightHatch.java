@@ -10,7 +10,7 @@ import com.team2052.deepspace.auto.paths.Path;
 
 import java.util.Arrays;
 
-public class CStartCenterRightHatch extends AutoMode {
+public class CenterStartCenterRightHatch extends AutoMode {
     @Override
     protected void init() {
         Path firstPath = new CStartCenterRightHatchPath();

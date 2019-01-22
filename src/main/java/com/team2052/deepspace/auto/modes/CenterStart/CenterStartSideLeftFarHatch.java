@@ -11,7 +11,7 @@ import com.team2052.deepspace.auto.paths.Path;
 
 import java.util.Arrays;
 
-public class CStartSideLeftFarHatch extends AutoMode {
+public class CenterStartSideLeftFarHatch extends AutoMode {
     @Override
     protected void init() {
         Path firstPath = new CStartSideLeftFarHatchPath();
