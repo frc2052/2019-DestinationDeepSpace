@@ -61,10 +61,10 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         if(controls.getIntake()){
-            intake.intake();
+            intake.cargoIntake();
 
         } else if (controls.getOuttake()) {
-            intake.outtake();
+            intake.cargoOuttake();
         } else {
             intake.cargoNeutral();
         }
