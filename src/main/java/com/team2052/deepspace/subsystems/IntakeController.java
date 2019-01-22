@@ -18,22 +18,20 @@ public class IntakeController {
     } //Sets cargo intake motor (In percent) to the speed you send it.
 
     private boolean cargoIntakeState;
-
-    public void setNeutralCargoSpeed(){
-        setCargoIntake(Constants.Intake.kNeutralSpeed);
-    }
     public boolean getCargoIntakeState() {
         return cargoIntakeState;
     }
-
-    public void setCargoIntakeState(boolean booling){
-        cargoIntakeState = booling;
+    public void setCargoIntakeState(boolean state){
+        cargoIntakeState = state;
         cargoIntakeSolenoid.set(cargoIntakeState);
     } //Getter and setter for cargo state
-    public void intake(){
+    public void cargoNeutral(){
+        setCargoIntake(Constants.Intake.kNeutralSpeed);
+    }
+    public void cargoIntake(){
         setCargoIntake(Constants.Intake.kIntakePercentSpeed);
     }
-    public void outtake(){
+    public void cargoOuttake(){
         setCargoIntake(Constants.Intake.kOuttakePercentSpeed);
     }
 
@@ -43,8 +41,8 @@ public class IntakeController {
         return hatchIntakeState;
     }
 
-    public void setHatchIntakeState(boolean boolin) {
-        hatchIntakeState = boolin;
+    public void setHatchIntakeState(boolean state) {
+        hatchIntakeState = state;
         hatchIntakeSolenoid.set(hatchIntakeState);
     }
 

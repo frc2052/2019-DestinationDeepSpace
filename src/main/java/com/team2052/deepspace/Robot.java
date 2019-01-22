@@ -66,7 +66,7 @@ public class Robot extends TimedRobot {
         } else if (controls.getOuttake()) {
             intake.outtake();
         } else {
-            intake.setNeutralCargoSpeed();
+            intake.cargoNeutral();
         }
     }
 

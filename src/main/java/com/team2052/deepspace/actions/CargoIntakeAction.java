@@ -1,23 +1,22 @@
 package com.team2052.deepspace.actions;
 
-import com.team2052.deepspace.Constants;
 import com.team2052.deepspace.subsystems.IntakeController;
 import edu.wpi.first.wpilibj.Timer;
 
 public class CargoIntakeAction implements Action {
     private double intakeTimer;
     private double outtakeTimer;
-    private double intakeDelay;
+    private double delay;
     private boolean finished = false;
     private cargoIntakeStateEnum state;
     private IntakeController intake = IntakeController.getInstance();
-    public CargoIntakeAction(cargoIntakeStateEnum state, double intakeDelay){
+    public CargoIntakeAction(cargoIntakeStateEnum state, double delay){
         this.state = state;
-        this.intakeDelay = intakeDelay;
+        this.delay = delay;
     }
 
     public void done(){
-        intake.setNeutralCargoSpeed();
+        intake.cargoNeutral();
         finished = true;
     }
 
@@ -37,14 +36,14 @@ public class CargoIntakeAction implements Action {
     public void update(){
         switch(state) {
             case OUTTAKE:
-                intake.outtake();
-                if(Timer.getFPGATimestamp() - outtakeTimer >= intakeDelay) {
+                intake.cargoOuttake();
+                if((Timer.getFPGATimestamp() - outtakeTimer >= delay) && intake.getCargoIntakeState()) {
                     intake.setCargoIntakeState(false);
                     done();
                 }
             case INTAKE:
-                intake.intake();
-                if(Timer.getFPGATimestamp() - intakeTimer >= intakeDelay) {
+                intake.cargoIntake();
+                if((Timer.getFPGATimestamp() - intakeTimer >= delay) && !intake.getCargoIntakeState()) {
                     intake.setCargoIntakeState(true);
                     done();
                 }
