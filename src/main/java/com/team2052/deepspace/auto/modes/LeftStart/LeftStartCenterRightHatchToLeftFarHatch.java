@@ -10,16 +10,19 @@ import com.team2052.deepspace.auto.paths.Path;
 
 import java.util.Arrays;
 
-public class LStartCenterRightHatch extends AutoMode {
+public class LeftStartCenterRightHatchToLeftFarHatch extends AutoMode {
     @Override
     protected void init() {
         Path firstPath = new LStartCenterRightHatchPath();
         Path secondPath = new CRightHatchStartRightHatchPickUpPath();
+        //Path thirdPath = new LHatchPickUpStartLeftFarHatchPath();
         runAction(new SeriesAction(Arrays.asList(
                 new FollowPathAction(firstPath),
                 new HatchAction(HatchAction.Mode.OUT),
                 new FollowPathAction(secondPath),
-                new HatchAction(HatchAction.Mode.IN)
+                new HatchAction(HatchAction.Mode.IN),
+                new FollowPathAction(thirdPath),
+                new HatchAction(HatchAction.Mode.OUT)
         )));
 
     }

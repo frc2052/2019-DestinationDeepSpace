@@ -11,18 +11,19 @@ import com.team2052.deepspace.auto.paths.leftPickUpStart.LeftPickupStartCenterRi
 
 import java.util.Arrays;
 
-public class CenterStartCenterLeftHatch extends AutoMode {
+public class CenterStartCenterLeftHatchToLeftCloseHatch extends AutoMode {
     @Override
     protected void init() {
         Path firstPath = new CStartCenterLeftHatchPath();
         Path secondPath = new CLeftHatchStartLeftHatchPickUpPath();
-        Path thirdPath = new LeftPickupStartCenterRightPath();
+        //Path thirdPath = new LHatchPickUpStartLeftCloseHatchPath();
         runAction(new SeriesAction(Arrays.asList(
                 new FollowPathAction(firstPath),
                 new HatchAction(HatchAction.Mode.OUT),
                 new FollowPathAction(secondPath),
                 new HatchAction(HatchAction.Mode.IN),
-                new FollowPathAction(thirdPath)
+                new FollowPathAction(thirdPath),
+                new HatchAction(HatchAction.Mode.OUT)
         )));
     }
 }
