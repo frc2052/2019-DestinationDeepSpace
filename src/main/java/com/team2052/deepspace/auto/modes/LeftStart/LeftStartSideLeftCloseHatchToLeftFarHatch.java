@@ -4,7 +4,8 @@ import com.team2052.deepspace.auto.AutoMode;
 import com.team2052.deepspace.auto.actions.FollowPathAction;
 import com.team2052.deepspace.auto.actions.HatchAction;
 import com.team2052.deepspace.auto.actions.SeriesAction;
-import com.team2052.deepspace.auto.paths.LeftCloseHatchStart.LCloseHatchStartLeftHatchPickUpPath;
+import com.team2052.deepspace.auto.paths.HatchPickUp.LHatchPickUpStartLeftFarHatchPath;
+import com.team2052.deepspace.auto.paths.LeftHatchStarts.LCloseHatchStartLeftHatchPickUpPath;
 import com.team2052.deepspace.auto.paths.LeftStart.LStartSideLeftCloseHatchPath;
 import com.team2052.deepspace.auto.paths.Path;
 
@@ -15,7 +16,7 @@ public class LeftStartSideLeftCloseHatchToLeftFarHatch extends AutoMode {
     protected void init() {
         Path firstPath = new LStartSideLeftCloseHatchPath();
         Path secondPath = new LCloseHatchStartLeftHatchPickUpPath();
-        //Path thirdPath = new LHatchPickUpStartLeftFarHatchPath();
+        Path thirdPath = new LHatchPickUpStartLeftFarHatchPath();
         runAction(new SeriesAction(Arrays.asList(
                 new FollowPathAction(firstPath),
                 new HatchAction(HatchAction.Mode.OUT),

@@ -1,4 +1,4 @@
-package com.team2052.deepspace.auto.paths.LeftCloseHatchStart;
+package com.team2052.deepspace.auto.paths.LeftHatchStarts;
 
 import com.team2052.deepspace.auto.paths.Path;
 import com.team2052.lib.Autonomous.Position2d;
@@ -10,7 +10,10 @@ public class LCloseHatchStartLeftHatchPickUpPath extends Path{
 
     public LCloseHatchStartLeftHatchPickUpPath() {
         setDirection(Direction.FORWARD);
-        addWaypoint(new Waypoint(new Position2d(0,0),50));
+        addWaypoint(new Waypoint(new Position2d(203,-47),50)); //P
+        addWaypoint(new Waypoint(new Position2d(68,-65  ),50)); //F
+        addWaypoint(new Waypoint(new Position2d(29,-134  ),50)); //E
+        addWaypoint(new Waypoint(new Position2d(-66,-134  ),50)); //D
         OptimizePath();
     }
 

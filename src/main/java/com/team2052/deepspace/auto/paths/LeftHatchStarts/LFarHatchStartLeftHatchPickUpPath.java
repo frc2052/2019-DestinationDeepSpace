@@ -1,4 +1,4 @@
-package com.team2052.deepspace.auto.paths.LeftStart;
+package com.team2052.deepspace.auto.paths.LeftHatchStarts;
 
 import com.team2052.deepspace.auto.paths.Path;
 import com.team2052.lib.Autonomous.Position2d;
@@ -6,9 +6,9 @@ import com.team2052.lib.Autonomous.Waypoint;
 
 import java.util.List;
 
-public class LStartSideRightMiddleHatchPath extends Path {
+public class LFarHatchStartLeftHatchPickUpPath extends Path{
 
-    public LStartSideRightMiddleHatchPath() {
+    public LFarHatchStartLeftHatchPickUpPath() {
         setDirection(Direction.FORWARD);
         addWaypoint(new Waypoint(new Position2d(0,0),50));
         OptimizePath();
