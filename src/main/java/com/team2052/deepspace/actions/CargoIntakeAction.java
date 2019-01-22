@@ -37,13 +37,13 @@ public class CargoIntakeAction implements Action {
     public void update(){
         switch(state) {
             case OUTTAKE:
-                intake.setCargoIntake(Constants.Intake.kOuttakePercentSpeed);
+                intake.outtake();
                 if(Timer.getFPGATimestamp() - outtakeTimer >= intakeDelay) {
                     intake.setCargoIntakeState(false);
                     done();
                 }
             case INTAKE:
-                 intake.setCargoIntake(Constants.Intake.kIntakePercentSpeed);
+                intake.intake();
                 if(Timer.getFPGATimestamp() - intakeTimer >= intakeDelay) {
                     intake.setCargoIntakeState(true);
                     done();

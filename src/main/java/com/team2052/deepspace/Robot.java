@@ -1,5 +1,6 @@
 package com.team2052.deepspace;
 
+import com.team2052.deepspace.subsystems.IntakeController;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
@@ -10,7 +11,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
  * project.
  */
 public class Robot extends TimedRobot {
-
+    private IntakeController intake = null;
+    private Controls controls = null;
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -58,6 +60,14 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
+        if(controls.getIntake()){
+            intake.intake();
+
+        } else if (controls.getOuttake()) {
+            intake.outtake();
+        } else {
+            intake.setNeutralCargoSpeed();
+        }
     }
 
     /**

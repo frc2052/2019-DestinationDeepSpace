@@ -9,9 +9,7 @@ public class IntakeController {
     private static IntakeController instance = new IntakeController();
     public static IntakeController getInstance() {return instance;}
 
-
     private TalonSRX intakeMotor = new TalonSRX (Constants.Intake.kIntakeMotorId);
-
     private Solenoid cargoIntakeSolenoid = new Solenoid(Constants.Intake.kCargoId);
     private Solenoid hatchIntakeSolenoid = new Solenoid(Constants.Intake.kHatchId);
 
@@ -28,10 +26,16 @@ public class IntakeController {
         return cargoIntakeState;
     }
 
-    public void setCargoIntakeState(boolean val){
-        cargoIntakeState = val;
+    public void setCargoIntakeState(boolean booling){
+        cargoIntakeState = booling;
         cargoIntakeSolenoid.set(cargoIntakeState);
     } //Getter and setter for cargo state
+    public void intake(){
+        setCargoIntake(Constants.Intake.kIntakePercentSpeed);
+    }
+    public void outtake(){
+        setCargoIntake(Constants.Intake.kOuttakePercentSpeed);
+    }
 
     private boolean hatchIntakeState;
 
@@ -39,9 +43,9 @@ public class IntakeController {
         return hatchIntakeState;
     }
 
-    public void setHatchIntakeState(boolean val){
-        hatchIntakeState = val;
+    public void setHatchIntakeState(boolean boolin) {
+        hatchIntakeState = boolin;
         hatchIntakeSolenoid.set(hatchIntakeState);
-    } //Getter and setter for hatch state
+    }
 
 }
