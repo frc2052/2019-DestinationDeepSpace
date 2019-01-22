@@ -1,5 +1,7 @@
 package com.team2052.deepspace;
 
+import com.team2052.deepspace.subsystems.DriveTrainController;
+import com.team2052.deepspace.subsystems.ElevatorController;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
@@ -10,6 +12,9 @@ import edu.wpi.first.wpilibj.TimedRobot;
  * project.
  */
 public class Robot extends TimedRobot {
+    private Controls controls = null;
+    private DriveTrainController driveTrain = null;
+    private ElevatorController elevator = null;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -17,6 +22,10 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
+        controls = Controls.getInstance();
+        driveTrain = DriveTrainController.getInstance();
+        elevator = ElevatorController.getInstance();
+        elevator.zeroSensor();
     }
 
     /**
@@ -51,6 +60,7 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopInit(){
 
+
     }
 
     /**
@@ -58,7 +68,28 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
+        if (controls.getElevatorGroundCargo()) {
+            elevator.setTarget(ElevatorController.ElevatorPresets.GROUND_CARGO);
+        } else if (controls.getElevatorHatch1()) {
+            elevator.setTarget(ElevatorController.ElevatorPresets.HATCH_LEVEL1);
+        } else if (controls.getElevatorHatch2()) {
+            elevator.setTarget(ElevatorController.ElevatorPresets.HATCH_LEVEL2);
+        } else if (controls.getElevatorHatch3()) {
+            elevator.setTarget(ElevatorController.ElevatorPresets.HATCH_LEVEL3);
+        } else if (controls.getElevatorCargoShipCargo()) {
+            elevator.setTarget(ElevatorController.ElevatorPresets.CARGOSHIP_CARGO);
+        } else if (controls.getElevatorRocketCargo1()) {
+            elevator.setTarget(ElevatorController.ElevatorPresets.ROCKET_CARGO1);
+        }else if (controls.getElevatorRocketCargo2()) {
+            elevator.setTarget(ElevatorController.ElevatorPresets.ROCKET_CARGO2);
+        }else if (controls.getElevatorRocketCargo3()) {
+            elevator.setTarget(ElevatorController.ElevatorPresets.ROCKET_CARGO3);
+        }
+        elevator.setElevatorAdjustmentUp(controls.getElevatorAdjustmentUp());
+        elevator.setElevatorAdjustmentDown(controls.getElevatorAdjustmentDown());
     }
+
+
 
     /**
      * This function is called periodically during test mode.

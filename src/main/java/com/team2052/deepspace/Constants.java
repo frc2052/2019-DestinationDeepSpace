@@ -28,15 +28,36 @@ public class Constants {
         public static final int kElevatorMotorId = 8;
         public static final double kElevatorTicksPerRot = 256;
         public static final double kElevatorInchesPerRotation = 15;
+
+        //////scoring heights//////
         public static final double kGroundCargoHeight =0;
         public static final double kHatchLevel1Height = 1;
         public static final double kHatchLevel2Height = 2;
         public static final double kHatchLevel3Height = 3;
-        public static final double kCargoshipCargoHeight = 38;
+        public static final double kCargoShipCargoHeight = 38;
         public static final double kRocketCargoHeight1 = 27.5;
         public static final double kRocketCargoHeight2 = 55.5;
         public static final double kRocketCargoHeight3 = 83.5;
 
+        //////max heights//////
+        public static final double kElevatorMaxHeight = 86;
+        public static final double kElevatorMinHeight = 0;
+
+        //////buttons//////
+        public static final int kElevatorGroundGargoButton = 2;
+        public static final int kElevatorHatch1Button = 3;
+        public static final int kElevatorHatch2Button = 4;
+        public static final int kElevatorHatch3Button = 5;
+        public static final int kElevatorCargoShipCargoButton = 6;
+        public static final int kElevatorCargo1Button = 7;
+        public static final int kElevatorCargo2Button = 8;
+        public static final int kElevatorCargo3Button = 9;
+        public static final int kElevatorAdjustmenUpButton = 10;
+        public static final int kElevatorAdjustmenDownButton = 11;
+
+
 
     }
+
+
 }
