@@ -6,7 +6,6 @@ import com.team2052.deepspace.auto.actions.HatchAction;
 import com.team2052.deepspace.auto.actions.SeriesAction;
 import com.team2052.deepspace.auto.paths.CenterLeftHatchStart.CLeftHatchStartLeftHatchPickUpPath;
 import com.team2052.deepspace.auto.paths.Path;
-import com.team2052.deepspace.auto.paths.RightStart.RStartCenterLeftHatchPath;
 
 import java.util.Arrays;
 

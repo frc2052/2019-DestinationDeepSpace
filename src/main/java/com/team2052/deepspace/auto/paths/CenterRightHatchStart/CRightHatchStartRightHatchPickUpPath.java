@@ -10,7 +10,12 @@ public class CRightHatchStartRightHatchPickUpPath extends Path{
 
     public CRightHatchStartRightHatchPickUpPath() {
         setDirection(Direction.FORWARD);
-        addWaypoint(new Waypoint(new Position2d(0,0),50));
+        addWaypoint(new Waypoint(new Position2d(135,-10),50)); //k
+        addWaypoint(new Waypoint(new Position2d(129,10),50)); //j
+        addWaypoint(new Waypoint(new Position2d(68,47),50)); //g
+        addWaypoint(new Waypoint(new Position2d(68,65  ),50)); //f
+        addWaypoint(new Waypoint(new Position2d(29,134  ),50)); //e
+        addWaypoint(new Waypoint(new Position2d(-66,134  ),50)); //d
         OptimizePath();
     }
 
