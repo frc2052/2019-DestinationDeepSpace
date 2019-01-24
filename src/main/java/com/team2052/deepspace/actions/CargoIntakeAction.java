@@ -37,13 +37,13 @@ public class CargoIntakeAction implements Action {
         switch(state) {
             case OUTTAKE:
                 intake.cargoOuttake();
-                if((Timer.getFPGATimestamp() - outtakeTimer >= delay) && intake.getCargoIntakeState()) {
+                if(Timer.getFPGATimestamp() - outtakeTimer >= delay) {
                     intake.setCargoIntakeState(false);
                     done();
                 }
             case INTAKE:
                 intake.cargoIntake();
-                if((Timer.getFPGATimestamp() - intakeTimer >= delay) && !intake.getCargoIntakeState()) {
+                if(Timer.getFPGATimestamp() - intakeTimer >= delay) {
                     intake.setCargoIntakeState(true);
                     done();
                 }
