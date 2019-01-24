@@ -22,22 +22,7 @@ public class VisionController {
         width = SmartDashboard.getNumber("targetWidth",0)/cameraW;
         x = SmartDashboard.getNumber("targetX",0)/cameraW;
         y = SmartDashboard.getNumber("targetY",0)/cameraH;
-
-        //opposite of height is how fast we turn aka the farther away the slower the turn to help get the robot in front of the target before we turn
-        double turnReduction = .5-height; //constant for % away from target
-        double left;
-        double right;
-        //we dont want it negative
-        if(turnReduction < 0){
-            turnReduction = 0;
-        }
-        if(x > .5){
-            left = x + turnReduction;
-            right = (1-x);
-        }else{
-            left = x;
-            right = (1-x) + turnReduction;
-        }
-        return new DriveOutput(left,right);
+        
+        return new DriveOutput(x,1-x);
     }
 }
