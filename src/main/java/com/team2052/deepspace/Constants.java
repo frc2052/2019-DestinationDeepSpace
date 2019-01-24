@@ -20,6 +20,10 @@ public class Constants {
         public static final double kDriveWheelCircumferenceInches = 6.0 * Math.PI;
     }
 
+    public class Intake{
+        public static final int Tape = 1;
+        public static final int Tap3 = 2;
+    }
 
     public class Autonomous{ //all units for distances, velocity, and acceleration are in inches
 
