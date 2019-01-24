@@ -10,7 +10,10 @@ public class RStartSideRightMiddleHatchPath extends Path {
 
     public RStartSideRightMiddleHatchPath() {
         setDirection(Direction.FORWARD);
-        addWaypoint(new Waypoint(new Position2d(0,0),50));
+        addWaypoint(new Waypoint(new Position2d(0,47),50)); // C
+        addWaypoint(new Waypoint(new Position2d(68,65),50)); // f
+        addWaypoint(new Waypoint(new Position2d(216,65),50)); // o
+        addWaypoint(new Waypoint(new Position2d(216,47),50)); //q
         OptimizePath();
     }
 
