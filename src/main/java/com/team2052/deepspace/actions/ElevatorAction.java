@@ -10,7 +10,7 @@ public class ElevatorAction {
         elevator = ElevatorController.getInstance();
     }
 
-    
+
     public void done(){
 
     }
