@@ -20,9 +20,7 @@ public class Controls {
     public double getTankJoy1() {
         double val = -leftPrimaryStick.getY();
         if (val < .15 && val > -.15)
-        {
             val = 0;
-        }
         return val;
     } //these return the values for the joysticks for other classes
 
