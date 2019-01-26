@@ -75,7 +75,11 @@ public class Robot extends TimedRobot {
     public void teleopPeriodic() {
 
         intakeController.intake(controls.getTankJoy2());
-        legClimberController.setLegClimber(controls.legClimber());
+        if (controls.legClimber()){
+            legClimberController.setLegClimber(controls.legClimber());
+        }else {
+            legClimberController.stopClimber();
+        }
 
     }
 

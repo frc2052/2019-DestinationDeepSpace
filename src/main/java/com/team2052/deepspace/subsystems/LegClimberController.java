@@ -53,11 +53,9 @@ public class LegClimberController {
                 //with assistance
                 //LegClimberSolenoid1.set(true);
         }
-        if(!on){
-            legClimberMotor.set(ControlMode.PercentOutput, 0.0);
-        }
-
-
+    }
+    public void stopClimber(){
+        legClimberMotor.set(ControlMode.MotionMagic, 0.0);
     }
 
 }
