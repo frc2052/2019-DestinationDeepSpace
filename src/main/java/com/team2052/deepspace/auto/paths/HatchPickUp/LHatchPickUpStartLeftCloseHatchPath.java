@@ -13,8 +13,8 @@ public class LHatchPickUpStartLeftCloseHatchPath extends Path{
         addWaypoint(new Waypoint(new Position2d(-66,-134),50)); // D
         addWaypoint(new Waypoint(new Position2d(29,-134),50)); // E
         addWaypoint(new Waypoint(new Position2d(68,-65),50)); // F
-        addWaypoint(new Waypoint(new Position2d(193,-65),50)); // N
-        addWaypoint(new Waypoint(new Position2d(193,-47),50)); // P
+        addWaypoint(new Waypoint(new Position2d(194,-65),50)); // N
+        addWaypoint(new Waypoint(new Position2d(194,-47),50)); // P
         OptimizePath();
     }
 

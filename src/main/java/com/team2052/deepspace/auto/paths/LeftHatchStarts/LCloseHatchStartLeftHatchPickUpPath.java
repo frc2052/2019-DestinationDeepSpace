@@ -10,7 +10,7 @@ public class LCloseHatchStartLeftHatchPickUpPath extends Path{
 
     public LCloseHatchStartLeftHatchPickUpPath() {
         setDirection(Direction.FORWARD);
-        addWaypoint(new Waypoint(new Position2d(203,-47),50)); //P
+        addWaypoint(new Waypoint(new Position2d(194,-47),50)); //P
         addWaypoint(new Waypoint(new Position2d(68,-65  ),50)); //F
         addWaypoint(new Waypoint(new Position2d(29,-134  ),50)); //E
         addWaypoint(new Waypoint(new Position2d(-66,-134  ),50)); //D
