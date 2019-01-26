@@ -117,9 +117,9 @@ public class Constants {
 
     public class LightSensorFollowerTabeThingyThing{
         //////ports//////
-        public static final int kLeftLightSensorid = 9;
-        public static final int kMiddleLightSensorid = 8;
-        public static final int kRightLightSensorid = 7;
+        public static final int kLeftLightSensorid = 2;
+        public static final int kMiddleLightSensorid = 1;
+        public static final int kRightLightSensorid = 0;
 
         //////speeds//////
         public static final double kLightSensorFollowSpeed = 0.3;
