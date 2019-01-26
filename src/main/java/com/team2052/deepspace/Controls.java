@@ -47,4 +47,5 @@ public class Controls {
     public boolean reset(){
         return leftPrimaryStick.getTrigger();
     }
+
 }
