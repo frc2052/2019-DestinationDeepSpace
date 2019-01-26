@@ -22,10 +22,10 @@ public class DriveTrainController {
     private final TalonSRX leftSlave;
 
     DriveTrainController(){
-        rightMaster = new TalonSRX(Constants.DriveTrain.kDriveRightMasterId);
-        leftMaster = new TalonSRX(Constants.DriveTrain.kDriveLeftMasterId);
-        rightSlave = new TalonSRX(Constants.DriveTrain.kDriveRightSlaveId);
-        leftSlave = new TalonSRX(Constants.DriveTrain.kDriveLeftSlaveId);
+        rightMaster = new TalonSRX(Constants.Controls.kDriveRightMasterId);
+        leftMaster = new TalonSRX(Constants.Controls.kDriveLeftMasterId);
+        rightSlave = new TalonSRX(Constants.Controls.kDriveRightSlaveId);
+        leftSlave = new TalonSRX(Constants.Controls.kDriveLeftSlaveId);
 
         rightMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.DriveTrain.kVelocityControlSlot, Constants.DriveTrain.kCANBusConfigTimeoutMS);
         leftMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.DriveTrain.kVelocityControlSlot, Constants.DriveTrain.kCANBusConfigTimeoutMS);
