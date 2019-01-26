@@ -1,4 +1,4 @@
-package com.team2052.deepspace.actions;
+package com.team2052.deepspace.auto.actions;
 
 import com.team2052.deepspace.subsystems.GroundIntake;
 
