@@ -1,5 +1,14 @@
 package com.team2052.deepspace.auto;
 
+import com.team2052.deepspace.auto.modes.CenterStart.CenterStartCenterLeftHatch;
+import com.team2052.deepspace.auto.modes.CenterStart.CenterStartCenterRightHatch;
+import com.team2052.deepspace.auto.modes.LeftStart.LeftStartSideLeftCloseHatch;
+import com.team2052.deepspace.auto.modes.LeftStart.LeftStartSideLeftFarHatch;
+import com.team2052.deepspace.auto.modes.LeftStart.LeftStartSideLeftMiddleHatch;
+import com.team2052.deepspace.auto.modes.RightStart.RStartSideRightMiddleHatch;
+import com.team2052.deepspace.auto.modes.RightStart.RightStartSideRightCloseHatch;
+import com.team2052.deepspace.auto.modes.RightStart.RightStartSideRightFarHatch;
+import com.team2052.deepspace.auto.modes.RightStart.RightStartSideRightMiddleHatch;
 import com.team2052.deepspace.auto.modes.Test;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -62,9 +71,10 @@ public class AutoModeSelector {
 
     public enum PositionSelection
     {
-        LEFT("LeftStart"),
-        Center("StartCenter"),
-        Right("StartRight");
+        LEFT("StartLeft"),
+        CENTER("StartCenter"),
+        RIGHT("StartRight");
+
 
         public String name;
         PositionSelection(String name){
@@ -74,8 +84,13 @@ public class AutoModeSelector {
 
     public enum FirstTargetSelection
     {
-        CLHATCH("CenterLeftHatch"),
-        CRHATCH("CenterRightHatch");
+        CLH("LeftCenterHatch"),
+        CRH("RightCenterHatch"),
+        SL("LeftSide"),
+        SR("RightSide");
+
+
+
 
         public String name;
         FirstTargetSelection(String name){
@@ -83,11 +98,23 @@ public class AutoModeSelector {
         }
     }
 
+    //ADD All POSSIBLE COMBONATIONS KEYWORDS TO CREATE ALL CLASSES!!!
     public enum SecondTargetSelection
     {
+
+
         NONE("None"),
-        CLHATCH("CenterLeftHatch"),
-        CRHATCH("CenterRightHatch");
+        LHATCH("LeftHatch"),
+        RHATCH("RightHatch"),
+        LFHATCH("LeftFarHatch"),
+        RFHATCH("RightFarHatch"),
+        LMHATCH("LeftMiddleHatch"),
+        RMHATCH("RightMiddleHatch"),
+        LCHATCH("LeftCloseHatch"),
+        RCHATCH("RightCloseHatch");
+
+
+
 
         public String name;
         SecondTargetSelection(String name){
@@ -97,7 +124,25 @@ public class AutoModeSelector {
 
     public enum AutoModeDefinition
     {
-        LeftStartCenterLeftHatch(Test.class);
+        /*What?? SHould the previuous words b4 () be the ENUM code or teh Actual NAme?? Also I gotta find why the red.
+        Update:Added the AMD for all singlePathes
+         */
+        LEFTSLLFHATCH(LeftStartSideLeftFarHatch.class),
+        LEFTSLLMHATCH(LeftStartSideLeftMiddleHatch.class),
+        LEFTSLLCHATCH(LeftStartSideLeftCloseHatch.class),
+        RIGHTSRRFHATCH(RightStartSideRightFarHatch.class),
+        RIGHTSRRMHATCH(RightStartSideRightMiddleHatch.class),
+        RIGHTSRRCMATCH(RightStartSideRightCloseHatch.class),
+        CENTERCLH(CenterStartCenterLeftHatch.class),
+        CENTERCRH(CenterStartCenterRightHatch.class);
+
+
+
+
+
+
+
+
 
         private final Class<? extends AutoMode> clazz;
 
