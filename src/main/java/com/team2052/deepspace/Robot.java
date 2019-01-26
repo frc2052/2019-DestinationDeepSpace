@@ -1,5 +1,6 @@
 package com.team2052.deepspace;
 
+import com.team2052.deepspace.subsystems.GroundIntake;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
@@ -10,6 +11,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
  * project.
  */
 public class Robot extends TimedRobot {
+    private GroundIntake groundIntake;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -29,6 +31,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotPeriodic() {
+        groundIntake.update();
     }
 
     /**
