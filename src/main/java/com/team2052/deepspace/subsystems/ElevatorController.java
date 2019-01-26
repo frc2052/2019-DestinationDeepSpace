@@ -1,5 +1,6 @@
 package com.team2052.deepspace.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -103,6 +104,34 @@ public class ElevatorController {
             setAndVerifyGoalInches(goalElevatorInches - 1);
         }
         lastPressedDownState = isPressed;
+    }
+
+    private boolean emergencyUpWasPressed = false; //able to stop motor only once after pressed
+    public void setEmergencyUp (boolean isPressed) {
+        if (isPressed) {
+            runningInOpenLoop = true;//switching to open loop
+            elevatorMotor.set(ControlMode.PercentOutput,Constants.Elevator.kElevatorEmergencyUpPower);
+            emergencyUpWasPressed = true;
+        } else {
+            if (emergencyUpWasPressed) {
+                elevatorMotor.set(ControlMode.PercentOutput, Constants.Elevator.kElevatorEmergencyHoldPower);
+                emergencyUpWasPressed = false; //Exactly the same as EmergencyDown, except for up.
+            }
+        }
+    }
+
+    private boolean emergencyDownWasPressed = false; //able to stop motor only once after pressed
+    public void setEmergencyDown (boolean isPressed) {
+        if (isPressed) {
+            runningInOpenLoop = true;//switching to open loop
+            elevatorMotor.set(ControlMode.PercentOutput,0.0);
+            emergencyDownWasPressed = true;
+        } else {
+            if (emergencyDownWasPressed) {
+                elevatorMotor.set(ControlMode.PercentOutput, Constants.Elevator.kElevatorEmergencyHoldPower);
+                emergencyDownWasPressed = false; //Exactly the same as EmergencyDown, except for up.
+            }
+        }
     }
 
     public double getElevatorPresetsHeights(ElevatorPresets PosEnum){

@@ -87,6 +87,8 @@ public class Robot extends TimedRobot {
         }
         elevator.setElevatorAdjustmentUp(controls.getElevatorAdjustmentUp());
         elevator.setElevatorAdjustmentDown(controls.getElevatorAdjustmentDown());
+        elevator.setEmergencyUp(controls.getElevatorEmergencyUp());
+        elevator.setEmergencyDown(controls.getElevatorEmergencyDown());
     }
 
 

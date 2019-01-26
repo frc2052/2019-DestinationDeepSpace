@@ -54,9 +54,12 @@ public class Constants {
         public static final int kElevatorCargo3Button = 9;
         public static final int kElevatorAdjustmenUpButton = 10;
         public static final int kElevatorAdjustmenDownButton = 11;
+        public static final int kElevatorEmergencyUpButton = 12;
+        public static final int kElevatorEmergencyDownButton = 13;
 
-
-
+        //////emergency motor power/////
+        public static final double kElevatorEmergencyUpPower = 0.4;
+        public static final double kElevatorEmergencyHoldPower = 0.2;
     }
 
 
