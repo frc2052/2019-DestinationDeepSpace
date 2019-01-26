@@ -70,7 +70,6 @@ public class AutoModeSelector {
         CENTER("StartCenter"),
         RIGHT("StartRight");
 
-
         public String name;
         PositionSelection(String name){
             this.name = name;
@@ -94,12 +93,6 @@ public class AutoModeSelector {
         SRMHT("RightSideMiddleHatchTo"),
         SRFHT("RightSideFarHatchTo");
 
-
-
-
-
-
-
         public String name;
         FirstTargetSelection(String name){
             this.name = name;
@@ -122,8 +115,6 @@ public class AutoModeSelector {
         RCHATCH("RightCloseHatch");
 
 
-
-
         public String name;
         SecondTargetSelection(String name){
             this.name = name;
@@ -132,9 +123,6 @@ public class AutoModeSelector {
 
     public enum AutoModeDefinition
     {
-
-
-
 
         //Single path AMDs
         StartLeftLeftSideLeftFarHatch(LeftStartSideLeftFarHatch.class),
@@ -147,6 +135,7 @@ public class AutoModeSelector {
 
         StartCenterLeftCenterHatch(CenterStartCenterLeftHatch.class),
         StartCenterRightCenterHatch(CenterStartCenterRightHatch.class),
+
 
 
         //Double path AMDs
@@ -178,6 +167,7 @@ public class AutoModeSelector {
         StartRightRightCenterHatchToRightFarHatch(RightStartCenterRightHatchToRightFarHatch.class),
         StartRightRightCenterHatchToRightMiddleHatch(RightStartCenterRightHatchToRightMiddleHatch.class),
 
+
         StartRightRightSideCloseHatchToRightFarHatch(RightStartSideRightCloseHatchToRightFarHatch.class),
         StartRightRightSideCloseHatchToRightMiddleHatch(RightStartSideRightCloseHatchToRightMiddleHatch.class),
 
@@ -185,28 +175,8 @@ public class AutoModeSelector {
         StartRightRightSideMiddleHatchToRightFarHatch(RightStartSideRightMiddleHatchToRightFarHatch.class),
         StartRightRightSideMiddleHatchToRightCloseHatch(RightStartSideRightMiddleHatchToRightCloseHatch.class),
 
-
         StartRightRightSideFarHatchToRightMiddleHatch(RightStartSideRightFarHatchToRightMiddleHatch.class),
         StartRightRightSideFarHatchToRightCloseHatch(RightStartSideRightFarHatchToRightCloseHatch.class);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         private final Class<? extends AutoMode> clazz;
