@@ -9,7 +9,6 @@ import com.team2052.deepspace.subsystems.LegClimberController;
 import com.team2052.deepspace.subsystems.DriveTrainController;
 import com.team2052.deepspace.subsystems.ElevatorController;
 import com.team2052.deepspace.subsystems.GroundIntake;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
@@ -142,6 +141,8 @@ public class Robot extends TimedRobot {
         elevator.setElevatorAdjustmentDown(controls.getElevatorAdjustmentDown());
         elevator.setEmergencyUp(controls.getElevatorEmergencyUp());
         elevator.setEmergencyDown(controls.getElevatorEmergencyDown());
+
+        lightSensorFollower.setLightSensorMotorStates();
 
 
     }

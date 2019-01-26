@@ -40,7 +40,7 @@ public class LightSensorFollowerTapeThingyThing {
     }
 
 
-    public void setLighSensorMotorStates(){//defines the states (look at enum for explanation of FTF)
+    public void setLightSensorMotorStates(){//defines the states (look at enum for explanation of FTF)
         if(!getLeftLightSensorState && getMiddleLightSensorState && !getRightLightSensorState){
             getLightSensorMotorTurn(LightSensorStateEnum.FTF);
         } else if (!getLeftLightSensorState && !getMiddleLightSensorState && getRightLightSensorState){
