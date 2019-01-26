@@ -74,6 +74,7 @@ public class Constants {
         public static final int klegClimbersolenoid2id = 22;
         public static final double kEncoderTicksPerRotation = 256;
         public static final double kClimbMotorRotations = 20;
+        public static final double kClimberMotorDistance = (Constants.LegClimber.kClimbMotorRotations * Constants.LegClimber.kEncoderTicksPerRotation);
     }
 
     public class Elevator{
