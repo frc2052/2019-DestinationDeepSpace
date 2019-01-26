@@ -1,5 +1,9 @@
 package com.team2052.deepspace;
 
+import com.team2052.deepspace.auto.AutoModeRunner;
+import com.team2052.deepspace.auto.AutoModeSelector;
+import com.team2052.lib.ControlLoop;
+import edu.wpi.first.wpilibj.Compressor;
 import com.team2052.deepspace.subsystems.IntakeController;
 import com.team2052.deepspace.subsystems.LegClimberController;
 import com.team2052.deepspace.subsystems.DriveTrainController;
@@ -21,14 +25,15 @@ public class Robot extends TimedRobot {
     private ElevatorController elevator = null;
     private GroundIntake groundIntake;
     private LegClimberController legClimberController = null;
+    private RobotState robotstate = RobotState.getInstance();
+    private RobotStateCalculator robotStateCalculator = RobotStateCalculator.getInstance();
+    private AutoModeRunner autoModeRunner = new AutoModeRunner();
+    private ControlLoop controlLoop = new ControlLoop(Constants.Autonomous.kloopPeriodSec);
+    private Compressor compressor = null;
 
 
 
 
-    /**
-     * This function is run when the robot is first started up and should be
-     * used for any initialization code.
-     */
     @Override
     public void robotInit() {
         intake = IntakeController.getInstance();
@@ -38,6 +43,15 @@ public class Robot extends TimedRobot {
         driveTrain = DriveTrainController.getInstance();
         elevator = ElevatorController.getInstance();
         elevator.zeroSensor();
+        controlLoop.addLoopable(robotStateCalculator);
+        try {
+            compressor = new Compressor();
+            compressor.setClosedLoopControl(true);
+        } catch (Exception exc) {
+            System.out.println("DANGER: No compressor!");
+        }
+
+        AutoModeSelector.putToShuffleBoard();
     }
 
     /**
@@ -58,6 +72,11 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
+        controlLoop.start();
+        driveTrain.zeroGyro();
+        robotStateCalculator.resetRobotState();
+        AutoModeSelector.AutoModeDefinition currentAutoMode = AutoModeSelector.getSelectedAutomode();
+        autoModeRunner.start(currentAutoMode.getInstance());
     }
 
     /**
@@ -65,6 +84,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
+        robotstate.outputToSmartDashboard();
     }
 
     /**
@@ -72,8 +92,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopInit(){
-
-
+        controlLoop.start();
     }
 
     /**
@@ -81,6 +100,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
+        driveTrain.drive(controls.getTankJoy1(), controls.getTurnJoy2());
         if (controls.legClimber()){
             legClimberController.setLegClimber(controls.legClimber());
         }else {
@@ -125,5 +145,13 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void testPeriodic() {
+    }
+
+    @Override
+    public void disabledPeriodic(){
+        autoModeRunner.stop();
+        controlLoop.stop();
+        driveTrain.stop();
+        AutoModeSelector.getSelectedAutomode();
     }
 }
