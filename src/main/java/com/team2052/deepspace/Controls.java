@@ -83,5 +83,7 @@ public class Controls {
     public boolean autoOverride(){
         return rightPrimaryStick.getRawButton(Constants.Controls.kautoOverrideButton);
     }
+
+    public boolean getLightFollow(){return rightPrimaryStick.getRawButton(Constants.LightSensorFollowerTabeThingyThing.kLightSensorFollowButton);}
 }
 

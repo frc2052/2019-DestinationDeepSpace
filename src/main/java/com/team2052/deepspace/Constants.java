@@ -125,9 +125,10 @@ public class Constants {
 
         //////speeds//////
         public static final double kLightSensorFollowSpeed = 0.3;
-        public static final double kLightSensorTurnHardSpeed = 0.2;
-        public static final double kLightSensorTurnLightSpeed = 0.1;
-        public static final double kLightSensorTurnTankSpeed = 0.15;
+        public static final double kLightSensorTurnHardSpeed = 0.3;
+        public static final double kLightSensorTurnLightSpeed = 0.2;
+        public static final double kLightSensorTurnTankSpeed = 0.175;
+        public static final int kLightSensorFollowButton = 2;
     }
 
 

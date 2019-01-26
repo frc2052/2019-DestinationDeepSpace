@@ -28,9 +28,7 @@ public class LightSensorFollowerTapeThingyThing {
     private DigitalInput rightLightSensor = new DigitalInput(Constants.LightSensorFollowerTabeThingyThing.kRightLightSensorid);
 
     //booleans to get the light sensor values
-    private boolean getLeftLightSensorState = leftLightSensor.get();
-    private boolean getMiddleLightSensorState = middleLightSensor.get();
-    private boolean getRightLightSensorState = rightLightSensor.get();
+
 
     public LightSensorFollowerTapeThingyThing() {//constructor with drive train instance
         driveTrain = DriveTrainController.getInstance();
@@ -38,6 +36,10 @@ public class LightSensorFollowerTapeThingyThing {
 
 
     public void setLightSensorMotorStates(){//defines the states (look at enum for explanation of FTF)
+        boolean getLeftLightSensorState = leftLightSensor.get();
+        boolean getMiddleLightSensorState = middleLightSensor.get();
+        boolean getRightLightSensorState = rightLightSensor.get();
+        System.out.println("left: " + getLeftLightSensorState + ", center: "+  getMiddleLightSensorState + ", right: " + getRightLightSensorState);
         if(!getLeftLightSensorState && getMiddleLightSensorState && !getRightLightSensorState){
             getLightSensorMotorTurn(LightSensorStateEnum.FTF);
         } else if (!getLeftLightSensorState && !getMiddleLightSensorState && getRightLightSensorState){
@@ -51,21 +53,22 @@ public class LightSensorFollowerTapeThingyThing {
         }
     }
     public void getLightSensorMotorTurn(LightSensorStateEnum directionEnum){//sets the tank and the turn based on the sensor readings
+        System.out.println(directionEnum);
         switch(directionEnum){
             case FTF: //only the middle sensor is on so it goes forward
                 driveTrain.drive(new DriveSignal(Constants.LightSensorFollowerTabeThingyThing.kLightSensorFollowSpeed, 0.0));
                 break;
             case FFT: //only right sensor is on so it goes right to get the middle sensor on
-                driveTrain.drive(new DriveSignal(Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnTankSpeed, Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnHardSpeed));
-                break;
-            case TFF: //only left sensor is on so it goes left to get the middle sensor on
                 driveTrain.drive(new DriveSignal(Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnTankSpeed, -Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnHardSpeed));
                 break;
+            case TFF: //only left sensor is on so it goes left to get the middle sensor on
+                driveTrain.drive(new DriveSignal(Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnTankSpeed, Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnHardSpeed));
+                break;
             case FTT: //both right and middle are on so it drives slower to the right to get only the middle sensor on
-                driveTrain.drive(new DriveSignal(Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnTankSpeed, Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnLightSpeed));
+                driveTrain.drive(new DriveSignal(Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnTankSpeed, -Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnLightSpeed));
                 break;
             case TTF: //both left and middle are on so it dirves slower to the right to get only the middle sensor on
-                driveTrain.drive(new DriveSignal(Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnTankSpeed, -Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnLightSpeed));
+                driveTrain.drive(new DriveSignal(Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnTankSpeed, Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnLightSpeed));
                 break;
         }
     }

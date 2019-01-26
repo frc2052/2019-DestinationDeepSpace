@@ -41,13 +41,13 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         driveHelper = new DriveHelper();
-        intake = IntakeController.getInstance();
+       // intake = IntakeController.getInstance();
         controls = Controls.getInstance();
-        legClimberController = LegClimberController.getInstance();
-        legClimberController.resetEncoders();
+       // legClimberController = LegClimberController.getInstance();
+        //legClimberController.resetEncoders();
         driveTrain = DriveTrainController.getInstance();
-        elevator = ElevatorController.getInstance();
-        elevator.zeroSensor();
+       // elevator = ElevatorController.getInstance();
+       // elevator.zeroSensor();
         controlLoop.addLoopable(robotStateCalculator);
         visionController = VisionController.getInstance();
 
@@ -72,7 +72,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotPeriodic() {
-        groundIntake.update();
+        //groundIntake.update();
     }
 
     /**
@@ -131,22 +131,25 @@ public class Robot extends TimedRobot {
         autoModeRunner.stop();
         controlLoop.stop();
         driveTrain.stop();
-        AutoModeSelector.getSelectedAutomode();
+        //AutoModeSelector.getSelectedAutomode();
     }
 
     private void driverControlled(){
         if(controls.getVisionTrack()) {
-            driveTrain.drive(visionController.getMotorOutput());
-        }else{
+            //driveTrain.drive(visionController.getMotorOutput());
+        }else if (controls.getLightFollow()){
+            lightSensorFollower.setLightSensorMotorStates();
+        }
+        else {
             driveTrain.drive(driveHelper.drive(controls.getTankJoy1(), controls.getTurnJoy2(), controls.getQuickTurn()));
         }
 
-        if (controls.legClimber()){
+        /*if (controls.legClimber()){
             legClimberController.setLegClimber(controls.legClimber());
         }else {
-            legClimberController.stopClimber();
-        }
-
+           // legClimberController.stopClimber();
+        }*/
+        /*
         if(controls.getIntake()){
             intake.cargoIntake();
 
@@ -176,8 +179,7 @@ public class Robot extends TimedRobot {
         elevator.setElevatorAdjustmentDown(controls.getElevatorAdjustmentDown());
         elevator.setEmergencyUp(controls.getElevatorEmergencyUp());
         elevator.setEmergencyDown(controls.getElevatorEmergencyDown());
-
-        lightSensorFollower.setLightSensorMotorStates();
+        */
 
 
     }
