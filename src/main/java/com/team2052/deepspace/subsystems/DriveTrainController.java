@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 import com.team2052.deepspace.Constants;
+import com.team2052.deepspace.DriveSignal;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 
@@ -82,32 +83,19 @@ public class DriveTrainController {
     }
 
     public void stop(){
-        driveTank(0,0);
+        drive(new DriveSignal(0,0));
     }
 
-    public void drive(double tank, double turn) { //drives the motors depending
-        // on the joystick values and the drive mode
+    public void drive(DriveSignal driveSignal) {
 
-        double leftSpeed = 0;
-        double rightSpeed = 0;
+        /*System.out.println("Left Speed = " + driveSignal.leftMotorSpeedPercent + " rightSpeed = " + driveSignal.rightMotorSpeedPercent);
+        System.out.println("Left Speed = " + left + " rightSpeed = " + right);
+        System.out.println("Left Vel = " + left / Constants.Autonomous.kV + " right Vel = " + right/Constants.Autonomous.kV);
+        System.out.println("SENSOR VEL:" + leftMaster.getSelectedSensorVelocity() * (1.0/Constants.DriveTrain.kTicksPerRot) * Constants.DriveTrain.kDriveWheelCircumferenceInches * 10);
+*/
+        leftMaster.set(ControlMode.PercentOutput, driveSignal.leftMotorSpeedPercent);
+        rightMaster.set(ControlMode.PercentOutput, driveSignal.rightMotorSpeedPercent);
 
-
-        leftSpeed = tank - turn;
-        rightSpeed = tank + turn;
-
-        leftMaster.set(ControlMode.PercentOutput, leftSpeed);
-        rightMaster.set(ControlMode.PercentOutput, rightSpeed);
-
-    }
-
-    public void driveTank(double left, double right){
-        if(left != 0 && right != 0) {
-            System.out.println("Left Speed = " + left + " rightSpeed = " + right);
-            System.out.println("Left Vel = " + left / Constants.Autonomous.kV + " right Vel = " + right/Constants.Autonomous.kV);
-            System.out.println("SENSOR VEL:" + leftMaster.getSelectedSensorVelocity() * (1.0/Constants.DriveTrain.kTicksPerRot) * Constants.DriveTrain.kDriveWheelCircumferenceInches * 10);
-        }
-        leftMaster.set(ControlMode.PercentOutput, left);
-        rightMaster.set(ControlMode.PercentOutput, right);
     }
 
     public void driveAutoVelocityControl(double leftVel, double rightVel){
