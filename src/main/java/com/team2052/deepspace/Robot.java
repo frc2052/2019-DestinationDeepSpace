@@ -2,6 +2,7 @@ package com.team2052.deepspace;
 
 import com.team2052.deepspace.auto.AutoModeRunner;
 import com.team2052.deepspace.auto.AutoModeSelector;
+import com.team2052.deepspace.subsystems.*;
 import com.team2052.lib.ControlLoop;
 import edu.wpi.first.wpilibj.Compressor;
 import com.team2052.deepspace.subsystems.IntakeController;
@@ -19,6 +20,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
  * project.
  */
 public class Robot extends TimedRobot {
+    private DriveHelper driveHelper = null;
     private IntakeController intake = null;
     private Controls controls = null;
     private DriveTrainController driveTrain = null;
@@ -31,13 +33,14 @@ public class Robot extends TimedRobot {
     private AutoModeRunner autoModeRunner = new AutoModeRunner();
     private ControlLoop controlLoop = new ControlLoop(Constants.Autonomous.kloopPeriodSec);
     private Compressor compressor = null;
-
+    private VisionController visionController = null;
 
 
 
 
     @Override
     public void robotInit() {
+        driveHelper = new DriveHelper();
         intake = IntakeController.getInstance();
         controls = Controls.getInstance();
         legClimberController = LegClimberController.getInstance();
@@ -46,6 +49,8 @@ public class Robot extends TimedRobot {
         elevator = ElevatorController.getInstance();
         elevator.zeroSensor();
         controlLoop.addLoopable(robotStateCalculator);
+        visionController = VisionController.getInstance();
+
         lightSensorFollower = LightSensorFollowerTapeThingyThing.getInstance();
         try {
             compressor = new Compressor();
@@ -55,8 +60,6 @@ public class Robot extends TimedRobot {
         }
 
         AutoModeSelector.putToShuffleBoard();
-
-
     }
 
     /**
@@ -90,6 +93,13 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousPeriodic() {
         robotstate.outputToSmartDashboard();
+        if(controls.autoOverride()){
+            autoModeRunner.stop();
+        }
+
+        if(autoModeRunner.isAutodone()){
+            driverControlled();
+        }
     }
 
     /**
@@ -105,7 +115,32 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
-        driveTrain.drive(controls.getTankJoy1(), controls.getTurnJoy2());
+        driverControlled();
+    }
+
+
+    /**
+     * This function is called periodically during test mode.
+     */
+    @Override
+    public void testPeriodic() {
+    }
+
+    @Override
+    public void disabledPeriodic(){
+        autoModeRunner.stop();
+        controlLoop.stop();
+        driveTrain.stop();
+        AutoModeSelector.getSelectedAutomode();
+    }
+
+    private void driverControlled(){
+        if(controls.getVisionTrack()) {
+            driveTrain.drive(visionController.getMotorOutput());
+        }else{
+            driveTrain.drive(driveHelper.drive(controls.getTankJoy1(), controls.getTurnJoy2(), controls.getQuickTurn()));
+        }
+
         if (controls.legClimber()){
             legClimberController.setLegClimber(controls.legClimber());
         }else {
@@ -149,18 +184,4 @@ public class Robot extends TimedRobot {
 
 
 
-    /**
-     * This function is called periodically during test mode.
-     */
-    @Override
-    public void testPeriodic() {
     }
-
-    @Override
-    public void disabledPeriodic(){
-        autoModeRunner.stop();
-        controlLoop.stop();
-        driveTrain.stop();
-        AutoModeSelector.getSelectedAutomode();
-    }
-}

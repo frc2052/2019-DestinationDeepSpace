@@ -1,9 +1,10 @@
 package com.team2052.deepspace.auto;
 
 import com.team2052.deepspace.Constants;
+import com.team2052.deepspace.DriveSignal;
 import com.team2052.deepspace.RobotState;
 import com.team2052.deepspace.auto.paths.Path;
-import com.team2052.deepspace.subsystems.DriveTrain;
+import com.team2052.deepspace.subsystems.DriveTrainController;
 import com.team2052.lib.Autonomous.Position2d;
 import com.team2052.lib.Autonomous.RateLimiter;
 import edu.wpi.first.wpilibj.drive.Vector2d;
@@ -14,7 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * this means the robot has a point on the path that is a set distance away from the center of the robot
  * that it will try to curve into.
  *
- * @see #start(Path, boolean)
+ * @see #start(Path)
  * @see #update()
  *
  * @author Ian
@@ -30,7 +31,7 @@ public class PurePursuitPathFollower{
     private Path path;
 
     private RateLimiter rateLimiter = new RateLimiter();
-    private DriveTrain driveTrain = DriveTrain.getInstance();
+    private DriveTrainController driveTrain = DriveTrainController.getInstance();
     private RobotState robotState = RobotState.getInstance();
 
     private int closestPointIndex;
@@ -201,7 +202,7 @@ public class PurePursuitPathFollower{
 
         //System.out.println("leftvel: " + leftWheelVel + "rightvel: " + rightWheelVel + "vel: " + velocity + "dv:" + deltaVelocity + "tarVel: " + path.getWaypoints().get(closestPointIndex).getVelocity());
 
-        driveTrain.driveTank(leftSpeed, rightSpeed);
+        driveTrain.drive(new DriveSignal(leftSpeed, rightSpeed));
     }
 
     /**

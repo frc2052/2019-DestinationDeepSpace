@@ -9,8 +9,6 @@ import java.awt.*;
 public class LightSensorFollowerTapeThingyThing {
 
     private DriveTrainController driveTrain = null;
-
-
     private static LightSensorFollowerTapeThingyThing instance = null;
     public static LightSensorFollowerTapeThingyThing getInstance() {
         if (instance == null) {
@@ -36,7 +34,6 @@ public class LightSensorFollowerTapeThingyThing {
 
     public LightSensorFollowerTapeThingyThing() {//constructor with drive train instance
         driveTrain = DriveTrainController.getInstance();
-
     }
 
 
@@ -56,19 +53,19 @@ public class LightSensorFollowerTapeThingyThing {
     public void getLightSensorMotorTurn(LightSensorStateEnum directionEnum){//sets the tank and the turn based on the sensor readings
         switch(directionEnum){
             case FTF: //only the middle sensor is on so it goes forward
-                driveTrain.drive(Constants.LightSensorFollowerTabeThingyThing.kLightSensorFollowSpeed, 0.0);
+                driveTrain.drive(new DriveSignal(Constants.LightSensorFollowerTabeThingyThing.kLightSensorFollowSpeed, 0.0));
                 break;
             case FFT: //only right sensor is on so it goes right to get the middle sensor on
-                driveTrain.drive(Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnTankSpeed, Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnHardSpeed);
+                driveTrain.drive(new DriveSignal(Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnTankSpeed, Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnHardSpeed));
                 break;
             case TFF: //only left sensor is on so it goes left to get the middle sensor on
-                driveTrain.drive(Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnTankSpeed, -Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnHardSpeed);
+                driveTrain.drive(new DriveSignal(Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnTankSpeed, -Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnHardSpeed));
                 break;
             case FTT: //both right and middle are on so it drives slower to the right to get only the middle sensor on
-                driveTrain.drive(Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnTankSpeed, Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnLightSpeed);
+                driveTrain.drive(new DriveSignal(Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnTankSpeed, Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnLightSpeed));
                 break;
             case TTF: //both left and middle are on so it dirves slower to the right to get only the middle sensor on
-                driveTrain.drive(Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnTankSpeed, -Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnLightSpeed);
+                driveTrain.drive(new DriveSignal(Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnTankSpeed, -Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnLightSpeed));
                 break;
         }
     }
