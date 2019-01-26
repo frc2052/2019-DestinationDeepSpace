@@ -136,8 +136,6 @@ public class AutoModeSelector {
         StartCenterLeftCenterHatch(CenterStartCenterLeftHatch.class),
         StartCenterRightCenterHatch(CenterStartCenterRightHatch.class),
 
-
-
         //Double path AMDs
 
         StartCenterLeftCenterHatchToLeftFarHatch(CenterStartCenterLeftHatchToLeftFarHatch.class),
