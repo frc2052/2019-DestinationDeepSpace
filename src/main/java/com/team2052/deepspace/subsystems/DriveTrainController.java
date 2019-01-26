@@ -33,8 +33,8 @@ public class DriveTrainController {
         leftMaster.configFactoryDefault();
         leftSlave.configFactoryDefault();
 
-        rightMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.Drive.kVelocityControlSlot, Constants.Drive.kCANBusConfigTimeoutMS);
-        leftMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.Drive.kVelocityControlSlot, Constants.Drive.kCANBusConfigTimeoutMS);
+        rightMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.DriveTrain.kVelocityControlSlot, Constants.DriveTrain.kCANBusConfigTimeoutMS);
+        leftMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.DriveTrain.kVelocityControlSlot, Constants.DriveTrain.kCANBusConfigTimeoutMS);
 
         rightMaster.setInverted(false);
         rightSlave.setInverted(false);
@@ -104,7 +104,7 @@ public class DriveTrainController {
         if(left != 0 && right != 0) {
             System.out.println("Left Speed = " + left + " rightSpeed = " + right);
             System.out.println("Left Vel = " + left / Constants.Autonomous.kV + " right Vel = " + right/Constants.Autonomous.kV);
-            System.out.println("SENSOR VEL:" + leftMaster.getSelectedSensorVelocity() * (1.0/Constants.Drive.kTicksPerRot) * Constants.Drive.kDriveWheelCircumferenceInches * 10);
+            System.out.println("SENSOR VEL:" + leftMaster.getSelectedSensorVelocity() * (1.0/Constants.DriveTrain.kTicksPerRot) * Constants.DriveTrain.kDriveWheelCircumferenceInches * 10);
         }
         leftMaster.set(ControlMode.PercentOutput, left);
         rightMaster.set(ControlMode.PercentOutput, right);
@@ -113,10 +113,10 @@ public class DriveTrainController {
     public void driveAutoVelocityControl(double leftVel, double rightVel){
         //in/sec * rot/in * ticks/rot * .1 to get ticks/100ms
         System.out.println("Left Vel = " + leftVel + " right Vel = " + rightVel);
-        leftMaster.set(ControlMode.Velocity, ((leftVel * Constants.Drive.kTicksPerRot)/Constants.Drive.kDriveWheelCircumferenceInches)/3);
-        rightMaster.set(ControlMode.Velocity, ((rightVel * Constants.Drive.kTicksPerRot)/Constants.Drive.kDriveWheelCircumferenceInches)/3);
+        leftMaster.set(ControlMode.Velocity, ((leftVel * Constants.DriveTrain.kTicksPerRot)/Constants.DriveTrain.kDriveWheelCircumferenceInches)/3);
+        rightMaster.set(ControlMode.Velocity, ((rightVel * Constants.DriveTrain.kTicksPerRot)/Constants.DriveTrain.kDriveWheelCircumferenceInches)/3);
 
-        System.out.println("SENSOR VEL:" + leftMaster.getSelectedSensorVelocity() * (1.0/Constants.Drive.kTicksPerRot) * Constants.Drive.kDriveWheelCircumferenceInches * 10);
+        System.out.println("SENSOR VEL:" + leftMaster.getSelectedSensorVelocity() * (1.0/Constants.DriveTrain.kTicksPerRot) * Constants.DriveTrain.kDriveWheelCircumferenceInches * 10);
 
 
     }
@@ -146,8 +146,8 @@ public class DriveTrainController {
     }
 
     public void resetEncoders(){
-        leftMaster.setSelectedSensorPosition(0, Constants.Drive.kVelocityControlSlot, Constants.Drive.kCANBusConfigTimeoutMS);
-        rightMaster.setSelectedSensorPosition(0, Constants.Drive.kVelocityControlSlot, Constants.Drive.kCANBusConfigTimeoutMS);
+        leftMaster.setSelectedSensorPosition(0, Constants.DriveTrain.kVelocityControlSlot, Constants.DriveTrain.kCANBusConfigTimeoutMS);
+        rightMaster.setSelectedSensorPosition(0, Constants.DriveTrain.kVelocityControlSlot, Constants.DriveTrain.kCANBusConfigTimeoutMS);
     }
     
     public void zeroGyro() {

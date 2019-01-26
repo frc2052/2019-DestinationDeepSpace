@@ -2,7 +2,6 @@ package com.team2052.deepspace;
 
 import com.team2052.deepspace.auto.AutoModeRunner;
 import com.team2052.deepspace.auto.AutoModeSelector;
-import com.team2052.deepspace.subsystems.DriveTrain;
 import com.team2052.lib.ControlLoop;
 import edu.wpi.first.wpilibj.Compressor;
 import com.team2052.deepspace.subsystems.IntakeController;

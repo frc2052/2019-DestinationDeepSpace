@@ -16,7 +16,7 @@ public class Constants {
 
         public static final int kVelocityControlSlot = 0;
         public static final int kCANBusConfigTimeoutMS = 10;
-        public static final int kkTicksPerRot = 1024;
+        public static final int kTicksPerRot = 1024;
         public static final double kDriveWheelCircumferenceInches = 6.0 * Math.PI;
     }
     public class Intake {
