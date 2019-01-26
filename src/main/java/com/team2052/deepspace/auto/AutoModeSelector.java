@@ -1,13 +1,8 @@
 package com.team2052.deepspace.auto;
 
-import com.team2052.deepspace.auto.modes.CenterStart.CenterStartCenterLeftHatch;
-import com.team2052.deepspace.auto.modes.CenterStart.CenterStartCenterRightHatch;
-import com.team2052.deepspace.auto.modes.LeftStart.LeftStartSideLeftCloseHatch;
-import com.team2052.deepspace.auto.modes.LeftStart.LeftStartSideLeftFarHatch;
-import com.team2052.deepspace.auto.modes.LeftStart.LeftStartSideLeftMiddleHatch;
-import com.team2052.deepspace.auto.modes.RightStart.RStartSideRightMiddleHatch;
-import com.team2052.deepspace.auto.modes.RightStart.RightStartSideRightCloseHatch;
-import com.team2052.deepspace.auto.modes.RightStart.RightStartSideRightFarHatch;
+import com.team2052.deepspace.auto.modes.CenterStart.*;
+import com.team2052.deepspace.auto.modes.LeftStart.*;
+import com.team2052.deepspace.auto.modes.RightStart.*;
 import com.team2052.deepspace.auto.modes.RightStart.RightStartSideRightMiddleHatch;
 import com.team2052.deepspace.auto.modes.Test;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -87,7 +82,20 @@ public class AutoModeSelector {
         CLH("LeftCenterHatch"),
         CRH("RightCenterHatch"),
         SL("LeftSide"),
-        SR("RightSide");
+        SR("RightSide"),
+        CLHT("LeftCenterHatchTo"),
+        CRHT("RightCenterHatchTo"),
+        SLT("LeftSideHatchTo"),
+        SRT("RightSideHatchTo"),
+        SLMHT("LeftSideMiddleHatchTo"),
+        SLCHT("LeftSideCloseHatchTo"),
+        SLFHT("LeftSideFarHatchTo"),
+        SRCHT("RightSideCloseHatchTo"),
+        SRMHT("RightSideMiddleHatchTo"),
+        SRFHT("RightSideFarHatchTo");
+
+
+
 
 
 
@@ -124,17 +132,74 @@ public class AutoModeSelector {
 
     public enum AutoModeDefinition
     {
-        /*What?? SHould the previuous words b4 () be the ENUM code or teh Actual NAme?? Also I gotta find why the red.
-        Update:Added the AMD for all singlePathes
-         */
-        LEFTSLLFHATCH(LeftStartSideLeftFarHatch.class),
-        LEFTSLLMHATCH(LeftStartSideLeftMiddleHatch.class),
-        LEFTSLLCHATCH(LeftStartSideLeftCloseHatch.class),
-        RIGHTSRRFHATCH(RightStartSideRightFarHatch.class),
-        RIGHTSRRMHATCH(RightStartSideRightMiddleHatch.class),
-        RIGHTSRRCMATCH(RightStartSideRightCloseHatch.class),
-        CENTERCLH(CenterStartCenterLeftHatch.class),
-        CENTERCRH(CenterStartCenterRightHatch.class);
+
+
+
+
+        //Single path AMDs
+        StartLeftLeftSideLeftFarHatch(LeftStartSideLeftFarHatch.class),
+        StartLeftLeftSideLeftMiddleHatch(LeftStartSideLeftMiddleHatch.class),
+        StartLeftLeftSideLeftCloseHatch(LeftStartSideLeftCloseHatch.class),
+
+        StartRightRightSideRightFarHatch(RightStartSideRightFarHatch.class),
+        StartRightRightSideRightMiddleHatch(RightStartSideRightMiddleHatch.class),
+        StartRightRightSideRightCloseHatch(RightStartSideRightCloseHatch.class),
+
+        StartCenterLeftCenterHatch(CenterStartCenterLeftHatch.class),
+        StartCenterRightCenterHatch(CenterStartCenterRightHatch.class),
+
+
+        //Double path AMDs
+
+        StartCenterLeftCenterHatchToLeftFarHatch(CenterStartCenterLeftHatchToLeftFarHatch.class),
+        StartCenterLeftCenterHatchToLeftMiddleHatch(CenterStartCenterLeftHatchToLeftMiddleHatch.class),
+        StartCenterLeftCenterHatchToLeftCloseHatch(CenterStartCenterLeftHatchToLeftCloseHatch.class),
+
+        StartCenterRightCenterHatchToRightFarHatch(CenterStartCenterRightHatchToRightFarHatch.class),
+        StartCenterRightCenterHatchToRightMiddleHatch(CenterStartCenterRightHatchToRightMiddleHatch.class),
+        StartCenterRightCenterHatchToRightCloseHatch(CenterStartCenterRightHatchToRightCloseHatch.class),
+
+
+        StartLeftLeftSideFarHatchToLeftCloseHatch(LeftStartSideLeftFarHatchToLeftCloseHatch.class),
+        StartLeftLeftSideFarHatchToLeftMiddleHatch(LeftStartSideLeftFarHatchToLeftMiddleHatch.class),
+
+        StartLeftSideLeftMiddleHatchToLeftFarHatch(LeftStartSideLeftMiddleHatchToLeftFarHatch.class),
+        StartLeftSideLeftMiddleHatchToLeftCloseHatch(LeftStartSideLeftFarHatchToLeftCloseHatch.class),
+
+        StartLeftSideLeftSideCloseHatchToLeftMiddleHatch(LeftStartSideLeftCloseHatchToLeftMiddleHatch.class),
+        StartLeftSideLeftSideCloseHatchToLeftFarHatch(LeftStartSideLeftCloseHatchToLeftFarHatch.class),
+
+        StartLeftLeftCenterHatchToLeftCloseHatch(LeftStartCenterLeftHatchToLeftCloseHatch.class),
+        StartLeftLeftCenterHatchToLeftMiddleHatch(LeftStartCenterLeftHatchToLeftMiddleHatch.class),
+        StartLeftLeftCenterHatchToLeftFarHatch(LeftStartCenterLeftHatchToLeftFarHatch.class),
+
+
+        StartRightRightCenterHatchToRightCloseHatch(RightStartCenterRightHatchToRightCloseHatch.class),
+        StartRightRightCenterHatchToRightFarHatch(RightStartCenterRightHatchToRightFarHatch.class),
+        StartRightRightCenterHatchToRightMiddleHatch(RightStartCenterRightHatchToRightMiddleHatch.class),
+
+        StartRightRightSideCloseHatchToRightFarHatch(RightStartSideRightCloseHatchToRightFarHatch.class),
+        StartRightRightSideCloseHatchToRightMiddleHatch(RightStartSideRightCloseHatchToRightMiddleHatch.class),
+
+
+        StartRightRightSideMiddleHatchToRightFarHatch(RightStartSideRightMiddleHatchToRightFarHatch.class),
+        StartRightRightSideMiddleHatchToRightCloseHatch(RightStartSideRightMiddleHatchToRightCloseHatch.class),
+
+
+        StartRightRightSideFarHatchToRightMiddleHatch(RightStartSideRightFarHatchToRightMiddleHatch.class),
+        StartRightRightSideFarHatchToRightCloseHatch(RightStartSideRightFarHatchToRightCloseHatch.class);
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
