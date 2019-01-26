@@ -1,6 +1,11 @@
 package com.team2052.deepspace;
 
 import com.team2052.deepspace.subsystems.DriveTrainController;
+import com.team2052.deepspace.subsystems.IntakeController;
+import com.team2052.deepspace.subsystems.LegClimberController;
+import com.team2052.deepspace.subsystems.DriveTrainController;
+import com.team2052.deepspace.subsystems.ElevatorController;
+import com.team2052.deepspace.subsystems.GroundIntake;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
@@ -10,11 +15,19 @@ import edu.wpi.first.wpilibj.TimedRobot;
  * creating this project, you must also update the build.gradle file in the
  * project.
  */
-@SuppressWarnings("ALL")
 public class Robot extends TimedRobot {
-        DriveTrainController driveTrainController;
-        DriveHelper driveHelper;
-        Controls controls;
+    private DriveTrainController driveTrainController;
+    private DriveHelper driveHelper;
+    private Controls controls;
+
+    private IntakeController intake = null;
+    private Controls controls = null;
+    private DriveTrainController driveTrain = null;
+    private ElevatorController elevator = null;
+    private GroundIntake groundIntake;
+    private LegClimberController legClimberController = null;
+
+
 
 
     /**
@@ -26,6 +39,13 @@ public class Robot extends TimedRobot {
         driveTrainController = DriveTrainController.getInstance();
         controls = Controls.getInstance();
         driveHelper = new DriveHelper();
+        intake = IntakeController.getInstance();
+        controls = Controls.getInstance();
+        legClimberController = LegClimberController.getInstance();
+        legClimberController.resetEncoders();
+        driveTrain = DriveTrainController.getInstance();
+        elevator = ElevatorController.getInstance();
+        elevator.zeroSensor();
     }
 
     /**
@@ -38,6 +58,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotPeriodic() {
+        groundIntake.update();
     }
 
     /**
@@ -59,7 +80,6 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopInit(){
-
     }
 
     /**
@@ -67,7 +87,44 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
+
         driveTrainController.drive(driveHelper.drive(controls.getTankJoy1(), controls.getTurnJoy2(), controls.getQuickTurn()));
+
+        if (controls.legClimber()){
+            legClimberController.setLegClimber(controls.legClimber());
+        }else {
+            legClimberController.stopClimber();
+        }
+
+        if(controls.getIntake()){
+            intake.cargoIntake();
+
+        } else if (controls.getOuttake()) {
+            intake.cargoOuttake();
+        } else {
+            intake.cargoNeutral();
+        }
+        if (controls.getElevatorGroundCargo()) {
+            elevator.setTarget(ElevatorController.ElevatorPresets.GROUND_CARGO);
+        } else if (controls.getElevatorHatch1()) {
+            elevator.setTarget(ElevatorController.ElevatorPresets.HATCH_LEVEL1);
+        } else if (controls.getElevatorHatch2()) {
+            elevator.setTarget(ElevatorController.ElevatorPresets.HATCH_LEVEL2);
+        } else if (controls.getElevatorHatch3()) {
+            elevator.setTarget(ElevatorController.ElevatorPresets.HATCH_LEVEL3);
+        } else if (controls.getElevatorCargoShipCargo()) {
+            elevator.setTarget(ElevatorController.ElevatorPresets.CARGOSHIP_CARGO);
+        } else if (controls.getElevatorRocketCargo1()) {
+            elevator.setTarget(ElevatorController.ElevatorPresets.ROCKET_CARGO1);
+        }else if (controls.getElevatorRocketCargo2()) {
+            elevator.setTarget(ElevatorController.ElevatorPresets.ROCKET_CARGO2);
+        }else if (controls.getElevatorRocketCargo3()) {
+            elevator.setTarget(ElevatorController.ElevatorPresets.ROCKET_CARGO3);
+        }
+        elevator.setElevatorAdjustmentUp(controls.getElevatorAdjustmentUp());
+        elevator.setElevatorAdjustmentDown(controls.getElevatorAdjustmentDown());
+        elevator.setEmergencyUp(controls.getElevatorEmergencyUp());
+        elevator.setEmergencyDown(controls.getElevatorEmergencyDown());
     }
 
     /**
