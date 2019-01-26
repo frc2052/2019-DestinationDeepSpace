@@ -19,8 +19,7 @@ public class Controls {
 
     public double getTankJoy1() {
         double val = -leftPrimaryStick.getY();
-        if (val < .15 && val > -.15)
-        {
+        if (val < .15 && val > -.15) {
             val = 0;
         }
         return val;
@@ -34,11 +33,9 @@ public class Controls {
         return rightPrimaryStick.getY();
     }
 
-    public double getTurnJoy2()
-    {
+    public double getTurnJoy2() {
         double val = rightPrimaryStick.getX();
-        if (val < .15 && val > -.15)
-        {
+        if (val < .15 && val > -.15) {
             val = 0;
         }
         return val;
@@ -49,10 +46,9 @@ public class Controls {
     }
 
 
-    public boolean reset(){
+    public boolean reset() {
         return leftPrimaryStick.getTrigger();
     }
-
     public boolean getQuickTurn(){
         return leftPrimaryStick.getRawButton(Constants.Controls.kQuickTurnButton);
     }
@@ -77,3 +73,25 @@ public class Controls {
     public boolean getElevatorEmergencyDown(){return secondaryStick.getRawButton(Constants.Elevator.kElevatorEmergencyDownButton);}
 
 }
+
+    public boolean getElevatorAdjustmentUp() {
+        return secondaryStick.getRawButton(Constants.Elevator.kElevatorAdjustmenUpButton);
+    }
+
+    public boolean getElevatorAdjustmentDown() {
+        return secondaryStick.getRawButton(Constants.Elevator.kElevatorAdjustmenDownButton);
+    }
+
+    public boolean getElevatorEmergencyUp() {
+        return secondaryStick.getRawButton(Constants.Elevator.kElevatorEmergencyUpButton);
+    }
+
+    public boolean getElevatorEmergencyDown() {
+        return secondaryStick.getRawButton(Constants.Elevator.kElevatorEmergencyDownButton);
+    }
+
+    public boolean trigger() {
+        return leftPrimaryStick.getTrigger();
+    }
+}
+
