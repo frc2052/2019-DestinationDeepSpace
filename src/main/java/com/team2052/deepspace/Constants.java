@@ -38,6 +38,24 @@ public class Constants {
     public class Autonomous{ //all units for distances, velocity, and acceleration are in inches
 
     }
+  
+    public class Intake {
+
+        public static final int kIntakeTalon1id = 5;
+
+    }
+
+    public  class LegClimber {
+
+        public static final int kLegClimberTalon1id = 20;
+        public static final double kLegClimberMotorVelocity = 0.7;
+        public static final int kLegClimberButton = 5;
+        public static final int kLegClimberSolenoid1id = 21;
+        public static final int klegClimbersolenoid2id = 22;
+        public static final double kEncoderTicksPerRotation = 256;
+        public static final double kClimbMotorRotations = 20;
+    }
+
     public class Elevator{
         public static final int kElevatorMotorId = 8;
         public static final double kElevatorTicksPerRot = 256;

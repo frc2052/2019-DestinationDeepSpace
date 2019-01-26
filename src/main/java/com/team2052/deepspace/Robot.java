@@ -1,6 +1,7 @@
 package com.team2052.deepspace;
 
 import com.team2052.deepspace.subsystems.IntakeController;
+import com.team2052.deepspace.subsystems.LegClimberController;
 import com.team2052.deepspace.subsystems.DriveTrainController;
 import com.team2052.deepspace.subsystems.ElevatorController;
 import com.team2052.deepspace.subsystems.GroundIntake;
@@ -20,13 +21,23 @@ public class Robot extends TimedRobot {
     private ElevatorController elevator = null;
     private GroundIntake groundIntake;
 
+    private IntakeController intakeController = null;
+    private Controls controls = null;
+    private LegClimberController legClimberController = null;
+
+
+
+
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     @Override
     public void robotInit() {
+        intakeController = IntakeController.getInstance();
         controls = Controls.getInstance();
+        legClimberController = LegClimberController.getInstance();
+        legClimberController.resetEncoders();
         driveTrain = DriveTrainController.getInstance();
         elevator = ElevatorController.getInstance();
         elevator.zeroSensor();
@@ -73,6 +84,13 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
+        intakeController.intake(controls.getTankJoy2());
+        if (controls.legClimber()){
+            legClimberController.setLegClimber(controls.legClimber());
+        }else {
+            legClimberController.stopClimber();
+        }
+
         if(controls.getIntake()){
             intake.cargoIntake();
 
