@@ -1,6 +1,7 @@
 package com.team2052.deepspace;
 
 import com.team2052.deepspace.subsystems.DriveTrain;
+import com.team2052.deepspace.subsystems.DriveTrainController;
 import com.team2052.lib.Autonomous.Position2d;
 import com.team2052.lib.ILoopable;
 
@@ -18,7 +19,7 @@ public class RobotStateCalculator implements ILoopable{
     private double timeSinceReset = 0;
 
     private double lastVels[] = new double[3];
-    private DriveTrain driveTrain = DriveTrain.getInstance();
+    private DriveTrainController driveTrain = DriveTrainController.getInstance();
     private RobotState robotState = RobotState.getInstance();
 
     private static RobotStateCalculator singleRobotStateCalculatorInstance = new RobotStateCalculator();

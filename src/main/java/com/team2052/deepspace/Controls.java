@@ -72,24 +72,6 @@ public class Controls {
     public boolean getElevatorEmergencyUp(){return secondaryStick.getRawButton(Constants.Elevator.kElevatorEmergencyUpButton);}
     public boolean getElevatorEmergencyDown(){return secondaryStick.getRawButton(Constants.Elevator.kElevatorEmergencyDownButton);}
 
-}
-
-    public boolean getElevatorAdjustmentUp() {
-        return secondaryStick.getRawButton(Constants.Elevator.kElevatorAdjustmenUpButton);
-    }
-
-    public boolean getElevatorAdjustmentDown() {
-        return secondaryStick.getRawButton(Constants.Elevator.kElevatorAdjustmenDownButton);
-    }
-
-    public boolean getElevatorEmergencyUp() {
-        return secondaryStick.getRawButton(Constants.Elevator.kElevatorEmergencyUpButton);
-    }
-
-    public boolean getElevatorEmergencyDown() {
-        return secondaryStick.getRawButton(Constants.Elevator.kElevatorEmergencyDownButton);
-    }
-
     public boolean trigger() {
         return leftPrimaryStick.getTrigger();
     }
