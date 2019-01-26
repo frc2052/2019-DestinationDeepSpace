@@ -87,6 +87,13 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousPeriodic() {
         robotstate.outputToSmartDashboard();
+        if(controls.autoOverride()){
+            autoModeRunner.stop();
+        }
+
+        if(autoModeRunner.isAutodone()){
+            driverControlled();
+        }
     }
 
     /**
@@ -102,7 +109,26 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
+        driverControlled();
+    }
 
+
+    /**
+     * This function is called periodically during test mode.
+     */
+    @Override
+    public void testPeriodic() {
+    }
+
+    @Override
+    public void disabledPeriodic(){
+        autoModeRunner.stop();
+        controlLoop.stop();
+        driveTrain.stop();
+        AutoModeSelector.getSelectedAutomode();
+    }
+
+    private void driverControlled(){
         driveTrain.drive(driveHelper.drive(controls.getTankJoy1(), controls.getTurnJoy2(), controls.getQuickTurn()));
 
         if (controls.legClimber()){
@@ -140,20 +166,5 @@ public class Robot extends TimedRobot {
         elevator.setElevatorAdjustmentDown(controls.getElevatorAdjustmentDown());
         elevator.setEmergencyUp(controls.getElevatorEmergencyUp());
         elevator.setEmergencyDown(controls.getElevatorEmergencyDown());
-    }
-
-    /**
-     * This function is called periodically during test mode.
-     */
-    @Override
-    public void testPeriodic() {
-    }
-
-    @Override
-    public void disabledPeriodic(){
-        autoModeRunner.stop();
-        controlLoop.stop();
-        driveTrain.stop();
-        AutoModeSelector.getSelectedAutomode();
     }
 }

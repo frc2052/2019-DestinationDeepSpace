@@ -1,6 +1,5 @@
 package com.team2052.deepspace;
 
-import com.team2052.deepspace.subsystems.DriveTrain;
 import com.team2052.deepspace.subsystems.DriveTrainController;
 import com.team2052.lib.Autonomous.Position2d;
 import com.team2052.lib.ILoopable;
@@ -59,7 +58,7 @@ public class RobotStateCalculator implements ILoopable{
 
     @Override
     public void update() {
-        estimatePositionAverageHeading((driveTrain.getLeftEncoder() / Constants.Drive.kTicksPerRot) * Constants.Drive.kDriveWheelCircumferenceInches, (driveTrain.getRightEncoder() / Constants.Drive.kTicksPerRot) * Constants.Drive.kDriveWheelCircumferenceInches, driveTrain.getGyroAngleRadians());
+        estimatePositionAverageHeading((driveTrain.getLeftEncoder() / Constants.DriveTrain.kTicksPerRot) * Constants.DriveTrain.kDriveWheelCircumferenceInches, (driveTrain.getRightEncoder() / Constants.DriveTrain.kTicksPerRot) * Constants.DriveTrain.kDriveWheelCircumferenceInches, driveTrain.getGyroAngleRadians());
         robotState.setVelocityInch((lastVels[0] + lastVels[1] + lastVels[2])/3);
         robotState.setLeftVelocityInch(deltaLeftInches);
         robotState.setRightVelocityInch(deltaRightInches);
