@@ -12,8 +12,8 @@ public class RStartSideRightCloseHatchPath extends Path {
         setDirection(Direction.FORWARD);
         addWaypoint(new Waypoint(new Position2d(0,47),50)); // C
         addWaypoint(new Waypoint(new Position2d(68,65),50)); // f
-        addWaypoint(new Waypoint(new Position2d(193,65),50)); // n
-        addWaypoint(new Waypoint(new Position2d(193,47),50)); // p
+        addWaypoint(new Waypoint(new Position2d(194,65),50)); // n
+        addWaypoint(new Waypoint(new Position2d(194,47),50)); // p
         OptimizePath();
     }
 

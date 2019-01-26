@@ -12,8 +12,8 @@ public class LStartSideLeftMiddleHatchPath extends Path {
         setDirection(Direction.FORWARD);
         addWaypoint(new Waypoint(new Position2d(0,-47),50)); // B
         addWaypoint(new Waypoint(new Position2d(68,-65),50)); // F
-        addWaypoint(new Waypoint(new Position2d(215,-65),50)); // O
-        addWaypoint(new Waypoint(new Position2d(215,-47),50)); // P
+        addWaypoint(new Waypoint(new Position2d(194,-65),50)); // O
+        addWaypoint(new Waypoint(new Position2d(194,-47),50)); // P
         OptimizePath();
     }
 
