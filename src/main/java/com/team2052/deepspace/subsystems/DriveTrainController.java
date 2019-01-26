@@ -94,7 +94,7 @@ public class DriveTrainController {
         System.out.println("SENSOR VEL:" + leftMaster.getSelectedSensorVelocity() * (1.0/Constants.DriveTrain.kTicksPerRot) * Constants.DriveTrain.kDriveWheelCircumferenceInches * 10);
 */
         leftMaster.set(ControlMode.PercentOutput, driveSignal.leftMotorSpeedPercent);
-        rightMaster.set(ControlMode.PercentOutput, driveSignal.leftMotorSpeedPercent);
+        rightMaster.set(ControlMode.PercentOutput, driveSignal.rightMotorSpeedPercent);
 
     }
 
