@@ -1,5 +1,6 @@
 package com.team2052.deepspace;
 
+import com.team2052.deepspace.subsystems.IntakeController;
 import com.team2052.deepspace.subsystems.DriveTrainController;
 import com.team2052.deepspace.subsystems.ElevatorController;
 import com.team2052.deepspace.subsystems.GroundIntake;
@@ -13,6 +14,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
  * project.
  */
 public class Robot extends TimedRobot {
+    private IntakeController intake = null;
     private Controls controls = null;
     private DriveTrainController driveTrain = null;
     private ElevatorController elevator = null;
@@ -71,6 +73,14 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
+        if(controls.getIntake()){
+            intake.cargoIntake();
+
+        } else if (controls.getOuttake()) {
+            intake.cargoOuttake();
+        } else {
+            intake.cargoNeutral();
+        }
         if (controls.getElevatorGroundCargo()) {
             elevator.setTarget(ElevatorController.ElevatorPresets.GROUND_CARGO);
         } else if (controls.getElevatorHatch1()) {

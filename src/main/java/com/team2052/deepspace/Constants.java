@@ -6,8 +6,8 @@ public class Constants {
 
 
     public class Controls{
-    }
 
+    }
     public class DriveTrain{
         public static final int kDriveLeftMasterId = 1;
         public static final int kDriveLeftSlaveId = 2;
@@ -18,6 +18,14 @@ public class Constants {
         public static final int kCANBusConfigTimeoutMS = 10;
         public static final int kkTicksPerRot = 1024;
         public static final double kDriveWheelCircumferenceInches = 6.0 * Math.PI;
+    }
+    public class Intake {
+        public static final int kIntakeMotorId = 1;
+        public static final int kCargoId = 2;
+        public static final int kHatchId = 3;
+        public static final int kOuttakePercentSpeed = -30;
+        public static final int kNeutralSpeed = 20;
+        public static final int kIntakePercentSpeed = 50;
     }
 
     public class Intake{
