@@ -9,6 +9,7 @@ import com.team2052.deepspace.subsystems.LegClimberController;
 import com.team2052.deepspace.subsystems.DriveTrainController;
 import com.team2052.deepspace.subsystems.ElevatorController;
 import com.team2052.deepspace.subsystems.GroundIntake;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
@@ -25,11 +26,13 @@ public class Robot extends TimedRobot {
     private ElevatorController elevator = null;
     private GroundIntake groundIntake;
     private LegClimberController legClimberController = null;
+    private LightSensorFollowerTapeThingyThing lightSensorFollower = null;
     private RobotState robotstate = RobotState.getInstance();
     private RobotStateCalculator robotStateCalculator = RobotStateCalculator.getInstance();
     private AutoModeRunner autoModeRunner = new AutoModeRunner();
     private ControlLoop controlLoop = new ControlLoop(Constants.Autonomous.kloopPeriodSec);
     private Compressor compressor = null;
+
 
 
 
@@ -44,6 +47,7 @@ public class Robot extends TimedRobot {
         elevator = ElevatorController.getInstance();
         elevator.zeroSensor();
         controlLoop.addLoopable(robotStateCalculator);
+        lightSensorFollower = LightSensorFollowerTapeThingyThing.getInstance();
         try {
             compressor = new Compressor();
             compressor.setClosedLoopControl(true);
@@ -52,6 +56,8 @@ public class Robot extends TimedRobot {
         }
 
         AutoModeSelector.putToShuffleBoard();
+
+
     }
 
     /**
@@ -136,6 +142,8 @@ public class Robot extends TimedRobot {
         elevator.setElevatorAdjustmentDown(controls.getElevatorAdjustmentDown());
         elevator.setEmergencyUp(controls.getElevatorEmergencyUp());
         elevator.setEmergencyDown(controls.getElevatorEmergencyDown());
+
+
     }
 
 
