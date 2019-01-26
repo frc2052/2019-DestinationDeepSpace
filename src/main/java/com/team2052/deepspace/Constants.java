@@ -26,24 +26,20 @@ public class Constants {
         public static final int kOuttakePercentSpeed = -30;
         public static final int kNeutralSpeed = 20;
         public static final int kIntakePercentSpeed = 50;
-    }
-
-    public class Intake{
+        public static final int kIntakeTalon1id = 5;
         public static final int kLifterId = 1;
         public static final int kGrabberId = 2;
         public static final double kGrabTime = .5;
         public static final double kLiftTime = kGrabTime + .5;
+
     }
+
+
 
     public class Autonomous{ //all units for distances, velocity, and acceleration are in inches
 
     }
-  
-    public class Intake {
 
-        public static final int kIntakeTalon1id = 5;
-
-    }
 
     public  class LegClimber {
 
