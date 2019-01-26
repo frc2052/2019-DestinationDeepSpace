@@ -16,8 +16,8 @@ public class GroundIntake implements Loopable {
         return instance;
     }//Singleton
     private KnightTimer timer = new KnightTimer();
-    public final Solenoid Lifter = new Solenoid(Constants.Intake.Tape);
-    public final Solenoid Grabber = new Solenoid(Constants.Intake.Tap3);
+    public final Solenoid Lifter = new Solenoid(Constants.Intake.kLifterId);
+    public final Solenoid Grabber = new Solenoid(Constants.Intake.kGrabberId);
     private boolean liftGroundIntakeState; //Getter and Setter
     public boolean getLiftGroundIntakeState(){ return liftGroundIntakeState; }
     public void setLiftGroundIntakeState(boolean state){
