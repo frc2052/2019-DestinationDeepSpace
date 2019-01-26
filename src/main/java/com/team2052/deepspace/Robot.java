@@ -2,6 +2,9 @@ package com.team2052.deepspace;
 
 import com.team2052.deepspace.subsystems.IntakeController;
 import com.team2052.deepspace.subsystems.LegClimberController;
+import com.team2052.deepspace.subsystems.DriveTrainController;
+import com.team2052.deepspace.subsystems.ElevatorController;
+import com.team2052.deepspace.subsystems.GroundIntake;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
@@ -12,6 +15,11 @@ import edu.wpi.first.wpilibj.TimedRobot;
  * project.
  */
 public class Robot extends TimedRobot {
+    private IntakeController intake = null;
+    private Controls controls = null;
+    private DriveTrainController driveTrain = null;
+    private ElevatorController elevator = null;
+    private GroundIntake groundIntake;
 
     private IntakeController intakeController = null;
     private Controls controls = null;
@@ -26,12 +34,13 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
-
         intakeController = IntakeController.getInstance();
         controls = Controls.getInstance();
         legClimberController = LegClimberController.getInstance();
         legClimberController.resetEncoders();
-
+        driveTrain = DriveTrainController.getInstance();
+        elevator = ElevatorController.getInstance();
+        elevator.zeroSensor();
     }
 
     /**
@@ -44,6 +53,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotPeriodic() {
+        groundIntake.update();
     }
 
     /**
@@ -66,6 +76,7 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopInit(){
 
+
     }
 
     /**
@@ -73,7 +84,6 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
-
         intakeController.intake(controls.getTankJoy2());
         if (controls.legClimber()){
             legClimberController.setLegClimber(controls.legClimber());
@@ -81,7 +91,38 @@ public class Robot extends TimedRobot {
             legClimberController.stopClimber();
         }
 
+        if(controls.getIntake()){
+            intake.cargoIntake();
+
+        } else if (controls.getOuttake()) {
+            intake.cargoOuttake();
+        } else {
+            intake.cargoNeutral();
+        }
+        if (controls.getElevatorGroundCargo()) {
+            elevator.setTarget(ElevatorController.ElevatorPresets.GROUND_CARGO);
+        } else if (controls.getElevatorHatch1()) {
+            elevator.setTarget(ElevatorController.ElevatorPresets.HATCH_LEVEL1);
+        } else if (controls.getElevatorHatch2()) {
+            elevator.setTarget(ElevatorController.ElevatorPresets.HATCH_LEVEL2);
+        } else if (controls.getElevatorHatch3()) {
+            elevator.setTarget(ElevatorController.ElevatorPresets.HATCH_LEVEL3);
+        } else if (controls.getElevatorCargoShipCargo()) {
+            elevator.setTarget(ElevatorController.ElevatorPresets.CARGOSHIP_CARGO);
+        } else if (controls.getElevatorRocketCargo1()) {
+            elevator.setTarget(ElevatorController.ElevatorPresets.ROCKET_CARGO1);
+        }else if (controls.getElevatorRocketCargo2()) {
+            elevator.setTarget(ElevatorController.ElevatorPresets.ROCKET_CARGO2);
+        }else if (controls.getElevatorRocketCargo3()) {
+            elevator.setTarget(ElevatorController.ElevatorPresets.ROCKET_CARGO3);
+        }
+        elevator.setElevatorAdjustmentUp(controls.getElevatorAdjustmentUp());
+        elevator.setElevatorAdjustmentDown(controls.getElevatorAdjustmentDown());
+        elevator.setEmergencyUp(controls.getElevatorEmergencyUp());
+        elevator.setEmergencyDown(controls.getElevatorEmergencyDown());
     }
+
+
 
     /**
      * This function is called periodically during test mode.
