@@ -2,6 +2,7 @@ package com.team2052.deepspace;
 
 import com.team2052.deepspace.subsystems.DriveTrainController;
 import com.team2052.deepspace.subsystems.ElevatorController;
+import com.team2052.deepspace.subsystems.GroundIntake;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
@@ -15,6 +16,7 @@ public class Robot extends TimedRobot {
     private Controls controls = null;
     private DriveTrainController driveTrain = null;
     private ElevatorController elevator = null;
+    private GroundIntake groundIntake;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -38,6 +40,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotPeriodic() {
+        groundIntake.update();
     }
 
     /**
