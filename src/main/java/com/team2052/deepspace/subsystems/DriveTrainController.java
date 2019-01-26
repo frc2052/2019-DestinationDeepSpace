@@ -9,11 +9,11 @@ import com.team2052.deepspace.Constants;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 
-public class DriveTrain {
+public class DriveTrainController {
 
-    // Instance of Drive class to be created in Robot.java class by running get instance
-    private static DriveTrain singleDriveTrainInstance = new DriveTrain();
-    public static DriveTrain getInstance() { return singleDriveTrainInstance; }
+    // Instance of DriveTrainController class to be created in Robot.java class by running get instance
+    private static DriveTrainController singleDriveTrainControllerInstance = new DriveTrainController();
+    public static DriveTrainController getInstance() { return singleDriveTrainControllerInstance; }
 
     AHRS navXGyro = null;
 
@@ -22,11 +22,11 @@ public class DriveTrain {
     private final TalonSRX rightSlave;
     private final TalonSRX leftSlave;
 
-    DriveTrain(){
-        rightMaster = new TalonSRX(Constants.Drive.kDriveRightMasterId);
-        leftMaster = new TalonSRX(Constants.Drive.kDriveLeftMasterId);
-        rightSlave = new TalonSRX(Constants.Drive.kDriveRightSlaveId);
-        leftSlave = new TalonSRX(Constants.Drive.kDriveLeftSlaveId);
+    DriveTrainController(){
+        rightMaster = new TalonSRX(Constants.DriveTrain.kDriveRightMasterId);
+        leftMaster = new TalonSRX(Constants.DriveTrain.kDriveLeftMasterId);
+        rightSlave = new TalonSRX(Constants.DriveTrain.kDriveRightSlaveId);
+        leftSlave = new TalonSRX(Constants.DriveTrain.kDriveLeftSlaveId);
 
         rightMaster.configFactoryDefault();
         rightSlave.configFactoryDefault();
