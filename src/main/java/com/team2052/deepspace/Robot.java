@@ -88,7 +88,9 @@ public class Robot extends TimedRobot {
         robotstate.outputToSmartDashboard();
         if(controls.autoOverride()){
             autoModeRunner.stop();
+            driveTrain.stop();
         }
+        System.out.println("AUTO IS DONE?: " + autoModeRunner.isAutodone());
 
         if(autoModeRunner.isAutodone()){
             driverControlled();

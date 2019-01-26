@@ -34,7 +34,7 @@ public class Controls {
     }
 
     public double getTurnJoy2() {
-        double val = -rightPrimaryStick.getX();
+        double val = rightPrimaryStick.getX();
         if (val < .15 && val > -.15) {
             val = 0;
         }
