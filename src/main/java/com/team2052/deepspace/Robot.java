@@ -2,13 +2,9 @@ package com.team2052.deepspace;
 
 import com.team2052.deepspace.auto.AutoModeRunner;
 import com.team2052.deepspace.auto.AutoModeSelector;
+import com.team2052.deepspace.subsystems.*;
 import com.team2052.lib.ControlLoop;
 import edu.wpi.first.wpilibj.Compressor;
-import com.team2052.deepspace.subsystems.IntakeController;
-import com.team2052.deepspace.subsystems.LegClimberController;
-import com.team2052.deepspace.subsystems.DriveTrainController;
-import com.team2052.deepspace.subsystems.ElevatorController;
-import com.team2052.deepspace.subsystems.GroundIntake;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
@@ -31,6 +27,7 @@ public class Robot extends TimedRobot {
     private AutoModeRunner autoModeRunner = new AutoModeRunner();
     private ControlLoop controlLoop = new ControlLoop(Constants.Autonomous.kloopPeriodSec);
     private Compressor compressor = null;
+    private VisionController visionController = null;
 
 
 
@@ -46,6 +43,8 @@ public class Robot extends TimedRobot {
         elevator = ElevatorController.getInstance();
         elevator.zeroSensor();
         controlLoop.addLoopable(robotStateCalculator);
+        visionController = VisionController.getInstance();
+
         try {
             compressor = new Compressor();
             compressor.setClosedLoopControl(true);
@@ -129,7 +128,11 @@ public class Robot extends TimedRobot {
     }
 
     private void driverControlled(){
-        driveTrain.drive(driveHelper.drive(controls.getTankJoy1(), controls.getTurnJoy2(), controls.getQuickTurn()));
+        if(controls.getVisionTrack()) {
+            driveTrain.drive(visionController.getMotorOutput());
+        }else{
+            driveTrain.drive(driveHelper.drive(controls.getTankJoy1(), controls.getTurnJoy2(), controls.getQuickTurn()));
+        }
 
         if (controls.legClimber()){
             legClimberController.setLegClimber(controls.legClimber());
@@ -166,5 +169,7 @@ public class Robot extends TimedRobot {
         elevator.setElevatorAdjustmentDown(controls.getElevatorAdjustmentDown());
         elevator.setEmergencyUp(controls.getElevatorEmergencyUp());
         elevator.setEmergencyDown(controls.getElevatorEmergencyDown());
+
+
     }
 }

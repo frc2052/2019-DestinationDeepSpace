@@ -22,6 +22,7 @@ public class Constants {
         public static final int kElevatorEmergencyDownButton = 13;
 
         public static final int kautoOverrideButton = 14;
+        public static final int kVisionTrackButton = 15;
     }
 
     public class DriveTrain{

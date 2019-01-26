@@ -56,6 +56,10 @@ public class Controls {
     public boolean getOuttake() {return secondaryStick.getRawButton(1);}
     public boolean getIntake () {return secondaryStick.getTrigger();}
 
+    public boolean getVisionTrack(){
+        return secondaryStick.getRawButton(Constants.Controls.kVisionTrackButton);
+    };
+
   //////elevator//////
     public boolean getElevatorGroundCargo(){return secondaryStick.getRawButton(Constants.Controls.kElevatorGroundGargoButton);}
     public boolean getElevatorHatch1(){return secondaryStick.getRawButton(Constants.Controls.kElevatorHatch1Button);}
