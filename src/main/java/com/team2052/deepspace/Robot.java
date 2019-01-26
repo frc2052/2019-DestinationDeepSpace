@@ -35,13 +35,13 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         driveHelper = new DriveHelper();
-        intake = IntakeController.getInstance();
+        //intake = IntakeController.getInstance();
         controls = Controls.getInstance();
-        legClimberController = LegClimberController.getInstance();
-        legClimberController.resetEncoders();
+        //legClimberController = LegClimberController.getInstance();
+        //legClimberController.resetEncoders();
         driveTrain = DriveTrainController.getInstance();
-        elevator = ElevatorController.getInstance();
-        elevator.zeroSensor();
+        //elevator = ElevatorController.getInstance();
+        //elevator.zeroSensor();
         controlLoop.addLoopable(robotStateCalculator);
         visionController = VisionController.getInstance();
 
@@ -65,7 +65,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotPeriodic() {
-        groundIntake.update();
+        //groundIntake.update();
     }
 
     /**
@@ -134,6 +134,7 @@ public class Robot extends TimedRobot {
             driveTrain.drive(driveHelper.drive(controls.getTankJoy1(), controls.getTurnJoy2(), controls.getQuickTurn()));
         }
 
+        /*
         if (controls.legClimber()){
             legClimberController.setLegClimber(controls.legClimber());
         }else {
@@ -148,6 +149,7 @@ public class Robot extends TimedRobot {
         } else {
             intake.cargoNeutral();
         }
+
         if (controls.getElevatorGroundCargo()) {
             elevator.setTarget(ElevatorController.ElevatorPresets.GROUND_CARGO);
         } else if (controls.getElevatorHatch1()) {
@@ -169,7 +171,7 @@ public class Robot extends TimedRobot {
         elevator.setElevatorAdjustmentDown(controls.getElevatorAdjustmentDown());
         elevator.setEmergencyUp(controls.getElevatorEmergencyUp());
         elevator.setEmergencyDown(controls.getElevatorEmergencyDown());
-
+*/
 
     }
 }
