@@ -1,5 +1,6 @@
 package com.team2052.deepspace;
 
+import com.team2052.deepspace.subsystems.DriveTrainController;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
@@ -9,7 +10,12 @@ import edu.wpi.first.wpilibj.TimedRobot;
  * creating this project, you must also update the build.gradle file in the
  * project.
  */
+@SuppressWarnings("ALL")
 public class Robot extends TimedRobot {
+        DriveTrainController driveTrainController;
+        DriveHelper driveHelper;
+        Controls controls;
+
 
     /**
      * This function is run when the robot is first started up and should be
@@ -17,6 +23,9 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
+        driveTrainController = DriveTrainController.getInstance();
+        controls = Controls.getInstance();
+        driveHelper = new DriveHelper();
     }
 
     /**
@@ -58,6 +67,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
+        driveTrainController.drive(driveHelper.drive(controls.getTankJoy1(), controls.getTurnJoy2(), controls.getQuickTurn()));
     }
 
     /**

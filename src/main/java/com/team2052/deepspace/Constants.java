@@ -6,6 +6,7 @@ public class Constants {
 
 
     public class Controls{
+        public static final int kQuickTurnButton = 3;
     }
 
     public class DriveTrain{

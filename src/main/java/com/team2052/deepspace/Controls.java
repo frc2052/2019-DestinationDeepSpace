@@ -45,4 +45,8 @@ public class Controls {
     public boolean reset(){
         return leftPrimaryStick.getTrigger();
     }
+
+    public boolean getQuickTurn(){
+        return leftPrimaryStick.getRawButton(Constants.Controls.kQuickTurnButton);
+    }
 }

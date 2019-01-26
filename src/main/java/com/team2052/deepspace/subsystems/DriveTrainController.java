@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 import com.team2052.deepspace.Constants;
+import com.team2052.deepspace.DriveSignal;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 
@@ -64,28 +65,15 @@ public class DriveTrainController {
     }
 
     public void stop(){
-        driveTank(0,0);
+        drive(new DriveSignal(0,0));
     }
 
-    public void drive(double tank, double turn) { //drives the motors depending
-        // on the joystick values and the drive mode
+    public void drive(DriveSignal driveSignal) {
 
-        double leftSpeed = 0;
-        double rightSpeed = 0;
+        //System.out.println("Left Speed = " + driveSignal.leftMotorSpeedPercent + " rightSpeed = " + driveSignal.rightMotorSpeedPercent);
+        leftMaster.set(ControlMode.PercentOutput, driveSignal.leftMotorSpeedPercent);
+        rightMaster.set(ControlMode.PercentOutput, driveSignal.leftMotorSpeedPercent);
 
-
-        leftSpeed = tank - turn;
-        rightSpeed = tank + turn;
-
-        leftMaster.set(ControlMode.PercentOutput, leftSpeed);
-        rightMaster.set(ControlMode.PercentOutput, rightSpeed);
-
-    }
-
-    public void driveTank(double left, double right){
-        System.out.println("Left Speed = " + left + " rightSpeed = " + right);
-        leftMaster.set(ControlMode.PercentOutput, left);
-        rightMaster.set(ControlMode.PercentOutput, right);
     }
 
     private double checkbounds(double Speed){ //this checks to make sure the speed is between 1 & -1
