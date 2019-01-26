@@ -20,9 +20,6 @@ public class Robot extends TimedRobot {
     private DriveTrainController driveTrain = null;
     private ElevatorController elevator = null;
     private GroundIntake groundIntake;
-
-    private IntakeController intakeController = null;
-    private Controls controls = null;
     private LegClimberController legClimberController = null;
 
 
@@ -34,7 +31,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
-        intakeController = IntakeController.getInstance();
+        intake = IntakeController.getInstance();
         controls = Controls.getInstance();
         legClimberController = LegClimberController.getInstance();
         legClimberController.resetEncoders();
@@ -84,7 +81,6 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
-        intakeController.intake(controls.getTankJoy2());
         if (controls.legClimber()){
             legClimberController.setLegClimber(controls.legClimber());
         }else {
