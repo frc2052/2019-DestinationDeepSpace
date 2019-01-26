@@ -128,7 +128,9 @@ public class AutoModeSelector {
         StartLeftLeftSideLeftFarHatch(LeftStartSideLeftFarHatch.class),
         StartLeftLeftSideLeftMiddleHatch(LeftStartSideLeftMiddleHatch.class),
         StartLeftLeftSideLeftCloseHatch(LeftStartSideLeftCloseHatch.class),
+        StartLeftCenterLeftCenterHatch(LeftStartCenterLeftCenterHatch.class),
 
+        StartRightCenterRightCenterHatch(RightStartCenterRightCenterHatch.class),
         StartRightRightSideRightFarHatch(RightStartSideRightFarHatch.class),
         StartRightRightSideRightMiddleHatch(RightStartSideRightMiddleHatch.class),
         StartRightRightSideRightCloseHatch(RightStartSideRightCloseHatch.class),
