@@ -138,7 +138,7 @@ public class Robot extends TimedRobot {
         if(controls.getVisionTrack()) {
             //driveTrain.drive(visionController.getMotorOutput());
         }else if (controls.getLightFollow()){
-            lightSensorFollower.setLightSensorMotorStates();
+            lightSensorFollower.setLightSensorMotorStates(controls.getTankJoy1());
         }
         else {
             driveTrain.drive(driveHelper.drive(controls.getTankJoy1(), controls.getTurnJoy2(), controls.getQuickTurn()));

@@ -8,6 +8,8 @@ import java.awt.*;
 
 public class LightSensorFollowerTapeThingyThing {
 
+    private double joystickSpeed = 0;
+
     private DriveTrainController driveTrain = null;
     private static LightSensorFollowerTapeThingyThing instance = null;
     public static LightSensorFollowerTapeThingyThing getInstance() {
@@ -18,7 +20,9 @@ public class LightSensorFollowerTapeThingyThing {
                 System.out.println("DANGER: Failed to create Light sensor follower: " + exc.getMessage());
                 exc.printStackTrace();
             }
+
         }
+
         return instance;
     }
 
@@ -27,15 +31,13 @@ public class LightSensorFollowerTapeThingyThing {
     private DigitalInput middleLightSensor = new DigitalInput(Constants.LightSensorFollowerTabeThingyThing.kMiddleLightSensorid);
     private DigitalInput rightLightSensor = new DigitalInput(Constants.LightSensorFollowerTabeThingyThing.kRightLightSensorid);
 
-    //booleans to get the light sensor values
-
 
     public LightSensorFollowerTapeThingyThing() {//constructor with drive train instance
         driveTrain = DriveTrainController.getInstance();
     }
 
 
-    public void setLightSensorMotorStates(){//defines the states (look at enum for explanation of FTF)
+    public void setLightSensorMotorStates(double speed){//defines the states (look at enum for explanation of FTF)
         boolean getLeftLightSensorState = leftLightSensor.get();
         boolean getMiddleLightSensorState = middleLightSensor.get();
         boolean getRightLightSensorState = rightLightSensor.get();
@@ -50,26 +52,31 @@ public class LightSensorFollowerTapeThingyThing {
             getLightSensorMotorTurn(LightSensorStateEnum.FTT);
         } else if (getLeftLightSensorState && getMiddleLightSensorState && !getRightLightSensorState){
             getLightSensorMotorTurn(LightSensorStateEnum.TTF);
+        } else if (!getLeftLightSensorState && !getMiddleLightSensorState && !getRightLightSensorState){
+            getLightSensorMotorTurn(LightSensorStateEnum.FFF);
         }
+        joystickSpeed = speed;
     }
     public void getLightSensorMotorTurn(LightSensorStateEnum directionEnum){//sets the tank and the turn based on the sensor readings
         System.out.println(directionEnum);
         switch(directionEnum){
             case FTF: //only the middle sensor is on so it goes forward
-                driveTrain.drive(new DriveSignal(Constants.LightSensorFollowerTabeThingyThing.kLightSensorFollowSpeed, 0.0));
+                driveTrain.drive(new DriveSignal(joystickSpeed, 0.0));
                 break;
             case FFT: //only right sensor is on so it goes right to get the middle sensor on
-                driveTrain.drive(new DriveSignal(Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnTankSpeed, -Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnHardSpeed));
+                driveTrain.drive(new DriveSignal(joystickSpeed, -Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnHardSpeed));
                 break;
             case TFF: //only left sensor is on so it goes left to get the middle sensor on
-                driveTrain.drive(new DriveSignal(Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnTankSpeed, Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnHardSpeed));
+                driveTrain.drive(new DriveSignal(joystickSpeed, Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnHardSpeed));
                 break;
             case FTT: //both right and middle are on so it drives slower to the right to get only the middle sensor on
-                driveTrain.drive(new DriveSignal(Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnTankSpeed, -Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnLightSpeed));
+                driveTrain.drive(new DriveSignal(joystickSpeed, -Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnLightSpeed));
                 break;
             case TTF: //both left and middle are on so it dirves slower to the right to get only the middle sensor on
-                driveTrain.drive(new DriveSignal(Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnTankSpeed, Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnLightSpeed));
+                driveTrain.drive(new DriveSignal(joystickSpeed, Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnLightSpeed));
                 break;
+            case FFF:
+                driveTrain.drive(new DriveSignal(joystickSpeed, 0.0));
         }
     }
 
@@ -79,5 +86,6 @@ public class LightSensorFollowerTapeThingyThing {
         FTT,
         FTF,
         FFT,
+        FFF,
     }
 }
