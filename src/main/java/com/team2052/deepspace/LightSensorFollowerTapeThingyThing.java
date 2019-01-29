@@ -1,10 +1,7 @@
 package com.team2052.deepspace;
 
 import com.team2052.deepspace.subsystems.DriveTrainController;
-import com.team2052.deepspace.subsystems.ElevatorController;
 import edu.wpi.first.wpilibj.DigitalInput;
-
-import java.awt.*;
 
 public class LightSensorFollowerTapeThingyThing {
 
@@ -12,6 +9,7 @@ public class LightSensorFollowerTapeThingyThing {
 
     private DriveTrainController driveTrain = null;
     private static LightSensorFollowerTapeThingyThing instance = null;
+
     public static LightSensorFollowerTapeThingyThing getInstance() {
         if (instance == null) {
             try {
@@ -27,9 +25,9 @@ public class LightSensorFollowerTapeThingyThing {
     }
 
     //light sensors
-    private DigitalInput leftLightSensor = new DigitalInput(Constants.LightSensorFollowerTabeThingyThing.kLeftLightSensorid);
-    private DigitalInput middleLightSensor = new DigitalInput(Constants.LightSensorFollowerTabeThingyThing.kMiddleLightSensorid);
-    private DigitalInput rightLightSensor = new DigitalInput(Constants.LightSensorFollowerTabeThingyThing.kRightLightSensorid);
+    private DigitalInput leftLightSensor = new DigitalInput(Constants.LightSensorFollowerTapeThingyThing.kLeftLightSensorid);
+    private DigitalInput middleLightSensor = new DigitalInput(Constants.LightSensorFollowerTapeThingyThing.kMiddleLightSensorid);
+    private DigitalInput rightLightSensor = new DigitalInput(Constants.LightSensorFollowerTapeThingyThing.kRightLightSensorid);
 
 
     public LightSensorFollowerTapeThingyThing() {//constructor with drive train instance
@@ -37,50 +35,51 @@ public class LightSensorFollowerTapeThingyThing {
     }
 
 
-    public void setLightSensorMotorStates(double speed){//defines the states (look at enum for explanation of FTF)
+    public void setLightSensorMotorStates(double speed) {//defines the states (look at enum for explanation of FTF)
         boolean getLeftLightSensorState = leftLightSensor.get();
         boolean getMiddleLightSensorState = middleLightSensor.get();
         boolean getRightLightSensorState = rightLightSensor.get();
-        System.out.println("left: " + getLeftLightSensorState + ", center: "+  getMiddleLightSensorState + ", right: " + getRightLightSensorState);
-        if(!getLeftLightSensorState && getMiddleLightSensorState && !getRightLightSensorState){
+        System.out.println("left: " + getLeftLightSensorState + ", center: " + getMiddleLightSensorState + ", right: " + getRightLightSensorState);
+        if (!getLeftLightSensorState && getMiddleLightSensorState && !getRightLightSensorState) {
             getLightSensorMotorTurn(LightSensorStateEnum.FTF);
-        } else if (!getLeftLightSensorState && !getMiddleLightSensorState && getRightLightSensorState){
+        } else if (!getLeftLightSensorState && !getMiddleLightSensorState && getRightLightSensorState) {
             getLightSensorMotorTurn(LightSensorStateEnum.FFT);
-        } else if (getLeftLightSensorState && !getMiddleLightSensorState && !getRightLightSensorState){
+        } else if (getLeftLightSensorState && !getMiddleLightSensorState && !getRightLightSensorState) {
             getLightSensorMotorTurn(LightSensorStateEnum.TFF);
-        } else if (!getLeftLightSensorState && getMiddleLightSensorState && getRightLightSensorState){
+        } else if (!getLeftLightSensorState && getMiddleLightSensorState && getRightLightSensorState) {
             getLightSensorMotorTurn(LightSensorStateEnum.FTT);
-        } else if (getLeftLightSensorState && getMiddleLightSensorState && !getRightLightSensorState){
+        } else if (getLeftLightSensorState && getMiddleLightSensorState && !getRightLightSensorState) {
             getLightSensorMotorTurn(LightSensorStateEnum.TTF);
-        } else if (!getLeftLightSensorState && !getMiddleLightSensorState && !getRightLightSensorState){
+        } else if (!getLeftLightSensorState && !getMiddleLightSensorState && !getRightLightSensorState) {
             getLightSensorMotorTurn(LightSensorStateEnum.FFF);
         }
         joystickSpeed = speed;
     }
-    public void getLightSensorMotorTurn(LightSensorStateEnum directionEnum){//sets the tank and the turn based on the sensor readings
+
+    public void getLightSensorMotorTurn(LightSensorStateEnum directionEnum) {//sets the tank and the turn based on the sensor readings
         System.out.println(directionEnum);
-        switch(directionEnum){
+        switch (directionEnum) {
             case FTF: //only the middle sensor is on so it goes forward
-                driveTrain.drive(new DriveSignal(joystickSpeed, 0.0));
+                driveTrain.drive(new DriveSignal(joystickSpeed, joystickSpeed));
                 break;
             case FFT: //only right sensor is on so it goes right to get the middle sensor on
-                driveTrain.drive(new DriveSignal(joystickSpeed, -Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnHardSpeed));
+                driveTrain.drive(new DriveSignal(joystickSpeed, joystickSpeed * Constants.LightSensorFollowerTapeThingyThing.kLightSensorTurnHardSpeed));
                 break;
             case TFF: //only left sensor is on so it goes left to get the middle sensor on
-                driveTrain.drive(new DriveSignal(joystickSpeed, Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnHardSpeed));
+                driveTrain.drive(new DriveSignal(joystickSpeed * Constants.LightSensorFollowerTapeThingyThing.kLightSensorTurnHardSpeed, joystickSpeed));
                 break;
             case FTT: //both right and middle are on so it drives slower to the right to get only the middle sensor on
-                driveTrain.drive(new DriveSignal(joystickSpeed, -Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnLightSpeed));
+                driveTrain.drive(new DriveSignal(joystickSpeed, joystickSpeed * Constants.LightSensorFollowerTapeThingyThing.kLightSensorTurnLightSpeed));
                 break;
             case TTF: //both left and middle are on so it dirves slower to the right to get only the middle sensor on
-                driveTrain.drive(new DriveSignal(joystickSpeed, Constants.LightSensorFollowerTabeThingyThing.kLightSensorTurnLightSpeed));
+                driveTrain.drive(new DriveSignal(joystickSpeed * Constants.LightSensorFollowerTapeThingyThing.kLightSensorTurnLightSpeed, joystickSpeed));
                 break;
             case FFF:
-                driveTrain.drive(new DriveSignal(joystickSpeed, 0.0));
+                driveTrain.drive(new DriveSignal(joystickSpeed, joystickSpeed));
         }
     }
 
-    public enum LightSensorStateEnum{// first T/F is the first sensor reading etc.
+    public enum LightSensorStateEnum {// first T/F is the first sensor reading etc.
         TTF,
         TFF,
         FTT,
@@ -89,3 +88,4 @@ public class LightSensorFollowerTapeThingyThing {
         FFF,
     }
 }
+

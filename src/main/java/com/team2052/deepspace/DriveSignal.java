@@ -7,7 +7,8 @@ public class DriveSignal { //a drive signal is a motor speed for both motors. Th
     public double leftMotorSpeedPercent;
     public double rightMotorSpeedPercent;
 
-    public DriveSignal(double left, double right) {
+    public
+    DriveSignal(double left, double right) {
         this.leftMotorSpeedPercent = left;
         this.rightMotorSpeedPercent = right;
     }
