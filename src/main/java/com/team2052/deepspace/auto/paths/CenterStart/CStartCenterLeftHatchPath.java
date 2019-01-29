@@ -9,7 +9,11 @@ import java.util.List;
 public class CStartCenterLeftHatchPath extends Path{
 
     public CStartCenterLeftHatchPath() {
-        setDirection(Direction.FORWARD);
+        this(Direction.FORWARD);
+    }
+
+    public CStartCenterLeftHatchPath(Direction dir) {
+        setDirection(dir);
         addWaypoint(new Waypoint(new Position2d(0,0),50)); //* T *
         addWaypoint(new Waypoint(new Position2d(68,0),50)); //i
         addWaypoint(new Waypoint(new Position2d(129,-10),50)); //J
