@@ -136,6 +136,7 @@ public class Robot extends TimedRobot {
         }else{
             driveTrain.drive(driveHelper.drive(controls.getTankJoy1(), controls.getTurnJoy2(), controls.getQuickTurn()));
         }
+        robotstate.outputToSmartDashboard();
 /*
         groundIntake.update();
 

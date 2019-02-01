@@ -42,7 +42,7 @@ public class DriveTrainController {
         leftMaster.setInverted(false);
         leftSlave.setInverted(false);
 
-        rightMaster.setSensorPhase(false);
+        rightMaster.setSensorPhase(true);
         leftMaster.setSensorPhase(false);
 
         rightMaster.setNeutralMode(NeutralMode.Brake);

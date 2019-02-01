@@ -11,8 +11,8 @@ public class TestPath03 extends Path{
     public TestPath03() {
         setDirection(Direction.FORWARD);
         addWaypoint(new Waypoint(new Position2d(0,0),50));
-        addWaypoint(new Waypoint(new Position2d(36,0),50));
-        addWaypoint(new Waypoint(new Position2d(36,36),50));
+        addWaypoint(new Waypoint(new Position2d(48,0),50));
+        addWaypoint(new Waypoint(new Position2d(48,36),50));
         addWaypoint(new Waypoint(new Position2d(72,36),50));
         OptimizePath();
     }
