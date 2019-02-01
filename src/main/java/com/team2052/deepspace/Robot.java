@@ -35,13 +35,13 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         driveHelper = new DriveHelper();
-        intake = IntakeController.getInstance();
+        //intake = IntakeController.getInstance();
         controls = Controls.getInstance();
-        legClimberController = LegClimberController.getInstance();
-        legClimberController.resetEncoders();
+        //legClimberController = LegClimberController.getInstance();
+        //legClimberController.resetEncoders();
         driveTrain = DriveTrainController.getInstance();
-        elevator = ElevatorController.getInstance();
-        elevator.zeroSensor();
+        //elevator = ElevatorController.getInstance();
+        //elevator.zeroSensor();
         controlLoop.addLoopable(robotStateCalculator);
         visionController = VisionController.getInstance();
 
@@ -75,8 +75,9 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         controlLoop.start();
         driveTrain.zeroGyro();
-        robotStateCalculator.resetRobotState();
         AutoModeSelector.AutoModeDefinition currentAutoMode = AutoModeSelector.getSelectedAutomode();
+        robotStateCalculator.setStartDirection(currentAutoMode.getInstance().getStartDirection().isForward);
+        robotStateCalculator.resetRobotState();
         autoModeRunner.start(currentAutoMode.getInstance());
     }
 
@@ -135,7 +136,7 @@ public class Robot extends TimedRobot {
         }else{
             driveTrain.drive(driveHelper.drive(controls.getTankJoy1(), controls.getTurnJoy2(), controls.getQuickTurn()));
         }
-
+/*
         groundIntake.update();
 
         if (controls.legClimber()){
@@ -174,5 +175,6 @@ public class Robot extends TimedRobot {
         elevator.setElevatorAdjustmentDown(controls.getElevatorAdjustmentDown());
         elevator.setEmergencyUp(controls.getElevatorEmergencyUp());
         elevator.setEmergencyDown(controls.getElevatorEmergencyDown());
+        */
     }
 }

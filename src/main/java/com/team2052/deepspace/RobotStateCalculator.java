@@ -16,6 +16,7 @@ public class RobotStateCalculator implements ILoopable{
     private Position2d latestPosition = new Position2d();
 
     private double timeSinceReset = 0;
+    private boolean startForward = true;
 
     private double lastVels[] = new double[3];
     private DriveTrainController driveTrain = DriveTrainController.getInstance();
@@ -24,7 +25,15 @@ public class RobotStateCalculator implements ILoopable{
     private static RobotStateCalculator singleRobotStateCalculatorInstance = new RobotStateCalculator();
     public static RobotStateCalculator getInstance() { return singleRobotStateCalculatorInstance; }
 
+    public void setStartDirection(boolean startForward){
+        this.startForward = startForward;
+    }
+
     private void estimatePositionAverageHeading(double leftInches, double rightInches, double radians) {
+
+        if(!startForward){
+            radians = radians + Math.PI;
+        }
 
         deltaLeftInches = leftInches-pastLeftInches;
         deltaRightInches = rightInches-pastRightInches;

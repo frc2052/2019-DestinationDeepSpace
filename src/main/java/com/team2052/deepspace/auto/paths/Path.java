@@ -218,7 +218,7 @@ public abstract class Path {
             for (int i = 4; i < pathPoints.size()+1; i++){
                 double d = Position2d.distanceFormula(pathPoints.get(pathPoints.size()-i+1).getPosition(),pathPoints.get(pathPoints.size()-i).getPosition());
                 double vel = Math.min(pathPoints.get(pathPoints.size()-i).getVelocity(), Math.sqrt(Math.pow(pathPoints.get(pathPoints.size()-i+1).getVelocity(),2) + 2 * (Constants.Autonomous.kMaxAccel/4) * d)); //todo: accel is devided by 4 to start slowing down the robot faster
-                pathPoints.get(pathPoints.size()-i).setVelocity(isForward ? vel : -vel); //todo: remover turnerary statements
+                pathPoints.get(pathPoints.size()-i).setVelocity(isForward ? vel : -vel); //todo: remove turnerary statements
             }
         }
 

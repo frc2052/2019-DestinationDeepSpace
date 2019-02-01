@@ -126,15 +126,15 @@ public class AutoModeSelector {
         StartLeftLeftFarHatch(LeftStartSideLeftFarHatch.class),
         StartLeftLeftMiddleHatch(LeftStartSideLeftMiddleHatch.class),
         StartLeftLeftCloseHatch(LeftStartSideLeftCloseHatch.class),
-        StartLeftLeftCenterHatch(LeftStartCenterLeftCenterHatch.class),
+        StartLeftCenterLeftHatch(LeftStartCenterLeftCenterHatch.class),
 
-        StartRightRightCenterHatch(RightStartCenterRightCenterHatch.class),
+        StartRightCenterRightHatch(RightStartCenterRightCenterHatch.class),
         StartRightRightFarHatch(RightStartSideRightFarHatch.class),
         StartRightRightMiddleHatch(RightStartSideRightMiddleHatch.class),
         StartRightRightCloseHatch(RightStartSideRightCloseHatch.class),
 
-        StartCenterLeftCenterHatch(CenterStartCenterLeftHatch.class),
-        StartCenterRightCenterHatch(CenterStartCenterRightHatch.class),
+        StartCenterCenterLeftHatch(CenterStartCenterLeftHatch.class),
+        StartCenterCenterRightHatch(CenterStartCenterRightHatch.class),
 
         //Double path AMDs
 
@@ -183,8 +183,8 @@ public class AutoModeSelector {
             this.clazz = clazz;
         }
 
-        public AutoModeBase getInstance() { //gets the instance of the AutoModeBase
-            AutoModeBase instance;
+        public AutoMode getInstance() { //gets the instance of the AutoModeBase
+            AutoMode instance;
             try {
                 instance = clazz.getDeclaredConstructor().newInstance();
             } catch (Exception e) {
