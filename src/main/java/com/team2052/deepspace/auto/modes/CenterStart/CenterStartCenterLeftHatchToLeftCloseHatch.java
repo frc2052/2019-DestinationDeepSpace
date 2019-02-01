@@ -15,17 +15,17 @@ public class CenterStartCenterLeftHatchToLeftCloseHatch extends AutoMode {
     @Override
     protected void init() {
         //two hatch auto, the robot will drive backwards with hatch panel on ground pickup to start
-        Path firstPath = new CStartCenterLeftHatchPath(Path.Direction.BACKWARD);
-        Path secondPath = new CLeftHatchStartLeftHatchPickUpPath();
-        //TODO: this path back to the CS needs to backup first, then another path to drive forward
-        CompoundPath thirdPath = new LHatchPickUpStartLeftCloseHatchCompoundPath();
         runAction(new SeriesAction(Arrays.asList(
-                new FollowPathAction(firstPath),
+                new FollowPathAction(new CStartCenterLeftHatchPath(Path.Direction.BACKWARD)),
+                //TODO: Add vision
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
-                new FollowPathAction(secondPath),
+                new FollowPathAction(new CLeftHatchStartLeftHatchPickUpPath()),
+                //TODO: Add vision
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
-                new FollowPathListAction(thirdPath.getPaths()),
+                new FollowPathListAction(new LHatchPickUpStartLeftCloseHatchCompoundPath().getPaths()),
+                //TODO: Add vision
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE)
+                //TODO: Drive back to loading station
         )));
     }
 }

@@ -2,6 +2,7 @@ package com.team2052.deepspace.auto.modes.LeftStart;
 
 import com.team2052.deepspace.auto.AutoMode;
 import com.team2052.deepspace.auto.actions.FollowPathAction;
+import com.team2052.deepspace.auto.actions.FollowPathListAction;
 import com.team2052.deepspace.auto.actions.HatchIntakeAction;
 import com.team2052.deepspace.auto.actions.SeriesAction;
 import com.team2052.deepspace.auto.paths.HatchPickUp.LHatchPickUpStartLeftCloseHatchCompoundPath;
@@ -14,16 +15,19 @@ import java.util.Arrays;
 public class LeftStartSideLeftMiddleHatchToLeftCloseHatch extends AutoMode {
     @Override
     protected void init() {
-        Path firstPath = new LStartSideLeftMiddleHatchPath();
-        Path secondPath = new LMiddleHatchStartLeftHatchPickUpPath();
-        Path thirdPath = new LHatchPickUpStartLeftCloseHatchCompoundPath();
         runAction(new SeriesAction(Arrays.asList(
-                new FollowPathAction(firstPath),
+                //TODO: Make starting path start going backwards
+                new FollowPathAction(new LStartSideLeftMiddleHatchPath()),
+                //TODO: Vision
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
-                new FollowPathAction(secondPath),
+                new FollowPathAction(new LMiddleHatchStartLeftHatchPickUpPath()),
+                //TODO: Vision
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
-                new FollowPathAction(thirdPath),
+                //TODO: Change to compound path to go backwards then forwards
+                new FollowPathListAction(new LHatchPickUpStartLeftCloseHatchCompoundPath().getPaths()),
+                //TODO: Vision
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE)
+                //TODO: Drive back towards loading station
         )));
     }
 }

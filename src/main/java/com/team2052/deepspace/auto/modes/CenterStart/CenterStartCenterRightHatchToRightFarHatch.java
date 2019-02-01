@@ -2,29 +2,30 @@ package com.team2052.deepspace.auto.modes.CenterStart;
 
 import com.team2052.deepspace.auto.AutoMode;
 import com.team2052.deepspace.auto.actions.FollowPathAction;
-import com.team2052.deepspace.auto.actions.HatchAction;
 import com.team2052.deepspace.auto.actions.HatchIntakeAction;
 import com.team2052.deepspace.auto.actions.SeriesAction;
 import com.team2052.deepspace.auto.paths.CenterHatchStarts.CRightHatchStartRightHatchPickUpPath;
 import com.team2052.deepspace.auto.paths.CenterStart.CStartCenterRightHatchPath;
 import com.team2052.deepspace.auto.paths.HatchPickUp.LHatchPickUpStartLeftFarHatchPath;
-import com.team2052.deepspace.auto.paths.Path;
 
 import java.util.Arrays;
 
 public class CenterStartCenterRightHatchToRightFarHatch extends AutoMode {
     @Override
     protected void init() {
-        Path firstPath = new CStartCenterRightHatchPath();
-        Path secondPath = new CRightHatchStartRightHatchPickUpPath();
-        Path thirdPath = new LHatchPickUpStartLeftFarHatchPath();
         runAction(new SeriesAction(Arrays.asList(
-                new FollowPathAction(firstPath),
+                //TODO: Make starting path start going backwards
+                new FollowPathAction(new CStartCenterRightHatchPath()),
+                //TODO: Vision
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
-                new FollowPathAction(secondPath),
+                new FollowPathAction(new CRightHatchStartRightHatchPickUpPath()),
+                //TODO: Vision
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
-                new FollowPathAction(thirdPath),
+                //TODO: This needs to be right, not left side compound path
+                new FollowPathAction(new LHatchPickUpStartLeftFarHatchPath()),
+                //TODO: Vision
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE)
+                //TODO: Drive back towards loading station
         )));
     }
 }
