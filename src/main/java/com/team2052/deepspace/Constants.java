@@ -18,11 +18,11 @@ public class Constants {
         public static final int kElevatorCargo3Button = 9;
         public static final int kElevatorAdjustmenUpButton = 10;
         public static final int kElevatorAdjustmenDownButton = 11;
-        public static final int kElevatorEmergencyUpButton = 12;
-        public static final int kElevatorEmergencyDownButton = 13;
+        public static final int kElevatorEmergencyUpButton = 3;
+        public static final int kElevatorEmergencyDownButton = 5;
 
-        public static final int kautoOverrideButton = 14;
-        public static final int kVisionTrackButton = 15;
+        public static final int kautoOverrideButton = 2;
+        public static final int kVisionTrackButton = 6;
     }
 
     public class DriveTrain{

@@ -65,7 +65,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotPeriodic() {
-        groundIntake.update();
+
     }
 
     /**
@@ -88,7 +88,9 @@ public class Robot extends TimedRobot {
         robotstate.outputToSmartDashboard();
         if(controls.autoOverride()){
             autoModeRunner.stop();
+            driveTrain.stop();
         }
+        System.out.println("AUTO IS DONE?: " + autoModeRunner.isAutodone());
 
         if(autoModeRunner.isAutodone()){
             driverControlled();
@@ -134,6 +136,8 @@ public class Robot extends TimedRobot {
             driveTrain.drive(driveHelper.drive(controls.getTankJoy1(), controls.getTurnJoy2(), controls.getQuickTurn()));
         }
 
+        groundIntake.update();
+
         if (controls.legClimber()){
             legClimberController.setLegClimber(controls.legClimber());
         }else {
@@ -148,6 +152,7 @@ public class Robot extends TimedRobot {
         } else {
             intake.cargoNeutral();
         }
+
         if (controls.getElevatorGroundCargo()) {
             elevator.setTarget(ElevatorController.ElevatorPresets.GROUND_CARGO);
         } else if (controls.getElevatorHatch1()) {
@@ -169,7 +174,5 @@ public class Robot extends TimedRobot {
         elevator.setElevatorAdjustmentDown(controls.getElevatorAdjustmentDown());
         elevator.setEmergencyUp(controls.getElevatorEmergencyUp());
         elevator.setEmergencyDown(controls.getElevatorEmergencyDown());
-
-
     }
 }

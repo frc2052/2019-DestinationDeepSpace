@@ -36,6 +36,10 @@ public class AutoModeRunner {
     }
 
     public boolean isAutodone(){
-        return autoMode.isRunning();
+        try {
+            return !autoMode.isRunning();
+        }catch(Exception e){
+            return true;
+        }
     }
 }
