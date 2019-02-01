@@ -61,11 +61,13 @@ public class GroundIntakeController implements Loopable {
             switch (intakeState) {
                 case GRABBING:
                     setGrabGroundIntakeState(true);
+                    System.out.println("GRABBING");
                     if (timer.hasPassedTime(Constants.Intake.kGrabTime)) {
                         setIntakeState(groundIntakeState.LIFTING);
                     }
                 case LIFTING:
                     setLiftGroundIntakeState(true);
+                    System.out.println("LIFTING");
                     if (timer.hasPassedTime(Constants.Intake.kLiftTime)) {
                         setIntakeState(groundIntakeState.DONE);
                     }
@@ -77,11 +79,13 @@ public class GroundIntakeController implements Loopable {
             switch(outtakeState){
                 case RELEASING:
                     setGrabGroundIntakeState(false);
+                    System.out.println("RELEASING");
                     if(timer.hasPassedTime(Constants.Intake.kReleaseTime)) {
                         setIntakeState(groundIntakeState.LIFTING);
                     }
                 case LOWERING:
                     setLiftGroundIntakeState(false);
+                    System.out.println("LOWERING");
                     if(timer.hasPassedTime(Constants.Intake.kEscapeTime)) {
                         setIntakeState(groundIntakeState.DONE);
                     }
