@@ -42,7 +42,7 @@ public class DriveTrainController {
         leftMaster.setInverted(false);
         leftSlave.setInverted(false);
 
-        rightMaster.setSensorPhase(true);
+        rightMaster.setSensorPhase(false);
         leftMaster.setSensorPhase(false);
 
         rightMaster.setNeutralMode(NeutralMode.Brake);
@@ -125,11 +125,11 @@ public class DriveTrainController {
     }
 
     public double getLeftEncoder(){
-        //System.out.println("LEFT ENCODER: " +leftMaster.getSelectedSensorPosition(0));
+        System.out.println("LEFT ENCODER: " +leftMaster.getSelectedSensorPosition(0));
         return leftMaster.getSelectedSensorPosition(0);
     }
     public double getRightEncoder(){
-        //System.out.println("RIGHT ENCODER: " + rightMaster.getSelectedSensorPosition(0));
+        System.out.println("RIGHT ENCODER: " + rightMaster.getSelectedSensorPosition(0));
         return rightMaster.getSelectedSensorPosition(0);
     }
 

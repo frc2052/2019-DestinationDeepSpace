@@ -32,7 +32,7 @@ public class RobotStateCalculator implements ILoopable{
     private void estimatePositionAverageHeading(double leftInches, double rightInches, double radians) {
 
         if(!startForward){
-            radians = radians + Math.PI;
+            //radians = radians + Math.PI;
         }
 
         deltaLeftInches = leftInches-pastLeftInches;
@@ -49,10 +49,10 @@ public class RobotStateCalculator implements ILoopable{
         latestPosition.setLateral(deltaDistance * Math.sin(averageHeading) + latestPosition.getLateral());
         latestPosition.setHeading(radians);
 /*
-        System.out.println("forward" + latestPosition.forward + "encoderInch: " + rightInches);
-        System.out.println("lateral " + latestPosition.lateral);
-        System.out.println("radians" + latestPosition.heading);
-        System.out.println("degrees " + latestPosition.heading / 0.017453);
+        System.out.println("forward" + latestPosition.getForward() + "encoderInch: " + rightInches);
+        System.out.println("lateral " + latestPosition.getLateral());
+        System.out.println("radians" + latestPosition.getHeading());
+        System.out.println("degrees " + latestPosition.getHeading() / 0.017453);
 */
     }
 
