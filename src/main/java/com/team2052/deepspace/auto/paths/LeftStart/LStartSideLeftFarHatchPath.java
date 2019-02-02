@@ -8,7 +8,7 @@ import java.util.List;
 
 public class LStartSideLeftFarHatchPath extends Path {
 
-    public LStartSideLeftFarHatchPath() {
+    public LStartSideLeftFarHatchPath(Direction backward) {
         setDirection(Direction.FORWARD);
         addWaypoint(new Waypoint(new Position2d(0,0),50));
         OptimizePath();

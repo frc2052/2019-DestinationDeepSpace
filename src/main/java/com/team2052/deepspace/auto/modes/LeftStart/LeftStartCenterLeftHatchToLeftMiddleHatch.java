@@ -1,11 +1,12 @@
 package com.team2052.deepspace.auto.modes.LeftStart;
 
 import com.team2052.deepspace.auto.AutoMode;
-import com.team2052.deepspace.auto.actions.FollowPathAction;
-import com.team2052.deepspace.auto.actions.HatchIntakeAction;
-import com.team2052.deepspace.auto.actions.SeriesAction;
+import com.team2052.deepspace.auto.actions.*;
 import com.team2052.deepspace.auto.paths.CenterHatchStarts.CLeftHatchStartLeftHatchPickUpPath;
 import com.team2052.deepspace.auto.paths.HatchPickUp.LHatchPickUpStartLeftMiddleHatchPath;
+import com.team2052.deepspace.auto.paths.HatchPickUp.LHatchPickUpStartLeftMiddleHatchPathCompoundPath;
+import com.team2052.deepspace.auto.paths.LeftHatchStarts.LFarHatchStartLeftHatchPickUpPath;
+import com.team2052.deepspace.auto.paths.LeftHatchStarts.LMiddleHatchStartLeftHatchPickUpPath;
 import com.team2052.deepspace.auto.paths.LeftStart.LStartCenterLeftHatchPath;
 import com.team2052.deepspace.auto.paths.Path;
 
@@ -15,17 +16,23 @@ public class LeftStartCenterLeftHatchToLeftMiddleHatch extends AutoMode {
     @Override
     protected void init() {
         runAction(new SeriesAction(Arrays.asList(
-                //TODO: Make starting path start going backwards
-                new FollowPathAction(new LStartCenterLeftHatchPath()),
-                //TODO: Vision
+                //Starting path starts going backwards
+                new FollowPathAction(new LStartCenterLeftHatchPath(Path.Direction.BACKWARD)),
+                //Vision
+                new VisionAction(),
+                //TODO: change hatch action to GROUND hatch outtake
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
                 new FollowPathAction(new CLeftHatchStartLeftHatchPickUpPath()),
-                //TODO: Vision
+                //Vision
+                new VisionAction(),
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
-                //TODO: Change to compound path to go backwards then forwards
-                new FollowPathAction(new LHatchPickUpStartLeftMiddleHatchPath()),
-                //TODO: Vision
-                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE)
+                //Compound path to make robot turn around
+                new FollowPathListAction(new LHatchPickUpStartLeftMiddleHatchPathCompoundPath().getPaths()),
+                //Vision
+                new VisionAction(),
+                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
+                //Drives back towards loading station
+                new FollowPathAction(new LMiddleHatchStartLeftHatchPickUpPath())
         )));
     }
 }
