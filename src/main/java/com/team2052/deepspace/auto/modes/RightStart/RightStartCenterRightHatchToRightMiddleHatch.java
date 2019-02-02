@@ -5,6 +5,7 @@ import com.team2052.deepspace.auto.actions.*;
 import com.team2052.deepspace.auto.paths.CenterHatchStarts.CRightHatchStartRightHatchPickUpPath;
 import com.team2052.deepspace.auto.paths.HatchPickUp.RHatchPickUpStartRightMiddleHatchPathCompoundPath;
 import com.team2052.deepspace.auto.paths.Path;
+import com.team2052.deepspace.auto.paths.RightSideHatchStarts.RMiddleHatchStartRightHatchPickUpPathCompoundPath;
 import com.team2052.deepspace.auto.paths.RightStart.RStartCenterRightHatchPath;
 
 import java.util.Arrays;
@@ -29,7 +30,7 @@ public class RightStartCenterRightHatchToRightMiddleHatch extends AutoMode {
                 new VisionAction(),
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
                 //Turns robot around and drives back towards loading station
-                new FollowPathListAction(new RMiddleHatchStartRightHatchPickUpPathCompoundPath1().getPaths())
+                new FollowPathListAction(new RMiddleHatchStartRightHatchPickUpPathCompoundPath().getPaths())
         )));
     }
 }
