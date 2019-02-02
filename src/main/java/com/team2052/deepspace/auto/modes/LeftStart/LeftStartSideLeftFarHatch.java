@@ -1,11 +1,9 @@
 package com.team2052.deepspace.auto.modes.LeftStart;
 
 import com.team2052.deepspace.auto.AutoMode;
-import com.team2052.deepspace.auto.actions.FollowPathAction;
-import com.team2052.deepspace.auto.actions.HatchIntakeAction;
-import com.team2052.deepspace.auto.actions.SeriesAction;
-import com.team2052.deepspace.auto.actions.VisionAction;
+import com.team2052.deepspace.auto.actions.*;
 import com.team2052.deepspace.auto.paths.LeftHatchStarts.LFarHatchStartLeftHatchPickUpPath;
+import com.team2052.deepspace.auto.paths.LeftHatchStarts.LFarHatchStartLeftHatchPickUpPathCompoundPath;
 import com.team2052.deepspace.auto.paths.LeftStart.LStartSideLeftFarHatchPath;
 import com.team2052.deepspace.auto.paths.Path;
 
@@ -21,8 +19,8 @@ public class LeftStartSideLeftFarHatch extends AutoMode {
                 new VisionAction(),
                 //TODO: change hatch action to GROUND hatch outtake
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
-                //Drives back towards loading station
-                new FollowPathAction(new LFarHatchStartLeftHatchPickUpPath())
+                //Turns robot around and drives back towards loading station
+                new FollowPathListAction(new LFarHatchStartLeftHatchPickUpPathCompoundPath().getPaths())
         )));
     }
 }

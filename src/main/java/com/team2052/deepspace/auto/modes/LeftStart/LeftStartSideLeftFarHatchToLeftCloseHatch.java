@@ -4,6 +4,7 @@ import com.team2052.deepspace.auto.AutoMode;
 import com.team2052.deepspace.auto.actions.*;
 import com.team2052.deepspace.auto.paths.HatchPickUp.LHatchPickUpStartLeftCloseHatchCompoundPath;
 import com.team2052.deepspace.auto.paths.LeftHatchStarts.LCloseHatchStartLeftHatchPickUpPath;
+import com.team2052.deepspace.auto.paths.LeftHatchStarts.LCloseHatchStartLeftHatchPickUpPathCompoundPath;
 import com.team2052.deepspace.auto.paths.LeftHatchStarts.LFarHatchStartLeftHatchPickUpPath;
 import com.team2052.deepspace.auto.paths.LeftStart.LStartSideLeftFarHatchPath;
 import com.team2052.deepspace.auto.paths.Path;
@@ -29,8 +30,8 @@ public class LeftStartSideLeftFarHatchToLeftCloseHatch extends AutoMode {
                 //Vision
                 new VisionAction(),
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
-                //Drives back towards loading station
-                new FollowPathAction(new LCloseHatchStartLeftHatchPickUpPath())
+                //Turns robot around and drives back towards loading station
+                new FollowPathListAction(new LCloseHatchStartLeftHatchPickUpPathCompoundPath().getPaths())
         )));
     }
 }

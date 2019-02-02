@@ -7,6 +7,7 @@ import com.team2052.deepspace.auto.paths.HatchPickUp.RHatchPickUpStartRightClose
 import com.team2052.deepspace.auto.paths.HatchPickUp.RHatchPickUpStartRightCloseHatchPathCompoundPath;
 import com.team2052.deepspace.auto.paths.Path;
 import com.team2052.deepspace.auto.paths.RightSideHatchStarts.RCloseHatchStartRightHatchPickUpPath;
+import com.team2052.deepspace.auto.paths.RightSideHatchStarts.RCloseHatchStartRightHatchPickUpPathCompoundPath;
 import com.team2052.deepspace.auto.paths.RightStart.RStartCenterRightHatchPath;
 
 import java.util.Arrays;
@@ -30,8 +31,8 @@ public class RightStartCenterRightHatchToRightCloseHatch extends AutoMode {
                 //Vision
                 new VisionAction(),
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
-                //Drives back towards loading station
-                new FollowPathAction(new RCloseHatchStartRightHatchPickUpPath())
+                //Turns robot around and drives back towards loading station
+                new FollowPathListAction(new RCloseHatchStartRightHatchPickUpPathCompoundPath().getPaths())
         )));
     }
 }

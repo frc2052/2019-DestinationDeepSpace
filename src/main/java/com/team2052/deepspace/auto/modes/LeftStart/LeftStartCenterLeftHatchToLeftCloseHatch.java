@@ -30,8 +30,7 @@ public class LeftStartCenterLeftHatchToLeftCloseHatch extends AutoMode {
                 //Vision
                 new VisionAction(),
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
-                //TODO: robot needs to turn around to go back to the driver station
-                //TODO: write compound path
+                //Turns robot around and drives back towards loading station
                 new FollowPathListAction(new LCloseHatchStartLeftHatchPickUpPathCompoundPath().getPaths())
         )));
     }

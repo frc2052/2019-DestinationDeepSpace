@@ -1,12 +1,10 @@
 package com.team2052.deepspace.auto.modes.CenterStart;
 
 import com.team2052.deepspace.auto.AutoMode;
-import com.team2052.deepspace.auto.actions.FollowPathAction;
-import com.team2052.deepspace.auto.actions.HatchIntakeAction;
-import com.team2052.deepspace.auto.actions.SeriesAction;
+import com.team2052.deepspace.auto.actions.*;
 
-import com.team2052.deepspace.auto.actions.VisionAction;
 import com.team2052.deepspace.auto.paths.CenterHatchStarts.CRightHatchStartRightHatchPickUpPath;
+import com.team2052.deepspace.auto.paths.CenterHatchStarts.CRightHatchStartRightHatchPickUpPathCompoundPath;
 import com.team2052.deepspace.auto.paths.CenterStart.CStartCenterRightHatchPath;
 import com.team2052.deepspace.auto.paths.Path;
 
@@ -21,9 +19,8 @@ public class CenterStartCenterRightHatch extends AutoMode {
                 //Vision
                 new VisionAction(),
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
-                //TODO: robot needs to turn around to go back to the driver station
-                //TODO: write compound path
-                new FollowPathAction(new CRightHatchStartRightHatchPickUpPath())
+                //Turns robot around and drives back towards loading station
+                new FollowPathListAction(new CRightHatchStartRightHatchPickUpPathCompoundPath().getPaths())
         )));
     }
 }
