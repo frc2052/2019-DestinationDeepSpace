@@ -50,7 +50,7 @@ public class Controls {
         return leftPrimaryStick.getTrigger();
     }
     public boolean getQuickTurn(){
-        return leftPrimaryStick.getRawButton(Constants.Controls.kQuickTurnButton);
+        return rightPrimaryStick.getRawButton(Constants.Controls.kQuickTurnButton);
     }
 
     public boolean getOuttake() {return secondaryStick.getRawButton(1);}

@@ -5,11 +5,6 @@ import com.team2052.deepspace.auto.AutoModeSelector;
 import com.team2052.deepspace.subsystems.*;
 import com.team2052.lib.ControlLoop;
 import edu.wpi.first.wpilibj.Compressor;
-import com.team2052.deepspace.subsystems.IntakeController;
-import com.team2052.deepspace.subsystems.LegClimberController;
-import com.team2052.deepspace.subsystems.DriveTrainController;
-import com.team2052.deepspace.subsystems.ElevatorController;
-import com.team2052.deepspace.subsystems.GroundIntake;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
@@ -72,7 +67,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotPeriodic() {
-        //groundIntake.update();
+
     }
 
     /**
@@ -95,7 +90,9 @@ public class Robot extends TimedRobot {
         robotstate.outputToSmartDashboard();
         if(controls.autoOverride()){
             autoModeRunner.stop();
+            driveTrain.stop();
         }
+        System.out.println("AUTO IS DONE?: " + autoModeRunner.isAutodone());
 
         if(autoModeRunner.isAutodone()){
             driverControlled();
@@ -131,7 +128,7 @@ public class Robot extends TimedRobot {
         autoModeRunner.stop();
         controlLoop.stop();
         driveTrain.stop();
-        //AutoModeSelector.getSelectedAutomode();
+        AutoModeSelector.getSelectedAutomode();
     }
 
     private void driverControlled(){
@@ -143,6 +140,9 @@ public class Robot extends TimedRobot {
         }
 
         /*if (controls.legClimber()){
+        groundIntake.update();
+
+        if (controls.legClimber()){
             legClimberController.setLegClimber(controls.legClimber());
         }else {
            // legClimberController.stopClimber();
@@ -156,6 +156,7 @@ public class Robot extends TimedRobot {
         } else {
             intake.cargoNeutral();
         }
+
         if (controls.getElevatorGroundCargo()) {
             elevator.setTarget(ElevatorController.ElevatorPresets.GROUND_CARGO);
         } else if (controls.getElevatorHatch1()) {
@@ -181,7 +182,4 @@ public class Robot extends TimedRobot {
 
 
     }
-
-
-
-    }
+}
