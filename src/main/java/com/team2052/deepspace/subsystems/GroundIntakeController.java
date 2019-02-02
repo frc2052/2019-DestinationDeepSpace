@@ -45,7 +45,9 @@ public class GroundIntakeController implements Loopable {
         grabGroundIntakeState = state;
         Grabber.set(state);
     }
-
+    private void setOuttakeState (groundOuttakeState state){
+        outtakeState = state;
+    }
     private void setIntakeState (groundIntakeState state){
         intakeState = state;
     } //only this class should want to change where it is in the enum
@@ -77,17 +79,17 @@ public class GroundIntakeController implements Loopable {
             }
         } else {
             switch(outtakeState){
-                case RELEASING:
-                    setGrabGroundIntakeState(false);
-                    System.out.println("RELEASING");
-                    if(timer.hasPassedTime(Constants.Intake.kReleaseTime)) {
-                        setIntakeState(groundIntakeState.LIFTING);
-                    }
                 case LOWERING:
                     setLiftGroundIntakeState(false);
                     System.out.println("LOWERING");
-                    if(timer.hasPassedTime(Constants.Intake.kEscapeTime)) {
-                        setIntakeState(groundIntakeState.DONE);
+                    if(timer.hasPassedTime(Constants.Intake.kReleaseTime)) { //Time before release
+                        setOuttakeState(groundOuttakeState.RELEASING);
+                    }
+                case RELEASING:
+                    setGrabGroundIntakeState(false);
+                    System.out.println("RELEASING");
+                    if(timer.hasPassedTime(Constants.Intake.kEscapeTime)) { //Time before done
+                        setOuttakeState(groundOuttakeState.DONE);
                     }
                 case DONE:
                     timer.stop();
