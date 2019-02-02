@@ -1,5 +1,6 @@
 package com.team2052.deepspace.actions;
 
+import com.team2052.deepspace.auto.actions.Action;
 import com.team2052.deepspace.subsystems.IntakeController;
 import edu.wpi.first.wpilibj.Timer;
 

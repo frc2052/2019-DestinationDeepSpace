@@ -153,9 +153,9 @@ public class Robot extends TimedRobot {
         } else {
             intake.cargoNeutral();
         }
-        if(controls.getGrab()){
-            intake.grab();
-        }
+
+        intake.grab(controls.getGrab());
+
 
         if (controls.getElevatorGroundCargo()) {
             elevator.setTarget(ElevatorController.ElevatorPresets.GROUND_CARGO);

@@ -14,7 +14,6 @@ public class IntakeController {
     private Solenoid cargoOuttakeSolenoid = new Solenoid(Constants.Intake.kCargoOutId);
     private Solenoid hatchIntakeSolenoid = new Solenoid(Constants.Intake.kHatchId);
 
-    private boolean grabberState = false;
     public void setCargoIntake(double speed, boolean intake) {
         intakeMotor.set(ControlMode.PercentOutput, speed);
         cargoIntakeSolenoid.set(intake);
@@ -36,20 +35,28 @@ public class IntakeController {
         setCargoIntake(Constants.Intake.kIntakePercentSpeed, true);
 
     }
-    public void grab(){
-        if (!grabberState){
-            cargoGrab();
-        } else if (grabberState){
-            cargoOuttake();
+
+    private boolean isCargoClosed = false;
+    private boolean lastPressedState;
+    public void grab(Boolean isPressed){
+        if (isPressed && !lastPressedState){  //it is pressed now, but wasn't pressed on the last loop
+            //need to change the state of the grabber
+            if (!isCargoClosed) {
+                cargoGrab();
+            } else {
+                cargoOuttake();
+            }
         }
+        lastPressedState = isPressed;
     }
 
     public void cargoGrab(){
         cargoOuttakeSolenoid.set(true);
-        grabberState = true;
+        isCargoClosed = true;
     }
     public void cargoOuttake(){
-        grabberState = false;
+        cargoOuttakeSolenoid.set(false);
+        isCargoClosed = false;
     }
 
     private boolean hatchIntakeState;
