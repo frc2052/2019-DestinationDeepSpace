@@ -3,6 +3,7 @@ package com.team2052.deepspace.auto.modes.LeftStart;
 import com.team2052.deepspace.auto.AutoMode;
 import com.team2052.deepspace.auto.actions.*;
 import com.team2052.deepspace.auto.paths.CenterHatchStarts.CLeftHatchStartLeftHatchPickUpPath;
+import com.team2052.deepspace.auto.paths.CenterHatchStarts.CLeftHatchStartLeftHatchPickUpPathCompoundPath;
 import com.team2052.deepspace.auto.paths.LeftHatchStarts.LCloseHatchStartLeftHatchPickUpPath;
 import com.team2052.deepspace.auto.paths.LeftStart.LStartCenterLeftHatchPath;
 import com.team2052.deepspace.auto.paths.Path;
@@ -21,7 +22,7 @@ public class LeftStartCenterLeftCenterHatch extends AutoMode {
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
                 //TODO: robot needs to turn around to go back to the driver station
                 //TODO: write compound path
-                new FollowPathListAction(new CLeftHatchStartLeftHatchPickUpPathCompoundPaths().getPaths())
+                new FollowPathListAction(new CLeftHatchStartLeftHatchPickUpPathCompoundPath().getPaths())
         )));
     }
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 public class RStartSideRightMiddleHatchPath extends Path {
 
-    public RStartSideRightMiddleHatchPath() {
+    public RStartSideRightMiddleHatchPath(Direction backward) {
         setDirection(Direction.FORWARD);
         addWaypoint(new Waypoint(new Position2d(0,47),50)); // C
         addWaypoint(new Waypoint(new Position2d(68,65),50)); // f
