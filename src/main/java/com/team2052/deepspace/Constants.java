@@ -18,11 +18,11 @@ public class Constants {
         public static final int kElevatorCargo3Button = 9;
         public static final int kElevatorAdjustmenUpButton = 10;
         public static final int kElevatorAdjustmenDownButton = 11;
-        public static final int kElevatorEmergencyUpButton = 12;
-        public static final int kElevatorEmergencyDownButton = 13;
+        public static final int kElevatorEmergencyUpButton = 3;
+        public static final int kElevatorEmergencyDownButton = 5;
 
-        public static final int kautoOverrideButton = 14;
-        public static final int kVisionTrackButton = 15;
+        public static final int kautoOverrideButton = 2;
+        public static final int kVisionTrackButton = 6;
     }
 
     public class DriveTrain{
@@ -37,16 +37,20 @@ public class Constants {
         public static final double kDriveWheelCircumferenceInches = 6.0 * Math.PI;
     }
     public class Intake {
+        public static final int kLifterId = 1;
+        public static final int kGrabberId = 2;
         public static final int kIntakeMotorId = 1;
         public static final int kCargoId = 2;
         public static final int kHatchId = 3;
         public static final int kOuttakePercentSpeed = -30;
         public static final int kNeutralSpeed = 20;
         public static final int kIntakePercentSpeed = 50;
-        public static final int kLifterId = 1;
-        public static final int kGrabberId = 2;
         public static final double kGrabTime = .5;
         public static final double kLiftTime = kGrabTime + .5;
+        public static final double kReleaseTime = .5;
+        public static final double kEscapeTime = kReleaseTime + .5;
+        public static final int kGroundIntakeButton = 1;
+        public static final int kGroundOuttakeButton = 2;
 
     }
 
@@ -116,6 +120,4 @@ public class Constants {
         public static final double kElevatorEmergencyUpPower = 0.4;
         public static final double kElevatorEmergencyHoldPower = 0.2;
     }
-
-
 }
