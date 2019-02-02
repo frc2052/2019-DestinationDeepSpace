@@ -6,7 +6,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 import com.team2052.deepspace.Constants;
-import com.team2052.deepspace.DriveSignal;
+import com.team2052.lib.DriveSignal;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 
@@ -37,10 +37,10 @@ public class DriveTrainController {
         rightMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.DriveTrain.kVelocityControlSlot, Constants.DriveTrain.kCANBusConfigTimeoutMS);
         leftMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.DriveTrain.kVelocityControlSlot, Constants.DriveTrain.kCANBusConfigTimeoutMS);
 
-        rightMaster.setInverted(true);
-        rightSlave.setInverted(true);
-        leftMaster.setInverted(false);
-        leftSlave.setInverted(false);
+        rightMaster.setInverted(false);
+        rightSlave.setInverted(false);
+        leftMaster.setInverted(true);
+        leftSlave.setInverted(true);
 
         rightMaster.setSensorPhase(false);
         leftMaster.setSensorPhase(false);

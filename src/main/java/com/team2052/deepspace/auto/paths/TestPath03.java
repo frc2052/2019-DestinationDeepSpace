@@ -9,7 +9,7 @@ public class TestPath03 extends Path{
 
 
     public TestPath03() {
-        setDirection(Direction.FORWARD);
+        setDirection(Direction.BACKWARD);
         addWaypoint(new Waypoint(new Position2d(0,0),50));
         addWaypoint(new Waypoint(new Position2d(48,0),50));
         addWaypoint(new Waypoint(new Position2d(48,36),50));

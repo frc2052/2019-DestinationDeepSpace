@@ -1,8 +1,10 @@
 package com.team2052.deepspace.auto;
 
+import com.team2052.deepspace.Constants;
+
 public abstract class AutoMode extends AutoModeBase{
 
-    protected StartDirection startDirection = StartDirection.FORWARD;
+    protected StartDirection startDirection = Constants.Autonomous.defaultStartDirection;
 
     public StartDirection getStartDirection(){
         return startDirection;

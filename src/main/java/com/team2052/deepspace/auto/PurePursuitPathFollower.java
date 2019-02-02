@@ -1,7 +1,7 @@
 package com.team2052.deepspace.auto;
 
 import com.team2052.deepspace.Constants;
-import com.team2052.deepspace.DriveSignal;
+import com.team2052.lib.DriveSignal;
 import com.team2052.deepspace.RobotState;
 import com.team2052.deepspace.auto.paths.Path;
 import com.team2052.deepspace.subsystems.DriveTrainController;

@@ -1,8 +1,8 @@
 package com.team2052.deepspace.subsystems;
 
 import com.team2052.deepspace.Constants;
-import com.team2052.deepspace.KnightTimer;
-import com.team2052.deepspace.Loopable;
+import com.team2052.lib.KnightTimer;
+import com.team2052.lib.Loopable;
 import edu.wpi.first.wpilibj.Solenoid;
 
 public class GroundIntake implements Loopable {

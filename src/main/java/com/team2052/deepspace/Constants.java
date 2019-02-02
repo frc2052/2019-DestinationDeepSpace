@@ -1,6 +1,8 @@
 package com.team2052.deepspace;
 
 
+import com.team2052.deepspace.auto.AutoMode;
+
 public class Constants {
     //All constant values for the robot code will go in this class.
 
@@ -26,10 +28,10 @@ public class Constants {
     }
 
     public class DriveTrain{
-        public static final int kDriveLeftMasterId = 1;
-        public static final int kDriveLeftSlaveId = 2;
-        public static final int kDriveRightMasterId = 4;
-        public static final int kDriveRightSlaveId = 3;
+        public static final int kDriveLeftMasterId = 4;
+        public static final int kDriveLeftSlaveId = 3;
+        public static final int kDriveRightMasterId = 1;
+        public static final int kDriveRightSlaveId = 2;
 
         public static final int kVelocityControlSlot = 0;
         public static final int kCANBusConfigTimeoutMS = 10;
@@ -52,7 +54,7 @@ public class Constants {
 
 
 
-    public class Autonomous{ //all units for distances, velocity, and acceleration are in inches
+    public static class Autonomous{ //all units for distances, velocity, and acceleration are in inches
         public static final double kturnSpeed = 4.0; //constant from 1-5     higher = faster
 
         public static final double kMaxVelocity = (10 * 12); //10 * 12
@@ -77,7 +79,7 @@ public class Constants {
         public static final double kMinVelocity = 0.05; //range 0-1: minimum amount of power to overcome static friction
 
         public static final double kMinPointSpacing = 6;
-
+        public static final AutoMode.StartDirection defaultStartDirection = AutoMode.StartDirection.BACKWARD;
     }
 
 

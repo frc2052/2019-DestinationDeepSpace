@@ -1,4 +1,4 @@
-package com.team2052.deepspace;
+package com.team2052.lib;
 
 import edu.wpi.first.wpilibj.Timer;
 

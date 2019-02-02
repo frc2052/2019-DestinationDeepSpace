@@ -195,18 +195,21 @@ public abstract class Path {
                 }
 
                 if (pathPoints.get(i).getCurvature() != 0){
-                    //System.out.println("Curvature: " + pathPoints.get(i).getCurvature());
-                    //System.out.println("MINIMUM OF: " + (Constants.Autonomous.kturnSpeed / pathPoints.get(i).getCurvature()) + " , " + pathPoints.get(i).getVelocity());
+                    System.out.println("Curvature: " + pathPoints.get(i).getCurvature());
+                    System.out.println("MINIMUM OF: " + (Constants.Autonomous.kturnSpeed / pathPoints.get(i).getCurvature()) + " , " + pathPoints.get(i).getVelocity());
                     double vel = Math.min(Constants.Autonomous.kturnSpeed / pathPoints.get(i).getCurvature(), pathPoints.get(i).getVelocity());
-                    pathPoints.get(i).setVelocity(isForward ? vel : -vel);
+                    pathPoints.get(i).setVelocity(vel);
                 }
 
                 if (pathPoints.get(i).getVelocity() > Constants.Autonomous.kMaxVelocity || pathPoints.get(i).getVelocity() < -Constants.Autonomous.kMaxVelocity){
-                    pathPoints.get(i).setVelocity(isForward ? Constants.Autonomous.kMaxVelocity : -Constants.Autonomous.kMaxVelocity);
+                    pathPoints.get(i).setVelocity(Constants.Autonomous.kMaxVelocity);
                 }
             }
         }
 
+        for(int i = 0; i < pathPoints.size(); i++){
+            System.out.println(" vels before kinematics: " + pathPoints.get(i).getVelocity());
+        }
         /*Calculate Deceleration
         * the robot limits its acceleration but will start decelerating to late.
         * use kinimatics to lower the velocity so the robot trys to stop when it gets to a point
@@ -223,10 +226,10 @@ public abstract class Path {
         }
 
         //print the final points
-        /*
+
         for(int i = 0; i < pathPoints.size(); i++){
             System.out.println("path points: x: " + pathPoints.get(i).getPosition().getLateral() + "y: " + pathPoints.get(i).getPosition().getForward() + " vel: " + pathPoints.get(i).getVelocity());
-        }*/
+        }
         pushPathToSmartDashboard(pathPoints);
         wayPoints = pathPoints;
     }

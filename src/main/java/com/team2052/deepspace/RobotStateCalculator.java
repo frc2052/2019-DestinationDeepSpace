@@ -32,7 +32,7 @@ public class RobotStateCalculator implements ILoopable{
     private void estimatePositionAverageHeading(double leftInches, double rightInches, double radians) {
 
         if(!startForward){
-            //radians = radians + Math.PI;
+            radians = radians + Math.PI;
         }
 
         deltaLeftInches = leftInches-pastLeftInches;
