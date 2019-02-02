@@ -18,10 +18,11 @@ public class LCloseHatchStartLeftHatchPickUpPathCompoundPath extends CompoundPat
         public  LCloseHatchStartLeftHatchPickUpPath1() {
             setDirection(Direction.BACKWARD);
             //TODO: Take coordinates from LHatchPickUpStartLeftFarHatchPath and add here, fix points to allow for a turn
-            //TODO: incorect coordinates, fix them
+            //TODO: incorrect coordinates, fix them
             addWaypoint(new Waypoint(new Position2d(194,-47),50)); //P
             addWaypoint(new Waypoint(new Position2d(194,-65),50)); // N
             addWaypoint(new Waypoint(new Position2d(153,-65),50)); // M
+            addWaypoint(new Waypoint(new Position2d(68,-47),50)); // G
             addWaypoint(new Waypoint(new Position2d(68,-47),50)); // G
             OptimizePath();
         }
