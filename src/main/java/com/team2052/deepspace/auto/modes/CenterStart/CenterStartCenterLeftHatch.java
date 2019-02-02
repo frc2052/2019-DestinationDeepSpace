@@ -17,7 +17,8 @@ public class CenterStartCenterLeftHatch extends AutoMode {
                 new FollowPathAction(new CStartCenterLeftHatchPath(Path.Direction.BACKWARD)),
                 //Vision
                 new VisionAction(),
-                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
+                // when false, ground outtake action
+                new GroundIntakeAction(false),
                 //Turns robot around and drives back towards loading station
                 new FollowPathListAction(new CLeftHatchStartLeftHatchPickUpPathCompoundPath().getPaths())
         )));

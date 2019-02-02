@@ -18,8 +18,8 @@ public class RightStartSideRightCloseHatchToRightMiddleHatch extends AutoMode {
                 new FollowPathAction(new RStartSideRightCloseHatchPath(Path.Direction.BACKWARD)),
                 //Vision
                 new VisionAction(),
-                //TODO: change hatch action to GROUND hatch outtake
-                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
+                // when false, ground outtake action
+                new GroundIntakeAction(false),
                 new FollowPathAction(new RCloseHatchStartRightHatchPickUpPath()),
                 //Vision
                 new VisionAction(),

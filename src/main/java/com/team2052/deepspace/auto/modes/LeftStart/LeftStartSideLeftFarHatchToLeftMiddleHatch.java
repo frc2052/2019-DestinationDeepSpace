@@ -20,8 +20,8 @@ public class LeftStartSideLeftFarHatchToLeftMiddleHatch extends AutoMode {
                 new FollowPathAction(new LStartSideLeftFarHatchPath(Path.Direction.BACKWARD)),
                 //Vision
                 new VisionAction(),
-                //TODO: change hatch action to GROUND hatch outtake
-                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
+                // when false, ground outtake action
+                new GroundIntakeAction(false),
                 new FollowPathAction(new LFarHatchStartLeftHatchPickUpPath()),
                 //Vision
                 new VisionAction(),

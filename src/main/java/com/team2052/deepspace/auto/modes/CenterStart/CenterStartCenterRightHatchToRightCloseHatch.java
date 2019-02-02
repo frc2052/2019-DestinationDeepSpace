@@ -21,7 +21,8 @@ public class CenterStartCenterRightHatchToRightCloseHatch extends AutoMode {
                 new FollowPathAction(new CStartCenterRightHatchPath(Path.Direction.BACKWARD)),
                 //Vision
                 new VisionAction(),
-                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
+                // when false, ground outtake action
+                new GroundIntakeAction(false),
                 new FollowPathAction(new CRightHatchStartRightHatchPickUpPath()),
                 //Vision
                 new VisionAction(),
