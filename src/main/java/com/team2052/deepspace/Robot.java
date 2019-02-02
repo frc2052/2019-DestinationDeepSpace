@@ -27,7 +27,7 @@ public class Robot extends TimedRobot {
     private ElevatorController elevator = null;
     private GroundIntake groundIntake;
     private LegClimberController legClimberController = null;
-    private LightSensorFollowerTapeThingyThing lightSensorFollower = null;
+    private LineFollowerController lineFollower = null;
     private RobotState robotstate = RobotState.getInstance();
     private RobotStateCalculator robotStateCalculator = RobotStateCalculator.getInstance();
     private AutoModeRunner autoModeRunner = new AutoModeRunner();
@@ -51,7 +51,7 @@ public class Robot extends TimedRobot {
         controlLoop.addLoopable(robotStateCalculator);
         visionController = VisionController.getInstance();
 
-        lightSensorFollower = LightSensorFollowerTapeThingyThing.getInstance();
+        lineFollower = LineFollowerController.getInstance();
         try {
             compressor = new Compressor();
             compressor.setClosedLoopControl(true);
@@ -135,10 +135,8 @@ public class Robot extends TimedRobot {
     }
 
     private void driverControlled(){
-        if(controls.getVisionTrack()) {
-            //driveTrain.drive(visionController.getMotorOutput());
-        }else if (controls.getLightFollow()){
-            lightSensorFollower.setLightSensorMotorStates(controls.getTankJoy1());
+        if (controls.getLineFollow()){
+            driveTrain.drive(lineFollower.getLightSensorMotorTurn(controls.getTankJoy1()));
         }
         else {
             driveTrain.drive(driveHelper.drive(controls.getTankJoy1(), controls.getTurnJoy2(), controls.getQuickTurn()));
