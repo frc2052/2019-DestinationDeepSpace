@@ -30,8 +30,8 @@ public class GroundIntakeController implements Loopable {
         return instance;
     }//Singleton
 
-    public final Solenoid Lifter = new Solenoid(Constants.Controls.kLifterId);
-    public final Solenoid Grabber = new Solenoid(Constants.Controls.kGrabberId);
+    public final Solenoid Lifter = new Solenoid(Constants.Intake.kLifterId);
+    public final Solenoid Grabber = new Solenoid(Constants.Intake.kGrabberId);
 
     private boolean liftGroundIntakeState; //Getter and Setter
     public boolean getLiftGroundIntakeState(){ return liftGroundIntakeState; }

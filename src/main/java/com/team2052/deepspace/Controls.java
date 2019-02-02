@@ -56,8 +56,8 @@ public class Controls {
 
     public boolean getOuttake() {return secondaryStick.getRawButton(1);}
     public boolean getIntake () {return secondaryStick.getTrigger();}
-    public boolean getGroundIntake () {return secondaryStick.getRawButton(Constants.Controls.kGroundIntakeButton); }
-    public boolean getGroundOuttake () {return secondaryStick.getRawButton(Constants.Controls.kGroundOuttakeButton); }
+    public boolean getGroundIntake () {return secondaryStick.getRawButton(Constants.Intake.kGroundIntakeButton); }
+    public boolean getGroundOuttake () {return secondaryStick.getRawButton(Constants.Intake.kGroundOuttakeButton); }
 
     public boolean getVisionTrack(){
         return secondaryStick.getRawButton(Constants.Controls.kVisionTrackButton);

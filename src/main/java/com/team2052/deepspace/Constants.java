@@ -49,6 +49,8 @@ public class Constants {
         public static final double kLiftTime = kGrabTime + .5;
         public static final double kReleaseTime = .5;
         public static final double kEscapeTime = kReleaseTime + .5;
+        public static final int kGroundIntakeButton = 1;
+        public static final int kGroundOuttakeButton = 2;
 
     }
 

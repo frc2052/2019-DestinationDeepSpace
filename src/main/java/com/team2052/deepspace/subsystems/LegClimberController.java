@@ -13,12 +13,12 @@ public class LegClimberController {
     private static LegClimberController singleLegClimberControllerInstance = new LegClimberController();
     public static LegClimberController getInstance() { return singleLegClimberControllerInstance; }
 
-    private TalonSRX legClimberMotor = new TalonSRX(Constants.Controls.kLegClimberTalon1id);
+    private TalonSRX legClimberMotor = new TalonSRX(Constants.LegClimber.kLegClimberTalon1id);
     private double pos = (Constants.LegClimber.kClimbMotorRotations * Constants.LegClimber.kEncoderTicksPerRotation);
 
 
     //with assistance
-    private Solenoid LegClimberSolenoid1 = new Solenoid(Constants.Controls.kLegClimberSolenoid1id);
+    private Solenoid LegClimberSolenoid1 = new Solenoid(Constants.LegClimber.kLegClimberSolenoid1id);
 
     private LegClimberController(){
         legClimberMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.DriveTrain.kVelocityControlSlot, Constants.DriveTrain.kCANBusConfigTimeoutMS);
