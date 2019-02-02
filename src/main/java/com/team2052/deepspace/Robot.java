@@ -78,7 +78,7 @@ public class Robot extends TimedRobot {
         driveTrain.zeroGyro();
         AutoModeSelector.AutoModeDefinition currentAutoMode = AutoModeSelector.getSelectedAutomode();
         robotStateCalculator.setStartDirection(currentAutoMode.getInstance().getStartDirection().isForward);
-        robotStateCalculator.resetRobotState();
+        robotStateCalculator.resetRobotState(currentAutoMode.getInstance().getStartPosition().lateralOffset,0);
         autoModeRunner.start(currentAutoMode.getInstance());
     }
 
@@ -106,6 +106,7 @@ public class Robot extends TimedRobot {
     public void teleopInit(){
         robotStateCalculator.resetRobotState();
         controlLoop.start();
+        driveTrain.zeroGyro();
     }
 
     /**
@@ -139,6 +140,7 @@ public class Robot extends TimedRobot {
             driveTrain.drive(driveHelper.drive(controls.getTankJoy1(), controls.getTurnJoy2(), controls.getQuickTurn()));
         }
         robotstate.outputToSmartDashboard();
+        driveTrain.setHighGear(controls.getShift());
 /*
         groundIntake.update();
 

@@ -65,9 +65,19 @@ public class RobotStateCalculator implements ILoopable{
 
     }
 
+    public void resetRobotState(double lateralOffset, double forwardOffset){
+        latestPosition.reset();
+        latestPosition.setForward(forwardOffset);
+        latestPosition.setLateral(lateralOffset);
+        driveTrain.resetEncoders();
+        pastLeftInches = 0;
+        pastRightInches = 0;
+        timeSinceReset = 0;
+
+    }
     @Override
     public void update() {
-        estimatePositionAverageHeading((driveTrain.getLeftEncoder() / Constants.DriveTrain.kTicksPerRot) * Constants.DriveTrain.kDriveWheelCircumferenceInches, (driveTrain.getRightEncoder() / Constants.DriveTrain.kTicksPerRot) * Constants.DriveTrain.kDriveWheelCircumferenceInches, driveTrain.getGyroAngleRadians());
+        estimatePositionAverageHeading((driveTrain.getLeftEncoder() / Constants.DriveTrain.kTicksPerRot) * Constants.DriveTrain.kDriveWheelCircumferenceInches * Constants.DriveTrain.kEncoderGearRatio, (driveTrain.getRightEncoder() / Constants.DriveTrain.kTicksPerRot) * Constants.DriveTrain.kDriveWheelCircumferenceInches * Constants.DriveTrain.kEncoderGearRatio, driveTrain.getGyroAngleRadians());
         robotState.setVelocityInch((lastVels[0] + lastVels[1] + lastVels[2])/3);
         robotState.setLeftVelocityInch(deltaLeftInches);
         robotState.setRightVelocityInch(deltaRightInches);

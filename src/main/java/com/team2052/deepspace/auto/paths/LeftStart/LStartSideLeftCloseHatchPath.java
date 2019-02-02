@@ -10,10 +10,13 @@ public class LStartSideLeftCloseHatchPath extends Path {
 
     public LStartSideLeftCloseHatchPath() {
         setDirection(Direction.FORWARD);
-        addWaypoint(new Waypoint(new Position2d(0,-47),50)); // B
-        addWaypoint(new Waypoint(new Position2d(68,-65),50)); // F
-        addWaypoint(new Waypoint(new Position2d(194,-65),50)); // N
-        addWaypoint(new Waypoint(new Position2d(194,-47),50)); // P
+        addWaypoint(new Waypoint(new Position2d(0,-47),70)); // B
+        addWaypoint(new Waypoint(new Position2d(50,-47),70));
+        addWaypoint(new Waypoint(new Position2d(130,-75),70)); // F
+        addWaypoint(new Waypoint(new Position2d(175,-75),70));
+        addWaypoint(new Waypoint(new Position2d(188,-72),70));
+        addWaypoint(new Waypoint(new Position2d(194,-60),70));
+        addWaypoint(new Waypoint(new Position2d(194,-47),70)); // P
         OptimizePath();
     }
 

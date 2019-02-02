@@ -177,8 +177,8 @@ public class PurePursuitPathFollower{
         //if we are moving at higher velocitys, at the end look father ahead to stop
         double deltaVelocity = rateLimiter.constrain(path.getWaypoints().get(closestPointIndex+((closestPointIndex >= path.getWaypoints().size()-5)?1:0)).getVelocity() - robotState.getVelocityInch(), -Constants.Autonomous.kMaxAccel * Constants.Autonomous.kloopPeriodMs, Constants.Autonomous.kMaxAccel * Constants.Autonomous.kloopPeriodMs);
         double velocity = robotState.getVelocityInch() +  deltaVelocity;
-        leftWheelVel = velocity * (2 - curvature * Constants.Autonomous.kTrackWidth)/2;
-        rightWheelVel = velocity * (2 + curvature * Constants.Autonomous.kTrackWidth)/2;
+        leftWheelVel = velocity * (2 + curvature * Constants.Autonomous.kTrackWidth)/2;
+        rightWheelVel = velocity * (2 - curvature * Constants.Autonomous.kTrackWidth)/2; //todo swap + & -
 
         //if velocity gets to fast scale it down so a wheel is not told to drive faster then 100%
         double highestVel = 0.0;

@@ -34,7 +34,7 @@ public class Controls {
     }
 
     public double getTurnJoy2() {
-        double val = -rightPrimaryStick.getX();
+        double val = rightPrimaryStick.getX();
         if (val < .15 && val > -.15) {
             val = 0;
         }
@@ -46,15 +46,14 @@ public class Controls {
     }
 
 
-    public boolean reset() {
-        return leftPrimaryStick.getTrigger();
-    }
     public boolean getQuickTurn(){
         return rightPrimaryStick.getRawButton(Constants.Controls.kQuickTurnButton);
     }
 
-    public boolean getOuttake() {return secondaryStick.getRawButton(1);}
+    public boolean getOuttake() {return secondaryStick.getTrigger();}
     public boolean getIntake () {return secondaryStick.getTrigger();}
+
+    public boolean getShift(){return leftPrimaryStick.getRawButton(4);}
 
     public boolean getVisionTrack(){
         return secondaryStick.getRawButton(Constants.Controls.kVisionTrackButton);

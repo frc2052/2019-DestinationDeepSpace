@@ -28,15 +28,21 @@ public class Constants {
     }
 
     public class DriveTrain{
-        public static final int kDriveLeftMasterId = 4;
-        public static final int kDriveLeftSlaveId = 3;
-        public static final int kDriveRightMasterId = 1;
-        public static final int kDriveRightSlaveId = 2;
+        public static final int kDriveLeftMasterId = 1;
+        public static final int kDriveLeftSlaveId = 2;
+        public static final int kDriveLeftSlave2Id = 3;
+        public static final int kDriveRightMasterId = 4;
+        public static final int kDriveRightSlaveId = 5;
+        public static final int kDriveRightSlave2Id = 6;
 
         public static final int kVelocityControlSlot = 0;
         public static final int kCANBusConfigTimeoutMS = 10;
         public static final int kTicksPerRot = 1024;
+        public static final double kEncoderGearRatio = (1.0/3)*(20.0/64);
         public static final double kDriveWheelCircumferenceInches = 6.0 * Math.PI;
+
+        public static final int kShiftInSolenoidID = 0;
+        public static final int kShiftOutSolenoidID = 1;
     }
     public class Intake {
         public static final int kIntakeMotorId = 1;
@@ -49,22 +55,21 @@ public class Constants {
         public static final int kGrabberId = 2;
         public static final double kGrabTime = .5;
         public static final double kLiftTime = kGrabTime + .5;
-
     }
 
 
 
     public static class Autonomous{ //all units for distances, velocity, and acceleration are in inches
-        public static final double kturnSpeed = 4.0; //constant from 1-5     higher = faster
+        public static final double kturnSpeed = 5.0; //constant from 1-5     higher = faster
 
         public static final double kMaxVelocity = (10 * 12); //10 * 12
         public static final double kMaxAccel = 40;
         public static final long kloopPeriodMs = 50;
         public static final double kloopPeriodSec = kloopPeriodMs/1000.0; //int devision
 
-        public static final double kLookaheadDistance = 15; //12-25
+        public static final double kLookaheadDistance = 18; //12-25
         public static final int kNumOfFakePts = (int)((Constants.Autonomous.kLookaheadDistance * 1.5)/Constants.Autonomous.kMinPointSpacing); //how many extra point have we added after the last one?
-        public static final double kTrackWidth = 25;
+        public static final double kTrackWidth = 27.25;
         public static final double kRequiredDistanceFromEnd = 3;
         public static final double kV = 1/(kMaxVelocity+8);
         public static final double kA = 0.003; //0.002
@@ -75,17 +80,19 @@ public class Constants {
         public static final double kTd = 3.0;
         public static final double kTf = 0.3;
 
+        public static final double kStartLeftInchOffset = -47;
+        public static final double kStartRightInchOffset = -47;
 
         public static final double kMinVelocity = 0.05; //range 0-1: minimum amount of power to overcome static friction
 
         public static final double kMinPointSpacing = 6;
-        public static final AutoMode.StartDirection defaultStartDirection = AutoMode.StartDirection.BACKWARD;
+        public static final AutoMode.StartDirection defaultStartDirection = AutoMode.StartDirection.FORWARD;
     }
 
 
     public  class LegClimber {
 
-        public static final int kLegClimberTalon1id = 20;
+        public static final int kLegClimberTalon1id = 7;
         public static final double kLegClimberMotorVelocity = 0.7;
         public static final int kLegClimberButton = 5;
         public static final int kLegClimberSolenoid1id = 21;

@@ -51,8 +51,13 @@ public class AutoModeSelector {
     }
 
     public static AutoModeDefinition getSelectedAutomode(){
-        String selected = sendableChooserPosition.getSelected().name + sendableChooserFirstTarget.getSelected().name
-                + (sendableChooserSecondTarget.getSelected().name.equals("None") ? "" : sendableChooserSecondTarget.getSelected().name);
+        String selected = "";
+        try {
+            selected = sendableChooserPosition.getSelected().name + sendableChooserFirstTarget.getSelected().name
+                    + (sendableChooserSecondTarget.getSelected().name.equals("None") ? "" : sendableChooserSecondTarget.getSelected().name);
+        }catch (Exception e){
+            System.out.println("ERROR AT SELECTED");
+        }
         AutoModeDefinition selectedMode = null;
         try{
             //System.out.println("Selected" + selected);

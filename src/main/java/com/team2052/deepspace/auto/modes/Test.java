@@ -10,7 +10,8 @@ import java.util.Arrays;
 public class Test extends AutoMode {
 
     public Test(){
-        startDirection = StartDirection.BACKWARD;
+        startDirection = StartDirection.FORWARD;
+        startPosition = StartPosition.CENTER;
     }
 
     @Override
@@ -19,6 +20,7 @@ public class Test extends AutoMode {
         System.out.println("init");
 
         runAction(new SeriesAction(Arrays.asList(
+
                 new FollowPathAction(new TestPath03())
                 //new FollowPathAction(backwardPath)
         )));
