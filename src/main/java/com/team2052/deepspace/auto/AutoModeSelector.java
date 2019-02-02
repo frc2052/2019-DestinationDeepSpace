@@ -3,7 +3,6 @@ package com.team2052.deepspace.auto;
 import com.team2052.deepspace.auto.modes.CenterStart.*;
 import com.team2052.deepspace.auto.modes.LeftStart.*;
 import com.team2052.deepspace.auto.modes.RightStart.*;
-import com.team2052.deepspace.auto.modes.RightStart.RightStartSideRightMiddleHatch;
 import com.team2052.deepspace.auto.modes.Test;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -68,7 +67,8 @@ public class AutoModeSelector {
     {
         LEFT("StartLeft"),
         CENTER("StartCenter"),
-        RIGHT("StartRight");
+        RIGHT("StartRight"),
+        TEST("Test");
 
         public String name;
         PositionSelection(String name){
@@ -78,6 +78,7 @@ public class AutoModeSelector {
 
     public enum FirstTargetSelection
     {
+
         CLH("LeftCenterHatch"),
         CRH("RightCenterHatch"),
         SL("LeftSide"),
@@ -91,7 +92,8 @@ public class AutoModeSelector {
         SLFHT("LeftSideFarHatchTo"),
         SRCHT("RightSideCloseHatchTo"),
         SRMHT("RightSideMiddleHatchTo"),
-        SRFHT("RightSideFarHatchTo");
+        SRFHT("RightSideFarHatchTo"),
+        TEST("Test");
 
         public String name;
         FirstTargetSelection(String name){
@@ -123,7 +125,7 @@ public class AutoModeSelector {
 
     public enum AutoModeDefinition
     {
-
+        TestTest(Test.class),
         //Single path AMDs
         StartLeftLeftSideLeftFarHatch(LeftStartSideLeftFarHatch.class),
         StartLeftLeftSideLeftMiddleHatch(LeftStartSideLeftMiddleHatch.class),
