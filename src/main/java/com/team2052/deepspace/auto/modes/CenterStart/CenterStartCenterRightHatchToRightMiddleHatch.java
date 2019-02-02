@@ -30,7 +30,8 @@ public class CenterStartCenterRightHatchToRightMiddleHatch extends AutoMode {
                 //Vision
                 new VisionAction(),
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
-                //Drives back towards loading station
+                //TODO: robot needs to turn around to go back to the driver station
+                //TODO: write compound path
                 new FollowPathAction(new RMiddleHatchStartRightHatchPickUpPath())
         )));
     }
