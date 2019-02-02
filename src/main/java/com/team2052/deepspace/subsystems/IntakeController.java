@@ -10,11 +10,14 @@ public class IntakeController {
     public static IntakeController getInstance() {return instance;}
 
     private TalonSRX intakeMotor = new TalonSRX (Constants.Intake.kIntakeMotorId);
-    private Solenoid cargoIntakeSolenoid = new Solenoid(Constants.Intake.kCargoId);
+    private Solenoid cargoIntakeSolenoid = new Solenoid(Constants.Intake.kCargoInId);
+    private Solenoid cargoOuttakeSolenoid = new Solenoid(Constants.Intake.kCargoOutId);
     private Solenoid hatchIntakeSolenoid = new Solenoid(Constants.Intake.kHatchId);
 
-    public void setCargoIntake(double speed) {
+    private boolean grabberState = false;
+    public void setCargoIntake(double speed, boolean intake) {
         intakeMotor.set(ControlMode.PercentOutput, speed);
+        cargoIntakeSolenoid.set(intake);
     } //Sets cargo intake motor (In percent) to the speed you send it.
 
     private boolean cargoIntakeState;
@@ -25,14 +28,28 @@ public class IntakeController {
         cargoIntakeState = state;
         cargoIntakeSolenoid.set(cargoIntakeState);
     } //Getter and setter for cargo state
+
     public void cargoNeutral(){
-        setCargoIntake(Constants.Intake.kNeutralSpeed);
+        setCargoIntake(Constants.Intake.kNeutralSpeed, false);
     }
     public void cargoIntake(){
-        setCargoIntake(Constants.Intake.kIntakePercentSpeed);
+        setCargoIntake(Constants.Intake.kIntakePercentSpeed, true);
+
+    }
+    public void grab(){
+        if (!grabberState){
+            cargoGrab();
+        } else if (grabberState){
+            cargoOuttake();
+        }
+    }
+
+    public void cargoGrab(){
+        cargoOuttakeSolenoid.set(true);
+        grabberState = true;
     }
     public void cargoOuttake(){
-        setCargoIntake(Constants.Intake.kOuttakePercentSpeed);
+        grabberState = false;
     }
 
     private boolean hatchIntakeState;
@@ -44,6 +61,5 @@ public class IntakeController {
     public void setHatchIntakeState(boolean state) {
         hatchIntakeState = state;
         hatchIntakeSolenoid.set(hatchIntakeState);
-    }
-
+    } //Getter and Setter for the HatchState
 }

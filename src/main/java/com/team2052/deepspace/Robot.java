@@ -1,10 +1,10 @@
 package com.team2052.deepspace;
 
-import com.team2052.deepspace.subsystems.IntakeController;
-import com.team2052.deepspace.subsystems.LegClimberController;
-import com.team2052.deepspace.subsystems.DriveTrainController;
-import com.team2052.deepspace.subsystems.ElevatorController;
-import com.team2052.deepspace.subsystems.GroundIntake;
+import com.team2052.deepspace.auto.AutoModeRunner;
+import com.team2052.deepspace.auto.AutoModeSelector;
+import com.team2052.deepspace.subsystems.*;
+import com.team2052.lib.ControlLoop;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
@@ -15,22 +15,27 @@ import edu.wpi.first.wpilibj.TimedRobot;
  * project.
  */
 public class Robot extends TimedRobot {
+    private GroundIntakeController groundIntake = null;
+    private DriveHelper driveHelper = null;
     private IntakeController intake = null;
     private Controls controls = null;
     private DriveTrainController driveTrain = null;
     private ElevatorController elevator = null;
-    private GroundIntake groundIntake;
     private LegClimberController legClimberController = null;
+    private RobotState robotstate = RobotState.getInstance();
+    private RobotStateCalculator robotStateCalculator = RobotStateCalculator.getInstance();
+    private AutoModeRunner autoModeRunner = new AutoModeRunner();
+    private ControlLoop controlLoop = new ControlLoop(Constants.Autonomous.kloopPeriodSec);
+    private Compressor compressor = null;
+    private VisionController visionController = null;
 
 
 
 
-    /**
-     * This function is run when the robot is first started up and should be
-     * used for any initialization code.
-     */
     @Override
     public void robotInit() {
+        groundIntake = GroundIntakeController.getInstance();
+        driveHelper = new DriveHelper();
         intake = IntakeController.getInstance();
         controls = Controls.getInstance();
         legClimberController = LegClimberController.getInstance();
@@ -38,6 +43,17 @@ public class Robot extends TimedRobot {
         driveTrain = DriveTrainController.getInstance();
         elevator = ElevatorController.getInstance();
         elevator.zeroSensor();
+        controlLoop.addLoopable(robotStateCalculator);
+        visionController = VisionController.getInstance();
+
+        try {
+            compressor = new Compressor();
+            compressor.setClosedLoopControl(true);
+        } catch (Exception exc) {
+            System.out.println("DANGER: No compressor!");
+        }
+
+        AutoModeSelector.putToShuffleBoard();
     }
 
     /**
@@ -58,6 +74,11 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
+        controlLoop.start();
+        driveTrain.zeroGyro();
+        robotStateCalculator.resetRobotState();
+        AutoModeSelector.AutoModeDefinition currentAutoMode = AutoModeSelector.getSelectedAutomode();
+        autoModeRunner.start(currentAutoMode.getInstance());
     }
 
     /**
@@ -65,6 +86,16 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
+        robotstate.outputToSmartDashboard();
+        if(controls.autoOverride()){
+            autoModeRunner.stop();
+            driveTrain.stop();
+        }
+        System.out.println("AUTO IS DONE?: " + autoModeRunner.isAutodone());
+
+        if(autoModeRunner.isAutodone()){
+            driverControlled();
+        }
     }
 
     /**
@@ -72,8 +103,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopInit(){
-
-
+        controlLoop.start();
     }
 
     /**
@@ -81,6 +111,34 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
+        driverControlled();
+    }
+
+
+    /**
+     * This function is called periodically during test mode.
+     */
+    @Override
+    public void testPeriodic() {
+    }
+
+    @Override
+    public void disabledPeriodic(){
+        autoModeRunner.stop();
+        controlLoop.stop();
+        driveTrain.stop();
+        AutoModeSelector.getSelectedAutomode();
+    }
+
+    private void driverControlled(){
+        if(controls.getVisionTrack()) {
+            driveTrain.drive(visionController.getMotorOutput());
+        }else{
+            driveTrain.drive(driveHelper.drive(controls.getTankJoy1(), controls.getTurnJoy2(), controls.getQuickTurn()));
+        }
+
+        groundIntake.update();
+
         if (controls.legClimber()){
             legClimberController.setLegClimber(controls.legClimber());
         } else if (controls.lowerClimber()){
@@ -92,10 +150,11 @@ public class Robot extends TimedRobot {
         if(controls.getIntake()){
             intake.cargoIntake();
 
-        } else if (controls.getOuttake()) {
-            intake.cargoOuttake();
         } else {
             intake.cargoNeutral();
+        }
+        if(controls.getGrab()){
+            intake.grab();
         }
 
         if (controls.getElevatorGroundCargo()) {
@@ -120,14 +179,5 @@ public class Robot extends TimedRobot {
         elevator.setElevatorAdjustmentDown(controls.getElevatorAdjustmentDown());
         elevator.setEmergencyUp(controls.getElevatorEmergencyUp());
         elevator.setEmergencyDown(controls.getElevatorEmergencyDown());
-    }
-
-
-
-    /**
-     * This function is called periodically during test mode.
-     */
-    @Override
-    public void testPeriodic() {
     }
 }
