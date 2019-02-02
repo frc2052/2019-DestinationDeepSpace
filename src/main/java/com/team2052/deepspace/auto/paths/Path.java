@@ -43,7 +43,7 @@ public abstract class Path {
      */
     protected void OptimizePath(){
 
-        List<Waypoint> pathPoints = new ArrayList<Waypoint>();
+        List<Waypoint> pathPoints = null;
         /*addPoints
          * First extend the path based on the lookahead distance
          * then add points between the original points that are less then 6 inches away from each other
