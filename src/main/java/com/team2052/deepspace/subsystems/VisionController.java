@@ -18,7 +18,8 @@ public class VisionController {
 
     public DriveSignal getMotorOutput(){
         getValues();
-        return new DriveSignal(x,1-x);
+
+        return new DriveSignal(.3,.3);
     }
 
     private void getValues(){
@@ -29,6 +30,12 @@ public class VisionController {
         width = SmartDashboard.getNumber("targetWidth",0)/cameraW;
         x = SmartDashboard.getNumber("targetX",0)/cameraW;
         y = SmartDashboard.getNumber("targetY",0)/cameraH;
+    }
+
+    public boolean isTarget(){
+        getValues();
+        x = -1;
+        return !(x==-1);
     }
 
     public boolean isClose(){

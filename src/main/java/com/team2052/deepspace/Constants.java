@@ -18,11 +18,11 @@ public class Constants {
         public static final int kElevatorCargo3Button = 9;
         public static final int kElevatorAdjustmenUpButton = 10;
         public static final int kElevatorAdjustmenDownButton = 11;
-        public static final int kElevatorEmergencyUpButton = 12;
-        public static final int kElevatorEmergencyDownButton = 13;
+        public static final int kElevatorEmergencyUpButton = 3;
+        public static final int kElevatorEmergencyDownButton = 5;
 
-        public static final int kautoOverrideButton = 14;
-        public static final int kVisionTrackButton = 15;
+        public static final int kautoOverrideButton = 2;
+        public static final int kVisionTrackButton = 6;
     }
 
     public class DriveTrain{
@@ -117,17 +117,19 @@ public class Constants {
         public static final double kElevatorEmergencyHoldPower = 0.2;
     }
 
-    public class LightSensorFollowerTapeThingyThing {
+    public class LineFollower {
         //////ports//////
-        public static final int kLeftLightSensorid = 2;
-        public static final int kMiddleLightSensorid = 1;
-        public static final int kRightLightSensorid = 0;
+        public static final int kLeftLightSensorId = 2;
+        public static final int kMiddleLightSensorId = 1;
+        public static final int kRightLightSensorId = 0;
 
         //////speeds//////
-        public static final double kLightSensorTurnHardSpeed = 0.2;
-        public static final double kLightSensorTurnLightSpeed = 0.3;
+        public static final double kLightSensorTurnHardSpeedReduction = -1;
+        public static final double kLightSensorTurnLightSpeedReduction = -0.8;
+        public static final double kLightSensorMotorSpeed = 0.4;
 
-        public static final int kLightSensorFollowButton = 2;
+        //////button//////
+        public static final int kLightSensorFollowButton = 3;
 
     }
 

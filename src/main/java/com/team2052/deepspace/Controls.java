@@ -18,7 +18,7 @@ public class Controls {
     private Joystick secondaryStick = new Joystick(2);
 
     public double getTankJoy1() {
-        double val = -leftPrimaryStick.getY();
+        double val = -rightPrimaryStick.getY();
         if (val < .15 && val > -.15) {
             val = 0;
         }
@@ -26,15 +26,15 @@ public class Controls {
     } //these return the values for the joysticks for other classes
 
     public double getTurnJoy1() {
-        return rightPrimaryStick.getX();
+        return leftPrimaryStick.getX();
     }
 
     public double getTankJoy2() {
-        return rightPrimaryStick.getY();
+        return leftPrimaryStick.getY();
     }
 
     public double getTurnJoy2() {
-        double val = rightPrimaryStick.getX();
+        double val = leftPrimaryStick.getX();
         if (val < .15 && val > -.15) {
             val = 0;
         }
@@ -42,12 +42,12 @@ public class Controls {
     }
 
     public boolean legClimber() {
-        return leftPrimaryStick.getRawButton(Constants.LegClimber.kLegClimberButton);
+        return rightPrimaryStick.getRawButton(Constants.LegClimber.kLegClimberButton);
     }
 
 
     public boolean reset() {
-        return leftPrimaryStick.getTrigger();
+        return rightPrimaryStick.getTrigger();
     }
     public boolean getQuickTurn(){
         return leftPrimaryStick.getRawButton(Constants.Controls.kQuickTurnButton);
@@ -77,13 +77,13 @@ public class Controls {
     public boolean getElevatorEmergencyDown(){return secondaryStick.getRawButton(Constants.Controls.kElevatorEmergencyDownButton);}
 
     public boolean trigger() {
-        return leftPrimaryStick.getTrigger();
+        return rightPrimaryStick.getTrigger();
     }
 
     public boolean autoOverride(){
-        return rightPrimaryStick.getRawButton(Constants.Controls.kautoOverrideButton);
+        return leftPrimaryStick.getRawButton(Constants.Controls.kautoOverrideButton);
     }
 
-    public boolean getLightFollow(){return rightPrimaryStick.getRawButton(Constants.LightSensorFollowerTapeThingyThing.kLightSensorFollowButton);}
+    public boolean getLineFollow(){return rightPrimaryStick.getRawButton(Constants.LineFollower.kLightSensorFollowButton);}
 }
 

@@ -54,7 +54,7 @@ public class AutoModeSelector {
                 + (sendableChooserSecondTarget.getSelected().name.equals("None") ? "" : sendableChooserSecondTarget.getSelected().name);
         AutoModeDefinition selectedMode = null;
         try{
-            System.out.println("Selected" + selected);
+            //System.out.println("Selected" + selected);
             selectedMode = AutoModeDefinition.valueOf(selected);
             SmartDashboard.putBoolean("Does AutoMode Exist?", true);
         }catch(Exception e){
@@ -68,7 +68,7 @@ public class AutoModeSelector {
         LEFT("StartLeft"),
         CENTER("StartCenter"),
         RIGHT("StartRight"),
-        TEST("Test");
+        TEST("test");
 
         public String name;
         PositionSelection(String name){
@@ -78,7 +78,6 @@ public class AutoModeSelector {
 
     public enum FirstTargetSelection
     {
-
         CLH("LeftCenterHatch"),
         CRH("RightCenterHatch"),
         SL("LeftSide"),
@@ -93,7 +92,7 @@ public class AutoModeSelector {
         SRCHT("RightSideCloseHatchTo"),
         SRMHT("RightSideMiddleHatchTo"),
         SRFHT("RightSideFarHatchTo"),
-        TEST("Test");
+        TEST("test");
 
         public String name;
         FirstTargetSelection(String name){
@@ -125,7 +124,8 @@ public class AutoModeSelector {
 
     public enum AutoModeDefinition
     {
-        TestTest(Test.class),
+
+        testtest(Test.class),
         //Single path AMDs
         StartLeftLeftSideLeftFarHatch(LeftStartSideLeftFarHatch.class),
         StartLeftLeftSideLeftMiddleHatch(LeftStartSideLeftMiddleHatch.class),
@@ -139,8 +139,6 @@ public class AutoModeSelector {
 
         StartCenterLeftCenterHatch(CenterStartCenterLeftHatch.class),
         StartCenterRightCenterHatch(CenterStartCenterRightHatch.class),
-
-
 
         //Double path AMDs
 

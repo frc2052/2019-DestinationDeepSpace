@@ -5,11 +5,6 @@ import com.team2052.deepspace.auto.AutoModeSelector;
 import com.team2052.deepspace.subsystems.*;
 import com.team2052.lib.ControlLoop;
 import edu.wpi.first.wpilibj.Compressor;
-import com.team2052.deepspace.subsystems.IntakeController;
-import com.team2052.deepspace.subsystems.LegClimberController;
-import com.team2052.deepspace.subsystems.DriveTrainController;
-import com.team2052.deepspace.subsystems.ElevatorController;
-import com.team2052.deepspace.subsystems.GroundIntake;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
@@ -27,7 +22,7 @@ public class Robot extends TimedRobot {
     private ElevatorController elevator = null;
     private GroundIntake groundIntake;
     private LegClimberController legClimberController = null;
-    private LightSensorFollowerTapeThingyThing lightSensorFollower = null;
+    private LineFollowerController lineFollower = null;
     private RobotState robotstate = RobotState.getInstance();
     private RobotStateCalculator robotStateCalculator = RobotStateCalculator.getInstance();
     private AutoModeRunner autoModeRunner = new AutoModeRunner();
@@ -51,7 +46,7 @@ public class Robot extends TimedRobot {
         controlLoop.addLoopable(robotStateCalculator);
         visionController = VisionController.getInstance();
 
-        lightSensorFollower = LightSensorFollowerTapeThingyThing.getInstance();
+        lineFollower = LineFollowerController.getInstance();
         try {
             compressor = new Compressor();
             compressor.setClosedLoopControl(true);
@@ -72,7 +67,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotPeriodic() {
-        //groundIntake.update();
+
     }
 
     /**
@@ -95,7 +90,9 @@ public class Robot extends TimedRobot {
         robotstate.outputToSmartDashboard();
         if(controls.autoOverride()){
             autoModeRunner.stop();
+            driveTrain.stop();
         }
+        System.out.println("AUTO IS DONE?: " + autoModeRunner.isAutodone());
 
         if(autoModeRunner.isAutodone()){
             driverControlled();
@@ -131,20 +128,27 @@ public class Robot extends TimedRobot {
         autoModeRunner.stop();
         controlLoop.stop();
         driveTrain.stop();
-        //AutoModeSelector.getSelectedAutomode();
+        AutoModeSelector.getSelectedAutomode();
     }
 
     private void driverControlled(){
-        if(controls.getVisionTrack()) {
-            //driveTrain.drive(visionController.getMotorOutput());
-        }else if (controls.getLightFollow()){
-            lightSensorFollower.setLightSensorMotorStates(controls.getTankJoy1());
+        if (controls.getLineFollow()){
+            if(lineFollower.getLineSensed()){
+                driveTrain.drive(lineFollower.getLightSensorMotorTurn(controls.getTankJoy1()));
+            }else if (visionController.isTarget()){
+                driveTrain.drive(visionController.getMotorOutput());
+            } else {
+                driveTrain.drive(driveHelper.drive(controls.getTankJoy1(), controls.getTurnJoy2(), controls.getQuickTurn()));
+            }
         }
         else {
             driveTrain.drive(driveHelper.drive(controls.getTankJoy1(), controls.getTurnJoy2(), controls.getQuickTurn()));
         }
 
         /*if (controls.legClimber()){
+        groundIntake.update();
+
+        if (controls.legClimber()){
             legClimberController.setLegClimber(controls.legClimber());
         }else {
            // legClimberController.stopClimber();
@@ -158,6 +162,7 @@ public class Robot extends TimedRobot {
         } else {
             intake.cargoNeutral();
         }
+
         if (controls.getElevatorGroundCargo()) {
             elevator.setTarget(ElevatorController.ElevatorPresets.GROUND_CARGO);
         } else if (controls.getElevatorHatch1()) {
@@ -183,7 +188,4 @@ public class Robot extends TimedRobot {
 
 
     }
-
-
-
-    }
+}
