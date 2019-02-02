@@ -83,6 +83,8 @@ public class Robot extends TimedRobot {
     public void teleopPeriodic() {
         if (controls.legClimber()){
             legClimberController.setLegClimber(controls.legClimber());
+        } else if (controls.lowerClimber()){
+            legClimberController.lowerClimber();
         }else {
             legClimberController.stopClimber();
         }
@@ -95,6 +97,7 @@ public class Robot extends TimedRobot {
         } else {
             intake.cargoNeutral();
         }
+
         if (controls.getElevatorGroundCargo()) {
             elevator.setTarget(ElevatorController.ElevatorPresets.GROUND_CARGO);
         } else if (controls.getElevatorHatch1()) {
@@ -112,6 +115,7 @@ public class Robot extends TimedRobot {
         }else if (controls.getElevatorRocketCargo3()) {
             elevator.setTarget(ElevatorController.ElevatorPresets.ROCKET_CARGO3);
         }
+
         elevator.setElevatorAdjustmentUp(controls.getElevatorAdjustmentUp());
         elevator.setElevatorAdjustmentDown(controls.getElevatorAdjustmentDown());
         elevator.setEmergencyUp(controls.getElevatorEmergencyUp());

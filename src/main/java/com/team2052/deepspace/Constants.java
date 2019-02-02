@@ -43,11 +43,17 @@ public class Constants {
 
     public  class LegClimber {
 
-        public static final int kLegClimberTalon1id = 20;
-        public static final double kLegClimberMotorVelocity = 0.7;
-        public static final int kLegClimberButton = 5;
+        //////ids//////
         public static final int kLegClimberSolenoid1id = 21;
         public static final int klegClimbersolenoid2id = 22;
+        public static final int kLegClimberTalon1id = 20;
+
+        //////buttons//////
+        public static final int kLegClimberButton = 6;
+        public static final int kLegClimberLowerButton = 7;
+
+        public static final double kLegClimberMotorVelocity = 0.7;
+
         public static final double kEncoderTicksPerRotation = 256;
         public static final double kClimbMotorRotations = 20;
         public static final double kClimberMotorDistance = (Constants.LegClimber.kClimbMotorRotations * Constants.LegClimber.kEncoderTicksPerRotation);

@@ -48,6 +48,7 @@ public class Controls {
     public boolean legClimber() {
         return leftPrimaryStick.getRawButton(Constants.LegClimber.kLegClimberButton);
     }
+    public boolean lowerClimber(){return leftPrimaryStick.getRawButton(Constants.LegClimber.kLegClimberLowerButton);}
 
 
     public boolean reset(){
