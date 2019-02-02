@@ -8,7 +8,7 @@ import java.util.List;
 
 public class CStartCenterRightHatchPath extends Path{
 
-    public CStartCenterRightHatchPath() {
+    public CStartCenterRightHatchPath(Direction backward) {
         setDirection(Direction.FORWARD);
         addWaypoint(new Waypoint(new Position2d(0,0),50)); // *T*
         addWaypoint(new Waypoint(new Position2d(68,0),50)); // i
