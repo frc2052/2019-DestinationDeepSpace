@@ -13,11 +13,12 @@ public class LegClimberController {
     private static LegClimberController singleLegClimberControllerInstance = new LegClimberController();
     public static LegClimberController getInstance() { return singleLegClimberControllerInstance; }
 
-    private TalonSRX legClimberMotor = new TalonSRX(Constants.LegClimber.kLegClimberTalon1id);
+    private TalonSRX legClimberMotor = new TalonSRX(Constants.Controls.kLegClimberTalon1id);
+    private double pos = (Constants.LegClimber.kClimbMotorRotations * Constants.LegClimber.kEncoderTicksPerRotation);
 
 
     //with assistance
-    private Solenoid LegClimberSolenoid1 = new Solenoid(Constants.LegClimber.kLegClimberSolenoid1id);
+    private Solenoid LegClimberSolenoid1 = new Solenoid(Constants.Controls.kLegClimberSolenoid1id);
 
     private LegClimberController(){
         legClimberMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.DriveTrain.kVelocityControlSlot, Constants.DriveTrain.kCANBusConfigTimeoutMS);
@@ -41,20 +42,19 @@ public class LegClimberController {
 
         if (time <= 40) {
             if (on) {
-                legClimberMotor.set(ControlMode.MotionMagic, Constants.LegClimber.kClimberMotorDistance);
+                legClimberMotor.set(ControlMode.MotionMagic, pos);
                 //with Assistance
                 //LegClimberSolenoid1.set(true);
 
             }
         }
         else if (legClimberButton == 4){
-                legClimberMotor.set(ControlMode.MotionMagic, Constants.LegClimber.kClimberMotorDistance);
+                legClimberMotor.set(ControlMode.MotionMagic, pos);
                 //with assistance
                 //LegClimberSolenoid1.set(true);
         }
     }
     public void stopClimber(){
-        if ((double)legClimberMotor.getSelectedSensorPosition() <= Constants.LegClimber.kClimberMotorDistance + 1 && (double)legClimberMotor.getSelectedSensorPosition() >= Constants.LegClimber.kClimberMotorDistance -1);
         legClimberMotor.set(ControlMode.MotionMagic, 0.0);
     }
 

@@ -9,9 +9,9 @@ public class IntakeController {
     private static IntakeController instance = new IntakeController();
     public static IntakeController getInstance() {return instance;}
 
-    private TalonSRX intakeMotor = new TalonSRX (Constants.Intake.kIntakeMotorId);
-    private Solenoid cargoIntakeSolenoid = new Solenoid(Constants.Intake.kCargoId);
-    private Solenoid hatchIntakeSolenoid = new Solenoid(Constants.Intake.kHatchId);
+    private TalonSRX intakeMotor = new TalonSRX (Constants.Controls.kIntakeMotorId);
+    private Solenoid cargoIntakeSolenoid = new Solenoid(Constants.Controls.kCargoId);
+    private Solenoid hatchIntakeSolenoid = new Solenoid(Constants.Controls.kHatchId);
 
     public void setCargoIntake(double speed) {
         intakeMotor.set(ControlMode.PercentOutput, speed);
@@ -25,6 +25,7 @@ public class IntakeController {
         cargoIntakeState = state;
         cargoIntakeSolenoid.set(cargoIntakeState);
     } //Getter and setter for cargo state
+
     public void cargoNeutral(){
         setCargoIntake(Constants.Intake.kNeutralSpeed);
     }
@@ -45,5 +46,16 @@ public class IntakeController {
         hatchIntakeState = state;
         hatchIntakeSolenoid.set(hatchIntakeState);
     }
+    } //Three speeds for the wheel.
 
+    private boolean hatchIntakeState;
+
+    public boolean getHatchIntakeState() {
+        return hatchIntakeState;
+    }
+
+    public void setHatchIntakeState(boolean state) {
+        hatchIntakeState = state;
+        hatchIntakeSolenoid.set(hatchIntakeState);
+    } //Getter and Setter for the HatchState
 }
