@@ -25,6 +25,7 @@ public class IntakeController {
         cargoIntakeState = state;
         cargoIntakeSolenoid.set(cargoIntakeState);
     } //Getter and setter for cargo state
+
     public void cargoNeutral(){
         setCargoIntake(Constants.Intake.kNeutralSpeed);
     }
@@ -44,6 +45,5 @@ public class IntakeController {
     public void setHatchIntakeState(boolean state) {
         hatchIntakeState = state;
         hatchIntakeSolenoid.set(hatchIntakeState);
-    }
-
+    } //Getter and Setter for the HatchState
 }

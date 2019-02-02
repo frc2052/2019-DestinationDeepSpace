@@ -15,12 +15,12 @@ import edu.wpi.first.wpilibj.TimedRobot;
  * project.
  */
 public class Robot extends TimedRobot {
+    private GroundIntakeController groundIntake = null;
     private DriveHelper driveHelper = null;
     private IntakeController intake = null;
     private Controls controls = null;
     private DriveTrainController driveTrain = null;
     private ElevatorController elevator = null;
-    private GroundIntake groundIntake;
     private LegClimberController legClimberController = null;
     private RobotState robotstate = RobotState.getInstance();
     private RobotStateCalculator robotStateCalculator = RobotStateCalculator.getInstance();
@@ -34,6 +34,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void robotInit() {
+        groundIntake = GroundIntakeController.getInstance();
         driveHelper = new DriveHelper();
         intake = IntakeController.getInstance();
         controls = Controls.getInstance();
@@ -65,7 +66,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotPeriodic() {
-
+        groundIntake.update();
     }
 
     /**

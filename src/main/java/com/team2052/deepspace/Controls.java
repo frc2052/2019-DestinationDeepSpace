@@ -1,5 +1,6 @@
 package com.team2052.deepspace;
 
+import com.team2052.deepspace.subsystems.IntakeController;
 import edu.wpi.first.wpilibj.Joystick;
 
 public class Controls {
@@ -55,6 +56,8 @@ public class Controls {
 
     public boolean getOuttake() {return secondaryStick.getRawButton(1);}
     public boolean getIntake () {return secondaryStick.getTrigger();}
+    public boolean getGroundIntake () {return secondaryStick.getRawButton(Constants.Intake.kGroundIntakeButton); }
+    public boolean getGroundOuttake () {return secondaryStick.getRawButton(Constants.Intake.kGroundOuttakeButton); }
 
     public boolean getVisionTrack(){
         return secondaryStick.getRawButton(Constants.Controls.kVisionTrackButton);
