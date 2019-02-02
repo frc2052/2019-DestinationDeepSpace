@@ -18,6 +18,7 @@ public class RightStartCenterRightHatchToRightCloseHatch extends AutoMode {
                 //TODO: Make starting path start going backwards
                 new FollowPathAction(new RStartCenterRightHatchPath()),
                 //TODO: Vision
+
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
                 new FollowPathAction(new CRightHatchStartRightHatchPickUpPath()),
                 //TODO: Vision
