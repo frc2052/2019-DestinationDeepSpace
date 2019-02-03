@@ -16,6 +16,7 @@ public class CRightHatchStartRightHatchPickUpPathCompoundPath extends CompoundPa
     class   CRightHatchStartRightHatcPickUpPath1 extends Path {
         public  CRightHatchStartRightHatcPickUpPath1() {
             setDirection(Direction.BACKWARD);
+            //TODO: Identify points/paths the robot in order to turn around
             //TODO: ADD COORDINATES
             OptimizePath();
         }
@@ -30,6 +31,7 @@ public class CRightHatchStartRightHatchPickUpPathCompoundPath extends CompoundPa
     class  CRightHatchStartRightHatcPickUpPath2 extends Path {
         public  CRightHatchStartRightHatcPickUpPath2() {
             setDirection(Direction.FORWARD);
+            //TODO: Identify points/paths the robot in order to turn around
             //TODO: ADD COORDINATES
             OptimizePath();
         }

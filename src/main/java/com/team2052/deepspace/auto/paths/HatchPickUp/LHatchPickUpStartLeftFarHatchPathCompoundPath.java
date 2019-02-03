@@ -17,8 +17,9 @@ public class LHatchPickUpStartLeftFarHatchPathCompoundPath extends CompoundPath 
     class LHatchPickUpStartLeftFarHatchPath1 extends Path {
         public LHatchPickUpStartLeftFarHatchPath1() {
             setDirection(Direction.BACKWARD);
-            //TODO: Take coordinates from LHatchPickUpStartLeftFarHatchPath and add here, fix points to allow for a turn
-
+            //TODO: find paths to far hatch
+            //TODO: Make sure we have enough points for the robot to turn
+            //TODO: Add coordinates
             OptimizePath();
         }
 
@@ -32,8 +33,9 @@ public class LHatchPickUpStartLeftFarHatchPathCompoundPath extends CompoundPath 
     class LHatchPickUpStartLeftFarHatchPath2 extends Path {
         public LHatchPickUpStartLeftFarHatchPath2() {
             setDirection(Direction.FORWARD);
-            //TODO: Take coordinates from LHatchPickUpStartLeftFarHatchPath and add here, fix points to allow for a turn
-
+            //TODO: find paths to far hatch
+            //TODO: Make sure we have enough points for the robot to turn
+            //TODO: Add coordinates
             OptimizePath();
         }
 

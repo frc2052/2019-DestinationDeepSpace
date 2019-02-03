@@ -13,7 +13,7 @@ public class CLeftHatchStartLeftHatchPickUpPath extends Path{
         addWaypoint(new Waypoint(new Position2d(135,-10),50)); //K
         addWaypoint(new Waypoint(new Position2d(68,-47),50)); //G
         addWaypoint(new Waypoint(new Position2d(68,-65),50)); //F
-        addWaypoint(new Waypoint(new Position2d(26,-134),50)); //E
+        addWaypoint(new Waypoint(new Position2d(29, -134), 50)); //E
         addWaypoint(new Waypoint(new Position2d(-66,-134),50)); //D
         OptimizePath();
     }

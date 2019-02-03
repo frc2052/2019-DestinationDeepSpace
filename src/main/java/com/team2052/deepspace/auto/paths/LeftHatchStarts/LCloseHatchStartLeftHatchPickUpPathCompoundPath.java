@@ -17,13 +17,12 @@ public class LCloseHatchStartLeftHatchPickUpPathCompoundPath extends CompoundPat
     class   LCloseHatchStartLeftHatchPickUpPath1 extends Path {
         public  LCloseHatchStartLeftHatchPickUpPath1() {
             setDirection(Direction.BACKWARD);
-            //TODO: Take coordinates from LHatchPickUpStartLeftFarHatchPath and add here, fix points to allow for a turn
-            //TODO: incorrect coordinates, fix them
-            addWaypoint(new Waypoint(new Position2d(194,-47),50)); //P
+            //TODO: these points need to be fixed to allow for a turn
+            addWaypoint(new Waypoint(new Position2d(194, -48), 50)); //P
             addWaypoint(new Waypoint(new Position2d(194,-65),50)); // N
             addWaypoint(new Waypoint(new Position2d(153,-65),50)); // M
-            addWaypoint(new Waypoint(new Position2d(68,-47),50)); // G
-            addWaypoint(new Waypoint(new Position2d(68,-47),50)); // G
+            addWaypoint(new Waypoint(new Position2d(111, -134), 50)); // U
+            addWaypoint(new Waypoint(new Position2d(111, -154), 50)); // V
             OptimizePath();
         }
 
@@ -37,14 +36,12 @@ public class LCloseHatchStartLeftHatchPickUpPathCompoundPath extends CompoundPat
     class  LCloseHatchStartLeftHatchPickUpPath2 extends Path {
         public  LCloseHatchStartLeftHatchPickUpPath2() {
             setDirection(Direction.FORWARD);
-            //TODO: Take coordinates from LHatchPickUpStartLeftFarHatchPath and add here, fix points to allow for a turn
-            //TODO: incorect coordinates, fix them
-            addWaypoint(new Waypoint(new Position2d(68,-47),50)); // G
-            addWaypoint(new Waypoint(new Position2d(68,-65),50)); // F
+            //TODO: these points need to be fixed to allow for a turn
+            addWaypoint(new Waypoint(new Position2d(111, -134), 50)); // V
+            addWaypoint(new Waypoint(new Position2d(111, -154), 50)); // U
+            addWaypoint(new Waypoint(new Position2d(68, -134), 50)); // W
             addWaypoint(new Waypoint(new Position2d(29,-134),50)); // E
             addWaypoint(new Waypoint(new Position2d(-66,-134),50)); // D
-
-
             OptimizePath();
         }
 

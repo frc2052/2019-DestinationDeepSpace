@@ -16,6 +16,7 @@ public class CLeftHatchStartLeftHatchPickUpPathCompoundPath extends CompoundPath
     class   CLeftHatchStartLeftHatchPickUpPath1 extends Path {
         public  CLeftHatchStartLeftHatchPickUpPath1() {
             setDirection(Direction.BACKWARD);
+            //TODO: Identify points/paths the robot in order to turn around
             //TODO: ADD COORDINATES
             OptimizePath();
         }
@@ -30,6 +31,7 @@ public class CLeftHatchStartLeftHatchPickUpPathCompoundPath extends CompoundPath
     class  CLeftHatchStartLeftHatchPickUpPath2 extends Path {
         public  CLeftHatchStartLeftHatchPickUpPath2() {
             setDirection(Direction.FORWARD);
+            //TODO: Identify points/paths the robot in order to turn around
             //TODO: ADD COORDINATES
             OptimizePath();
         }

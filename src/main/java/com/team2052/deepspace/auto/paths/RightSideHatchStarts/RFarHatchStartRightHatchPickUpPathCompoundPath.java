@@ -16,6 +16,8 @@ public class RFarHatchStartRightHatchPickUpPathCompoundPath extends CompoundPath
     class   RFarHatchStartRightHatchPickUpPath1 extends Path {
         public  RFarHatchStartRightHatchPickUpPath1() {
             setDirection(Direction.BACKWARD);
+            //TODO: Identify points/paths the robot in order to turn around
+            //TODO: need paths to far hatch!!
             //TODO: ADD COORDINATES
             OptimizePath();
         }
