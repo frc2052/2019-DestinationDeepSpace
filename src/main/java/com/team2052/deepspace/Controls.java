@@ -43,8 +43,9 @@ public class Controls {
     }
 
     public boolean legClimber() {
-        return leftPrimaryStick.getRawButton(Constants.LegClimber.kLegClimberButton);
+        return rightPrimaryStick.getRawButton(Constants.LegClimber.kLegClimberButton);
     }
+    public boolean lowerClimber(){return rightPrimaryStick.getRawButton(Constants.LegClimber.kLegClimberLowerButton);}
 
 
     public boolean reset() {
@@ -56,6 +57,7 @@ public class Controls {
 
     public boolean getOuttake() {return secondaryStick.getRawButton(1);}
     public boolean getIntake () {return secondaryStick.getTrigger();}
+    public boolean getGrab(){return secondaryStick.getRawButton(Constants.Intake.kGrabButton);}
     public boolean getGroundIntake () {return secondaryStick.getRawButton(Constants.Intake.kGroundIntakeButton); }
     public boolean getGroundOuttake () {return secondaryStick.getRawButton(Constants.Intake.kGroundOuttakeButton); }
 

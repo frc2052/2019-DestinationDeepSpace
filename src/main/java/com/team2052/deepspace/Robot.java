@@ -141,6 +141,8 @@ public class Robot extends TimedRobot {
 
         if (controls.legClimber()){
             legClimberController.setLegClimber(controls.legClimber());
+        } else if (controls.lowerClimber()){
+            legClimberController.lowerClimber();
         }else {
             legClimberController.stopClimber();
         }
@@ -148,11 +150,12 @@ public class Robot extends TimedRobot {
         if(controls.getIntake()){
             intake.cargoIntake();
 
-        } else if (controls.getOuttake()) {
-            intake.cargoOuttake();
         } else {
             intake.cargoNeutral();
         }
+
+        intake.grab(controls.getGrab());
+
 
         if (controls.getElevatorGroundCargo()) {
             elevator.setTarget(ElevatorController.ElevatorPresets.GROUND_CARGO);
@@ -171,6 +174,7 @@ public class Robot extends TimedRobot {
         }else if (controls.getElevatorRocketCargo3()) {
             elevator.setTarget(ElevatorController.ElevatorPresets.ROCKET_CARGO3);
         }
+
         elevator.setElevatorAdjustmentUp(controls.getElevatorAdjustmentUp());
         elevator.setElevatorAdjustmentDown(controls.getElevatorAdjustmentDown());
         elevator.setEmergencyUp(controls.getElevatorEmergencyUp());

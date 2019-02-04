@@ -1,5 +1,6 @@
 package com.team2052.deepspace.actions;
 
+import com.team2052.deepspace.auto.actions.Action;
 import com.team2052.deepspace.subsystems.IntakeController;
 
 public class HatchIntakeAction implements Action {
