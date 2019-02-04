@@ -20,8 +20,9 @@ public class LegClimberController {
     private Solenoid LegClimberSolenoid1 = new Solenoid(Constants.LegClimber.kLegClimberSolenoid1id);
 
     private LegClimberController(){
+        legClimberMotor.configFactoryDefault();
         legClimberMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.DriveTrain.kVelocityControlSlot, Constants.DriveTrain.kCANBusConfigTimeoutMS);
-        legClimberMotor.setNeutralMode(NeutralMode.Coast);
+        legClimberMotor.setNeutralMode(NeutralMode.Brake);
     }
 
     public void resetEncoders() {
@@ -30,6 +31,7 @@ public class LegClimberController {
 
     private int legClimberButton = 0;
     private boolean isPressed = false;
+
     public void setLegClimber(boolean on) {
         double time = DriverStation.getInstance().getMatchTime();
         if (on && !isPressed){
@@ -39,7 +41,7 @@ public class LegClimberController {
         //keep track of whether button is up or down
         isPressed = on;
 
-        if (time <= 40) {
+        if (time <= 40) {//todo: timer count up?
             if (on) {
                 legClimberMotor.set(ControlMode.MotionMagic, Constants.LegClimber.kClimberMotorDistance);
                 //with Assistance
