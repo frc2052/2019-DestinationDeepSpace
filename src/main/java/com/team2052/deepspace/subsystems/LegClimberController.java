@@ -58,7 +58,7 @@ public class LegClimberController {
     }
 
     public void stopClimber(){
-        legClimberMotor.set(ControlMode.PercentOutput, -0.5);
+        legClimberMotor.set(ControlMode.PercentOutput, 0.0);
     }
 
 }
