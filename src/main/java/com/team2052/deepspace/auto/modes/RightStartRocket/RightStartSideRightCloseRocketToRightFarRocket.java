@@ -8,10 +8,12 @@ import com.team2052.deepspace.auto.actions.VisionAction;
 import com.team2052.deepspace.auto.paths.LeftHatchStarts.LCloseHatchStartLeftHatchPickUpPath;
 import com.team2052.deepspace.auto.paths.LeftStart.LStartSideLeftCloseHatchPath;
 import com.team2052.deepspace.auto.paths.Path;
+import com.team2052.deepspace.auto.paths.RightRocketStarts.RFarRocketStartRightRocketPickUpPath;
+import com.team2052.deepspace.auto.paths.RightStartRocket.RStartSideRightCloseRocketPath;
 
 import java.util.Arrays;
 
-public class RightStartSideRightFarRocketToLeftCloseRocket extends AutoMode {
+public class RightStartSideRightCloseRocketToRightFarRocket extends AutoMode {
     @Override
 
 
@@ -22,19 +24,19 @@ public class RightStartSideRightFarRocketToLeftCloseRocket extends AutoMode {
 
         runAction(new SeriesAction(Arrays.asList(
                 //Starting path starts going backwards
-                //TODO:Update Paths To Its Actual One For the MODE
-                new FollowPathAction(new LStartSideLeftCloseHatchPath(Path.Direction.BACKWARD)),
+                //:Update Paths To Its Actual One For the MODE
+                new FollowPathAction(new RStartSideRightCloseRocketPath(Path.Direction.BACKWARD)),
                //Vision
                 new VisionAction(),
                //change hatch action to GROUND hatch Intake
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
                 //Vision
                 new VisionAction(),
-                //change hatch action to GROUND hatch outtake
+                // change hatch action to GROUND hatch outtake
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
                 //Drives back towards loading station
-                //TODO:Update Paths To Its Actual One For the MODE
-                new FollowPathAction(new LCloseHatchStartLeftHatchPickUpPath())
+                //:Update Paths To Its Actual One For the MODE
+                new FollowPathAction(new RFarRocketStartRightRocketPickUpPath(Path.Direction.FORWARD))
         )));
     }
 }

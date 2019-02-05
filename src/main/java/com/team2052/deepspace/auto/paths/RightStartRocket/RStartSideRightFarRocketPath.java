@@ -8,7 +8,7 @@ import java.util.List;
 
 public class RStartSideRightFarRocketPath extends Path {
 
-    public RStartSideRightFarRocketPath() {
+    public RStartSideRightFarRocketPath(Direction backwards) {
         setDirection(Direction.FORWARD);
         addWaypoint(new Waypoint(new Position2d(0,47),50)); // C
         addWaypoint(new Waypoint(new Position2d(68,65),50)); // f

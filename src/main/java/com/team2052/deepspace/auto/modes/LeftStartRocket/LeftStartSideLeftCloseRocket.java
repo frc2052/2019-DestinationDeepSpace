@@ -29,10 +29,10 @@ public class LeftStartSideLeftCloseRocket extends AutoMode {
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
                 //Vision
                 new VisionAction(),
-                //TODO: change hatch action to GROUND hatch outtake
-                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
+                //: change hatch action to GROUND hatch outtake
+                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE)
                 //Drives back towards loading station
-                new FollowPathAction(new LCloseHatchStartLeftHatchPickUpPath())
+
         )));
     }
 }

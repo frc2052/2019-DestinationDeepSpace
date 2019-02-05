@@ -7,6 +7,7 @@ import com.team2052.deepspace.auto.actions.SeriesAction;
 import com.team2052.deepspace.auto.actions.VisionAction;
 import com.team2052.deepspace.auto.paths.LeftHatchStarts.LCloseHatchStartLeftHatchPickUpPath;
 import com.team2052.deepspace.auto.paths.LeftStart.LStartSideLeftCloseHatchPath;
+import com.team2052.deepspace.auto.paths.LeftStartRocket.LStartSideLeftMiddleRocketPath;
 import com.team2052.deepspace.auto.paths.Path;
 
 import java.util.Arrays;
@@ -22,7 +23,7 @@ public class LeftStartSideLeftCloseRocketToLeftMiddleRocket extends AutoMode {
 
         runAction(new SeriesAction(Arrays.asList(
                 //Starting path starts going backwards
-                //TODO:Update Paths To Its Actual One For the MODE
+                //:Update Paths To Its Actual One For the MODE
                 new FollowPathAction(new LStartSideLeftCloseHatchPath(Path.Direction.BACKWARD)),
                //Vision
                 new VisionAction(),
@@ -33,8 +34,8 @@ public class LeftStartSideLeftCloseRocketToLeftMiddleRocket extends AutoMode {
                 // change hatch action to GROUND hatch outtake
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
                 //Drives back towards loading station
-                //TODO:Update Paths To Its Actual One For the MODE
-                new FollowPathAction(new LCloseHatchStartLeftHatchPickUpPath())
+                //:Update Paths To Its Actual One For the MODE
+                new FollowPathAction(new LStartSideLeftMiddleRocketPath(Path.Direction.FORWARD))
         )));
     }
 }
