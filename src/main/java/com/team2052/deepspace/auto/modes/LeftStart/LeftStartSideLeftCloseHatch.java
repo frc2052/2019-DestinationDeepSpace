@@ -16,13 +16,15 @@ public class LeftStartSideLeftCloseHatch extends AutoMode {
     }
     @Override
     protected void init() {
-        Path firstPath = new LStartSideLeftCloseHatchPath();
-        // Path secondPath = new LCloseHatchStartLeftHatchPickUpPath();
         runAction(new SeriesAction(Arrays.asList(
-                new FollowPathAction(firstPath)
+                //Starting path starts going backwards
+                new FollowPathAction(new LStartSideLeftCloseHatchPath(Path.Direction.BACKWARD))//,
+                //Vision
+                //new VisionAction(),
+                //TODO: change hatch action to GROUND hatch outtake
                 //new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
-                // new FollowPathAction(secondPath),
-                //new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE)
+                //Drives back towards loading station
+                //new FollowPathAction(new LCloseHatchStartLeftHatchPickUpPath())
         )));
     }
 }

@@ -8,8 +8,8 @@ import java.util.List;
 
 public class LStartSideLeftCloseHatchPath extends Path {
 
-    public LStartSideLeftCloseHatchPath() {
-        setDirection(Direction.FORWARD);
+    public LStartSideLeftCloseHatchPath(Direction direction) {
+        setDirection(direction);
         addWaypoint(new Waypoint(new Position2d(0,-47),70)); // B
         addWaypoint(new Waypoint(new Position2d(50,-47),70));
         addWaypoint(new Waypoint(new Position2d(130,-75),70)); // F

@@ -10,6 +10,7 @@ public class LHatchPickUpStartLeftFarHatchPath extends Path{
 
     public LHatchPickUpStartLeftFarHatchPath() {
         setDirection(Direction.FORWARD);
+        //TODO: Add coordinates
         addWaypoint(new Waypoint(new Position2d(0,0),50));
         OptimizePath();
     }

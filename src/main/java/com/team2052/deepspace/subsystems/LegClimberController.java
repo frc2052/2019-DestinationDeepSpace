@@ -13,16 +13,19 @@ public class LegClimberController {
     private static LegClimberController singleLegClimberControllerInstance = new LegClimberController();
     public static LegClimberController getInstance() { return singleLegClimberControllerInstance; }
 
-    private TalonSRX legClimberMotor = new TalonSRX(Constants.LegClimber.kLegClimberTalon1id);
+    private TalonSRX legClimberMotor = null;
 
 
     //with assistance
     private Solenoid LegClimberSolenoid1 = new Solenoid(Constants.LegClimber.kLegClimberSolenoid1id);
 
     private LegClimberController(){
+        legClimberMotor = new TalonSRX(Constants.LegClimber.kLegClimberTalon1id);
         legClimberMotor.configFactoryDefault();
         legClimberMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.DriveTrain.kVelocityControlSlot, Constants.DriveTrain.kCANBusConfigTimeoutMS);
         legClimberMotor.setNeutralMode(NeutralMode.Brake);
+        legClimberMotor.setInverted(false);
+        legClimberMotor.setSensorPhase(true);
     }
 
     public void resetEncoders() {
@@ -41,23 +44,42 @@ public class LegClimberController {
         //keep track of whether button is up or down
         isPressed = on;
 
-        if (time <= 40) {//todo: timer count up?
+        //System.out.println("time: " + time );
+       // if (time <= 40) {//todo: timer count up?
             if (on) {
-                legClimberMotor.set(ControlMode.MotionMagic, Constants.LegClimber.kClimberMotorDistance);
+                if(legClimberMotor.getSelectedSensorPosition() <= Constants.LegClimber.kClimberMotorDistance){
+                    legClimberMotor.set(ControlMode.PercentOutput, 1);
+                    System.out.println("RUNNING");
+                }else {
+                    stopClimber();
+                }
                 //with Assistance
                 //LegClimberSolenoid1.set(true);
 
             }
-        }
-        else if (legClimberButton == 4){
-                legClimberMotor.set(ControlMode.MotionMagic, Constants.LegClimber.kClimberMotorDistance);
+ //       }
+       // else if (legClimberButton == 4){
+                //legClimberMotor.set(ControlMode.PercentOutput, Constants.LegClimber.kClimberMotorDistance);
                 //with assistance
                 //LegClimberSolenoid1.set(true);
-        }
+   //     }
     }
+    public void lowerClimber(){
+        if (legClimberMotor.getSelectedSensorPosition() > 0){
+            legClimberMotor.set(ControlMode.PercentOutput, -1);
+            System.out.println("RUNNING BACK");
+        } else{
+            stopClimber();
+        }
+
+    }
+
     public void stopClimber(){
-        if ((double)legClimberMotor.getSelectedSensorPosition() <= Constants.LegClimber.kClimberMotorDistance + 1 && (double)legClimberMotor.getSelectedSensorPosition() >= Constants.LegClimber.kClimberMotorDistance -1);
-        legClimberMotor.set(ControlMode.MotionMagic, 0.0);
+        legClimberMotor.set(ControlMode.PercentOutput, 0.0);
+    }
+    public void printEncoder(){
+        System.out.println("climber pos: " + legClimberMotor.getSelectedSensorPosition());
+
     }
 
 }

@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 import com.team2052.deepspace.Constants;
 import com.team2052.lib.DriveSignal;
@@ -21,10 +22,10 @@ public class DriveTrainController {
 
     public final TalonSRX rightMaster;
     public final TalonSRX leftMaster;
-    private final TalonSRX rightSlave;
-    private final TalonSRX leftSlave;
-    private final TalonSRX rightSlave2;
-    private final TalonSRX leftSlave2;
+    private final VictorSPX rightSlave;
+    private final VictorSPX leftSlave;
+    private final VictorSPX rightSlave2;
+    private final VictorSPX leftSlave2;
 
     private Solenoid shifterIn;
     private Solenoid shifterOut;
@@ -32,10 +33,10 @@ public class DriveTrainController {
     DriveTrainController(){
         rightMaster = new TalonSRX(Constants.DriveTrain.kDriveRightMasterId);
         leftMaster = new TalonSRX(Constants.DriveTrain.kDriveLeftMasterId);
-        rightSlave = new TalonSRX(Constants.DriveTrain.kDriveRightSlaveId);
-        leftSlave = new TalonSRX(Constants.DriveTrain.kDriveLeftSlaveId);
-        rightSlave2 = new TalonSRX(Constants.DriveTrain.kDriveLeftSlave2Id);
-        leftSlave2 = new TalonSRX(Constants.DriveTrain.kDriveRightSlave2Id);
+        rightSlave = new VictorSPX(Constants.DriveTrain.kDriveRightSlaveId);
+        leftSlave = new VictorSPX(Constants.DriveTrain.kDriveLeftSlaveId);
+        rightSlave2 = new VictorSPX(Constants.DriveTrain.kDriveRightSlave2Id);
+        leftSlave2 = new VictorSPX(Constants.DriveTrain.kDriveLeftSlave2Id);
 
         rightMaster.configFactoryDefault();
         rightSlave.configFactoryDefault();
@@ -60,11 +61,11 @@ public class DriveTrainController {
         rightMaster.setNeutralMode(NeutralMode.Brake);
         leftMaster.setNeutralMode(NeutralMode.Brake);
         //Configure talons for follower mode
-        rightSlave.set(ControlMode.Follower, rightMaster.getDeviceID());
-        rightSlave2.set(ControlMode.Follower, rightMaster.getDeviceID());
-        leftSlave.set(ControlMode.Follower, leftMaster.getDeviceID());
-        leftSlave2.set(ControlMode.Follower, leftMaster.getDeviceID());
-
+        rightSlave.follow(rightMaster);
+        rightSlave2.follow(rightMaster);
+        leftSlave.follow(leftMaster);
+        leftSlave2.follow(leftMaster);
+/*
         rightMaster.config_kP(0, Constants.Autonomous.kTp);
         rightMaster.config_kI(0, Constants.Autonomous.kTi);
         rightMaster.config_kD(0, Constants.Autonomous.kTd);
@@ -74,7 +75,7 @@ public class DriveTrainController {
         leftMaster.config_kI(0, Constants.Autonomous.kTi);
         leftMaster.config_kD(0, Constants.Autonomous.kTd);
         leftMaster.config_kF(0, Constants.Autonomous.kTf);
-
+*/
         shifterIn = new Solenoid(Constants.DriveTrain.kShiftInSolenoidID);
         shifterOut = new Solenoid(Constants.DriveTrain.kShiftOutSolenoidID);
 
@@ -147,12 +148,12 @@ public class DriveTrainController {
     }
 
     public double getLeftEncoder(){
-        System.out.println("LEFT ENCODER: " +leftMaster.getSelectedSensorPosition(0));
+        //System.out.println("LEFT ENCODER: " +leftMaster.getSelectedSensorPosition(0));
 
         return leftMaster.getSelectedSensorPosition(0);
     }
     public double getRightEncoder(){
-        System.out.println("RIGHT ENCODER: " + rightMaster.getSelectedSensorPosition(0));
+        //System.out.println("RIGHT ENCODER: " + rightMaster.getSelectedSensorPosition(0));
         return rightMaster.getSelectedSensorPosition(0);
     }
 

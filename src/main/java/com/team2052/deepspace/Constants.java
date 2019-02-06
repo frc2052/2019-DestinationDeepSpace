@@ -13,7 +13,7 @@ public class Constants {
         public static final int kElevatorGroundGargoButton = 2;
         public static final int kElevatorHatch1Button = 3;
         public static final int kElevatorHatch2Button = 4;
-        public static final int kElevatorHatch3Button = 5;
+        public static final int kElevatorHatch3Button = 6;
         public static final int kElevatorCargoShipCargoButton = 6;
         public static final int kElevatorCargo1Button = 7;
         public static final int kElevatorCargo2Button = 8;
@@ -21,10 +21,15 @@ public class Constants {
         public static final int kElevatorAdjustmenUpButton = 10;
         public static final int kElevatorAdjustmenDownButton = 11;
         public static final int kElevatorEmergencyUpButton = 3;
-        public static final int kElevatorEmergencyDownButton = 5;
+        public static final int kElevatorEmergencyDownButton = 7;
 
         public static final int kautoOverrideButton = 2;
-        public static final int kVisionTrackButton = 6;
+        public static final int kVisionTrackButton = 3;
+        public static final int kGroundIntakeButton = 1;
+        public static final int kGroundOuttakeButton = 2;
+        public static final int kGrabButton = 8;
+        public static final int kLegClimberButton = 4;
+        public static final int kLegClimberLowerButton = 5;
     }
 
     public class DriveTrain{
@@ -45,34 +50,46 @@ public class Constants {
         public static final int kShiftOutSolenoidID = 1;
     }
     public class Intake {
+        public static final int kLifterSolenoidId = 2;
+        public static final int kGrabberSolenoidId = 3;
         public static final int kIntakeMotorId = 1;
-        public static final int kCargoId = 2;
+        public static final int kCargoInId = 2;
+        public static final int kCargoOutId = 3;
         public static final int kHatchId = 3;
         public static final int kOuttakePercentSpeed = -30;
         public static final int kNeutralSpeed = 20;
         public static final int kIntakePercentSpeed = 50;
-        public static final int kLifterId = 1;
-        public static final int kGrabberId = 2;
         public static final double kGrabTime = .5;
         public static final double kLiftTime = kGrabTime + .5;
+        public static final double kReleaseTime = .5;
+        public static final double kEscapeTime = kReleaseTime + .5;
+
+
     }
 
 
 
     public static class Autonomous{ //all units for distances, velocity, and acceleration are in inches
-        public static final double kturnSpeed = 5.0; //constant from 1-5     higher = faster
 
-        public static final double kMaxVelocity = (10 * 12); //10 * 12
-        public static final double kMaxAccel = 40;
+        //dials to change how auto works
+        public static final double kturnSpeed = 8.0; //constant from 1-5     higher = faster
+        //how fast the robot accelerates and decelerates
+        public static final double kMaxAccel = 70;
+        // changes how smooth it follows path. lower = curves back and forth/fishtail, higher = less accurate
+        public static final double kLookaheadDistance = 18; //12-25
+
+
+        public static final double kMaxVelocity = (7 * 12); //13 ft/s is high
+
         public static final long kloopPeriodMs = 50;
         public static final double kloopPeriodSec = kloopPeriodMs/1000.0; //int devision
 
-        public static final double kLookaheadDistance = 18; //12-25
+
         public static final int kNumOfFakePts = (int)((Constants.Autonomous.kLookaheadDistance * 1.5)/Constants.Autonomous.kMinPointSpacing); //how many extra point have we added after the last one?
-        public static final double kTrackWidth = 27.25;
+        public static final double kTrackWidth = 28.0;
         public static final double kRequiredDistanceFromEnd = 3;
-        public static final double kV = 1/(kMaxVelocity+8);
-        public static final double kA = 0.003; //0.002
+        public static final double kV = 1/(kMaxVelocity);
+        public static final double kA = 0.003; //0.002 todo: test and see how robot responds
         public static final double kP = 0.002; //0.002
         //pidf copied from 2017 needs testing
         public static final double kTp = 0.2;
@@ -92,14 +109,16 @@ public class Constants {
 
     public  class LegClimber {
 
+        //////ids//////
+        public static final int kLegClimberSolenoid1id = 7;
+        public static final int klegClimbersolenoid2id = 8;
         public static final int kLegClimberTalon1id = 7;
+
         public static final double kLegClimberMotorVelocity = 0.7;
-        public static final int kLegClimberButton = 5;
-        public static final int kLegClimberSolenoid1id = 21;
-        public static final int klegClimbersolenoid2id = 22;
-        public static final double kEncoderTicksPerRotation = 256;
-        public static final double kClimbMotorRotations = 20;
-        public static final double kClimberMotorDistance = (Constants.LegClimber.kClimbMotorRotations * Constants.LegClimber.kEncoderTicksPerRotation);
+
+        public static final double kEncoderTicksPerRotation = 1024;
+        public static final double kClimbMotorRotations = 940/4.0;
+        public static final int kClimberMotorDistance = 1438000;
     }
 
     public class Elevator{
@@ -125,6 +144,4 @@ public class Constants {
         public static final double kElevatorEmergencyUpPower = 0.4;
         public static final double kElevatorEmergencyHoldPower = 0.2;
     }
-
-
 }

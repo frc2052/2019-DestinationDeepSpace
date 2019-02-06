@@ -16,12 +16,12 @@ import edu.wpi.first.wpilibj.TimedRobot;
  * project.
  */
 public class Robot extends TimedRobot {
+    private GroundIntakeController groundIntake = null;
     private DriveHelper driveHelper = null;
     private IntakeController intake = null;
     private Controls controls = null;
     private DriveTrainController driveTrain = null;
     private ElevatorController elevator = null;
-    private GroundIntake groundIntake;
     private LegClimberController legClimberController = null;
     private RobotState robotstate = RobotState.getInstance();
     private RobotStateCalculator robotStateCalculator = RobotStateCalculator.getInstance();
@@ -35,11 +35,12 @@ public class Robot extends TimedRobot {
 
     @Override
     public void robotInit() {
+        groundIntake = GroundIntakeController.getInstance();
         driveHelper = new DriveHelper();
         //intake = IntakeController.getInstance();
         controls = Controls.getInstance();
-        //legClimberController = LegClimberController.getInstance();
-        //legClimberController.resetEncoders();
+        legClimberController = LegClimberController.getInstance();
+        legClimberController.resetEncoders();
         driveTrain = DriveTrainController.getInstance();
         //elevator = ElevatorController.getInstance();
         //elevator.zeroSensor();
@@ -107,6 +108,7 @@ public class Robot extends TimedRobot {
         robotStateCalculator.resetRobotState();
         controlLoop.start();
         driveTrain.zeroGyro();
+        legClimberController.resetEncoders();
     }
 
     /**
@@ -141,23 +143,27 @@ public class Robot extends TimedRobot {
         }
         robotstate.outputToSmartDashboard();
         driveTrain.setHighGear(controls.getShift());
-/*
-        groundIntake.update();
+
+        legClimberController.printEncoder();
 
         if (controls.legClimber()){
             legClimberController.setLegClimber(controls.legClimber());
+        } else if (controls.lowerClimber()){
+            legClimberController.lowerClimber();
         }else {
             legClimberController.stopClimber();
         }
-
+/*
+        groundIntake.update();
         if(controls.getIntake()){
             intake.cargoIntake();
 
-        } else if (controls.getOuttake()) {
-            intake.cargoOuttake();
         } else {
             intake.cargoNeutral();
         }
+
+        intake.grab(controls.getGrab());
+
 
         if (controls.getElevatorGroundCargo()) {
             elevator.setTarget(ElevatorController.ElevatorPresets.GROUND_CARGO);
@@ -176,6 +182,7 @@ public class Robot extends TimedRobot {
         }else if (controls.getElevatorRocketCargo3()) {
             elevator.setTarget(ElevatorController.ElevatorPresets.ROCKET_CARGO3);
         }
+
         elevator.setElevatorAdjustmentUp(controls.getElevatorAdjustmentUp());
         elevator.setElevatorAdjustmentDown(controls.getElevatorAdjustmentDown());
         elevator.setEmergencyUp(controls.getElevatorEmergencyUp());

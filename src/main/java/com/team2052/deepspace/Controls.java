@@ -18,7 +18,7 @@ public class Controls {
     private Joystick secondaryStick = new Joystick(2);
 
     public double getTankJoy1() {
-        double val = -leftPrimaryStick.getY();
+        double val = -rightPrimaryStick.getY();
         if (val < .15 && val > -.15) {
             val = 0;
         }
@@ -34,7 +34,7 @@ public class Controls {
     }
 
     public double getTurnJoy2() {
-        double val = rightPrimaryStick.getX();
+        double val = leftPrimaryStick.getX();
         if (val < .15 && val > -.15) {
             val = 0;
         }
@@ -42,18 +42,24 @@ public class Controls {
     }
 
     public boolean legClimber() {
-        return leftPrimaryStick.getRawButton(Constants.LegClimber.kLegClimberButton);
+        return rightPrimaryStick.getRawButton(Constants.Controls.kLegClimberButton);
+    }
+    public boolean lowerClimber(){
+           return rightPrimaryStick.getRawButton(Constants.Controls.kLegClimberLowerButton);
     }
 
 
     public boolean getQuickTurn(){
-        return rightPrimaryStick.getRawButton(Constants.Controls.kQuickTurnButton);
+        return leftPrimaryStick.getRawButton(Constants.Controls.kQuickTurnButton);
     }
 
     public boolean getOuttake() {return secondaryStick.getTrigger();}
     public boolean getIntake () {return secondaryStick.getTrigger();}
+    public boolean getGrab(){return secondaryStick.getRawButton(Constants.Controls.kGrabButton);}
+    public boolean getGroundIntake () {return secondaryStick.getRawButton(Constants.Controls.kGroundIntakeButton); }
+    public boolean getGroundOuttake () {return secondaryStick.getRawButton(Constants.Controls.kGroundOuttakeButton); }
 
-    public boolean getShift(){return leftPrimaryStick.getRawButton(4);}
+    public boolean getShift(){return rightPrimaryStick.getRawButton(2);}
 
     public boolean getVisionTrack(){
         return secondaryStick.getRawButton(Constants.Controls.kVisionTrackButton);
