@@ -133,7 +133,7 @@ public class Robot extends TimedRobot {
     }
 
     private void driverControlled(){
-        if (controls.getLineFollow()){
+        if (controls.getLightFollow()){
             if(lineFollower.getLineSensed()){
                 driveTrain.drive(lineFollower.getLightSensorMotorTurn(controls.getTankJoy1()));
             }else if (visionController.isTarget()){
