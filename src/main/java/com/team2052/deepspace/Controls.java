@@ -1,6 +1,5 @@
 package com.team2052.deepspace;
 
-import com.team2052.deepspace.subsystems.IntakeController;
 import edu.wpi.first.wpilibj.Joystick;
 
 public class Controls {
@@ -19,7 +18,7 @@ public class Controls {
     private Joystick secondaryStick = new Joystick(2);
 
     public double getTankJoy1() {
-        double val = -rightPrimaryStick.getY();
+        double val = -leftPrimaryStick.getY();
         if (val < .15 && val > -.15) {
             val = 0;
         }
@@ -27,15 +26,15 @@ public class Controls {
     } //these return the values for the joysticks for other classes
 
     public double getTurnJoy1() {
-        return leftPrimaryStick.getX();
+        return rightPrimaryStick.getX();
     }
 
     public double getTankJoy2() {
-        return leftPrimaryStick.getY();
+        return rightPrimaryStick.getY();
     }
 
     public double getTurnJoy2() {
-        double val = leftPrimaryStick.getX();
+        double val = rightPrimaryStick.getX();
         if (val < .15 && val > -.15) {
             val = 0;
         }
@@ -43,13 +42,12 @@ public class Controls {
     }
 
     public boolean legClimber() {
-        return rightPrimaryStick.getRawButton(Constants.LegClimber.kLegClimberButton);
+        return leftPrimaryStick.getRawButton(Constants.LegClimber.kLegClimberButton);
     }
-    public boolean lowerClimber(){return rightPrimaryStick.getRawButton(Constants.LegClimber.kLegClimberLowerButton);}
 
 
     public boolean reset() {
-        return rightPrimaryStick.getTrigger();
+        return leftPrimaryStick.getTrigger();
     }
     public boolean getQuickTurn(){
         return leftPrimaryStick.getRawButton(Constants.Controls.kQuickTurnButton);
@@ -57,9 +55,6 @@ public class Controls {
 
     public boolean getOuttake() {return secondaryStick.getRawButton(1);}
     public boolean getIntake () {return secondaryStick.getTrigger();}
-    public boolean getGrab(){return secondaryStick.getRawButton(Constants.Intake.kGrabButton);}
-    public boolean getGroundIntake () {return secondaryStick.getRawButton(Constants.Intake.kGroundIntakeButton); }
-    public boolean getGroundOuttake () {return secondaryStick.getRawButton(Constants.Intake.kGroundOuttakeButton); }
 
     public boolean getVisionTrack(){
         return secondaryStick.getRawButton(Constants.Controls.kVisionTrackButton);
@@ -82,11 +77,11 @@ public class Controls {
     public boolean getElevatorEmergencyDown(){return secondaryStick.getRawButton(Constants.Controls.kElevatorEmergencyDownButton);}
 
     public boolean trigger() {
-        return rightPrimaryStick.getTrigger();
+        return leftPrimaryStick.getTrigger();
     }
 
     public boolean autoOverride(){
-        return leftPrimaryStick.getRawButton(Constants.Controls.kautoOverrideButton);
+        return rightPrimaryStick.getRawButton(Constants.Controls.kautoOverrideButton);
     }
 
     public boolean getLightFollow(){return rightPrimaryStick.getRawButton(Constants.LineFollower.kLightSensorFollowButton);}
