@@ -269,4 +269,8 @@ public class PurePursuitPathFollower{
     private void printAnUpdate(){
         System.out.println("L-Vel: " + leftWheelVel + " R-Vel " + rightWheelVel + " curv: " + curvature + " in. Left: " + getDistanceFromEnd() + " P. Vel: " + path.getWaypoints().get(closestPointIndex).getVelocity());
     }
+
+    public String currentFlag(){
+        return path.getWaypoints().get(closestPointIndex).getFlag();
+    }
 }
