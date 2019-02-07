@@ -201,8 +201,8 @@ public abstract class Path {
                     pathPoints.get(i).setVelocity(vel);
                 }
 
-                if (pathPoints.get(i).getVelocity() > Constants.Autonomous.kMaxVelocity || pathPoints.get(i).getVelocity() < -Constants.Autonomous.kMaxVelocity){
-                    pathPoints.get(i).setVelocity(Constants.Autonomous.kMaxVelocity);
+                if (pathPoints.get(i).getVelocity() > Constants.Autonomous.kMaxAutoVelocity || pathPoints.get(i).getVelocity() < -Constants.Autonomous.kMaxAutoVelocity){
+                    pathPoints.get(i).setVelocity(Constants.Autonomous.kMaxAutoVelocity);
                 }
             }
         }

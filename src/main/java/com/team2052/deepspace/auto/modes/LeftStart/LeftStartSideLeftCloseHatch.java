@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class LeftStartSideLeftCloseHatch extends AutoMode {
 
     public LeftStartSideLeftCloseHatch(){
-        startDirection = StartDirection.FORWARD;
+        startDirection = StartDirection.BACKWARD;
         startPosition = StartPosition.LEFT;
     }
     @Override
@@ -24,7 +24,7 @@ public class LeftStartSideLeftCloseHatch extends AutoMode {
                 //TODO: change hatch action to GROUND hatch outtake
                 //new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
                 //Drives back towards loading station
-                //new FollowPathAction(new LCloseHatchStartLeftHatchPickUpPath())
+
         )));
     }
 }

@@ -33,12 +33,13 @@ public class Constants {
     }
 
     public class DriveTrain{
-        public static final int kDriveLeftMasterId = 1;
-        public static final int kDriveLeftSlaveId = 2;
-        public static final int kDriveLeftSlave2Id = 3;
-        public static final int kDriveRightMasterId = 4;
-        public static final int kDriveRightSlaveId = 5;
-        public static final int kDriveRightSlave2Id = 6;
+        public static final int kDriveRightMasterId = 1;
+        public static final int kDriveRightSlaveId = 2;
+        public static final int kDriveRightSlave2Id = 3;
+        public static final int kDriveLeftMasterId = 4;
+        public static final int kDriveLeftSlaveId = 5;
+        public static final int kDriveLeftSlave2Id = 6;
+
 
         public static final int kVelocityControlSlot = 0;
         public static final int kCANBusConfigTimeoutMS = 10;
@@ -72,14 +73,14 @@ public class Constants {
     public static class Autonomous{ //all units for distances, velocity, and acceleration are in inches
 
         //dials to change how auto works
-        public static final double kturnSpeed = 8.0; //constant from 1-5     higher = faster
+        public static final double kturnSpeed = 3; //constant from 1-5     higher = faster
         //how fast the robot accelerates and decelerates
-        public static final double kMaxAccel = 70;
+        public static final double kMaxAccel = 120;
         // changes how smooth it follows path. lower = curves back and forth/fishtail, higher = less accurate
-        public static final double kLookaheadDistance = 18; //12-25
+        public static final double kLookaheadDistance = 19; //12-25
 
 
-        public static final double kMaxVelocity = (7 * 12); //13 ft/s is high
+        public static final double kMaxAutoVelocity = (13*12); //13 ft/s is high, 7 ft/s is low
 
         public static final long kloopPeriodMs = 50;
         public static final double kloopPeriodSec = kloopPeriodMs/1000.0; //int devision
@@ -88,7 +89,7 @@ public class Constants {
         public static final int kNumOfFakePts = (int)((Constants.Autonomous.kLookaheadDistance * 1.5)/Constants.Autonomous.kMinPointSpacing); //how many extra point have we added after the last one?
         public static final double kTrackWidth = 28.0;
         public static final double kRequiredDistanceFromEnd = 3;
-        public static final double kV = 1/(kMaxVelocity);
+        public static final double kV = 1/(kMaxAutoVelocity);
         public static final double kA = 0.003; //0.002 todo: test and see how robot responds
         public static final double kP = 0.002; //0.002
         //pidf copied from 2017 needs testing

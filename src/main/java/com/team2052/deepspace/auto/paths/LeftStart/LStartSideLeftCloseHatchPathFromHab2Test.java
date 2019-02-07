@@ -10,11 +10,11 @@ public class LStartSideLeftCloseHatchPathFromHab2Test extends Path {
 
     public LStartSideLeftCloseHatchPathFromHab2Test() {
         setDirection(Direction.FORWARD);
-        addWaypoint(new Waypoint(new Position2d(0,-47+6.5),70)); // B
+        addWaypoint(new Waypoint(new Position2d(0,-47+ 6.5),70)); // B
         addWaypoint(new Waypoint(new Position2d(50+45,-47 + 6.5),70));
         addWaypoint(new Waypoint(new Position2d(68+45,-65 + 6.5),70)); // F
-        addWaypoint(new Waypoint(new Position2d(194+45,-65+6.5),70)); // N
-        addWaypoint(new Waypoint(new Position2d(194+45,-47+6.5),70)); // P
+        addWaypoint(new Waypoint(new Position2d(194+45,-65+ 6.5),70)); // N
+        addWaypoint(new Waypoint(new Position2d(194+45,-47+ 6.5),70)); // P
         OptimizePath();
     }
 

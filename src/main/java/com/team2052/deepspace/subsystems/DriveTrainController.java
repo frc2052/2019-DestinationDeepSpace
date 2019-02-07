@@ -111,11 +111,8 @@ public class DriveTrainController {
 
     public void drive(DriveSignal driveSignal) {
 
-        /*System.out.println("Left Speed = " + driveSignal.leftMotorSpeedPercent + " rightSpeed = " + driveSignal.rightMotorSpeedPercent);
-        System.out.println("Left Speed = " + left + " rightSpeed = " + right);
-        System.out.println("Left Vel = " + left / Constants.Autonomous.kV + " right Vel = " + right/Constants.Autonomous.kV);
-        System.out.println("SENSOR VEL:" + leftMaster.getSelectedSensorVelocity() * (1.0/Constants.DriveTrain.kTicksPerRot) * Constants.DriveTrain.kDriveWheelCircumferenceInches * 10);
-*/
+        //System.out.println("Left Speed = " + driveSignal.leftMotorSpeedPercent + " rightSpeed = " + driveSignal.rightMotorSpeedPercent);
+
         leftMaster.set(ControlMode.PercentOutput, driveSignal.leftMotorSpeedPercent);
         rightMaster.set(ControlMode.PercentOutput, driveSignal.rightMotorSpeedPercent);
 

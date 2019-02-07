@@ -89,6 +89,7 @@ public class PurePursuitPathFollower{
         currentPos = null;
         curvature = 0;
         closestPointIndex = 0;
+        driveTrain.setHighGear(true);
     }
 
     /**
@@ -185,8 +186,8 @@ public class PurePursuitPathFollower{
 
         highestVel = Math.max(highestVel, leftWheelVel);
         highestVel = Math.max(highestVel,rightWheelVel);
-        if(highestVel > Constants.Autonomous.kMaxVelocity){
-            double scaling = Constants.Autonomous.kMaxVelocity / highestVel;
+        if(highestVel > Constants.Autonomous.kMaxAutoVelocity){
+            double scaling = Constants.Autonomous.kMaxAutoVelocity / highestVel;
             System.out.println("SCALING OUTPUTS DOWN");
             leftWheelVel*=scaling;
             rightWheelVel*=scaling;
