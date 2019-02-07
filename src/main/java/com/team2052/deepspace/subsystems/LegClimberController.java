@@ -53,9 +53,12 @@ public class LegClimberController {
                 //LegClimberSolenoid1.set(true);
         }
     }
-    public void stopClimber(){
-        if ((double)legClimberMotor.getSelectedSensorPosition() <= Constants.LegClimber.kClimberMotorDistance + 1 && (double)legClimberMotor.getSelectedSensorPosition() >= Constants.LegClimber.kClimberMotorDistance -1);
+    public void lowerClimber(){
         legClimberMotor.set(ControlMode.MotionMagic, 0.0);
+    }
+
+    public void stopClimber(){
+        legClimberMotor.set(ControlMode.PercentOutput, 0.0);
     }
 
 }
