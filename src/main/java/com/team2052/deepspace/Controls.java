@@ -19,33 +19,35 @@ public class Controls {
     private Joystick secondaryStick = new Joystick(2);
 
     public double getTankJoy1() {
-        double val = -rightPrimaryStick.getY();
-        if (val < .15 && val > -.15) {
+        double val = -leftPrimaryStick.getY();
+        if (val < .15 && val > -.15)
+        {
             val = 0;
         }
         return val;
     } //these return the values for the joysticks for other classes
 
     public double getTurnJoy1() {
-        return leftPrimaryStick.getX();
+        return rightPrimaryStick.getX();
     }
 
     public double getTankJoy2() {
-        return leftPrimaryStick.getY();
+        return rightPrimaryStick.getY();
     }
 
-    public double getTurnJoy2() {
-        double val = leftPrimaryStick.getX();
-        if (val < .15 && val > -.15) {
+    public double getTurnJoy2()
+    {
+        double val = rightPrimaryStick.getX();
+        if (val < .15 && val > -.15)
+        {
             val = 0;
         }
         return val;
     }
 
     public boolean legClimber() {
-        return rightPrimaryStick.getRawButton(Constants.LegClimber.kLegClimberButton);
+        return leftPrimaryStick.getRawButton(Constants.LegClimber.kLegClimberButton);
     }
-    public boolean lowerClimber(){return rightPrimaryStick.getRawButton(Constants.LegClimber.kLegClimberLowerButton);}
 
 
     public boolean reset() {
