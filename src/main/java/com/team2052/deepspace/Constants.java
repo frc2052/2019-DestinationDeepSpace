@@ -37,16 +37,22 @@ public class Constants {
         public static final double kDriveWheelCircumferenceInches = 6.0 * Math.PI;
     }
     public class Intake {
+        public static final int kLifterId = 1;
+        public static final int kGrabberId = 2;
         public static final int kIntakeMotorId = 1;
-        public static final int kCargoId = 2;
+        public static final int kCargoInId = 2;
+        public static final int kCargoOutId = 3;
         public static final int kHatchId = 3;
         public static final int kOuttakePercentSpeed = -30;
         public static final int kNeutralSpeed = 20;
         public static final int kIntakePercentSpeed = 50;
-        public static final int kLifterId = 1;
-        public static final int kGrabberId = 2;
         public static final double kGrabTime = .5;
         public static final double kLiftTime = kGrabTime + .5;
+        public static final double kReleaseTime = .5;
+        public static final double kEscapeTime = kReleaseTime + .5;
+        public static final int kGroundIntakeButton = 1;
+        public static final int kGroundOuttakeButton = 2;
+        public static final int kGrabButton = 8;
 
     }
 
@@ -83,11 +89,17 @@ public class Constants {
 
     public  class LegClimber {
 
-        public static final int kLegClimberTalon1id = 20;
-        public static final double kLegClimberMotorVelocity = 0.7;
-        public static final int kLegClimberButton = 5;
+        //////ids//////
         public static final int kLegClimberSolenoid1id = 21;
         public static final int klegClimbersolenoid2id = 22;
+        public static final int kLegClimberTalon1id = 20;
+
+        //////buttons//////
+        public static final int kLegClimberButton = 4;
+        public static final int kLegClimberLowerButton = 6;
+
+        public static final double kLegClimberMotorVelocity = 0.7;
+
         public static final double kEncoderTicksPerRotation = 256;
         public static final double kClimbMotorRotations = 20;
         public static final double kClimberMotorDistance = (Constants.LegClimber.kClimbMotorRotations * Constants.LegClimber.kEncoderTicksPerRotation);
