@@ -19,7 +19,7 @@ public class VisionController {
     public DriveSignal getMotorOutput(){
         getValues();
 
-        return new DriveSignal(.3,.3);
+        return new DriveSignal(x,1-x);
     }
 
     private void getValues(){
@@ -34,7 +34,6 @@ public class VisionController {
 
     public boolean isTarget(){
         getValues();
-        x = -1;
         return !(x==-1);
     }
 
