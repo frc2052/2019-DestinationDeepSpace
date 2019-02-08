@@ -2,46 +2,40 @@ package com.team2052.deepspace.auto.actions;
 
 import com.team2052.deepspace.subsystems.ElevatorController;
 
-public class ElevatorAction {
+public class ElevatorAction implements Action{
+
+    double currentHeight;
+    double target;
 
     private ElevatorController elevator = null;
-
+    private ElevatorController.ElevatorPresets elevatorState;
     public ElevatorAction(ElevatorController.ElevatorPresets ElevatorState){
         elevator = ElevatorController.getInstance();
     }
 
-
+    @Override
     public void done(){
 
     }
 
+    @Override
     public boolean isFinished(){
-        double target = elevator.getElevatorPresetsHeights(elevatorState);
-        double currentHeight = elevator.getHeightInches();
         return (target - 2 < currentHeight && target + 2 > currentHeight);
 
     }
-    private ElevatorController.ElevatorPresets elevatorState;
 
 
 
+
+    @Override
     public void start(){
         elevator.setTarget(elevatorState);
     }
 
+    @Override
     public void update(){
-
+        target = elevator.getElevatorPresetsHeights(elevatorState);
+        currentHeight = elevator.getHeightInches();
     }
 
-   /* public enum ElevatorPresets {
-        GROUND_CARGO,
-        HATCH_LEVEL1,
-        HATCH_LEVEL2,
-        HATCH_LEVEL3,
-        CARGOSHIP_CARGO,
-        ROCKET_CARGO1,
-        ROCKET_CARGO2,
-        ROCKET_CARGO3,
-
-    }*/
 }

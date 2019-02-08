@@ -4,7 +4,7 @@ import com.team2052.deepspace.auto.AutoMode;
 import com.team2052.deepspace.auto.actions.*;
 import com.team2052.deepspace.auto.paths.HatchPickUp.LHatchPickUpStartLeftFarHatchPathCompoundPath;
 import com.team2052.deepspace.auto.paths.LeftHatchStarts.LCloseHatchStartLeftHatchPickUpPath;
-import com.team2052.deepspace.auto.paths.LeftHatchStarts.LFarHatchStartLeftHatchPickUpPath;
+import com.team2052.deepspace.auto.paths.LeftHatchStarts.LFarHatchStartLeftHatchPickUpPathCompoundPath;
 import com.team2052.deepspace.auto.paths.LeftStart.LStartSideLeftCloseHatchPath;
 import com.team2052.deepspace.auto.paths.Path;
 
@@ -17,20 +17,20 @@ public class LeftStartSideLeftCloseHatchToLeftFarHatch extends AutoMode {
                 //Starting path starts going backwards
                 new FollowPathAction(new LStartSideLeftCloseHatchPath(Path.Direction.BACKWARD)),
                 //Vision
-                new VisionAction(),
-                //TODO: change hatch action to GROUND hatch outtake
-                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
+                new LineUpAction(),
+                // when false, ground outtake action
+                new GroundIntakeAction(false),
                 new FollowPathAction(new LCloseHatchStartLeftHatchPickUpPath()),
                 //Vision
-                new VisionAction(),
+                new LineUpAction(),
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
                 //Compound path to make robot turn around
                 new FollowPathListAction(new LHatchPickUpStartLeftFarHatchPathCompoundPath().getPaths()),
                 //Vision
-                new VisionAction(),
+                new LineUpAction(),
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
-                //Drives back towards loading station
-                new FollowPathAction(new LFarHatchStartLeftHatchPickUpPath())
+                //Turns robot around and drives back towards loading station
+                new FollowPathListAction(new LFarHatchStartLeftHatchPickUpPathCompoundPath().getPaths())
         )));
     }
 }

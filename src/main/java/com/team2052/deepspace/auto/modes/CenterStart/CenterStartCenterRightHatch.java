@@ -1,12 +1,9 @@
 package com.team2052.deepspace.auto.modes.CenterStart;
 
 import com.team2052.deepspace.auto.AutoMode;
-import com.team2052.deepspace.auto.actions.FollowPathAction;
-import com.team2052.deepspace.auto.actions.HatchIntakeAction;
-import com.team2052.deepspace.auto.actions.SeriesAction;
+import com.team2052.deepspace.auto.actions.*;
 
-import com.team2052.deepspace.auto.actions.VisionAction;
-import com.team2052.deepspace.auto.paths.CenterHatchStarts.CRightHatchStartRightHatchPickUpPath;
+import com.team2052.deepspace.auto.paths.CenterHatchStarts.CRightHatchStartRightHatchPickUpPathCompoundPath;
 import com.team2052.deepspace.auto.paths.CenterStart.CStartCenterRightHatchPath;
 import com.team2052.deepspace.auto.paths.Path;
 
@@ -19,10 +16,11 @@ public class CenterStartCenterRightHatch extends AutoMode {
                 //Starting path starts going backwards
                 new FollowPathAction(new CStartCenterRightHatchPath(Path.Direction.BACKWARD)),
                 //Vision
-                new VisionAction(),
-                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
-                //Drives back towards loading station
-                new FollowPathAction(new CRightHatchStartRightHatchPickUpPath())
+                new LineUpAction(),
+                // when false, ground outtake action
+                new GroundIntakeAction(false),
+                //Turns robot around and drives back towards loading station
+                new FollowPathListAction(new CRightHatchStartRightHatchPickUpPathCompoundPath().getPaths())
         )));
     }
 }

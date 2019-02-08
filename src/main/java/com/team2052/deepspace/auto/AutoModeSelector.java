@@ -3,7 +3,6 @@ package com.team2052.deepspace.auto;
 import com.team2052.deepspace.auto.modes.CenterStart.*;
 import com.team2052.deepspace.auto.modes.LeftStart.*;
 import com.team2052.deepspace.auto.modes.RightStart.*;
-import com.team2052.deepspace.auto.modes.RightStart.RightStartSideRightMiddleHatch;
 import com.team2052.deepspace.auto.modes.Test;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;

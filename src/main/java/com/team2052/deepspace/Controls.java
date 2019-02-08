@@ -65,7 +65,7 @@ public class Controls {
         return secondaryStick.getRawButton(Constants.Controls.kVisionTrackButton);
     };
 
-  //////elevator//////
+    //////elevator//////
     public boolean getElevatorGroundCargo(){return secondaryStick.getRawButton(Constants.Controls.kElevatorGroundGargoButton);}
     public boolean getElevatorHatch1(){return secondaryStick.getRawButton(Constants.Controls.kElevatorHatch1Button);}
     public boolean getElevatorHatch2(){return secondaryStick.getRawButton(Constants.Controls.kElevatorHatch2Button);}
@@ -88,5 +88,6 @@ public class Controls {
     public boolean autoOverride(){
         return tankPrimaryStick.getRawButton(Constants.Controls.kautoOverrideButton);
     }
-}
 
+    public boolean getLightFollow(){return tankPrimaryStick.getRawButton(Constants.LineFollower.kLightSensorFollowButton);}
+}

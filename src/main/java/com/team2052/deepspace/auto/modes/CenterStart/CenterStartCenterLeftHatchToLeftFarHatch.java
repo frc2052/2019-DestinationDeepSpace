@@ -1,14 +1,11 @@
 package com.team2052.deepspace.auto.modes.CenterStart;
 
 import com.team2052.deepspace.auto.AutoMode;
-import com.team2052.deepspace.auto.actions.FollowPathAction;
-import com.team2052.deepspace.auto.actions.HatchIntakeAction;
-import com.team2052.deepspace.auto.actions.SeriesAction;
-import com.team2052.deepspace.auto.actions.VisionAction;
+import com.team2052.deepspace.auto.actions.*;
 import com.team2052.deepspace.auto.paths.CenterHatchStarts.CLeftHatchStartLeftHatchPickUpPath;
 import com.team2052.deepspace.auto.paths.CenterStart.CStartCenterLeftHatchPath;
 import com.team2052.deepspace.auto.paths.HatchPickUp.LHatchPickUpStartLeftFarHatchPath;
-import com.team2052.deepspace.auto.paths.LeftHatchStarts.LFarHatchStartLeftHatchPickUpPath;
+import com.team2052.deepspace.auto.paths.LeftHatchStarts.LFarHatchStartLeftHatchPickUpPathCompoundPath;
 import com.team2052.deepspace.auto.paths.Path;
 
 import java.util.Arrays;
@@ -20,19 +17,20 @@ public class CenterStartCenterLeftHatchToLeftFarHatch extends AutoMode {
                 //Starting path starts going backwards
                 new FollowPathAction(new CStartCenterLeftHatchPath(Path.Direction.BACKWARD)),
                 //Vision
-                new VisionAction(),
-                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
+                new LineUpAction(),
+                // when false, ground outtake action
+                new GroundIntakeAction(false),
                 new FollowPathAction(new CLeftHatchStartLeftHatchPickUpPath()),
                 //Vision
-                new VisionAction(),
+                new LineUpAction(),
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
                 //Compound path to make robot turn around
                 new FollowPathAction(new LHatchPickUpStartLeftFarHatchPath()),
                 //Vision
-                new VisionAction(),
+                new LineUpAction(),
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
-                //Drives back towards loading station
-                new FollowPathAction(new LFarHatchStartLeftHatchPickUpPath())
+                //Turns robot around and drives back towards loading station
+                new FollowPathListAction(new LFarHatchStartLeftHatchPickUpPathCompoundPath().getPaths())
         )));
     }
 }
