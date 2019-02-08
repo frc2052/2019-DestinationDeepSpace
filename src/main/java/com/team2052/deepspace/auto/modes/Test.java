@@ -1,7 +1,7 @@
 package com.team2052.deepspace.auto.modes;
 
 import com.team2052.deepspace.auto.AutoMode;
-import com.team2052.deepspace.auto.actions.FollowPathAction;
+import com.team2052.deepspace.auto.actions.LineUpAction;
 import com.team2052.deepspace.auto.actions.SeriesAction;
 import com.team2052.deepspace.auto.paths.ForwardPath;
 import com.team2052.deepspace.auto.paths.Path;
@@ -18,7 +18,7 @@ public class Test extends AutoMode {
         System.out.println("init");
 
         runAction(new SeriesAction(Arrays.asList(
-                new FollowPathAction(forwardPath)
+                new LineUpAction()
                 //new FollowPathAction(backwardPath)
         )));
     }

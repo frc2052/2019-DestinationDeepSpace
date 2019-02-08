@@ -22,6 +22,7 @@ public class Robot extends TimedRobot {
     private DriveTrainController driveTrain = null;
     private ElevatorController elevator = null;
     private LegClimberController legClimberController = null;
+    private LineFollowerController lineFollower = null;
     private RobotState robotstate = RobotState.getInstance();
     private RobotStateCalculator robotStateCalculator = RobotStateCalculator.getInstance();
     private AutoModeRunner autoModeRunner = new AutoModeRunner();
@@ -36,16 +37,17 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         groundIntake = GroundIntakeController.getInstance();
         driveHelper = new DriveHelper();
-        intake = IntakeController.getInstance();
+       // intake = IntakeController.getInstance();
         controls = Controls.getInstance();
-        legClimberController = LegClimberController.getInstance();
-        legClimberController.resetEncoders();
+       // legClimberController = LegClimberController.getInstance();
+        //legClimberController.resetEncoders();
         driveTrain = DriveTrainController.getInstance();
-        elevator = ElevatorController.getInstance();
-        elevator.zeroSensor();
+       // elevator = ElevatorController.getInstance();
+       // elevator.zeroSensor();
         controlLoop.addLoopable(robotStateCalculator);
         visionController = VisionController.getInstance();
 
+        lineFollower = LineFollowerController.getInstance();
         try {
             compressor = new Compressor();
             compressor.setClosedLoopControl(true);
@@ -131,12 +133,20 @@ public class Robot extends TimedRobot {
     }
 
     private void driverControlled(){
-        if(controls.getVisionTrack()) {
-            driveTrain.drive(visionController.getMotorOutput());
-        }else{
+        if (controls.getLightFollow()){
+            if(lineFollower.getLineSensed()){
+                driveTrain.drive(lineFollower.getLightSensorMotorTurn(controls.getTankJoy1()));
+            }else if (visionController.isTarget()){
+                driveTrain.drive(visionController.getMotorOutput());
+            } else {
+                driveTrain.drive(driveHelper.drive(controls.getTankJoy1(), controls.getTurnJoy2(), controls.getQuickTurn()));
+            }
+        }
+        else {
             driveTrain.drive(driveHelper.drive(controls.getTankJoy1(), controls.getTurnJoy2(), controls.getQuickTurn()));
         }
 
+        /*if (controls.legClimber()){
         groundIntake.update();
 
         if (controls.legClimber()){
@@ -144,9 +154,9 @@ public class Robot extends TimedRobot {
         } else if (controls.lowerClimber()){
             legClimberController.lowerClimber();
         }else {
-            legClimberController.stopClimber();
-        }
-
+           // legClimberController.stopClimber();
+        }*/
+        /*
         if(controls.getIntake()){
             intake.cargoIntake();
 
@@ -179,5 +189,8 @@ public class Robot extends TimedRobot {
         elevator.setElevatorAdjustmentDown(controls.getElevatorAdjustmentDown());
         elevator.setEmergencyUp(controls.getElevatorEmergencyUp());
         elevator.setEmergencyDown(controls.getElevatorEmergencyDown());
+        */
+
+
     }
 }

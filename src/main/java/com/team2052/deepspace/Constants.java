@@ -128,4 +128,22 @@ public class Constants {
         public static final double kElevatorEmergencyUpPower = 0.4;
         public static final double kElevatorEmergencyHoldPower = 0.2;
     }
+
+    public class LineFollower {
+        //////ports//////
+        public static final int kLeftLightSensorId = 2;
+        public static final int kMiddleLightSensorId = 1;
+        public static final int kRightLightSensorId = 0;
+
+        //////speeds//////
+        public static final double kLightSensorTurnHardSpeedReduction = -1;
+        public static final double kLightSensorTurnLightSpeedReduction = -0.8;
+        public static final double kLightSensorMotorSpeed = 0.4;
+
+        //////button//////
+        public static final int kLightSensorFollowButton = 3;
+
+    }
+
+
 }
