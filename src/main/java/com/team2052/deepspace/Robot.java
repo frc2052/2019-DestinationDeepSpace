@@ -139,7 +139,7 @@ public class Robot extends TimedRobot {
         if(controls.getVisionTrack()) {
             driveTrain.drive(visionController.getMotorOutput());
         }else{
-            driveTrain.drive(driveHelper.drive(controls.getTankJoy1(), controls.getTurnJoy2(), controls.getQuickTurn()));
+            driveTrain.drive(driveHelper.drive(controls.getDriveTank(), controls.getDriveTurn(), controls.getQuickTurn()));
         }
         robotstate.outputToSmartDashboard();
         driveTrain.setHighGear(controls.getShift());
