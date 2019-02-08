@@ -180,6 +180,16 @@ public class DriveTrainController {
             return 0;
         }
     }
+    /*
+    // old gyro code
+     public double getOldGyroAngleDegrees() {
+        // It just so happens that the gyro outputs 4x the amount that it actually turned
+        return -gyro.getAngleZ() / 4.0;
 
+    }
+    public double getOldGyroAngleRadians(){
+        return getOldGyroAngleDegrees() * 0.017453;
+    }
+    */
 }
 

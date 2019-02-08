@@ -1,6 +1,5 @@
 package com.team2052.deepspace;
 
-import com.team2052.deepspace.subsystems.IntakeController;
 import edu.wpi.first.wpilibj.Joystick;
 
 public class Controls {
@@ -43,19 +42,21 @@ public class Controls {
     }
 
     public boolean legClimber() {
-        return leftPrimaryStick.getRawButton(Constants.LegClimber.kLegClimberButton);
+        return rightPrimaryStick.getRawButton(Constants.LegClimber.kLegClimberButton);
     }
+    public boolean lowerClimber(){return rightPrimaryStick.getRawButton(Constants.LegClimber.kLegClimberLowerButton);}
 
 
     public boolean reset() {
         return leftPrimaryStick.getTrigger();
     }
     public boolean getQuickTurn(){
-        return rightPrimaryStick.getRawButton(Constants.Controls.kQuickTurnButton);
+        return leftPrimaryStick.getRawButton(Constants.Controls.kQuickTurnButton);
     }
 
     public boolean getOuttake() {return secondaryStick.getRawButton(1);}
     public boolean getIntake () {return secondaryStick.getTrigger();}
+    public boolean getGrab(){return secondaryStick.getRawButton(Constants.Intake.kGrabButton);}
     public boolean getGroundIntake () {return secondaryStick.getRawButton(Constants.Intake.kGroundIntakeButton); }
     public boolean getGroundOuttake () {return secondaryStick.getRawButton(Constants.Intake.kGroundOuttakeButton); }
 
@@ -63,7 +64,7 @@ public class Controls {
         return secondaryStick.getRawButton(Constants.Controls.kVisionTrackButton);
     };
 
-  //////elevator//////
+    //////elevator//////
     public boolean getElevatorGroundCargo(){return secondaryStick.getRawButton(Constants.Controls.kElevatorGroundGargoButton);}
     public boolean getElevatorHatch1(){return secondaryStick.getRawButton(Constants.Controls.kElevatorHatch1Button);}
     public boolean getElevatorHatch2(){return secondaryStick.getRawButton(Constants.Controls.kElevatorHatch2Button);}
@@ -86,5 +87,6 @@ public class Controls {
     public boolean autoOverride(){
         return rightPrimaryStick.getRawButton(Constants.Controls.kautoOverrideButton);
     }
-}
 
+    public boolean getLightFollow(){return rightPrimaryStick.getRawButton(Constants.LineFollower.kLightSensorFollowButton);}
+}

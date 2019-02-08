@@ -17,17 +17,17 @@ public class RightStartSideRightFarHatchToRightMiddleHatch extends AutoMode {
                 //Starting path starts going backwards
                 new FollowPathAction(new RStartSideRightFarHatchPath(Path.Direction.BACKWARD)),
                 //Vision
-                new VisionAction(),
+                new LineUpAction(),
                 // when false, ground outtake action
                 new GroundIntakeAction(false),
                 new FollowPathAction(new RFarHatchStartRightHatchPickUpPath()),
                 //Vision
-                new VisionAction(),
+                new LineUpAction(),
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
                 //Compound path to make robot turn around
                 new FollowPathListAction(new RHatchPickUpStartRightMiddleHatchPathCompoundPath().getPaths()),
                 //Vision
-                new VisionAction(),
+                new LineUpAction(),
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
                 //Turns robot around and drives back towards loading station
                 new FollowPathListAction(new RMiddleHatchStartRightHatchPickUpPathCompoundPath().getPaths())

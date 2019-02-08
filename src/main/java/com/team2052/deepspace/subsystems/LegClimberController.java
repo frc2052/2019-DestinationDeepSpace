@@ -14,7 +14,6 @@ public class LegClimberController {
     public static LegClimberController getInstance() { return singleLegClimberControllerInstance; }
 
     private TalonSRX legClimberMotor = new TalonSRX(Constants.LegClimber.kLegClimberTalon1id);
-    private double pos = (Constants.LegClimber.kClimbMotorRotations * Constants.LegClimber.kEncoderTicksPerRotation);
 
 
     //with assistance
@@ -42,20 +41,24 @@ public class LegClimberController {
 
         if (time <= 40) {
             if (on) {
-                legClimberMotor.set(ControlMode.MotionMagic, pos);
+                legClimberMotor.set(ControlMode.MotionMagic, Constants.LegClimber.kClimberMotorDistance);
                 //with Assistance
                 //LegClimberSolenoid1.set(true);
 
             }
         }
         else if (legClimberButton == 4){
-                legClimberMotor.set(ControlMode.MotionMagic, pos);
+                legClimberMotor.set(ControlMode.MotionMagic, Constants.LegClimber.kClimberMotorDistance);
                 //with assistance
                 //LegClimberSolenoid1.set(true);
         }
     }
-    public void stopClimber(){
+    public void lowerClimber(){
         legClimberMotor.set(ControlMode.MotionMagic, 0.0);
+    }
+
+    public void stopClimber(){
+        legClimberMotor.set(ControlMode.PercentOutput, 0.0);
     }
 
 }

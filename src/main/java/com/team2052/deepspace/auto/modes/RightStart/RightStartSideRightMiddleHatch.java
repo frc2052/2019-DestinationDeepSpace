@@ -15,7 +15,7 @@ public class RightStartSideRightMiddleHatch extends AutoMode {
                 //Starting path starts going backwards
                 new FollowPathAction(new RStartSideRightMiddleHatchPath(Path.Direction.BACKWARD)),
                 //Vision
-                new VisionAction(),
+                new LineUpAction(),
                 // when false, ground outtake action
                 new GroundIntakeAction(false),
                 //Turns robot around and drives back towards loading station
