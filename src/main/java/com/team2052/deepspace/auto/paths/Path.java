@@ -43,7 +43,7 @@ public abstract class Path {
      */
     protected void OptimizePath(){
 
-        List<Waypoint> pathPoints = null;
+        List<Waypoint> pathPoints = new ArrayList<Waypoint>();
         /*addPoints
          * First extend the path based on the lookahead distance
          * then add points between the original points that are less then 6 inches away from each other
@@ -55,9 +55,6 @@ public abstract class Path {
         for(int i = 0; i < wayPoints.size(); i++){
             System.out.println("path points: x: " + wayPoints.get(i).getPosition().getLateral() + "y: " + wayPoints.get(i).getPosition().getForward());
         }*/
-            pathPoints = new ArrayList<Waypoint>();
-
-
             //set the final point to 0 calculateDeceleration
             wayPoints.get(wayPoints.size() - 1).setVelocity(0);
 
