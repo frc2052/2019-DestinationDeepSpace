@@ -8,7 +8,7 @@ import java.util.List;
 
 public class RStartSideRightFarHatchPath extends Path {
 
-    public RStartSideRightFarHatchPath() {
+    public RStartSideRightFarHatchPath(Direction backward) {
         setDirection(Direction.FORWARD);
         addWaypoint(new Waypoint(new Position2d(0,0),50));
         OptimizePath();
