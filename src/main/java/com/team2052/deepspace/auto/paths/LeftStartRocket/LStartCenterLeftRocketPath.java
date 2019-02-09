@@ -10,9 +10,9 @@ public class LStartCenterLeftRocketPath extends Path{
 
     public LStartCenterLeftRocketPath(Direction backward) {
         setDirection(Direction.FORWARD);
-        addWaypoint(new Waypoint(new Position2d(0,-47),50)); // B
-        addWaypoint(new Waypoint(new Position2d(68,-10),50)); // H
-        addWaypoint(new Waypoint(new Position2d(68,-10),50)); // K
+
+
+
         OptimizePath();
     }
 

@@ -8,8 +8,8 @@ import com.team2052.deepspace.auto.actions.VisionAction;
 import com.team2052.deepspace.auto.paths.LeftHatchStarts.LCloseHatchStartLeftHatchPickUpPath;
 import com.team2052.deepspace.auto.paths.LeftStart.LStartSideLeftCloseHatchPath;
 import com.team2052.deepspace.auto.paths.Path;
-import com.team2052.deepspace.auto.paths.RightRocketStarts.RFarRocketStartRightRocketPickUpPath;
 import com.team2052.deepspace.auto.paths.RightStartRocket.RStartSideRightCloseRocketPath;
+import com.team2052.deepspace.auto.paths.RightStartRocket.RStartSideRightFarRocketPath;
 
 import java.util.Arrays;
 
@@ -36,7 +36,7 @@ public class RightStartSideRightCloseRocketToRightFarRocket extends AutoMode {
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
                 //Drives back towards loading station
                 //:Update Paths To Its Actual One For the MODE
-                new FollowPathAction(new RFarRocketStartRightRocketPickUpPath(Path.Direction.FORWARD))
+                new FollowPathAction(new RStartSideRightFarRocketPath(Path.Direction.FORWARD))
         )));
     }
 }

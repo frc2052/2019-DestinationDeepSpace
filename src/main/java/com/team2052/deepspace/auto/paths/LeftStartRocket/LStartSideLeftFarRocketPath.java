@@ -10,10 +10,17 @@ public class LStartSideLeftFarRocketPath extends Path {
 
     public LStartSideLeftFarRocketPath(Direction backward) {
         setDirection(Direction.FORWARD);
-        addWaypoint(new Waypoint(new Position2d(0,-47),50)); // B
-        addWaypoint(new Waypoint(new Position2d(68,-65),50)); // F
-        addWaypoint(new Waypoint(new Position2d(194,-65),50)); // N
-        addWaypoint(new Waypoint(new Position2d(194,-47),50)); // P
+        addWaypoint(new Waypoint(new Position2d(0,47),50)); //B
+        addWaypoint(new Waypoint(new Position2d(68.125,47),50)); //G
+        addWaypoint(new Waypoint(new Position2d(68.125,-65),50)); //F
+        addWaypoint(new Waypoint(new Position2d(153.25,-65),50)); //M
+        addWaypoint(new Waypoint(new Position2d(172,-65),50)); //X
+        addWaypoint(new Waypoint(new Position2d(194.75,-65),50)); //N
+        addWaypoint(new Waypoint(new Position2d(215.5,-65),50)); //O
+        addWaypoint(new Waypoint(new Position2d(223,-110),50)); //F1
+        addWaypoint(new Waypoint(new Position2d(223,-80),50)); //G1
+        addWaypoint(new Waypoint(new Position2d(211,-127),50)); //E1
+        addWaypoint(new Waypoint(new Position2d(192,-135),50)); //D1
         OptimizePath();
     }
 
