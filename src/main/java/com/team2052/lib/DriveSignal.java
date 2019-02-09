@@ -1,4 +1,4 @@
-package com.team2052.deepspace;
+package com.team2052.lib;
 
 /**
  * Created by KnightKrawler on 1/19/2018.
@@ -7,7 +7,8 @@ public class DriveSignal { //a drive signal is a motor speed for both motors. Th
     public double leftMotorSpeedPercent;
     public double rightMotorSpeedPercent;
 
-    public DriveSignal(double left, double right) {
+    public
+    DriveSignal(double left, double right) {
         this.leftMotorSpeedPercent = left;
         this.rightMotorSpeedPercent = right;
     }

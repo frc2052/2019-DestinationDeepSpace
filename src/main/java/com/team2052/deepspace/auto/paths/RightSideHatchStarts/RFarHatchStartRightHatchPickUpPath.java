@@ -10,6 +10,7 @@ public class RFarHatchStartRightHatchPickUpPath extends Path{
 
     public RFarHatchStartRightHatchPickUpPath() {
         setDirection(Direction.FORWARD);
+        //TODO: determine paths to far hatch
         addWaypoint(new Waypoint(new Position2d(0,0),50));
         OptimizePath();
     }
