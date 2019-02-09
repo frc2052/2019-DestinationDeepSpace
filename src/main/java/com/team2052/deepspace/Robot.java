@@ -4,6 +4,7 @@ import com.team2052.deepspace.auto.AutoModeRunner;
 import com.team2052.deepspace.auto.AutoModeSelector;
 import com.team2052.deepspace.subsystems.*;
 import com.team2052.lib.ControlLoop;
+import com.team2052.lib.DriveHelper;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 
@@ -22,6 +23,7 @@ public class Robot extends TimedRobot {
     private DriveTrainController driveTrain = null;
     private ElevatorController elevator = null;
     private LegClimberController legClimberController = null;
+    private LineFollowerController lineFollower = null;
     private RobotState robotstate = RobotState.getInstance();
     private RobotStateCalculator robotStateCalculator = RobotStateCalculator.getInstance();
     private AutoModeRunner autoModeRunner = new AutoModeRunner();
@@ -36,16 +38,18 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         groundIntake = GroundIntakeController.getInstance();
         driveHelper = new DriveHelper();
-        intake = IntakeController.getInstance();
+       // intake = IntakeController.getInstance();
         controls = Controls.getInstance();
         legClimberController = LegClimberController.getInstance();
         legClimberController.resetEncoders();
         driveTrain = DriveTrainController.getInstance();
-        elevator = ElevatorController.getInstance();
-        elevator.zeroSensor();
+       // elevator = ElevatorController.getInstance();
+       // elevator.zeroSensor();
         controlLoop.addLoopable(robotStateCalculator);
+        controlLoop.addLoopable(groundIntake);
         visionController = VisionController.getInstance();
 
+        lineFollower = LineFollowerController.getInstance();
         try {
             compressor = new Compressor();
             compressor.setClosedLoopControl(true);
@@ -66,7 +70,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotPeriodic() {
-        groundIntake.update();
+
     }
 
     /**
@@ -76,8 +80,9 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         controlLoop.start();
         driveTrain.zeroGyro();
-        robotStateCalculator.resetRobotState();
         AutoModeSelector.AutoModeDefinition currentAutoMode = AutoModeSelector.getSelectedAutomode();
+        robotStateCalculator.setStartDirection(currentAutoMode.getInstance().getStartDirection().isForward);
+        robotStateCalculator.resetRobotState(currentAutoMode.getInstance().getStartPosition().lateralOffset,0);
         autoModeRunner.start(currentAutoMode.getInstance());
     }
 
@@ -103,7 +108,10 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopInit(){
+        robotStateCalculator.resetRobotState();
         controlLoop.start();
+        driveTrain.zeroGyro();
+        legClimberController.resetEncoders();
     }
 
     /**
@@ -131,28 +139,42 @@ public class Robot extends TimedRobot {
     }
 
     private void driverControlled(){
-        if(controls.getVisionTrack()) {
-            driveTrain.drive(visionController.getMotorOutput());
-        }else{
-            driveTrain.drive(driveHelper.drive(controls.getTankJoy1(), controls.getTurnJoy2(), controls.getQuickTurn()));
+        if (controls.getLightFollow()){
+            if(lineFollower.getLineSensed()){
+                driveTrain.drive(lineFollower.getLightSensorMotorTurn(controls.getDriveTank()));
+            }else if (visionController.isTarget()){
+                driveTrain.drive(visionController.getMotorOutput());
+            } else {
+                driveTrain.drive(driveHelper.drive(controls.getDriveTank(), controls.getDriveTurn(), controls.getQuickTurn()));
+            }
         }
+        else {
+            driveTrain.drive(driveHelper.drive(controls.getDriveTank(), controls.getDriveTurn(), controls.getQuickTurn()));
+        }
+        robotstate.outputToSmartDashboard();
+        driveTrain.setHighGear(controls.getShift());
 
-        groundIntake.update();
+        //legClimberController.printEncoder();
+
 
         if (controls.legClimber()){
             legClimberController.setLegClimber(controls.legClimber());
+        } else if (controls.lowerClimber()){
+            legClimberController.lowerClimber();
         }else {
             legClimberController.stopClimber();
         }
 
+        /*
         if(controls.getIntake()){
             intake.cargoIntake();
 
-        } else if (controls.getOuttake()) {
-            intake.cargoOuttake();
         } else {
             intake.cargoNeutral();
         }
+
+        intake.grab(controls.getGrab());
+
 
         if (controls.getElevatorGroundCargo()) {
             elevator.setTarget(ElevatorController.ElevatorPresets.GROUND_CARGO);
@@ -171,9 +193,11 @@ public class Robot extends TimedRobot {
         }else if (controls.getElevatorRocketCargo3()) {
             elevator.setTarget(ElevatorController.ElevatorPresets.ROCKET_CARGO3);
         }
+
         elevator.setElevatorAdjustmentUp(controls.getElevatorAdjustmentUp());
         elevator.setElevatorAdjustmentDown(controls.getElevatorAdjustmentDown());
         elevator.setEmergencyUp(controls.getElevatorEmergencyUp());
         elevator.setEmergencyDown(controls.getElevatorEmergencyDown());
+        */
     }
 }

@@ -10,6 +10,7 @@ public class LFarHatchStartLeftHatchPickUpPath extends Path{
 
     public LFarHatchStartLeftHatchPickUpPath() {
         setDirection(Direction.FORWARD);
+        //TODO: determine paths to far hatch
         addWaypoint(new Waypoint(new Position2d(0,0),50));
         OptimizePath();
     }

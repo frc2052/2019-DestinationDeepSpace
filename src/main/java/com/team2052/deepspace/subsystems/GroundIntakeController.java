@@ -1,11 +1,11 @@
 package com.team2052.deepspace.subsystems;
 
 import com.team2052.deepspace.Constants;
-import com.team2052.deepspace.KnightTimer;
-import com.team2052.deepspace.Loopable;
+import com.team2052.lib.ILoopable;
+import com.team2052.lib.KnightTimer;
 import edu.wpi.first.wpilibj.Solenoid;
 
-public class GroundIntakeController implements Loopable {
+public class GroundIntakeController implements ILoopable {
     /* True is Intake, false is Outtake.
     Could be enum, but because intake and outtake already are enums with a done case
     There's no reason complicate it. */
@@ -30,8 +30,8 @@ public class GroundIntakeController implements Loopable {
         return instance;
     }//Singleton
 
-    public final Solenoid Lifter = new Solenoid(Constants.Intake.kLifterId);
-    public final Solenoid Grabber = new Solenoid(Constants.Intake.kGrabberId);
+    public final Solenoid Lifter = new Solenoid(Constants.Intake.kLifterSolenoidId);
+    public final Solenoid Grabber = new Solenoid(Constants.Intake.kGrabberSolenoidId);
 
     private boolean liftGroundIntakeState; //Getter and Setter
     public boolean getLiftGroundIntakeState(){ return liftGroundIntakeState; }
@@ -45,7 +45,9 @@ public class GroundIntakeController implements Loopable {
         grabGroundIntakeState = state;
         Grabber.set(state);
     }
-
+    private void setOuttakeState (groundOuttakeState state){
+        outtakeState = state;
+    }
     private void setIntakeState (groundIntakeState state){
         intakeState = state;
     } //only this class should want to change where it is in the enum
@@ -56,6 +58,7 @@ public class GroundIntakeController implements Loopable {
         return ((outtakeState == groundOuttakeState.DONE));
     } //Simplified Getter, since nothing should want to know if it's anything but done/not done
 
+    @Override
     public void update(){
         if(groundState) {
             switch (intakeState) {
@@ -77,17 +80,17 @@ public class GroundIntakeController implements Loopable {
             }
         } else {
             switch(outtakeState){
-                case RELEASING:
-                    setGrabGroundIntakeState(false);
-                    System.out.println("RELEASING");
-                    if(timer.hasPassedTime(Constants.Intake.kReleaseTime)) {
-                        setIntakeState(groundIntakeState.LIFTING);
-                    }
                 case LOWERING:
                     setLiftGroundIntakeState(false);
                     System.out.println("LOWERING");
-                    if(timer.hasPassedTime(Constants.Intake.kEscapeTime)) {
-                        setIntakeState(groundIntakeState.DONE);
+                    if(timer.hasPassedTime(Constants.Intake.kReleaseTime)) { //Time before release
+                        setOuttakeState(groundOuttakeState.RELEASING);
+                    }
+                case RELEASING:
+                    setGrabGroundIntakeState(false);
+                    System.out.println("RELEASING");
+                    if(timer.hasPassedTime(Constants.Intake.kEscapeTime)) { //Time before done
+                        setOuttakeState(groundOuttakeState.DONE);
                     }
                 case DONE:
                     timer.stop();

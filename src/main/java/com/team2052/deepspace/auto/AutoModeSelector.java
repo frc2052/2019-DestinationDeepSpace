@@ -3,7 +3,6 @@ package com.team2052.deepspace.auto;
 import com.team2052.deepspace.auto.modes.CenterStart.*;
 import com.team2052.deepspace.auto.modes.LeftStart.*;
 import com.team2052.deepspace.auto.modes.RightStart.*;
-import com.team2052.deepspace.auto.modes.RightStart.RightStartSideRightMiddleHatch;
 import com.team2052.deepspace.auto.modes.Test;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -51,8 +50,13 @@ public class AutoModeSelector {
     }
 
     public static AutoModeDefinition getSelectedAutomode(){
-        String selected = sendableChooserPosition.getSelected().name + sendableChooserFirstTarget.getSelected().name
-                + (sendableChooserSecondTarget.getSelected().name.equals("None") ? "" : sendableChooserSecondTarget.getSelected().name);
+        String selected = "";
+        try {
+            selected = sendableChooserPosition.getSelected().name + sendableChooserFirstTarget.getSelected().name
+                    + (sendableChooserSecondTarget.getSelected().name.equals("None") ? "" : sendableChooserSecondTarget.getSelected().name);
+        }catch (Exception e){
+            System.out.println("ERROR AT SELECTED");
+        }
         AutoModeDefinition selectedMode = null;
         try{
             //System.out.println("Selected" + selected);
@@ -63,9 +67,9 @@ public class AutoModeSelector {
         }
         return selectedMode;
     }
-
     public enum PositionSelection
     {
+        NONE("Select Start"),
         LEFT("StartLeft"),
         CENTER("StartCenter"),
         RIGHT("StartRight"),
@@ -75,24 +79,19 @@ public class AutoModeSelector {
         PositionSelection(String name){
             this.name = name;
         }
-    }
+        }
 
     public enum FirstTargetSelection
     {
-        CLH("LeftCenterHatch"),
-        CRH("RightCenterHatch"),
-        SL("LeftSide"),
-        SR("RightSide"),
-        CLHT("LeftCenterHatchTo"),
-        CRHT("RightCenterHatchTo"),
-        SLT("LeftSideHatchTo"),
-        SRT("RightSideHatchTo"),
-        SLMHT("LeftSideMiddleHatchTo"),
-        SLCHT("LeftSideCloseHatchTo"),
-        SLFHT("LeftSideFarHatchTo"),
-        SRCHT("RightSideCloseHatchTo"),
-        SRMHT("RightSideMiddleHatchTo"),
-        SRFHT("RightSideFarHatchTo"),
+        NONE("Select Target One"),
+        LHATCH("CenterLeftHatch"),
+        RHATCH("CenterRightHatch"),
+        LFHATCH("LeftFarHatch"),
+        RFHATCH("RightFarHatch"),
+        LMHATCH("LeftMiddleHatch"),
+        RMHATCH("RightMiddleHatch"),
+        LCHATCH("LeftCloseHatch"),
+        RCHATCH("RightCloseHatch"),
         TEST("test");
 
         public String name;
@@ -101,14 +100,14 @@ public class AutoModeSelector {
         }
     }
 
-    //ADD All POSSIBLE COMBONATIONS KEYWORDS TO CREATE ALL CLASSES!!!
+    //ADD All POSSIBLE COMBONATIONS KEYWORDS  CREATE ALL CLASSES!!!
     public enum SecondTargetSelection
     {
 
 
         NONE("None"),
-        LHATCH("LeftHatch"),
-        RHATCH("RightHatch"),
+        LHATCH("CenterLeftHatch"),
+        RHATCH("CenterRightHatch"),
         LFHATCH("LeftFarHatch"),
         RFHATCH("RightFarHatch"),
         LMHATCH("LeftMiddleHatch"),
@@ -128,58 +127,58 @@ public class AutoModeSelector {
 
         testtest(Test.class),
         //Single path AMDs
-        StartLeftLeftSideLeftFarHatch(LeftStartSideLeftFarHatch.class),
-        StartLeftLeftSideLeftMiddleHatch(LeftStartSideLeftMiddleHatch.class),
-        StartLeftLeftSideLeftCloseHatch(LeftStartSideLeftCloseHatch.class),
-        StartLeftCenterLeftCenterHatch(LeftStartCenterLeftCenterHatch.class),
+        StartLeftLeftFarHatch(LeftStartSideLeftFarHatch.class),
+        StartLeftLeftMiddleHatch(LeftStartSideLeftMiddleHatch.class),
+        StartLeftLeftCloseHatch(LeftStartSideLeftCloseHatch.class),
+        StartLeftCenterLeftHatch(LeftStartCenterLeftCenterHatch.class),
 
-        StartRightCenterRightCenterHatch(RightStartCenterRightCenterHatch.class),
-        StartRightRightSideRightFarHatch(RightStartSideRightFarHatch.class),
-        StartRightRightSideRightMiddleHatch(RightStartSideRightMiddleHatch.class),
-        StartRightRightSideRightCloseHatch(RightStartSideRightCloseHatch.class),
+        StartRightCenterRightHatch(RightStartCenterRightCenterHatch.class),
+        StartRightRightFarHatch(RightStartSideRightFarHatch.class),
+        StartRightRightMiddleHatch(RightStartSideRightMiddleHatch.class),
+        StartRightRightCloseHatch(RightStartSideRightCloseHatch.class),
 
-        StartCenterLeftCenterHatch(CenterStartCenterLeftHatch.class),
-        StartCenterRightCenterHatch(CenterStartCenterRightHatch.class),
+        StartCenterCenterLeftHatch(CenterStartCenterLeftHatch.class),
+        StartCenterCenterRightHatch(CenterStartCenterRightHatch.class),
 
         //Double path AMDs
 
-        StartCenterLeftCenterHatchToLeftFarHatch(CenterStartCenterLeftHatchToLeftFarHatch.class),
-        StartCenterLeftCenterHatchToLeftMiddleHatch(CenterStartCenterLeftHatchToLeftMiddleHatch.class),
-        StartCenterLeftCenterHatchToLeftCloseHatch(CenterStartCenterLeftHatchToLeftCloseHatch.class),
+        StartCenterCenterLeftHatchLeftFarHatch(CenterStartCenterLeftHatchToLeftFarHatch.class),
+        StartCenterCenterLeftHatchLeftMiddleHatch(CenterStartCenterLeftHatchToLeftMiddleHatch.class),
+        StartCenterCenterLeftHatchLeftCloseHatch(CenterStartCenterLeftHatchToLeftCloseHatch.class),
 
-        StartCenterRightCenterHatchToRightFarHatch(CenterStartCenterRightHatchToRightFarHatch.class),
-        StartCenterRightCenterHatchToRightMiddleHatch(CenterStartCenterRightHatchToRightMiddleHatch.class),
-        StartCenterRightCenterHatchToRightCloseHatch(CenterStartCenterRightHatchToRightCloseHatch.class),
-
-
-        StartLeftLeftSideFarHatchToLeftCloseHatch(LeftStartSideLeftFarHatchToLeftCloseHatch.class),
-        StartLeftLeftSideFarHatchToLeftMiddleHatch(LeftStartSideLeftFarHatchToLeftMiddleHatch.class),
-
-        StartLeftSideLeftMiddleHatchToLeftFarHatch(LeftStartSideLeftMiddleHatchToLeftFarHatch.class),
-        StartLeftSideLeftMiddleHatchToLeftCloseHatch(LeftStartSideLeftFarHatchToLeftCloseHatch.class),
-
-        StartLeftSideLeftSideCloseHatchToLeftMiddleHatch(LeftStartSideLeftCloseHatchToLeftMiddleHatch.class),
-        StartLeftSideLeftSideCloseHatchToLeftFarHatch(LeftStartSideLeftCloseHatchToLeftFarHatch.class),
-
-        StartLeftLeftCenterHatchToLeftCloseHatch(LeftStartCenterLeftHatchToLeftCloseHatch.class),
-        StartLeftLeftCenterHatchToLeftMiddleHatch(LeftStartCenterLeftHatchToLeftMiddleHatch.class),
-        StartLeftLeftCenterHatchToLeftFarHatch(LeftStartCenterLeftHatchToLeftFarHatch.class),
+        StartCenterCenterRightHatchRightFarHatch(CenterStartCenterRightHatchToRightFarHatch.class),
+        StartCenterCenterRightHatchRightMiddleHatch(CenterStartCenterRightHatchToRightMiddleHatch.class),
+        StartCenterCenterRightHatchRightCloseHatch(CenterStartCenterRightHatchToRightCloseHatch.class),
 
 
-        StartRightRightCenterHatchToRightCloseHatch(RightStartCenterRightHatchToRightCloseHatch.class),
-        StartRightRightCenterHatchToRightFarHatch(RightStartCenterRightHatchToRightFarHatch.class),
-        StartRightRightCenterHatchToRightMiddleHatch(RightStartCenterRightHatchToRightMiddleHatch.class),
+        StartLeftLeftFarHatchLeftCloseHatch(LeftStartSideLeftFarHatchToLeftCloseHatch.class),
+        StartLeftLeftFarHatchLeftMiddleHatch(LeftStartSideLeftFarHatchToLeftMiddleHatch.class),
+
+        StartLeftLeftMiddleHatchLeftFarHatch(LeftStartSideLeftMiddleHatchToLeftFarHatch.class),
+        StartLeftLeftMiddleHatchLeftCloseHatch(LeftStartSideLeftFarHatchToLeftCloseHatch.class),
+
+        StartLeftLeftCloseHatchLeftMiddleHatch(LeftStartSideLeftCloseHatchToLeftMiddleHatch.class),
+        StartLeftLeftCloseHatchLeftFarHatch(LeftStartSideLeftCloseHatchToLeftFarHatch.class),
+
+        StartLeftCenterLeftHatchLeftCloseHatch(LeftStartCenterLeftHatchToLeftCloseHatch.class),
+        StartLeftCenterLeftHatchLeftMiddleHatch(LeftStartCenterLeftHatchToLeftMiddleHatch.class),
+        StartLeftCenterLeftHatchLeftFarHatch(LeftStartCenterLeftHatchToLeftFarHatch.class),
 
 
-        StartRightRightSideCloseHatchToRightFarHatch(RightStartSideRightCloseHatchToRightFarHatch.class),
-        StartRightRightSideCloseHatchToRightMiddleHatch(RightStartSideRightCloseHatchToRightMiddleHatch.class),
+        StartRightCenterRightHatchRightCloseHatch(RightStartCenterRightHatchToRightCloseHatch.class),
+        StartRightCenterRightHatchRightFarHatch(RightStartCenterRightHatchToRightFarHatch.class),
+        StartRightCenterRightHatchRightMiddleHatch(RightStartCenterRightHatchToRightMiddleHatch.class),
 
 
-        StartRightRightSideMiddleHatchToRightFarHatch(RightStartSideRightMiddleHatchToRightFarHatch.class),
-        StartRightRightSideMiddleHatchToRightCloseHatch(RightStartSideRightMiddleHatchToRightCloseHatch.class),
+        StartRightRightCloseHatchRightFarHatch(RightStartSideRightCloseHatchToRightFarHatch.class),
+        StartRightRightCloseHatchRightMiddleHatch(RightStartSideRightCloseHatchToRightMiddleHatch.class),
 
-        StartRightRightSideFarHatchToRightMiddleHatch(RightStartSideRightFarHatchToRightMiddleHatch.class),
-        StartRightRightSideFarHatchToRightCloseHatch(RightStartSideRightFarHatchToRightCloseHatch.class);
+
+        StartRightRightMiddleHatchRightFarHatch(RightStartSideRightMiddleHatchToRightFarHatch.class),
+        StartRightRightMiddleHatchRightCloseHatch(RightStartSideRightMiddleHatchToRightCloseHatch.class),
+
+        StartRightRightFarHatchRightMiddleHatch(RightStartSideRightFarHatchToRightMiddleHatch.class),
+        StartRightRightFarHatchRightCloseHatch(RightStartSideRightFarHatchToRightCloseHatch.class);
 
 
         private final Class<? extends AutoMode> clazz;
@@ -188,8 +187,8 @@ public class AutoModeSelector {
             this.clazz = clazz;
         }
 
-        public AutoModeBase getInstance() { //gets the instance of the AutoModeBase
-            AutoModeBase instance;
+        public AutoMode getInstance() { //gets the instance of the AutoModeBase
+            AutoMode instance;
             try {
                 instance = clazz.getDeclaredConstructor().newInstance();
             } catch (Exception e) {

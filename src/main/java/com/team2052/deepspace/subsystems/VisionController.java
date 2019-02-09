@@ -1,6 +1,6 @@
 package com.team2052.deepspace.subsystems;
 
-import com.team2052.deepspace.DriveSignal;
+import com.team2052.lib.DriveSignal;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class VisionController {
@@ -18,6 +18,7 @@ public class VisionController {
 
     public DriveSignal getMotorOutput(){
         getValues();
+
         return new DriveSignal(x,1-x);
     }
 
@@ -29,6 +30,11 @@ public class VisionController {
         width = SmartDashboard.getNumber("targetWidth",0)/cameraW;
         x = SmartDashboard.getNumber("targetX",0)/cameraW;
         y = SmartDashboard.getNumber("targetY",0)/cameraH;
+    }
+
+    public boolean isTarget(){
+        getValues();
+        return !(x==-1);
     }
 
     public boolean isClose(){
