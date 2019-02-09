@@ -8,7 +8,6 @@ import com.team2052.deepspace.auto.actions.VisionAction;
 import com.team2052.deepspace.auto.paths.LeftHatchStarts.LCloseHatchStartLeftHatchPickUpPath;
 import com.team2052.deepspace.auto.paths.LeftStart.LStartSideLeftCloseHatchPath;
 import com.team2052.deepspace.auto.paths.Path;
-import com.team2052.deepspace.auto.paths.RightRocketStarts.RFarRocketStartRightRocketPickUpPath;
 import com.team2052.deepspace.auto.paths.RightStartRocket.RStartCenterRightRocketPath;
 import com.team2052.deepspace.auto.paths.RightStartRocket.RStartSideRightFarRocketPath;
 

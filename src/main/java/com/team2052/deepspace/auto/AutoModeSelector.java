@@ -4,6 +4,10 @@ import com.team2052.deepspace.auto.modes.CenterStart.*;
 import com.team2052.deepspace.auto.modes.LeftStart.*;
 import com.team2052.deepspace.auto.modes.RightStart.*;
 import com.team2052.deepspace.auto.modes.RightStart.RightStartSideRightMiddleHatch;
+import com.team2052.deepspace.auto.modes.RightStartRocket.RightStartSideRightCloseRocket;
+import com.team2052.deepspace.auto.modes.RightStartRocket.RightStartSideRightCloseRocketToRightFarRocket;
+import com.team2052.deepspace.auto.modes.RightStartRocket.RightStartSideRightFarRocket;
+import com.team2052.deepspace.auto.modes.RightStartRocket.RightStartSideRightFarRocketToRightCloseRocket;
 import com.team2052.deepspace.auto.modes.Test;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -93,6 +97,10 @@ public class AutoModeSelector {
         SRCHT("RightSideCloseHatchTo"),
         SRMHT("RightSideMiddleHatchTo"),
         SRFHT("RightSideFarHatchTo"),
+        LCROCKET("LeftCloseRocketTo"),
+        LFROCKET("LeftFarRocketTo"),
+        RFROCKET("RightFarRocketTo"),
+        RCROCKET("RightCloseRocketTo"),
         TEST("test");
 
         public String name;
@@ -114,7 +122,11 @@ public class AutoModeSelector {
         LMHATCH("LeftMiddleHatch"),
         RMHATCH("RightMiddleHatch"),
         LCHATCH("LeftCloseHatch"),
-        RCHATCH("RightCloseHatch");
+        RCHATCH("RightCloseHatch"),
+        LCROCKET("LeftCloseRocket"),
+        LFROCKET("LeftFarRocket"),
+        RFROCKET("RightFarRocket"),
+        RCROCKET("RightCloseRocket");
 
 
         public String name;
@@ -140,6 +152,8 @@ public class AutoModeSelector {
 
         StartCenterLeftCenterHatch(CenterStartCenterLeftHatch.class),
         StartCenterRightCenterHatch(CenterStartCenterRightHatch.class),
+        StartRightRightSideFarRocket(RightStartSideRightFarRocket.class),
+        StartRightRightSideCloseRocket(RightStartSideRightCloseRocket.class),
 
         //Double path AMDs
 
@@ -179,7 +193,11 @@ public class AutoModeSelector {
         StartRightRightSideMiddleHatchToRightCloseHatch(RightStartSideRightMiddleHatchToRightCloseHatch.class),
 
         StartRightRightSideFarHatchToRightMiddleHatch(RightStartSideRightFarHatchToRightMiddleHatch.class),
-        StartRightRightSideFarHatchToRightCloseHatch(RightStartSideRightFarHatchToRightCloseHatch.class);
+        StartRightRightSideFarHatchToRightCloseHatch(RightStartSideRightFarHatchToRightCloseHatch.class),
+
+        StartRightRightSideFarRocketToRightCloseRocket(RightStartSideRightFarRocketToRightCloseRocket.class),
+        StartRightRightSideCloseRocketToRightFarRocket(RightStartSideRightCloseRocketToRightFarRocket.class);
+
 
 
         private final Class<? extends AutoMode> clazz;
