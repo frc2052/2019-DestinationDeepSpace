@@ -41,6 +41,13 @@ public class Controls {
         return val;
     }
 
+
+    public boolean getQuickTurn(){
+        return turnPrimaryStick.getRawButton(Constants.Controls.kQuickTurnButton);
+    }
+
+    public boolean getCameraToggle(){return turnPrimaryStick.getRawButton(5);}
+    public boolean getOuttake() {return tankPrimaryStick.getTrigger();}
     public boolean legClimber() {
         return tankPrimaryStick.getRawButton(Constants.Controls.kLegClimberButton);
     }
@@ -48,16 +55,11 @@ public class Controls {
            return tankPrimaryStick.getRawButton(Constants.Controls.kLegClimberLowerButton);
     }
 
-
-    public boolean getQuickTurn(){
-        return turnPrimaryStick.getRawButton(Constants.Controls.kQuickTurnButton);
-    }
-
-    public boolean getOuttake() {return tankPrimaryStick.getTrigger();}
     public boolean getIntake () {return secondaryControlPanel.getTrigger();}
     public boolean getGrab(){return secondaryControlPanel.getRawButton(Constants.Controls.kGrabButton);}
     public boolean getGroundIntake () {return secondaryControlPanel.getRawButton(Constants.Controls.kGroundIntakeButton); }
     public boolean getGroundOuttake () {return secondaryControlPanel.getRawButton(Constants.Controls.kGroundOuttakeButton); }
+
 
     public boolean getShift(){return tankPrimaryStick.getRawButton(Constants.Controls.kShiftButton);}
 

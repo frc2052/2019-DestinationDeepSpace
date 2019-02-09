@@ -7,6 +7,7 @@ import com.team2052.lib.ControlLoop;
 import com.team2052.lib.DriveHelper;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -83,6 +84,7 @@ public class Robot extends TimedRobot {
         AutoModeSelector.AutoModeDefinition currentAutoMode = AutoModeSelector.getSelectedAutomode();
         robotStateCalculator.setStartDirection(currentAutoMode.getInstance().getStartDirection().isForward);
         robotStateCalculator.resetRobotState(currentAutoMode.getInstance().getStartPosition().lateralOffset,0);
+        SmartDashboard.putNumber("Offset", currentAutoMode.getInstance().getStartPosition().lateralOffset);
         autoModeRunner.start(currentAutoMode.getInstance());
     }
 
@@ -157,6 +159,7 @@ public class Robot extends TimedRobot {
         //legClimberController.printEncoder();
 
 
+        SmartDashboard.putBoolean("Camera Toggle", controls.getCameraToggle());
         if (controls.legClimber()){
             legClimberController.setLegClimber(controls.legClimber());
         } else if (controls.lowerClimber()){

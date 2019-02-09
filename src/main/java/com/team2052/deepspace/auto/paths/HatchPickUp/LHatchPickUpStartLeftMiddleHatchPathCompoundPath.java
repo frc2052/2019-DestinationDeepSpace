@@ -18,9 +18,12 @@ public class LHatchPickUpStartLeftMiddleHatchPathCompoundPath extends CompoundPa
         public LHatchPickUpStartLeftMiddleHatchPath1() {
             setDirection(Direction.BACKWARD);
             //TODO: these points need to be fixed to allow for a turn
-            addWaypoint(new Waypoint(new Position2d(-66,-134),50)); // D
-            addWaypoint(new Waypoint(new Position2d(29,-134),50)); // E
-            addWaypoint(new Waypoint(new Position2d(68,-65),50)); // F
+            addWaypoint(new Waypoint(new Position2d(-30,-125),100)); // D
+            addWaypoint(new Waypoint(new Position2d(30,-134),100)); // E
+            addWaypoint(new Waypoint(new Position2d(70,-70),100)); // E
+            addWaypoint(new Waypoint(new Position2d(218,-80),100)); // E
+            addWaypoint(new Waypoint(new Position2d(218,-110),100)); // E
+
             OptimizePath();
         }
 
@@ -35,9 +38,8 @@ public class LHatchPickUpStartLeftMiddleHatchPathCompoundPath extends CompoundPa
         public LHatchPickUpStartLeftMiddleHatchPath2() {
             setDirection(Direction.FORWARD);
             //TODO: these points need to be fixed to allow for a turn
-            addWaypoint(new Waypoint(new Position2d(68,-65),50)); // F
-            addWaypoint(new Waypoint(new Position2d(215,-65),50)); // O
-            addWaypoint(new Waypoint(new Position2d(215,-47),50)); // Q
+            addWaypoint(new Waypoint(new Position2d(218,-110),100));
+            addWaypoint(new Waypoint(new Position2d(218,-47),100)); // Q
             OptimizePath();
             OptimizePath();
         }

@@ -10,10 +10,10 @@ public class LCloseHatchStartLeftHatchPickUpPath extends Path{
 
     public LCloseHatchStartLeftHatchPickUpPath(Direction direction) {
         setDirection(direction);
-        addWaypoint(new Waypoint(new Position2d(194,-47),50)); //P
-        addWaypoint(new Waypoint(new Position2d(68,-65  ),50)); //F
-        addWaypoint(new Waypoint(new Position2d(29,-134  ),50)); //E
-        addWaypoint(new Waypoint(new Position2d(-66,-134  ),50)); //D
+        addWaypoint(new Waypoint(new Position2d(194,-47),100)); //P
+        addWaypoint(new Waypoint(new Position2d(68,-65  ),100)); //F
+        addWaypoint(new Waypoint(new Position2d(29,-125  ),100)); //E
+        addWaypoint(new Waypoint(new Position2d(-30,-125  ),100)); //D
         OptimizePath();
     }
 
