@@ -1,62 +1,43 @@
 package com.team2052.deepspace.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.team2052.deepspace.Constants;
 import com.team2052.lib.ILoopable;
-import com.team2052.lib.KnightTimer;
 import edu.wpi.first.wpilibj.Solenoid;
 
 public class GroundIntakeController implements ILoopable {
     /* True is Intake, false is Outtake.
     Could be enum, but because intake and outtake already are enums with a done case
     There's no reason complicate it. */
-    public void groundIntake(boolean state) {
-        if(state){
-            groundState = true;
-            intakeState = groundIntakeState.GRABBING;
-        } else {
-            groundState = false;
-            outtakeState = groundOuttakeState.RELEASING;
-        }
-        timer.start();
-    }
-
-    private boolean groundState;
-    private KnightTimer timer = new KnightTimer();
-    private groundOuttakeState outtakeState;
-    private groundIntakeState intakeState; //Non-Static Context
-
     private static GroundIntakeController instance = new GroundIntakeController();
     public static GroundIntakeController getInstance(){
         return instance;
     }//Singleton
 
-    public final Solenoid Lifter = new Solenoid(Constants.Intake.kLifterSolenoidId);
-    public final Solenoid Grabber = new Solenoid(Constants.Intake.kGrabberSolenoidId);
+    private IntakeState controllerState; //Non-Static Context
 
-    private boolean liftGroundIntakeState; //Getter and Setter
-    public boolean getLiftGroundIntakeState(){ return liftGroundIntakeState; }
-    public void setLiftGroundIntakeState(boolean state){
-        liftGroundIntakeState = state;
-        Lifter.set(state);
+    private final TalonSRX groundIntakeMotor = new TalonSRX(Constants.Intake.kGroundIntakeMotor);
+    public final Solenoid Grabber2 = new Solenoid(Constants.Intake.kGrabber2SolenoidId);
+    public final Solenoid Grabber1 = new Solenoid(Constants.Intake.kGrabber1SolenoidId);
+    private boolean lastPressedState = false;
+    public void pickupFromFloor(boolean isPressed) {
+        if (isPressed) {
+            controllerState = IntakeState.DOWN_OPEN;
+        } else if (!isPressed && lastPressedState) { //just let go of button
+            controllerState = IntakeState.STARTING;
+        }
     }
-    private boolean grabGroundIntakeState; //Getter and Setter
-    public boolean getGrabGroundIntakeState(){ return grabGroundIntakeState; }
-    public void setGrabGroundIntakeState(boolean state){
-        grabGroundIntakeState = state;
-        Grabber.set(state);
+
+    public void setUpClosed(boolean isPressed){
+        if(isPressed){
+            controllerState = IntakeState.UP_CLOSED;
+        }
     }
-    private void setOuttakeState (groundOuttakeState state){
-        outtakeState = state;
+
+    public void placement(boolean isPressed){
+        controllerState = IntakeState.PLACEMENT;
     }
-    private void setIntakeState (groundIntakeState state){
-        intakeState = state;
-    } //only this class should want to change where it is in the enum
-    public boolean groundIntakeState(){
-        return ((intakeState == groundIntakeState.DONE));
-    } //Simplified Getter, since nothing should want to know if it's anything but done/not done
-    public boolean groundOuttakeState(){
-        return ((outtakeState == groundOuttakeState.DONE));
-    } //Simplified Getter, since nothing should want to know if it's anything but done/not done
+
 
     @Override
     public void update(){
@@ -102,16 +83,12 @@ public class GroundIntakeController implements ILoopable {
     public void onStart(){ }//Requirement of Loopable
     public void onStop(){ }//Requirement of Loopable
 
-
-    private enum groundIntakeState {
-        GRABBING,
-        LIFTING,
-        DONE
+    private enum IntakeState {
+        DOWN_OPEN,
+        DOWN_CLOSED,
+        UP_CLOSED,
+        STARTING,
+        PLACEMENT
     }
-    private enum groundOuttakeState {
-        RELEASING,
-        LOWERING,
-        DONE
-    } //Probably not needed, but it's better xplicit what is happening.
 
 }

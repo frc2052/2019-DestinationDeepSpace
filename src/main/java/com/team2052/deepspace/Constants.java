@@ -53,8 +53,9 @@ public class Constants {
         public static final int kShiftOutSolenoidID = 1;
     }
     public class Intake {
-        public static final int kLifterSolenoidId = 2;
-        public static final int kGrabberSolenoidId = 3;
+        public static final int kGroundIntakeMotor = 0;
+        public static final int kGrabber2SolenoidId = 2;
+        public static final int kGrabber1SolenoidId = 3;
         public static final int kIntakeMotorId = 1;
         public static final int kCargoInId = 2;
         public static final int kCargoOutId = 3;
