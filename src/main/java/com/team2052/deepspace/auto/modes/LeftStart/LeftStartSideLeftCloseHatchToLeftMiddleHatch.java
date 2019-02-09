@@ -11,24 +11,29 @@ import com.team2052.deepspace.auto.paths.Path;
 import java.util.Arrays;
 
 public class LeftStartSideLeftCloseHatchToLeftMiddleHatch extends AutoMode {
+
+    public LeftStartSideLeftCloseHatchToLeftMiddleHatch(){
+        setStartDirection(StartDirection.BACKWARD);
+        setStartPosition(StartPosition.LEFT);
+    }
     @Override
     protected void init() {
         runAction(new SeriesAction(Arrays.asList(
                 //Starting path starts going backwards
                 new FollowPathAction(new LStartSideLeftCloseHatchPath(Path.Direction.BACKWARD)),
                 //Vision
-                new LineUpAction(),
+                //new LineUpAction(),
                 // when false, ground outtake action
-                new GroundIntakeAction(false),
-                new FollowPathAction(new LCloseHatchStartLeftHatchPickUpPath()),
+                //new GroundIntakeAction(false),
+                new FollowPathAction(new LCloseHatchStartLeftHatchPickUpPath(Path.Direction.FORWARD)),
                 //Vision
-                new LineUpAction(),
-                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
+               // new LineUpAction(),
+                //new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
                 //Compound path to make robot turn around
                 new FollowPathListAction(new LHatchPickUpStartLeftMiddleHatchPathCompoundPath().getPaths()),
                 //Vision
-                new LineUpAction(),
-                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
+                //new LineUpAction(),
+                //new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
                 //Turns robot around and drives back towards loading station
                 new FollowPathListAction(new LMiddleHatchStartLeftHatchPickUpPathCompoundPath().getPaths())
         )));

@@ -1,4 +1,4 @@
-package com.team2052.deepspace;
+package com.team2052.lib;
 
 public class DriveHelper {
     double mQuickStopAccumulator;

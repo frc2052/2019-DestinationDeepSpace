@@ -8,12 +8,18 @@ import java.util.List;
 
 public class LStartSideLeftCloseHatchPath extends Path {
 
-    public LStartSideLeftCloseHatchPath(Direction backward) {
-        setDirection(Direction.FORWARD);
+    public LStartSideLeftCloseHatchPath(Direction direction) {
+        setDirection(direction);
+        double i = 3.7;
         addWaypoint(new Waypoint(new Position2d(0,-47),50)); // B
-        addWaypoint(new Waypoint(new Position2d(68,-65),50)); // F
-        addWaypoint(new Waypoint(new Position2d(194,-65),50)); // N
-        addWaypoint(new Waypoint(new Position2d(194,-47),50)); // P
+        addWaypoint(new Waypoint(new Position2d(50,-47),25*i));
+        addWaypoint(new Waypoint(new Position2d(110,-78),25*i));
+        addWaypoint(new Waypoint(new Position2d(125,-83),25*i));
+        addWaypoint(new Waypoint(new Position2d(142,-85),25*i));
+        addWaypoint(new Waypoint(new Position2d(175,-85),25*i));
+        addWaypoint(new Waypoint(new Position2d(188,-82),25*i));
+        addWaypoint(new Waypoint(new Position2d(194,-70),25*i));
+        addWaypoint(new Waypoint(new Position2d(194,-47),25*i)); // P
         OptimizePath();
     }
 

@@ -1,7 +1,7 @@
 package com.team2052.deepspace.auto;
 
 import com.team2052.deepspace.Constants;
-import com.team2052.deepspace.DriveSignal;
+import com.team2052.lib.DriveSignal;
 import com.team2052.deepspace.RobotState;
 import com.team2052.deepspace.auto.paths.Path;
 import com.team2052.deepspace.subsystems.DriveTrainController;
@@ -89,6 +89,7 @@ public class PurePursuitPathFollower{
         currentPos = null;
         curvature = 0;
         closestPointIndex = 0;
+        driveTrain.setHighGear(true);
     }
 
     /**
@@ -177,16 +178,16 @@ public class PurePursuitPathFollower{
         //if we are moving at higher velocitys, at the end look father ahead to stop
         double deltaVelocity = rateLimiter.constrain(path.getWaypoints().get(closestPointIndex+((closestPointIndex >= path.getWaypoints().size()-5)?1:0)).getVelocity() - robotState.getVelocityInch(), -Constants.Autonomous.kMaxAccel * Constants.Autonomous.kloopPeriodMs, Constants.Autonomous.kMaxAccel * Constants.Autonomous.kloopPeriodMs);
         double velocity = robotState.getVelocityInch() +  deltaVelocity;
-        leftWheelVel = velocity * (2 - curvature * Constants.Autonomous.kTrackWidth)/2;
-        rightWheelVel = velocity * (2 + curvature * Constants.Autonomous.kTrackWidth)/2;
+        leftWheelVel = velocity * (2 + curvature * Constants.Autonomous.kTrackWidth)/2;
+        rightWheelVel = velocity * (2 - curvature * Constants.Autonomous.kTrackWidth)/2; //todo swap + & -
 
         //if velocity gets to fast scale it down so a wheel is not told to drive faster then 100%
         double highestVel = 0.0;
 
         highestVel = Math.max(highestVel, leftWheelVel);
         highestVel = Math.max(highestVel,rightWheelVel);
-        if(highestVel > Constants.Autonomous.kMaxVelocity){
-            double scaling = Constants.Autonomous.kMaxVelocity / highestVel;
+        if(highestVel > Constants.Autonomous.kMaxAutoVelocity){
+            double scaling = Constants.Autonomous.kMaxAutoVelocity / highestVel;
             System.out.println("SCALING OUTPUTS DOWN");
             leftWheelVel*=scaling;
             rightWheelVel*=scaling;
@@ -267,5 +268,9 @@ public class PurePursuitPathFollower{
      */
     private void printAnUpdate(){
         System.out.println("L-Vel: " + leftWheelVel + " R-Vel " + rightWheelVel + " curv: " + curvature + " in. Left: " + getDistanceFromEnd() + " P. Vel: " + path.getWaypoints().get(closestPointIndex).getVelocity());
+    }
+
+    public String currentFlag(){
+        return path.getWaypoints().get(closestPointIndex).getFlag();
     }
 }

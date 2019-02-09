@@ -1,4 +1,4 @@
-package com.team2052.deepspace;
+package com.team2052.lib;
 
 /**
  * Created by KnightKrawler on 1/19/2018.
