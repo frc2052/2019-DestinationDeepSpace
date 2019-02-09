@@ -5,7 +5,7 @@ import com.team2052.deepspace.subsystems.GroundIntakeController;
 public class GroundIntakeAction implements Action {
     private GroundIntakeController controller;
     private boolean finished = false;
-    private boolean intakeState;
+    private boolean intakeState; //Todo: remove this for ground intake
     public GroundIntakeAction(boolean state){
         intakeState = state;
         start();
@@ -16,28 +16,19 @@ public class GroundIntakeAction implements Action {
     }
 
     public boolean isFinished(){
+        // Once Hatch is placed then we return arm to starting Postion
+        if (!finished && controller.getPlacementComplete()) {
+            finished = true;
+            controller.setStartPos();
+        }
         return finished;
     }
 
     public void start(){
-        if(intakeState) {
-            controller.groundIntake(true);
-        }
-        else controller.groundIntake(false);
+        controller.placement(true);
     }
 
     public void update(){
-        if(intakeState) {
-            if (controller.groundIntakeState()) {//True by default unless groundintake is run
-                done();
-            }
-        } else {
-            if(controller.groundOuttakeState()){//True by default unless groundintake is run
-                done();
-            }
-        }
+
     }
-
-
-
 }
