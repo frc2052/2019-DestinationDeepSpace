@@ -10,26 +10,29 @@ public class HatchIntakeAction implements Action {
         this.state = state; //When calling say whether to intake or outtake
     }
 
+    @Override
     public void done(){
         finished = true;
     }
 
+    @Override
     public boolean isFinished(){
         return finished; //Requirement of Action
     }
 
+    @Override
     public void start(){
         switch(state) {
             case INTAKE:
-                if(!intake.getHatchIntakeState())
-                intake.setHatchIntakeState(true);
+                intake.setHatchPlace(false);
                 done();
             case OUTTAKE:
-                intake.setHatchIntakeState(false);
+                intake.setHatchPlace(true);
                 done();//Releases hatch
         }
     }
 
+    @Override
     public void update(){
 
         }

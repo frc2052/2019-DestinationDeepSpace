@@ -147,8 +147,7 @@ public class Robot extends TimedRobot {
             } else {
                 driveTrain.drive(driveHelper.drive(controls.getDriveTank(), controls.getDriveTurn(), controls.getQuickTurn()));
             }
-        }
-        else {
+        } else {
             driveTrain.drive(driveHelper.drive(controls.getDriveTank(), controls.getDriveTurn(), controls.getQuickTurn()));
         }
         robotstate.outputToSmartDashboard();
