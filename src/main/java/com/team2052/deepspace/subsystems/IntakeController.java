@@ -25,7 +25,7 @@ public class IntakeController {
         armInSolenoid.set(isDown);
         armOutSolenoid.set(!isDown);
         isArmDown = isDown;
-    }
+    } 
 
     public void setCargoIntake(boolean isPressed) {
         if(isPressed) {
