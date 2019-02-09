@@ -54,12 +54,15 @@ public class Constants {
     }
     public class Intake {
         public static final int kGroundIntakeMotor = 0;
+        public static final int kClawTopMotor = 0;
+        public static final int kClawBottomMotor = 0;
+        public static final int kIntakeMotorId = 1;
         public static final int kGrabber2SolenoidId = 2;
         public static final int kGrabber1SolenoidId = 3;
-        public static final int kIntakeMotorId = 1;
         public static final int kCargoInId = 2;
         public static final int kCargoOutId = 3;
-        public static final int kHatchId = 3;
+        public static final int kHatchInId = 3;
+        public static final int kHatchOutId = 4;
         public static final int kOuttakePercentSpeed = -30;
         public static final int kNeutralSpeed = 20;
         public static final int kIntakePercentSpeed = 50;
