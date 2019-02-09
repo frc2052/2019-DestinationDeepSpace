@@ -75,7 +75,7 @@ public class Constants {
     public static class Autonomous{ //all units for distances, velocity, and acceleration are in inches
 
         //dials to change how auto works
-        public static final double kturnSpeed = 3; //constant from 1-5     higher = faster
+        public static final double kturnSpeed = 5; //constant from 1-5     higher = faster
         //how fast the robot accelerates and decelerates
         public static final double kMaxAccel = 120;
         // changes how smooth it follows path. lower = curves back and forth/fishtail, higher = less accurate
@@ -105,7 +105,7 @@ public class Constants {
 
         public static final double kMinVelocity = 0.05; //range 0-1: minimum amount of power to overcome static friction
 
-        public static final double kMinPointSpacing = 6;
+        public static final double kMinPointSpacing = 36;
         public static final AutoMode.StartDirection defaultStartDirection = AutoMode.StartDirection.FORWARD;
     }
 

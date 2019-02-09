@@ -46,7 +46,7 @@ public class Robot extends TimedRobot {
        // elevator = ElevatorController.getInstance();
        // elevator.zeroSensor();
         controlLoop.addLoopable(robotStateCalculator);
-        controlLoop.addLoopable(groundIntake);
+       // controlLoop.addLoopable(groundIntake);
         visionController = VisionController.getInstance();
 
         lineFollower = LineFollowerController.getInstance();
