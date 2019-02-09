@@ -36,7 +36,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void robotInit() {
-        groundIntake = GroundIntakeController.getInstance();
+        //groundIntake = GroundIntakeController.getInstance();
         driveHelper = new DriveHelper();
        // intake = IntakeController.getInstance();
         controls = Controls.getInstance();
@@ -152,8 +152,7 @@ public class Robot extends TimedRobot {
         }
         robotstate.outputToSmartDashboard();
         driveTrain.setHighGear(controls.getShift());
-
-        groundIntake.update();
+        
         legClimberController.printEncoder();
 
 

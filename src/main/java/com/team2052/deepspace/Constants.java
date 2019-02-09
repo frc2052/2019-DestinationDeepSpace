@@ -9,6 +9,7 @@ public class Constants {
 
     public class Controls{
         public static final int kQuickTurnButton = 3;
+        public static final int kShiftButton = 2;
 
         public static final int kElevatorGroundGargoButton = 2;
         public static final int kElevatorHatch1Button = 3;
@@ -24,12 +25,13 @@ public class Constants {
         public static final int kElevatorEmergencyDownButton = 7;
 
         public static final int kautoOverrideButton = 2;
-        public static final int kVisionTrackButton = 3;
         public static final int kGroundIntakeButton = 1;
         public static final int kGroundOuttakeButton = 2;
         public static final int kGrabButton = 8;
         public static final int kLegClimberButton = 4;
-        public static final int kLegClimberLowerButton = 5;
+        public static final int kLegClimberLowerButton = 8;
+
+        public static final int kLightSensorFollowButton = 3;
     }
 
     public class DriveTrain{
@@ -156,10 +158,6 @@ public class Constants {
         public static final double kLightSensorTurnHardSpeedReduction = -1;
         public static final double kLightSensorTurnLightSpeedReduction = -0.8;
         public static final double kLightSensorMotorSpeed = 0.4;
-
-        //////button//////
-        public static final int kLightSensorFollowButton = 3;
-
     }
 
 
