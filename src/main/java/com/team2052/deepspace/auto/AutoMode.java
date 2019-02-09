@@ -4,9 +4,10 @@ import com.team2052.deepspace.Constants;
 
 public abstract class AutoMode extends AutoModeBase{
 
-    protected StartDirection startDirection = Constants.Autonomous.defaultStartDirection;
-    protected StartPosition startPosition = StartPosition.CENTER;
+    private StartDirection startDirection = Constants.Autonomous.defaultStartDirection;
+    private StartPosition startPosition = StartPosition.CENTER;
 
+    public void setStartDirection(StartDirection startDirection){this.startDirection = startDirection;}
     public StartDirection getStartDirection(){
         return startDirection;
     }
@@ -23,6 +24,7 @@ public abstract class AutoMode extends AutoModeBase{
         }
     }
 
+    public void setStartPosition(StartPosition startPosition){this.startPosition = startPosition;}
     public StartPosition getStartPosition(){
         return startPosition;
     }

@@ -34,7 +34,7 @@ public class LeftStartCenterLeftCenterRocketToLeftMiddleRocket extends AutoMode 
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
                 //Drives back towards loading station
                 //:Update Paths To Its Actual One For the MODE
-                new FollowPathAction(new LCloseHatchStartLeftHatchPickUpPath())
+                new FollowPathAction(new LCloseHatchStartLeftHatchPickUpPath(Path.Direction.FORWARD))
         )));
     }
 }

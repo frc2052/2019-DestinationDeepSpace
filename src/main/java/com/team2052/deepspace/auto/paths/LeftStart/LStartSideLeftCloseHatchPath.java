@@ -11,14 +11,14 @@ public class LStartSideLeftCloseHatchPath extends Path {
     public LStartSideLeftCloseHatchPath(Direction direction) {
         setDirection(direction);
         double i = 3.7;
-        addWaypoint(new Waypoint(new Position2d(0,-47),35)); // B
+        addWaypoint(new Waypoint(new Position2d(0,-47),50)); // B
         addWaypoint(new Waypoint(new Position2d(50,-47),25*i));
-        addWaypoint(new Waypoint(new Position2d(110,-68),25*i));
-        addWaypoint(new Waypoint(new Position2d(125,-73),25*i));
-        addWaypoint(new Waypoint(new Position2d(142,-75),25*i));
-        addWaypoint(new Waypoint(new Position2d(175,-75),25*i));
-        addWaypoint(new Waypoint(new Position2d(188,-72),25*i));
-        addWaypoint(new Waypoint(new Position2d(194,-60),25*i));
+        addWaypoint(new Waypoint(new Position2d(110,-78),25*i));
+        addWaypoint(new Waypoint(new Position2d(125,-83),25*i));
+        addWaypoint(new Waypoint(new Position2d(142,-85),25*i));
+        addWaypoint(new Waypoint(new Position2d(175,-85),25*i));
+        addWaypoint(new Waypoint(new Position2d(188,-82),25*i));
+        addWaypoint(new Waypoint(new Position2d(194,-70),25*i));
         addWaypoint(new Waypoint(new Position2d(194,-47),25*i)); // P
         OptimizePath();
     }

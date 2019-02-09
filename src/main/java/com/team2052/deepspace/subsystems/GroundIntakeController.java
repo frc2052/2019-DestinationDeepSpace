@@ -1,11 +1,11 @@
 package com.team2052.deepspace.subsystems;
 
 import com.team2052.deepspace.Constants;
+import com.team2052.lib.ILoopable;
 import com.team2052.lib.KnightTimer;
-import com.team2052.lib.Loopable;
 import edu.wpi.first.wpilibj.Solenoid;
 
-public class GroundIntakeController implements Loopable {
+public class GroundIntakeController implements ILoopable {
     /* True is Intake, false is Outtake.
     Could be enum, but because intake and outtake already are enums with a done case
     There's no reason complicate it. */
@@ -58,6 +58,7 @@ public class GroundIntakeController implements Loopable {
         return ((outtakeState == groundOuttakeState.DONE));
     } //Simplified Getter, since nothing should want to know if it's anything but done/not done
 
+    @Override
     public void update(){
         if(groundState) {
             switch (intakeState) {

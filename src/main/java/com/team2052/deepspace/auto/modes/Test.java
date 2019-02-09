@@ -10,8 +10,8 @@ import java.util.Arrays;
 public class Test extends AutoMode {
 
     public Test(){
-        startDirection = StartDirection.FORWARD;
-        startPosition = StartPosition.CENTER;
+        setStartDirection(StartDirection.BACKWARD);
+        setStartPosition(StartPosition.LEFT);
     }
 
     @Override

@@ -36,7 +36,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void robotInit() {
-        //groundIntake = GroundIntakeController.getInstance();
+        groundIntake = GroundIntakeController.getInstance();
         driveHelper = new DriveHelper();
        // intake = IntakeController.getInstance();
         controls = Controls.getInstance();
@@ -46,6 +46,7 @@ public class Robot extends TimedRobot {
        // elevator = ElevatorController.getInstance();
        // elevator.zeroSensor();
         controlLoop.addLoopable(robotStateCalculator);
+        controlLoop.addLoopable(groundIntake);
         visionController = VisionController.getInstance();
 
         lineFollower = LineFollowerController.getInstance();
@@ -152,8 +153,8 @@ public class Robot extends TimedRobot {
         }
         robotstate.outputToSmartDashboard();
         driveTrain.setHighGear(controls.getShift());
-        
-        legClimberController.printEncoder();
+
+        //legClimberController.printEncoder();
 
 
         if (controls.legClimber()){
@@ -163,8 +164,8 @@ public class Robot extends TimedRobot {
         }else {
             legClimberController.stopClimber();
         }
-/*
-        groundIntake.update();
+
+        /*
         if(controls.getIntake()){
             intake.cargoIntake();
 
