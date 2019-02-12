@@ -31,7 +31,7 @@ public class RightStartSideRightCloseRocketToRightFarRocket extends AutoMode {
                 //Vision
                 new LineUpAction(),
                 // change hatch action to GROUND hatch outtake
-                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE)//,
+                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
                 //Drives back towards loading station
                 //:Update Paths To Its Actual One For the MODE
                 new FollowPathAction(new RStartSideRightFarRocketPath(Path.Direction.FORWARD))
