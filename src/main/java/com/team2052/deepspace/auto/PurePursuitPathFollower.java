@@ -1,12 +1,12 @@
 package com.team2052.deepspace.auto;
 
 import com.team2052.deepspace.Constants;
-import com.team2052.lib.DriveSignal;
 import com.team2052.deepspace.RobotState;
 import com.team2052.deepspace.auto.paths.Path;
 import com.team2052.deepspace.subsystems.DriveTrainController;
 import com.team2052.lib.Autonomous.Position2d;
 import com.team2052.lib.Autonomous.RateLimiter;
+import com.team2052.lib.DriveSignal;
 import edu.wpi.first.wpilibj.drive.Vector2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -89,7 +89,7 @@ public class PurePursuitPathFollower{
         currentPos = null;
         curvature = 0;
         closestPointIndex = 0;
-        driveTrain.setHighGear(true);
+        driveTrain.setHighGear(Constants.Autonomous.kIsAutoHighGear);
     }
 
     /**

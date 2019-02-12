@@ -2,8 +2,6 @@ package com.team2052.deepspace.auto.modes.CenterStart;
 
 import com.team2052.deepspace.auto.AutoMode;
 import com.team2052.deepspace.auto.actions.*;
-
-import com.team2052.deepspace.auto.paths.CenterHatchStarts.CLeftHatchStartLeftHatchPickUpPath;
 import com.team2052.deepspace.auto.paths.CenterHatchStarts.CRightHatchStartRightHatchPickUpPathCompoundPath;
 import com.team2052.deepspace.auto.paths.CenterStart.CStartCenterRightHatchPath;
 import com.team2052.deepspace.auto.paths.Path;
