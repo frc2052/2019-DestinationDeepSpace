@@ -19,7 +19,7 @@ public class LeftStartSideLeftCloseHatchToLeftFarHatch extends AutoMode {
                 //Vision
                 new LineUpAction(),
                 // when false, ground outtake action
-                new GroundIntakeAction(false),
+                new GroundIntakeAction(true),
                 new FollowPathAction(new LCloseHatchStartLeftHatchPickUpPath(Path.Direction.FORWARD)),
                 //Vision
                 new LineUpAction(),

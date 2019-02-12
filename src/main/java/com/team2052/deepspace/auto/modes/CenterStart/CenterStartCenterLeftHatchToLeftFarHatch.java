@@ -18,8 +18,8 @@ public class CenterStartCenterLeftHatchToLeftFarHatch extends AutoMode {
                 new FollowPathAction(new CStartCenterLeftHatchPath(Path.Direction.BACKWARD)),
                 //Vision
                 new LineUpAction(),
-                // when false, ground outtake action
-                new GroundIntakeAction(false),
+                // when true, ground outtake action
+                new GroundIntakeAction(true),
                 new FollowPathAction(new CLeftHatchStartLeftHatchPickUpPath()),
                 //Vision
                 new LineUpAction(),

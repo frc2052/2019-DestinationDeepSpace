@@ -18,8 +18,8 @@ public class RightStartCenterRightHatchToRightFarHatch extends AutoMode {
                 new FollowPathAction(new RStartCenterRightHatchPath(Path.Direction.BACKWARD)),
                 //Vision
                 new LineUpAction(),
-                // when false, ground outtake action
-                new GroundIntakeAction(false),
+                // when true, ground outtake action
+                new GroundIntakeAction(true),
                 new FollowPathAction(new CRightHatchStartRightHatchPickUpPath()),
                 //Vision
                 new LineUpAction(),
