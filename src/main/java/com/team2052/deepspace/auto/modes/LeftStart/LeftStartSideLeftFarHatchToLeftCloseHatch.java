@@ -2,6 +2,7 @@ package com.team2052.deepspace.auto.modes.LeftStart;
 
 import com.team2052.deepspace.auto.AutoMode;
 import com.team2052.deepspace.auto.actions.*;
+import com.team2052.deepspace.auto.paths.CenterHatchStarts.CLeftHatchStartLeftHatchPickUpPath;
 import com.team2052.deepspace.auto.paths.HatchPickUp.LHatchPickUpStartLeftCloseHatchCompoundPath;
 import com.team2052.deepspace.auto.paths.LeftHatchStarts.LCloseHatchStartLeftHatchPickUpPathCompoundPath;
 import com.team2052.deepspace.auto.paths.LeftHatchStarts.LFarHatchStartLeftHatchPickUpPath;
@@ -18,9 +19,12 @@ public class LeftStartSideLeftFarHatchToLeftCloseHatch extends AutoMode {
                 new FollowPathAction(new LStartSideLeftFarHatchPath(Path.Direction.BACKWARD)),
                 //Vision
                 new LineUpAction(),
-                // when false, ground outtake action
-                new GroundIntakeAction(false),
-                new FollowPathAction(new LFarHatchStartLeftHatchPickUpPath()),
+                // when true, ground outtake action
+                new GroundIntakeAction(true),
+                new ParallelAction(Arrays.asList(
+                        new FollowPathAction(new LFarHatchStartLeftHatchPickUpPath()),
+                        new GroundIntakeAction(false))
+                ),
                 //Vision
                 new LineUpAction(),
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),

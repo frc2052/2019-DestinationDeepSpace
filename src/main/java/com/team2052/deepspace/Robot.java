@@ -1,5 +1,7 @@
 package com.team2052.deepspace;
 
+import com.team2052.deepspace.auto.AutoMode;
+import com.team2052.deepspace.auto.AutoModeFactory;
 import com.team2052.deepspace.auto.AutoModeRunner;
 import com.team2052.deepspace.auto.AutoModeSelector;
 import com.team2052.deepspace.subsystems.*;
@@ -47,7 +49,6 @@ public class Robot extends TimedRobot {
        // elevator = ElevatorController.getInstance();
        // elevator.zeroSensor();
         controlLoop.addLoopable(robotStateCalculator);
-       // controlLoop.addLoopable(groundIntake);
         visionController = VisionController.getInstance();
 
         lineFollower = LineFollowerController.getInstance();
@@ -81,11 +82,15 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         controlLoop.start();
         driveTrain.zeroGyro();
-        AutoModeSelector.AutoModeDefinition currentAutoMode = AutoModeSelector.getSelectedAutomode();
-        robotStateCalculator.setStartDirection(currentAutoMode.getInstance().getStartDirection().isForward);
-        robotStateCalculator.resetRobotState(currentAutoMode.getInstance().getStartPosition().lateralOffset,0);
-        SmartDashboard.putNumber("Offset", currentAutoMode.getInstance().getStartPosition().lateralOffset);
-        autoModeRunner.start(currentAutoMode.getInstance());
+        //get the enum for the selected automode
+        AutoModeSelector.AutoModeDefinition currentAutoModeDef = AutoModeSelector.getSelectedAutomode();
+        //ask the factory to create an instance (if not already created)
+        AutoMode currentAutoMode = AutoModeFactory.getAutoMode(currentAutoModeDef);
+        //use the instance to get direction and position
+        robotStateCalculator.setStartDirection(currentAutoMode.getStartDirection().isForward);
+        robotStateCalculator.resetRobotState(currentAutoMode.getStartPosition().lateralOffset,0);
+        //start running the auto mode
+        autoModeRunner.start(currentAutoMode);
     }
 
     /**
@@ -137,7 +142,12 @@ public class Robot extends TimedRobot {
         autoModeRunner.stop();
         controlLoop.stop();
         driveTrain.stop();
-        AutoModeSelector.getSelectedAutomode();
+        AutoModeSelector.AutoModeDefinition selected = AutoModeSelector.getSelectedAutomode();
+        if (selected != null)
+        {
+            //force the auto mode to preload so that all paths are calculated before AutoInit
+            AutoMode preload = AutoModeFactory.getAutoMode((selected));
+        }
     }
 
     private void driverControlled(){
@@ -149,8 +159,7 @@ public class Robot extends TimedRobot {
             } else {
                 driveTrain.drive(driveHelper.drive(controls.getDriveTank(), controls.getDriveTurn(), controls.getQuickTurn()));
             }
-        }
-        else {
+        } else {
             driveTrain.drive(driveHelper.drive(controls.getDriveTank(), controls.getDriveTurn(), controls.getQuickTurn()));
         }
         robotstate.outputToSmartDashboard();

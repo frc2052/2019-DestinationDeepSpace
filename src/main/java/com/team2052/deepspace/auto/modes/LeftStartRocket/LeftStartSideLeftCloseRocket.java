@@ -1,10 +1,7 @@
 package com.team2052.deepspace.auto.modes.LeftStartRocket;
 
 import com.team2052.deepspace.auto.AutoMode;
-import com.team2052.deepspace.auto.actions.FollowPathAction;
-import com.team2052.deepspace.auto.actions.HatchIntakeAction;
-import com.team2052.deepspace.auto.actions.SeriesAction;
-import com.team2052.deepspace.auto.actions.LineUpAction;
+import com.team2052.deepspace.auto.actions.*;
 import com.team2052.deepspace.auto.paths.LeftStartRocket.LStartSideLeftCloseRocketPath;
 import com.team2052.deepspace.auto.paths.Path;
 
@@ -24,10 +21,10 @@ public class LeftStartSideLeftCloseRocket extends AutoMode {
                 new FollowPathAction(new LStartSideLeftCloseRocketPath(Path.Direction.BACKWARD)),
                //Vision
                 new LineUpAction(),
-                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
-                //Vision
+                //placement of hatch when true
+                new GroundIntakeAction(true),
                 new LineUpAction(),
-                //: change hatch action to GROUND hatch outtake
+                //TODO: change hatch action to GROUND hatch outtake
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE)
                 //Drives back towards loading station
 

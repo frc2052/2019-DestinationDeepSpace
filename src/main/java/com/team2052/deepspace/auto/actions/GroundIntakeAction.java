@@ -1,13 +1,15 @@
 package com.team2052.deepspace.auto.actions;
 
 import com.team2052.deepspace.subsystems.GroundIntakeController;
+import edu.wpi.first.wpilibj.DriverStation;
 
 public class GroundIntakeAction implements Action {
     private GroundIntakeController controller;
     private boolean finished = false;
-    private boolean intakeState;
-    public GroundIntakeAction(boolean state){
-        intakeState = state;
+    private boolean placingHatch;
+    private double timeSinceDoneHatch;
+    public GroundIntakeAction(boolean placeHatch){
+        placingHatch = placeHatch;
         start();
     } //Most of the work is actually done in controller.
 
@@ -16,28 +18,27 @@ public class GroundIntakeAction implements Action {
     }
 
     public boolean isFinished(){
+        // Once Hatch is placed then we return arm to starting Postion
+        if (!finished && controller.getPlacementComplete()) {//we will always be finished if we are putting the arm back into start
+            finished = true;
+        }
         return finished;
     }
 
     public void start(){
-        if(intakeState) {
-            controller.groundIntake(true);
+        if (placingHatch) { //place the hatch
+            controller.placement(true);
         }
-        else controller.groundIntake(false);
+        else {
+            timeSinceDoneHatch = DriverStation.getInstance().getMatchTime();
+        }
+
     }
 
     public void update(){
-        if(intakeState) {
-            if (controller.groundIntakeState()) {//True by default unless groundintake is run
-                done();
-            }
-        } else {
-            if(controller.groundOuttakeState()){//True by default unless groundintake is run
-                done();
-            }
+        if(!placingHatch && ((DriverStation.getInstance().getMatchTime() - timeSinceDoneHatch) > 2)){ //Wait 2 Seconds until raise the arm
+            controller.setStartPos();
+            finished = true; //we don't need to wait for the arm to go back up
         }
     }
-
-
-
 }

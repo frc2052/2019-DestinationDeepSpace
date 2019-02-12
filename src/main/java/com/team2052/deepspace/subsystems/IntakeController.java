@@ -10,63 +10,90 @@ public class IntakeController {
     public static IntakeController getInstance() {return instance;}
 
     private TalonSRX intakeMotor = new TalonSRX (Constants.Intake.kIntakeMotorId);
-    private Solenoid cargoIntakeSolenoid = new Solenoid(Constants.Intake.kCargoInId);
-    private Solenoid cargoOuttakeSolenoid = new Solenoid(Constants.Intake.kCargoOutId);
-    private Solenoid hatchIntakeSolenoid = new Solenoid(Constants.Intake.kHatchId);
+    private TalonSRX clawTop = new TalonSRX(Constants.Intake.kClawTopMotor);
+    private TalonSRX clawBottom = new TalonSRX(Constants.Intake.kClawBottomMotor);
+    private Solenoid armInSolenoid = new Solenoid(Constants.Intake.kCargoInId);
+    private Solenoid armOutSolenoid = new Solenoid(Constants.Intake.kCargoOutId);
+    private Solenoid hatchIntakeSolenoid = new Solenoid(Constants.Intake.kHatchInId);
+    private Solenoid hatchOuttakeSolenoid = new Solenoid(Constants.Intake.kHatchOutId);
+    private final double armIntakeSpeed = .6;
+    private final double intakeTopClawSpeed = .6;
+    private final double intakeBottomClawSpeed = -.6;
+    private boolean isArmDown;
 
-    public void setCargoIntake(double speed, boolean intake) {
-        intakeMotor.set(ControlMode.PercentOutput, speed);
-        cargoIntakeSolenoid.set(intake);
+    public void setArmDown (boolean isDown ) {
+        armInSolenoid.set(isDown);
+        armOutSolenoid.set(!isDown);
+        isArmDown = isDown;
+    } 
+
+    public void setCargoIntake(boolean isPressed) {
+        if(isPressed) {
+            intakeMotor.set(ControlMode.PercentOutput, armIntakeSpeed);
+            clawTop.set(ControlMode.PercentOutput, intakeTopClawSpeed );
+            clawBottom.set(ControlMode.PercentOutput, intakeBottomClawSpeed );
+            setArmDown(true);
+        } else {
+            intakeMotor.set(ControlMode.PercentOutput, 0);
+            clawTop.set(ControlMode.PercentOutput, 0);
+            clawBottom.set(ControlMode.PercentOutput, 0);
+            setArmDown(false);
+        }
     } //Sets cargo intake motor (In percent) to the speed you send it.
 
-    private boolean cargoIntakeState;
-    public boolean getCargoIntakeState() {
-        return cargoIntakeState;
+    public void setShootCargo(ShootSpeed shoot) {
+        switch (shoot) {
+            case ROCKET1:
+                clawTop.set(ControlMode.PercentOutput, .25);
+                clawBottom.set(ControlMode.PercentOutput, -.25);
+                break;
+            case CARGOSHIP:
+                clawTop.set(ControlMode.PercentOutput, .35);
+                clawBottom.set(ControlMode.PercentOutput, -.35);
+                break;
+            case ROCKET2:
+                clawTop.set(ControlMode.PercentOutput, .50);
+                clawBottom.set(ControlMode.PercentOutput, -.50);
+                break;
+            case ROCKET3:
+                clawTop.set(ControlMode.PercentOutput, 1);
+                clawBottom.set(ControlMode.PercentOutput, -1);
+                break;
+            default:
+                clawTop.set(ControlMode.PercentOutput, 0);
+                clawBottom.set(ControlMode.PercentOutput, 0);
+                break;
+        }
     }
-    public void setCargoIntakeState(boolean state){
-        cargoIntakeState = state;
-        cargoIntakeSolenoid.set(cargoIntakeState);
-    } //Getter and setter for cargo state
 
-    public void cargoNeutral(){
-        setCargoIntake(Constants.Intake.kNeutralSpeed, false);
-    }
-    public void cargoIntake(){
-        setCargoIntake(Constants.Intake.kIntakePercentSpeed, true);
+    private boolean lastIsPressed;
 
-    }
-
-    private boolean isCargoClosed = false;
-    private boolean lastPressedState;
-    public void grab(Boolean isPressed){
-        if (isPressed && !lastPressedState){  //it is pressed now, but wasn't pressed on the last loop
-            //need to change the state of the grabber
-            if (!isCargoClosed) {
-                cargoGrab();
+    public void toggleArmPosition(boolean isPressed) {
+        if (isPressed && !lastIsPressed) { //first time we detected button press
+            if (isArmDown) {
+                setArmDown(false);
             } else {
-                cargoOuttake();
+                setArmDown(true);
             }
         }
-        lastPressedState = isPressed;
+        lastIsPressed = isPressed;
     }
 
-    public void cargoGrab(){
-        cargoOuttakeSolenoid.set(true);
-        isCargoClosed = true;
-    }
-    public void cargoOuttake(){
-        cargoOuttakeSolenoid.set(false);
-        isCargoClosed = false;
-    }
-
-    private boolean hatchIntakeState;
-
-    public boolean getHatchIntakeState() {
-        return hatchIntakeState;
+    public void setHatchPlace (boolean isPressed) {
+        if (isPressed) {
+            hatchIntakeSolenoid.set(true);
+            hatchOuttakeSolenoid.set(false);
+        } else {
+            hatchIntakeSolenoid.set(false);
+            hatchOuttakeSolenoid.set(true);
+        }
     }
 
-    public void setHatchIntakeState(boolean state) {
-        hatchIntakeState = state;
-        hatchIntakeSolenoid.set(hatchIntakeState);
-    } //Getter and Setter for the HatchState
+    public enum ShootSpeed {
+        NONE,
+        ROCKET1,
+        ROCKET2,
+        ROCKET3,
+        CARGOSHIP
+    }
 }

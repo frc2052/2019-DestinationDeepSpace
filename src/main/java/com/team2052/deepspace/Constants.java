@@ -19,8 +19,8 @@ public class Constants {
         public static final int kElevatorCargo1Button = 7;
         public static final int kElevatorCargo2Button = 8;
         public static final int kElevatorCargo3Button = 9;
-        public static final int kElevatorAdjustmenUpButton = 10;
-        public static final int kElevatorAdjustmenDownButton = 11;
+        public static final int kElevatorAdjustmentUpButton = 10;
+        public static final int kElevatorAdjustmentDownButton = 11;
         public static final int kElevatorEmergencyUpButton = 3;
         public static final int kElevatorEmergencyDownButton = 7;
 
@@ -53,12 +53,16 @@ public class Constants {
         public static final int kShiftOutSolenoidID = 1;
     }
     public class Intake {
-        public static final int kLifterSolenoidId = 2;
-        public static final int kGrabberSolenoidId = 3;
+        public static final int kGroundIntakeMotor = 0;
+        public static final int kClawTopMotor = 0;
+        public static final int kClawBottomMotor = 0;
         public static final int kIntakeMotorId = 1;
+        public static final int kGrabber2SolenoidId = 2;
+        public static final int kGrabber1SolenoidId = 3;
         public static final int kCargoInId = 2;
         public static final int kCargoOutId = 3;
-        public static final int kHatchId = 3;
+        public static final int kHatchInId = 3;
+        public static final int kHatchOutId = 4;
         public static final int kOuttakePercentSpeed = -30;
         public static final int kNeutralSpeed = 20;
         public static final int kIntakePercentSpeed = 50;

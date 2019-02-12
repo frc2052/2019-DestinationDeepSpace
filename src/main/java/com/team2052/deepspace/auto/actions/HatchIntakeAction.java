@@ -10,33 +10,45 @@ public class HatchIntakeAction implements Action {
         this.state = state; //When calling say whether to intake or outtake
     }
 
+    @Override
     public void done(){
         finished = true;
     }
 
+    @Override
     public boolean isFinished(){
         return finished; //Requirement of Action
     }
 
+    @Override
     public void start(){
         switch(state) {
             case INTAKE:
-                if(!intake.getHatchIntakeState())
-                intake.setHatchIntakeState(true);
-                done();
+                intake.setHatchPlace(false);
+                break;
             case OUTTAKE:
-                intake.setHatchIntakeState(false);
-                done();//Releases hatch
+                intake.setHatchPlace(true);
+                break;
+            case ARMDOWN:
+                intake.setArmDown(true);
+                break;
+            case ARMUP:
+                intake.setArmDown(false);
+                break;
         }
+        finished = true;
     }
 
+    @Override
     public void update(){
 
-        }
+    }
 
     public enum hatchIntakeStateEnum {
         OUTTAKE,
         INTAKE,
+        ARMDOWN,
+        ARMUP,
     }
 
 }

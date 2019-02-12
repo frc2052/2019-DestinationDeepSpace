@@ -2,6 +2,7 @@ package com.team2052.deepspace.auto.modes.LeftStart;
 
 import com.team2052.deepspace.auto.AutoMode;
 import com.team2052.deepspace.auto.actions.*;
+import com.team2052.deepspace.auto.paths.CenterHatchStarts.CLeftHatchStartLeftHatchPickUpPath;
 import com.team2052.deepspace.auto.paths.CenterHatchStarts.CLeftHatchStartLeftHatchPickUpPathCompoundPath;
 import com.team2052.deepspace.auto.paths.LeftStart.LStartCenterLeftHatchPath;
 import com.team2052.deepspace.auto.paths.Path;
@@ -13,13 +14,16 @@ public class LeftStartCenterLeftCenterHatch extends AutoMode {
     protected void init() {
         runAction(new SeriesAction(Arrays.asList(
                 //Starting path starts going backwards
-                new FollowPathAction(new LStartCenterLeftHatchPath(Path.Direction.BACKWARD))//,
+                new FollowPathAction(new LStartCenterLeftHatchPath(Path.Direction.BACKWARD)),
                 //Vision
-                //new LineUpAction(),
-                // when false, ground outtake action
-                //new GroundIntakeAction(false),
+                new LineUpAction(),
+                // when true, ground outtake action
+                new GroundIntakeAction(true),
                 //Turns robot around and drives back towards loading station
-                //new FollowPathListAction(new CLeftHatchStartLeftHatchPickUpPathCompoundPath().getPaths())
-        )));
+                new ParallelAction(Arrays.asList(
+                        new FollowPathListAction(new CLeftHatchStartLeftHatchPickUpPathCompoundPath().getPaths()),
+                        new GroundIntakeAction(false)))
+                )
+        ));
     }
 }

@@ -1,10 +1,7 @@
 package com.team2052.deepspace.auto.modes.LeftStartRocket;
 
 import com.team2052.deepspace.auto.AutoMode;
-import com.team2052.deepspace.auto.actions.FollowPathAction;
-import com.team2052.deepspace.auto.actions.HatchIntakeAction;
-import com.team2052.deepspace.auto.actions.SeriesAction;
-import com.team2052.deepspace.auto.actions.LineUpAction;
+import com.team2052.deepspace.auto.actions.*;
 import com.team2052.deepspace.auto.paths.LeftStartRocket.LStartSideLeftMiddleRocketPath;
 import com.team2052.deepspace.auto.paths.Path;
 
@@ -21,12 +18,11 @@ public class LeftStartSideLeftMiddleRocket extends AutoMode {
 
         runAction(new SeriesAction(Arrays.asList(
                 //Starting path starts going backwards
-                //:Update Paths To Its Actual One For the MODE
                 new FollowPathAction(new LStartSideLeftMiddleRocketPath(Path.Direction.BACKWARD)),
                //Vision
                 new LineUpAction(),
-               //change hatch action to GROUND hatch Intake
-                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
+               //placement of ground hatch when true
+                new GroundIntakeAction(true),
                 //Vision
                 new LineUpAction(),
                 // change hatch action to GROUND hatch outtake
