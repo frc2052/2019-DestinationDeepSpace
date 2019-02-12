@@ -105,8 +105,8 @@ public class DriveTrainController {
     }
 
     public void setHighGear(boolean highGear) {
-        shifterOut.set(highGear);
-        shifterIn.set(!highGear);
+        shifterOut.set(!highGear);
+        shifterIn.set(highGear);
     }
 
     public void drive(DriveSignal driveSignal) {

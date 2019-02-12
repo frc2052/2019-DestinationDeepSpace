@@ -160,6 +160,7 @@ public class Robot extends TimedRobot {
 
 
         SmartDashboard.putBoolean("Camera Toggle", controls.getCameraToggle());
+
         if (controls.legClimber()){
             legClimberController.setLegClimber(controls.legClimber());
         } else if (controls.lowerClimber()){
