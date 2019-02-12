@@ -3,7 +3,6 @@ package com.team2052.deepspace.auto;
 import com.team2052.deepspace.Constants;
 
 public abstract class AutoMode extends AutoModeBase{
-
     private StartDirection startDirection = Constants.Autonomous.defaultStartDirection;
     private StartPosition startPosition = StartPosition.CENTER;
 
