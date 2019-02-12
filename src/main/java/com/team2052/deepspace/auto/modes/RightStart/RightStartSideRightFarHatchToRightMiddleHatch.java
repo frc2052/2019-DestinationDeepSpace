@@ -18,8 +18,8 @@ public class RightStartSideRightFarHatchToRightMiddleHatch extends AutoMode {
                 new FollowPathAction(new RStartSideRightFarHatchPath(Path.Direction.BACKWARD)),
                 //Vision
                 new LineUpAction(),
-                // when false, ground outtake action
-                new GroundIntakeAction(false),
+                // when true, ground outtake action
+                new GroundIntakeAction(true),
                 new FollowPathAction(new RFarHatchStartRightHatchPickUpPath()),
                 //Vision
                 new LineUpAction(),

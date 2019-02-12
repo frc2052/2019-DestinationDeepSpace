@@ -10,6 +10,7 @@ public class RStartSideRightCloseRocketPath extends Path {
 
     public RStartSideRightCloseRocketPath(Direction backwards) {
         setDirection(Direction.FORWARD);
+        //todo: something wrong with the path  points, identical to RStartSideRightFarRocketPath and RStartSideRightMiddleRocketPath
         addWaypoint(new Waypoint(new Position2d(0,47),50)); // C
         addWaypoint(new Waypoint(new Position2d(68,65),50)); // f
         addWaypoint(new Waypoint(new Position2d(194,65),50)); // n

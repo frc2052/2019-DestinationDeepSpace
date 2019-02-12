@@ -18,7 +18,7 @@ public class CenterStartCenterRightHatch extends AutoMode {
                 //Vision
                 new LineUpAction(),
                 // when false, ground outtake action
-                new GroundIntakeAction(false),
+                new GroundIntakeAction(true),
                 //Turns robot around and drives back towards loading station
                 new FollowPathListAction(new CRightHatchStartRightHatchPickUpPathCompoundPath().getPaths())
         )));

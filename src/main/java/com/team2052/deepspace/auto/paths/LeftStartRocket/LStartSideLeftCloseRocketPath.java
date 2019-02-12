@@ -10,6 +10,7 @@ public class LStartSideLeftCloseRocketPath extends Path {
 
     public LStartSideLeftCloseRocketPath(Direction backward) {
         setDirection(Direction.FORWARD);
+        //todo: something wrong with the path points, they are identical to the LStartSideLeftFarRocketPath and LStartSideLeftMiddleRocketPath
         addWaypoint(new Waypoint(new Position2d(0,-47),50)); // B
         addWaypoint(new Waypoint(new Position2d(68,-65),50)); // F
         addWaypoint(new Waypoint(new Position2d(194,-65),50)); // N

@@ -19,7 +19,7 @@ public class CenterStartCenterRightHatchToRightCloseHatch extends AutoMode {
                 //Vision
                 new LineUpAction(),
                 // when false, ground outtake action
-                new GroundIntakeAction(false),
+                new GroundIntakeAction(true),
                 new FollowPathAction(new CRightHatchStartRightHatchPickUpPath()),
                 //Vision
                 new LineUpAction(),
