@@ -16,7 +16,7 @@ public class CargoIntakeAction implements Action {
     }
 
     public void done(){
-        intake.cargoNeutral();
+        /*intake.cargoNeutral();*/
         finished = true;
     }
 
@@ -34,7 +34,7 @@ public class CargoIntakeAction implements Action {
     }
 
     public void update(){
-        switch(state) {
+        /*switch(state) {
             case OUTTAKE:
                 intake.cargoOuttake();
                 if(Timer.getFPGATimestamp() - outtakeTimer >= delay) {
@@ -47,7 +47,7 @@ public class CargoIntakeAction implements Action {
                     intake.setCargoIntakeState(true);
                     done();
                 }
-        }
+        }*/
 
     }
     public enum cargoIntakeStateEnum {

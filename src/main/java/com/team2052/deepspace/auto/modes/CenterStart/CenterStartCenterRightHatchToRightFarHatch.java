@@ -18,14 +18,14 @@ public class CenterStartCenterRightHatchToRightFarHatch extends AutoMode {
                 new FollowPathAction(new CStartCenterRightHatchPath(Path.Direction.BACKWARD)),
                 //Vision
                 new LineUpAction(),
-                // when false, ground outtake action
+                // when true, ground outtake action
                 new GroundIntakeAction(true),
                 new FollowPathAction(new CRightHatchStartRightHatchPickUpPath()),
                 //Vision
                 new LineUpAction(),
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
                 //Compound path to make robot turn around
-                new FollowPathListAction(new RHatchPickUpStartRightFarHatchPathCompoundPath().getPaths()),
+                //new FollowPathListAction(new RHatchPickUpStartRightFarHatchPathCompoundPath().getPaths()),
                 //Vision
                 new LineUpAction(),
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),

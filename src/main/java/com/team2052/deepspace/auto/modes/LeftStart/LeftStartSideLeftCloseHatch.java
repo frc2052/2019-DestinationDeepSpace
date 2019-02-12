@@ -9,6 +9,11 @@ import com.team2052.deepspace.auto.paths.Path;
 import java.util.Arrays;
 
 public class LeftStartSideLeftCloseHatch extends AutoMode {
+
+    public LeftStartSideLeftCloseHatch(){
+        setStartDirection(StartDirection.BACKWARD);
+        setStartPosition(StartPosition.LEFT);
+    }
     @Override
     protected void init() {
         runAction(new SeriesAction(Arrays.asList(

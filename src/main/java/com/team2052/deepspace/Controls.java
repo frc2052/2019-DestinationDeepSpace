@@ -13,28 +13,28 @@ public class Controls {
         return instance;
     }
 
-    private Joystick leftPrimaryStick = new Joystick(0); //left joystick
-    private Joystick rightPrimaryStick = new Joystick(1);//right joystick
-    private Joystick secondaryStick = new Joystick(2);
+    private Joystick turnPrimaryStick = new Joystick(0); //left joystick
+    private Joystick tankPrimaryStick = new Joystick(1);//right joystick
+    private Joystick secondaryControlPanel = new Joystick(2);
 
-    public double getTankJoy1() {
-        double val = -leftPrimaryStick.getY();
+    public double getDriveTank() {
+        double val = -tankPrimaryStick.getY();
         if (val < .15 && val > -.15) {
             val = 0;
         }
         return val;
     } //these return the values for the joysticks for other classes
 
-    public double getTurnJoy1() {
-        return rightPrimaryStick.getX();
+    public double getUnusedTurn() {
+        return tankPrimaryStick.getX();
     }
 
-    public double getTankJoy2() {
-        return rightPrimaryStick.getY();
+    public double getUnusedTank() {
+        return tankPrimaryStick.getY();
     }
 
-    public double getTurnJoy2() {
-        double val = rightPrimaryStick.getX();
+    public double getDriveTurn() {
+        double val = turnPrimaryStick.getX();
         if (val < .15 && val > -.15) {
             val = 0;
         }
@@ -42,51 +42,49 @@ public class Controls {
     }
 
     public boolean legClimber() {
-        return rightPrimaryStick.getRawButton(Constants.LegClimber.kLegClimberButton);
+        return tankPrimaryStick.getRawButton(Constants.Controls.kLegClimberButton);
     }
-    public boolean lowerClimber(){return rightPrimaryStick.getRawButton(Constants.LegClimber.kLegClimberLowerButton);}
+    public boolean lowerClimber(){
+           return tankPrimaryStick.getRawButton(Constants.Controls.kLegClimberLowerButton);
+    }
 
 
-    public boolean reset() {
-        return leftPrimaryStick.getTrigger();
-    }
     public boolean getQuickTurn(){
-        return leftPrimaryStick.getRawButton(Constants.Controls.kQuickTurnButton);
+        return turnPrimaryStick.getRawButton(Constants.Controls.kQuickTurnButton);
     }
 
-    public boolean getOuttake() {return secondaryStick.getRawButton(1);}
-    public boolean getIntake () {return secondaryStick.getTrigger();}
-    public boolean getGrab(){return secondaryStick.getRawButton(Constants.Intake.kGrabButton);}
-    public boolean getGroundIntake () {return secondaryStick.getRawButton(Constants.Intake.kGroundIntakeButton); }
-    public boolean getGroundOuttake () {return secondaryStick.getRawButton(Constants.Intake.kGroundOuttakeButton); }
+    public boolean getOuttake() {return tankPrimaryStick.getTrigger();}
+    public boolean getIntake () {return secondaryControlPanel.getTrigger();}
+    public boolean getGrab(){return secondaryControlPanel.getRawButton(Constants.Controls.kGrabButton);}
+    public boolean getGroundIntake () {return secondaryControlPanel.getRawButton(Constants.Controls.kGroundIntakeButton); }
+    public boolean getGroundOuttake () {return secondaryControlPanel.getRawButton(Constants.Controls.kGroundOuttakeButton); }
 
-    public boolean getVisionTrack(){
-        return secondaryStick.getRawButton(Constants.Controls.kVisionTrackButton);
-    };
+    public boolean getShift(){return tankPrimaryStick.getRawButton(Constants.Controls.kShiftButton);}
+
+    public boolean getLightFollow(){return tankPrimaryStick.getRawButton(Constants.Controls.kLightSensorFollowButton);}
 
     //////elevator//////
-    public boolean getElevatorGroundCargo(){return secondaryStick.getRawButton(Constants.Controls.kElevatorGroundGargoButton);}
-    public boolean getElevatorHatch1(){return secondaryStick.getRawButton(Constants.Controls.kElevatorHatch1Button);}
-    public boolean getElevatorHatch2(){return secondaryStick.getRawButton(Constants.Controls.kElevatorHatch2Button);}
-    public boolean getElevatorHatch3(){return secondaryStick.getRawButton(Constants.Controls.kElevatorHatch3Button);}
-    public boolean getElevatorCargoShipCargo(){return secondaryStick.getRawButton(Constants.Controls.kElevatorCargoShipCargoButton);}
-    public boolean getElevatorRocketCargo1(){return secondaryStick.getRawButton(Constants.Controls.kElevatorCargo1Button);}
-    public boolean getElevatorRocketCargo2(){return secondaryStick.getRawButton(Constants.Controls.kElevatorCargo2Button);}
-    public boolean getElevatorRocketCargo3(){return secondaryStick.getRawButton(Constants.Controls.kElevatorCargo3Button);}
+    public boolean getElevatorGroundCargo(){return secondaryControlPanel.getRawButton(Constants.Controls.kElevatorGroundGargoButton);}
+    public boolean getElevatorHatch1(){return secondaryControlPanel.getRawButton(Constants.Controls.kElevatorHatch1Button);}
+    public boolean getElevatorHatch2(){return secondaryControlPanel.getRawButton(Constants.Controls.kElevatorHatch2Button);}
+    public boolean getElevatorHatch3(){return secondaryControlPanel.getRawButton(Constants.Controls.kElevatorHatch3Button);}
+    public boolean getElevatorCargoShipCargo(){return secondaryControlPanel.getRawButton(Constants.Controls.kElevatorCargoShipCargoButton);}
+    public boolean getElevatorRocketCargo1(){return secondaryControlPanel.getRawButton(Constants.Controls.kElevatorCargo1Button);}
+    public boolean getElevatorRocketCargo2(){return secondaryControlPanel.getRawButton(Constants.Controls.kElevatorCargo2Button);}
+    public boolean getElevatorRocketCargo3(){return secondaryControlPanel.getRawButton(Constants.Controls.kElevatorCargo3Button);}
 
-    public boolean getElevatorAdjustmentUp(){return secondaryStick.getRawButton(Constants.Controls.kElevatorAdjustmenUpButton);}
-    public boolean getElevatorAdjustmentDown(){return secondaryStick.getRawButton(Constants.Controls.kElevatorAdjustmenDownButton);}
+    public boolean getElevatorAdjustmentUp(){return secondaryControlPanel.getRawButton(Constants.Controls.kElevatorAdjustmentUpButton);}
+    public boolean getElevatorAdjustmentDown(){return secondaryControlPanel.getRawButton(Constants.Controls.kElevatorAdjustmentDownButton);}
 
-    public boolean getElevatorEmergencyUp(){return secondaryStick.getRawButton(Constants.Controls.kElevatorEmergencyUpButton);}
-    public boolean getElevatorEmergencyDown(){return secondaryStick.getRawButton(Constants.Controls.kElevatorEmergencyDownButton);}
+    public boolean getElevatorEmergencyUp(){return secondaryControlPanel.getRawButton(Constants.Controls.kElevatorEmergencyUpButton);}
+    public boolean getElevatorEmergencyDown(){return secondaryControlPanel.getRawButton(Constants.Controls.kElevatorEmergencyDownButton);}
 
     public boolean trigger() {
-        return leftPrimaryStick.getTrigger();
+        return turnPrimaryStick.getTrigger();
     }
 
     public boolean autoOverride(){
-        return rightPrimaryStick.getRawButton(Constants.Controls.kautoOverrideButton);
+        return tankPrimaryStick.getRawButton(Constants.Controls.kautoOverrideButton);
     }
 
-    public boolean getLightFollow(){return rightPrimaryStick.getRawButton(Constants.LineFollower.kLightSensorFollowButton);}
-}
+    }

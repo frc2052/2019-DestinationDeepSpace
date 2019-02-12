@@ -1,7 +1,7 @@
 package com.team2052.deepspace.subsystems;
 
 import com.team2052.deepspace.Constants;
-import com.team2052.deepspace.DriveSignal;
+import com.team2052.lib.DriveSignal;
 import edu.wpi.first.wpilibj.DigitalInput;
 
 public class LineFollowerController {

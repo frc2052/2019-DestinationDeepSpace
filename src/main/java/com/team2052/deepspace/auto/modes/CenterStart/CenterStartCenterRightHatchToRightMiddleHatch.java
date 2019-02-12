@@ -18,7 +18,7 @@ public class CenterStartCenterRightHatchToRightMiddleHatch extends AutoMode {
                 new FollowPathAction(new CStartCenterRightHatchPath(Path.Direction.BACKWARD)),
                 //Vision
                 new LineUpAction(),
-                // when false, ground outtake action
+                // when true, ground outtake action
                 new GroundIntakeAction(true),
                 new FollowPathAction(new CRightHatchStartRightHatchPickUpPath()),
                 //Vision

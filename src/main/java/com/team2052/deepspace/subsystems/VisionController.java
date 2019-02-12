@@ -1,6 +1,6 @@
 package com.team2052.deepspace.subsystems;
 
-import com.team2052.deepspace.DriveSignal;
+import com.team2052.lib.DriveSignal;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class VisionController {

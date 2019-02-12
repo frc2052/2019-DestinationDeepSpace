@@ -1,7 +1,5 @@
 package com.team2052.deepspace.auto.paths;
 
-import com.team2052.lib.Autonomous.Waypoint;
-
 import java.util.ArrayList;
 import java.util.List;
 

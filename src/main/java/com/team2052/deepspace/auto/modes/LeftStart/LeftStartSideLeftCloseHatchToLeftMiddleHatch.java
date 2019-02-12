@@ -20,7 +20,7 @@ public class LeftStartSideLeftCloseHatchToLeftMiddleHatch extends AutoMode {
                 new LineUpAction(),
                 // when true, ground outtake action
                 new GroundIntakeAction(true),
-                new FollowPathAction(new LCloseHatchStartLeftHatchPickUpPath()),
+                new FollowPathAction(new LCloseHatchStartLeftHatchPickUpPath(Path.Direction.FORWARD)),
                 //Vision
                 new LineUpAction(),
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),

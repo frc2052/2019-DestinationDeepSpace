@@ -16,6 +16,7 @@ public class RobotStateCalculator implements ILoopable{
     private Position2d latestPosition = new Position2d();
 
     private double timeSinceReset = 0;
+    private boolean startForward = true;
 
     private double lastVels[] = new double[3];
     private DriveTrainController driveTrain = DriveTrainController.getInstance();
@@ -24,7 +25,15 @@ public class RobotStateCalculator implements ILoopable{
     private static RobotStateCalculator singleRobotStateCalculatorInstance = new RobotStateCalculator();
     public static RobotStateCalculator getInstance() { return singleRobotStateCalculatorInstance; }
 
+    public void setStartDirection(boolean startForward){
+        this.startForward = startForward;
+    }
+
     private void estimatePositionAverageHeading(double leftInches, double rightInches, double radians) {
+
+        if(!startForward){
+            radians = radians + Math.PI;
+        }
 
         deltaLeftInches = leftInches-pastLeftInches;
         deltaRightInches = rightInches-pastRightInches;
@@ -40,10 +49,10 @@ public class RobotStateCalculator implements ILoopable{
         latestPosition.setLateral(deltaDistance * Math.sin(averageHeading) + latestPosition.getLateral());
         latestPosition.setHeading(radians);
 /*
-        System.out.println("forward" + latestPosition.forward + "encoderInch: " + rightInches);
-        System.out.println("lateral " + latestPosition.lateral);
-        System.out.println("radians" + latestPosition.heading);
-        System.out.println("degrees " + latestPosition.heading / 0.017453);
+        System.out.println("forward" + latestPosition.getForward() + "encoderInch: " + rightInches);
+        System.out.println("lateral " + latestPosition.getLateral());
+        System.out.println("radians" + latestPosition.getHeading());
+        System.out.println("degrees " + latestPosition.getHeading() / 0.017453);
 */
     }
 
@@ -56,9 +65,19 @@ public class RobotStateCalculator implements ILoopable{
 
     }
 
+    public void resetRobotState(double lateralOffset, double forwardOffset){
+        latestPosition.reset();
+        latestPosition.setForward(forwardOffset);
+        latestPosition.setLateral(lateralOffset);
+        driveTrain.resetEncoders();
+        pastLeftInches = 0;
+        pastRightInches = 0;
+        timeSinceReset = 0;
+
+    }
     @Override
     public void update() {
-        estimatePositionAverageHeading((driveTrain.getLeftEncoder() / Constants.DriveTrain.kTicksPerRot) * Constants.DriveTrain.kDriveWheelCircumferenceInches, (driveTrain.getRightEncoder() / Constants.DriveTrain.kTicksPerRot) * Constants.DriveTrain.kDriveWheelCircumferenceInches, driveTrain.getGyroAngleRadians());
+        estimatePositionAverageHeading((driveTrain.getLeftEncoder() / Constants.DriveTrain.kTicksPerRot) * Constants.DriveTrain.kDriveWheelCircumferenceInches * Constants.DriveTrain.kEncoderGearRatio, (driveTrain.getRightEncoder() / Constants.DriveTrain.kTicksPerRot) * Constants.DriveTrain.kDriveWheelCircumferenceInches * Constants.DriveTrain.kEncoderGearRatio, driveTrain.getGyroAngleRadians());
         robotState.setVelocityInch((lastVels[0] + lastVels[1] + lastVels[2])/3);
         robotState.setLeftVelocityInch(deltaLeftInches);
         robotState.setRightVelocityInch(deltaRightInches);
