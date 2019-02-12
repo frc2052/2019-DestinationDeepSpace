@@ -1,6 +1,7 @@
 package com.team2052.deepspace.auto;
 
 import com.team2052.deepspace.auto.modes.CenterStart.*;
+import com.team2052.deepspace.auto.modes.DontMove;
 import com.team2052.deepspace.auto.modes.LeftStart.*;
 import com.team2052.deepspace.auto.modes.RightStart.*;
 import com.team2052.deepspace.auto.modes.Test;
@@ -103,8 +104,6 @@ public class AutoModeSelector {
     //ADD All POSSIBLE COMBONATIONS KEYWORDS  CREATE ALL CLASSES!!!
     public enum SecondTargetSelection
     {
-
-
         NONE("None"),
         LHATCH("CenterLeftHatch"),
         RHATCH("CenterRightHatch"),
@@ -124,6 +123,7 @@ public class AutoModeSelector {
 
     public enum AutoModeDefinition
     {
+        DontMove(DontMove.class),
 
         testtest(Test.class),
         //Single path AMDs
@@ -187,7 +187,7 @@ public class AutoModeSelector {
             this.clazz = clazz;
         }
 
-        public AutoMode getInstance() { //gets the instance of the AutoModeBase
+        public AutoMode createInstance() { //creates a new instance of the AutoModeBase
             AutoMode instance;
             try {
                 instance = clazz.getDeclaredConstructor().newInstance();
@@ -197,5 +197,6 @@ public class AutoModeSelector {
             }
             return instance;
         }
+
     }
 }
