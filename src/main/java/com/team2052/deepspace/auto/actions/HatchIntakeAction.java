@@ -25,21 +25,30 @@ public class HatchIntakeAction implements Action {
         switch(state) {
             case INTAKE:
                 intake.setHatchPlace(false);
-                done();
+                break;
             case OUTTAKE:
                 intake.setHatchPlace(true);
-                done();//Releases hatch
+                break;
+            case ARMDOWN:
+                intake.setArmDown(true);
+                break;
+            case ARMUP:
+                intake.setArmDown(false);
+                break;
         }
+        finished = true;
     }
 
     @Override
     public void update(){
 
-        }
+    }
 
     public enum hatchIntakeStateEnum {
         OUTTAKE,
         INTAKE,
+        ARMDOWN,
+        ARMUP,
     }
 
 }

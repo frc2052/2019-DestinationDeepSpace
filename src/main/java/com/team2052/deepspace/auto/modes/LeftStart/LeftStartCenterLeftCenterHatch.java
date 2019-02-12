@@ -13,13 +13,13 @@ public class LeftStartCenterLeftCenterHatch extends AutoMode {
     protected void init() {
         runAction(new SeriesAction(Arrays.asList(
                 //Starting path starts going backwards
-                new FollowPathAction(new LStartCenterLeftHatchPath(Path.Direction.BACKWARD))//,
+                new FollowPathAction(new LStartCenterLeftHatchPath(Path.Direction.BACKWARD)),
                 //Vision
-                //new LineUpAction(),
-                // when false, ground outtake action
-                //new GroundIntakeAction(false),
+                new LineUpAction(),
+                // when true, ground outtake action
+                new GroundIntakeAction(true),
                 //Turns robot around and drives back towards loading station
-                //new FollowPathListAction(new CLeftHatchStartLeftHatchPickUpPathCompoundPath().getPaths())
+                new FollowPathListAction(new CLeftHatchStartLeftHatchPickUpPathCompoundPath().getPaths())
         )));
     }
 }

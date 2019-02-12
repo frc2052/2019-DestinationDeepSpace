@@ -16,8 +16,8 @@ public class RightStartSideRightMiddleHatch extends AutoMode {
                 new FollowPathAction(new RStartSideRightMiddleHatchPath(Path.Direction.BACKWARD)),
                 //Vision
                 new LineUpAction(),
-                // when false, ground outtake action
-                new GroundIntakeAction(false),
+                // when true, ground outtake action
+                new GroundIntakeAction(true),
                 //Turns robot around and drives back towards loading station
                 new FollowPathListAction(new RMiddleHatchStartRightHatchPickUpPathCompoundPath().getPaths())
         )));
