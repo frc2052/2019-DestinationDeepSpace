@@ -21,7 +21,7 @@ public class IntakeController {
     private final double intakeBottomClawSpeed = -.6;
     private boolean isArmDown;
 
-    private void setArmDown (boolean isDown ) {
+    public void setArmDown (boolean isDown ) {
         armInSolenoid.set(isDown);
         armOutSolenoid.set(!isDown);
         isArmDown = isDown;
@@ -68,7 +68,7 @@ public class IntakeController {
 
     private boolean lastIsPressed;
 
-    public void setArmPosition (boolean isPressed) {
+    public void toggleArmPosition(boolean isPressed) {
         if (isPressed && !lastIsPressed) { //first time we detected button press
             if (isArmDown) {
                 setArmDown(false);
