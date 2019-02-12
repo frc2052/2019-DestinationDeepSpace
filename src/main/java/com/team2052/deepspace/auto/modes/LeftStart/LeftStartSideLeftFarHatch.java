@@ -2,6 +2,7 @@ package com.team2052.deepspace.auto.modes.LeftStart;
 
 import com.team2052.deepspace.auto.AutoMode;
 import com.team2052.deepspace.auto.actions.*;
+import com.team2052.deepspace.auto.paths.CenterHatchStarts.CLeftHatchStartLeftHatchPickUpPath;
 import com.team2052.deepspace.auto.paths.LeftHatchStarts.LFarHatchStartLeftHatchPickUpPathCompoundPath;
 import com.team2052.deepspace.auto.paths.LeftStart.LStartSideLeftFarHatchPath;
 import com.team2052.deepspace.auto.paths.Path;
@@ -18,8 +19,12 @@ public class LeftStartSideLeftFarHatch extends AutoMode {
                 new LineUpAction(),
                 // when true, ground outtake action
                 new GroundIntakeAction(true),
-                //Turns robot around and drives back towards loading station
-                new FollowPathListAction(new LFarHatchStartLeftHatchPickUpPathCompoundPath().getPaths())
+                new ParallelAction(Arrays.asList(
+                        //Turns robot around and drives back towards loading station
+                        new FollowPathListAction(new LFarHatchStartLeftHatchPickUpPathCompoundPath().getPaths()),
+                        new GroundIntakeAction(false))
+                )
+
         )));
     }
 }
