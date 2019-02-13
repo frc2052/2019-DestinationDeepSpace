@@ -46,7 +46,7 @@ public class Controls {
         return turnPrimaryStick.getRawButton(Constants.Controls.kQuickTurnButton);
     }
 
-    public boolean getCameraToggle(){return turnPrimaryStick.getRawButton(5);}
+    public boolean getShowBackCamera(){return turnPrimaryStick.getRawButton(5);}
     public boolean getOuttake() {return tankPrimaryStick.getTrigger();}
     public boolean legClimber() {
         return tankPrimaryStick.getRawButton(Constants.Controls.kLegClimberButton);
