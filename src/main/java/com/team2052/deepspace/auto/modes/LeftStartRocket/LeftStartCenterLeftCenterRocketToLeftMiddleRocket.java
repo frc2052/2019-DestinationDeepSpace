@@ -25,11 +25,11 @@ public class LeftStartCenterLeftCenterRocketToLeftMiddleRocket extends AutoMode 
                 //:Update Paths To Its Actual One For the MODE
                 new FollowPathAction(new LStartCenterLeftRocketPath(Path.Direction.BACKWARD)),
                //Vision
-                new LineUpAction(),
+                new LineUpAction(true),
                //change hatch action to GROUND hatch Intake
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
                 //Vision
-                new LineUpAction(),
+                new LineUpAction(true),
                 // change hatch action to GROUND hatch outtake
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
                 //Drives back towards loading station

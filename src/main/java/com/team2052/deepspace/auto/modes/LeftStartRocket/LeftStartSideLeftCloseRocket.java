@@ -20,10 +20,10 @@ public class LeftStartSideLeftCloseRocket extends AutoMode {
                 //Starting path starts going backwards
                 new FollowPathAction(new LStartSideLeftCloseRocketPath(Path.Direction.BACKWARD)),
                //Vision
-                new LineUpAction(),
+                new LineUpAction(true),
                 //placement of hatch when true
                 new GroundIntakeAction(true),
-                new LineUpAction(),
+                new LineUpAction(true),
                 //TODO: change hatch action to GROUND hatch outtake
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE)
                 //Drives back towards loading station
