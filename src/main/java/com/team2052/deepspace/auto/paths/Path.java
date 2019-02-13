@@ -17,6 +17,9 @@ public abstract class Path {
 
     protected List<Waypoint> wayPoints = new ArrayList<Waypoint>();
     protected boolean isForward;
+    //this is used so the path follower can automatically change which camera is viewed based on which direction
+    //the robot is driving in auto
+    public boolean getIsForward() {return isForward; }
 
     /**
      * create an empty path
