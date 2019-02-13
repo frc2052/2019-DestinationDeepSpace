@@ -7,6 +7,11 @@ public class VisionController {
     private static VisionController visionControllerInstance = new VisionController();
     public static VisionController getInstance() { return visionControllerInstance; }
 
+    //Static method so all code access the smart dashboard the same way for camera
+    public static void showBackPiCamera(boolean isBack){
+        SmartDashboard.putBoolean("Camera Toggle", isBack);
+    }
+
     private double yaw;
     private double height;
     private double width;

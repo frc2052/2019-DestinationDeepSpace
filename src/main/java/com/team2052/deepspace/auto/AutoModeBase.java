@@ -29,6 +29,7 @@ public abstract class AutoModeBase { //an abstract class cannot be run, only its
             }
         }
         action.done();
+        running = false;
     }
 
     public void start(){ //starts the automode

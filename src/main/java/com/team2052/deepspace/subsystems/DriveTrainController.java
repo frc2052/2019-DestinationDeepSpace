@@ -11,6 +11,7 @@ import com.team2052.lib.DriveSignal;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveTrainController {
 
@@ -65,17 +66,7 @@ public class DriveTrainController {
         rightSlave2.follow(rightMaster);
         leftSlave.follow(leftMaster);
         leftSlave2.follow(leftMaster);
-/*
-        rightMaster.config_kP(0, Constants.Autonomous.kTp);
-        rightMaster.config_kI(0, Constants.Autonomous.kTi);
-        rightMaster.config_kD(0, Constants.Autonomous.kTd);
-        rightMaster.config_kF(0, Constants.Autonomous.kTf);
 
-        leftMaster.config_kP(0, Constants.Autonomous.kTp);
-        leftMaster.config_kI(0, Constants.Autonomous.kTi);
-        leftMaster.config_kD(0, Constants.Autonomous.kTd);
-        leftMaster.config_kF(0, Constants.Autonomous.kTf);
-*/
         shifterIn = new Solenoid(Constants.DriveTrain.kShiftInSolenoidID);
         shifterOut = new Solenoid(Constants.DriveTrain.kShiftOutSolenoidID);
 
@@ -110,7 +101,6 @@ public class DriveTrainController {
     }
 
     public void drive(DriveSignal driveSignal) {
-
         //System.out.println("Left Speed = " + driveSignal.leftMotorSpeedPercent + " rightSpeed = " + driveSignal.rightMotorSpeedPercent);
 
         leftMaster.set(ControlMode.PercentOutput, driveSignal.leftMotorSpeedPercent);
@@ -145,12 +135,12 @@ public class DriveTrainController {
     }
 
     public double getLeftEncoder(){
-        //System.out.println("LEFT ENCODER: " +leftMaster.getSelectedSensorPosition(0));
+        SmartDashboard.putNumber("Left Encoder",leftMaster.getSelectedSensorPosition(0));
 
         return leftMaster.getSelectedSensorPosition(0);
     }
     public double getRightEncoder(){
-        //System.out.println("RIGHT ENCODER: " + rightMaster.getSelectedSensorPosition(0));
+        SmartDashboard.putNumber("Right Encoder",rightMaster.getSelectedSensorPosition(0));
         return rightMaster.getSelectedSensorPosition(0);
     }
 
