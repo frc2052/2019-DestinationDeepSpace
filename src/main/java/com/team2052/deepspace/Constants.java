@@ -157,6 +157,9 @@ public class Constants {
         public static final int kLeftLightSensorId = 2;
         public static final int kMiddleLightSensorId = 1;
         public static final int kRightLightSensorId = 0;
+        public static final int kBackLeftLightSensorId = 5;
+        public static final int kBackMiddleLightSensorId = 4;
+        public static final int kBackRightLightSensorId = 3;
 
         //////speeds//////
         public static final double kLightSensorTurnHardSpeedReduction = -1;

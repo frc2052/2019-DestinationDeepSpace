@@ -4,6 +4,7 @@ import com.team2052.deepspace.Constants;
 import com.team2052.deepspace.RobotState;
 import com.team2052.deepspace.auto.paths.Path;
 import com.team2052.deepspace.subsystems.DriveTrainController;
+import com.team2052.deepspace.subsystems.VisionController;
 import com.team2052.lib.Autonomous.Position2d;
 import com.team2052.lib.Autonomous.RateLimiter;
 import com.team2052.lib.DriveSignal;
@@ -78,6 +79,7 @@ public class PurePursuitPathFollower{
     public void start(Path path) {
         this.path = path;
         resetPathFollower();
+        VisionController.showBackPiCamera(!this.path.getIsForward());
     }
 
     /**
