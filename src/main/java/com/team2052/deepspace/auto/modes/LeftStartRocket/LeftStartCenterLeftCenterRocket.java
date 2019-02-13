@@ -18,12 +18,12 @@ public class LeftStartCenterLeftCenterRocket extends AutoMode {
                 //Starting path starts going backwards
                 new FollowPathAction(new LStartCenterLeftRocketPath(Path.Direction.BACKWARD)),
                //Vision
-                new LineUpAction(),
+                new LineUpAction(true),
                //TODO: change hatch action to GROUND hatch Intake
                 //when true, ground hatch places the hatch
                 new GroundIntakeAction(true),
                 //Vision
-                new LineUpAction(),
+                new LineUpAction(true),
                 // TODO: change hatch action to GROUND hatch outtake
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
                 //Drives back towards loading station
