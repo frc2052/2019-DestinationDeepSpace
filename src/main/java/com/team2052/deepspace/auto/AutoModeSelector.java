@@ -5,6 +5,7 @@ import com.team2052.deepspace.auto.modes.DontMove;
 import com.team2052.deepspace.auto.modes.LeftStart.*;
 import com.team2052.deepspace.auto.modes.RightStart.*;
 import com.team2052.deepspace.auto.modes.Test;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -12,7 +13,6 @@ public class AutoModeSelector {
     private static SendableChooser<PositionSelection> sendableChooserPosition;
     private static SendableChooser<FirstTargetSelection> sendableChooserFirstTarget;
     private static SendableChooser<SecondTargetSelection> sendableChooserSecondTarget;
-
 
     public static void putToShuffleBoard(){
         sendableChooserPosition = new SendableChooser<PositionSelection>();
@@ -45,11 +45,14 @@ public class AutoModeSelector {
                 sendableChooserSecondTarget.addOption(mode.name, mode);
             }
         }
+        SmartDashboard.putBoolean("Start Hab 2?",false);
         SmartDashboard.putData("Auto Start Pos", sendableChooserPosition);
         SmartDashboard.putData("First Target", sendableChooserFirstTarget);
         SmartDashboard.putData("Second Target", sendableChooserSecondTarget);
     }
-
+    public static boolean getHab2Start (){
+        return SmartDashboard.getBoolean("Start Hab 2?", false);
+    }
     public static AutoModeDefinition getSelectedAutomode(){
         String selected = "";
         try {
@@ -187,15 +190,39 @@ public class AutoModeSelector {
             this.clazz = clazz;
         }
 
-        public AutoMode createInstance() { //creates a new instance of the AutoModeBase
+        public AutoMode createInstance(int forwardOffset) { //creates a new instance of the AutoModeBase
+            AutoMode instance = tryCreateWithIntConstructor(forwardOffset);
+            if (instance == null){
+                instance = tryCreateDefaultConstructor();
+            }
+            return  instance;
+        }
+
+        private AutoMode tryCreateWithIntConstructor(int forwardOffset) {
             AutoMode instance;
             try {
-                instance = clazz.getDeclaredConstructor().newInstance();
+                //Look for constructer with int parameter
+                Class[] carg = new Class[1];
+                carg[0] = Integer.class;
+                instance = clazz.getDeclaredConstructor(carg).newInstance(forwardOffset);
+                return instance;
+            } catch (NoSuchMethodException nsm) {
+                return null;
             } catch (Exception e) {
                 System.out.println("CREATION OF AUTOMODE FAILED");
                 return null;
             }
-            return instance;
+        }
+
+        private AutoMode tryCreateDefaultConstructor() {
+            AutoMode instance;
+            try {
+                instance = clazz.getDeclaredConstructor().newInstance();
+                return instance;
+            } catch (Exception e) {
+                System.out.println("CREATION OF AUTOMODE FAILED");
+                return null;
+            }
         }
 
     }
