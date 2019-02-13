@@ -10,9 +10,13 @@ import com.team2052.deepspace.auto.paths.Path;
 import java.util.Arrays;
 
 public class LeftStartSideLeftFarHatch extends AutoMode {
-    @Override
-    protected void init() {
-        runAction(new SeriesAction(Arrays.asList(
+    private Action myAction;
+    public LeftStartSideLeftFarHatch(int forwardOffset){
+        setStartDirection(StartDirection.BACKWARD);
+        setLateralStartPosition(LateralStartPosition.LEFT);
+        setForwardStartOffset(forwardOffset);
+
+        myAction = new SeriesAction(Arrays.asList(
                 //Starting path starts going backwards
                 new FollowPathAction(new LStartSideLeftFarHatchPath(Path.Direction.BACKWARD)),
                 //Vision
@@ -25,6 +29,10 @@ public class LeftStartSideLeftFarHatch extends AutoMode {
                         new GroundIntakeAction(false))
                 )
 
-        )));
+        ));
+    }
+    @Override
+    protected void init() {
+        runAction(myAction);
     }
 }

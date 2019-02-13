@@ -13,7 +13,7 @@ public class Test extends AutoMode {
 
     public Test(){
         setStartDirection(StartDirection.BACKWARD);
-        setStartPosition(StartPosition.LEFT);
+        setLateralStartPosition(LateralStartPosition.LEFT);
     }
 
     CompoundPath p1 = new NotSmoothTestCompoundPath();

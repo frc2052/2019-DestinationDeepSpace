@@ -85,10 +85,10 @@ public class Robot extends TimedRobot {
         //get the enum for the selected automode
         AutoModeSelector.AutoModeDefinition currentAutoModeDef = AutoModeSelector.getSelectedAutomode();
         //ask the factory to create an instance (if not already created)
-        AutoMode currentAutoMode = AutoModeFactory.getAutoMode(currentAutoModeDef);
+        AutoMode currentAutoMode = AutoModeFactory.getAutoMode(currentAutoModeDef, AutoModeSelector.getHab2Start());
         //use the instance to get direction and position
         robotStateCalculator.setStartDirection(currentAutoMode.getStartDirection().isForward);
-        robotStateCalculator.resetRobotState(currentAutoMode.getStartPosition().lateralOffset,0);
+        robotStateCalculator.resetRobotState(currentAutoMode.getLateralStartPosition().lateralOffset,currentAutoMode.getForwardOffset());
         //start running the auto mode
         autoModeRunner.start(currentAutoMode);
     }
@@ -146,7 +146,7 @@ public class Robot extends TimedRobot {
         if (selected != null)
         {
             //force the auto mode to preload so that all paths are calculated before AutoInit
-            AutoMode preload = AutoModeFactory.getAutoMode((selected));
+            AutoMode preload = AutoModeFactory.getAutoMode((selected), AutoModeSelector.getHab2Start());
         }
     }
 
