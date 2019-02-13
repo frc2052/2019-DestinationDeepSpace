@@ -21,7 +21,7 @@ public class RightStartSideRightCloseHatch extends AutoMode {
                 //Starting path starts going backwards
                 new FollowPathAction(new RStartSideRightCloseHatchPath(Path.Direction.BACKWARD)),
                 //Vision
-                new LineUpAction(),
+                new LineUpAction(false),
                 // when true, ground outtake action
                 new GroundIntakeAction(true),
                 new ParallelAction(Arrays.asList(

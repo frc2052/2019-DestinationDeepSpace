@@ -23,7 +23,7 @@ public class CenterStartCenterRightHatchToRightCloseHatch extends AutoMode {
                 //Starting path starts going backwards
                 new FollowPathAction(new CStartCenterRightHatchPath(Path.Direction.BACKWARD)),
                 //Vision
-                new LineUpAction(),
+                new LineUpAction(false),
                 // when false, ground outtake action
                 new GroundIntakeAction(true),
                 new ParallelAction(Arrays.asList(
@@ -31,12 +31,12 @@ public class CenterStartCenterRightHatchToRightCloseHatch extends AutoMode {
                         new GroundIntakeAction(false))
                 ),
                 //Vision
-                new LineUpAction(),
+                new LineUpAction(true),
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
                 //Compound path to make robot turn around
                 //new FollowPathListAction(new RHatchPickUpStartRightCloseHatchPathCompoundPath().getPaths()),
                 //Vision
-                new LineUpAction(),
+                new LineUpAction(true),
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
                 //Turns robot around and drives back towards loading station
                 new FollowPathListAction(new RCloseHatchStartRightHatchPickUpPathCompoundPath().getPaths())

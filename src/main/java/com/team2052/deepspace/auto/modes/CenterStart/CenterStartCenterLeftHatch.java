@@ -19,7 +19,7 @@ public class CenterStartCenterLeftHatch extends AutoMode {
                 //Starting path starts going backwards
                 new FollowPathAction(new CStartCenterLeftHatchPath(Path.Direction.BACKWARD)),
                 //Vision
-                new LineUpAction(),
+                new LineUpAction(false),
                 // when true, ground outtake action
                 new GroundIntakeAction(true),
                 //Turns robot around and drives back towards loading station
