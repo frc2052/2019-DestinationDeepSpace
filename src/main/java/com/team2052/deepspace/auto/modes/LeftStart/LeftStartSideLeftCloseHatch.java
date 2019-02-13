@@ -23,8 +23,13 @@ public class LeftStartSideLeftCloseHatch extends AutoMode {
                 new LineUpAction(),
                 // when true, ground outtake action
                 new GroundIntakeAction(true),
-                //Turns robot around and drives back towards loading station
-                new FollowPathListAction(new LCloseHatchStartLeftHatchPickUpPathCompoundPath().getPaths())
+                new ParallelAction(Arrays.asList(
+                        //Turns robot around and drives back towards loading station
+                        new FollowPathListAction(new LCloseHatchStartLeftHatchPickUpPathCompoundPath().getPaths()),
+                        new GroundIntakeAction(false))
+                )
+
+
         )));
     }
 }

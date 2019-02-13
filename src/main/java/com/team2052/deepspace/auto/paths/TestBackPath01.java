@@ -7,10 +7,10 @@ import java.util.List;
 
 public class TestBackPath01 extends Path{
 
-    public TestBackPath01() {
-        setDirection(Direction.FORWARD);
-        addWaypoint(new Waypoint(new Position2d(48,0),50));
-        addWaypoint(new Waypoint(new Position2d(0,0),50));
+    public TestBackPath01(Direction direction) {
+        setDirection(direction);
+        addWaypoint(new Waypoint(new Position2d(96,0),120));
+        addWaypoint(new Waypoint(new Position2d(0,0),120));
         OptimizePath();
     }
 

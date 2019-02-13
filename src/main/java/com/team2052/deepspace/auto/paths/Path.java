@@ -59,7 +59,7 @@ public abstract class Path {
             System.out.println("path points: x: " + wayPoints.get(i).getPosition().getLateral() + "y: " + wayPoints.get(i).getPosition().getForward());
         }*/
             //set the final point to 0 calculateDeceleration
-            wayPoints.get(wayPoints.size() - 1).setVelocity(0);
+            wayPoints.get(wayPoints.size() - 1).setVelocity(0); //todo test this end speed
 
             //extend path 1.5 lookahead distance away
             Vector2d finalDir = new Vector2d();

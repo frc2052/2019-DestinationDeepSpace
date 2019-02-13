@@ -28,4 +28,7 @@ public class KnightTimer extends Timer {
     public boolean hasPassedTime(double time) {
         return get() > time;
     }
+    public double getTime(){
+        return super.get();
+    }
 }

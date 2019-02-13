@@ -21,7 +21,10 @@ public class CenterStartCenterLeftHatchToLeftCloseHatch extends AutoMode {
                 new LineUpAction(),
                 // when true, ground outtake action
                 new GroundIntakeAction(true),
-                new FollowPathAction(new CLeftHatchStartLeftHatchPickUpPath()),
+                new ParallelAction(Arrays.asList(
+                        new FollowPathAction(new CLeftHatchStartLeftHatchPickUpPath()),
+                        new GroundIntakeAction(false))
+                ),
                 //Vision
                 new LineUpAction(),
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
