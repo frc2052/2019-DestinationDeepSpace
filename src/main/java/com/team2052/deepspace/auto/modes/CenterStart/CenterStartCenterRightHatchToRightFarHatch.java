@@ -10,9 +10,13 @@ import com.team2052.deepspace.auto.paths.RightSideHatchStarts.RFarHatchStartRigh
 import java.util.Arrays;
 
 public class CenterStartCenterRightHatchToRightFarHatch extends AutoMode {
-    @Override
-    protected void init() {
-        runAction(new SeriesAction(Arrays.asList(
+    private Action myAction;
+    public CenterStartCenterRightHatchToRightFarHatch(){
+        super();
+        setStartDirection(StartDirection.BACKWARD);
+        setLateralStartPosition(LateralStartPosition.CENTER);
+
+        myAction = new SeriesAction(Arrays.asList(
                 //Starting path starts going backwards
                 new FollowPathAction(new CStartCenterRightHatchPath(Path.Direction.BACKWARD)),
                 //Vision
@@ -33,6 +37,10 @@ public class CenterStartCenterRightHatchToRightFarHatch extends AutoMode {
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
                 //Turns robot around and drives back towards loading station
                 new FollowPathListAction(new RFarHatchStartRightHatchPickUpPathCompoundPath().getPaths())
-        )));
+        ));
+    }
+    @Override
+    protected void init() {
+        runAction(myAction);
     }
 }

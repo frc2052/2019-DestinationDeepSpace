@@ -11,6 +11,7 @@ import java.util.Arrays;
 public class LeftStartSideLeftCloseHatch extends AutoMode {
     private Action myAction;
     public LeftStartSideLeftCloseHatch(int forwardOffset){
+        super();
         setStartDirection(StartDirection.BACKWARD);
         setLateralStartPosition(LateralStartPosition.LEFT);
         setForwardStartOffset(forwardOffset);

@@ -13,6 +13,7 @@ import java.util.Arrays;
 public class LeftStartCenterLeftHatchToLeftMiddleHatch extends AutoMode {
     private Action myAction;
     public LeftStartCenterLeftHatchToLeftMiddleHatch(int forwardOffset){
+        super();
         setStartDirection(StartDirection.BACKWARD);
         setLateralStartPosition(LateralStartPosition.LEFT);
         setForwardStartOffset(forwardOffset);
