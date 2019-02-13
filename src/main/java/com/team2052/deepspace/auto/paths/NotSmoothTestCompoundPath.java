@@ -18,7 +18,7 @@ public class NotSmoothTestCompoundPath extends CompoundPath {
     class FirstHatch extends Path {
         public FirstHatch() {
             setDirection(Direction.BACKWARD);
-            addWaypoint(new Waypoint(new Position2d(0,-47),Constants.Autonomous.kTestVelocity));
+            addWaypoint(new Waypoint(new Position2d(0,-47),60));
             addWaypoint(new Waypoint(new Position2d(50,-47), Constants.Autonomous.kTestVelocity));
             addWaypoint(new Waypoint(new Position2d(170,-65),Constants.Autonomous.kTestVelocity));
             addWaypoint(new Waypoint(new Position2d(194,-65),Constants.Autonomous.kTestVelocity));
@@ -53,9 +53,9 @@ public class NotSmoothTestCompoundPath extends CompoundPath {
         public SecondHatchReverse() {
             setDirection(Direction.BACKWARD);
             addWaypoint(new Waypoint(new Position2d(-30,-125),Constants.Autonomous.kTestVelocity));
-            addWaypoint(new Waypoint(new Position2d(60,-80),Constants.Autonomous.kTestVelocity));
-            addWaypoint(new Waypoint(new Position2d(230,-80),Constants.Autonomous.kTestVelocity));
-            addWaypoint(new Waypoint(new Position2d(230,-120  ),Constants.Autonomous.kTestVelocity));
+            addWaypoint(new Waypoint(new Position2d(60,-70),Constants.Autonomous.kTestVelocity));
+            addWaypoint(new Waypoint(new Position2d(216,-60),Constants.Autonomous.kTestVelocity));
+            addWaypoint(new Waypoint(new Position2d(216,-80  ),Constants.Autonomous.kTestVelocity));
             OptimizePath();
         }
 
@@ -69,8 +69,8 @@ public class NotSmoothTestCompoundPath extends CompoundPath {
     class SecondHatchForward extends Path {
         public SecondHatchForward() {
             setDirection(Direction.FORWARD);
-            addWaypoint(new Waypoint(new Position2d(230,-120),Constants.Autonomous.kTestVelocity));
-            addWaypoint(new Waypoint(new Position2d(230,-47  ),Constants.Autonomous.kTestVelocity));
+            addWaypoint(new Waypoint(new Position2d(216,-80),Constants.Autonomous.kTestVelocity));
+            addWaypoint(new Waypoint(new Position2d(216,-47  ),Constants.Autonomous.kTestVelocity));
             OptimizePath();
         }
 

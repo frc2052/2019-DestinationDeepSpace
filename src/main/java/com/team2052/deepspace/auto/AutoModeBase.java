@@ -4,7 +4,9 @@ import com.team2052.deepspace.Constants;
 import com.team2052.deepspace.auto.actions.Action;
 import edu.wpi.first.wpilibj.Timer;
 
-
+/**
+ * this is for non game specific code
+ */
 public abstract class AutoModeBase { //an abstract class cannot be run, only its subclasses
 
     private boolean running = false;

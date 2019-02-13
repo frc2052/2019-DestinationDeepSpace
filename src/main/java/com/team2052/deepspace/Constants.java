@@ -81,7 +81,7 @@ public class Constants {
         public static final double kturnSpeed = 6.0; //constant from 1-5     higher = faster
         public static final double kMaxAccel = 120; //how fast the robot accelerates and decelerates
         public static final double kLookaheadDistance = 30; //12-25 // changes how smooth it follows path. lower = curves back and forth/fishtail, higher = less accurate
-        public static final double kA = 0.01 ; //0-.1 todo: test and see how robot responds
+        public static final double kA = 0.0 ; //0-.1 todo: test and see how robot responds
         public static final double kP = 0.0; //0-.1
         public static final double kTestVelocity = 7 * 12 * 1.0;
         public static final boolean kIsAutoHighGear = false;

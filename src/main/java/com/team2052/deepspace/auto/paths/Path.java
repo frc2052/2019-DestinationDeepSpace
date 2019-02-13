@@ -131,7 +131,7 @@ public abstract class Path {
                 double r;
 
                 //when two lines of opposite directions are put in a slower speed is not calculated. ex: spd:25 pts: (0,0)(0,6)(0,0) speed is 25 for all three.
-                System.out.println("(x:" + thisx + "," + thisy + ")");
+                //System.out.println("(x:" + thisx + "," + thisy + ")");
                 if(lasty == thisy){
                     if(nexty == thisy){
                         //System.out.println("straight both lines horizontal");
@@ -192,8 +192,8 @@ public abstract class Path {
                 }
 
                 if (pathPoints.get(i).getCurvature() != 0){
-                    System.out.println("Curvature: " + pathPoints.get(i).getCurvature());
-                    System.out.println("MINIMUM OF: " + (Constants.Autonomous.kturnSpeed / pathPoints.get(i).getCurvature()) + " , " + pathPoints.get(i).getVelocity());
+                    //System.out.println("Curvature: " + pathPoints.get(i).getCurvature());
+                    //System.out.println("MINIMUM OF: " + (Constants.Autonomous.kturnSpeed / pathPoints.get(i).getCurvature()) + " , " + pathPoints.get(i).getVelocity());
                     double vel = Math.min(Constants.Autonomous.kturnSpeed / pathPoints.get(i).getCurvature(), pathPoints.get(i).getVelocity());
                     pathPoints.get(i).setVelocity(vel);
                 }
@@ -203,10 +203,11 @@ public abstract class Path {
                 }
             }
         }
-
+/*
         for(int i = 0; i < pathPoints.size(); i++){
             System.out.println(" vels before kinematics: " + pathPoints.get(i).getVelocity());
         }
+        */
         /*Calculate Deceleration
         * the robot limits its acceleration but will start decelerating to late.
         * use kinimatics to lower the velocity so the robot trys to stop when it gets to a point
@@ -217,16 +218,17 @@ public abstract class Path {
             //i=4 because we extended the path by 2 points and we want size()-i to be equal to the second to last point
             for (int i = 4; i < pathPoints.size()+1; i++){
                 double d = Position2d.distanceFormula(pathPoints.get(pathPoints.size()-i+1).getPosition(),pathPoints.get(pathPoints.size()-i).getPosition());
-                double vel = Math.min(pathPoints.get(pathPoints.size()-i).getVelocity(), Math.sqrt(Math.pow(pathPoints.get(pathPoints.size()-i+1).getVelocity(),2) + 2 * (Constants.Autonomous.kMaxAccel/4) * d)); //todo: accel is devided by 4 to start slowing down the robot faster
+                double vel = Math.min(pathPoints.get(pathPoints.size()-i).getVelocity(), Math.sqrt(Math.pow(pathPoints.get(pathPoints.size()-i+1).getVelocity(),2) + 2 * (Constants.Autonomous.kMaxAccel) * d)); //todo: accel is devided by 4 to start slowing down the robot faster
                 pathPoints.get(pathPoints.size()-i).setVelocity(isForward ? vel : -vel); //todo: remove turnerary statements
             }
         }
 
         //print the final points
-
+/*
         for(int i = 0; i < pathPoints.size(); i++){
             System.out.println("path points: x: " + pathPoints.get(i).getPosition().getLateral() + "y: " + pathPoints.get(i).getPosition().getForward() + " vel: " + pathPoints.get(i).getVelocity());
         }
+        */
         pushPathToSmartDashboard(pathPoints);
         wayPoints = pathPoints;
     }

@@ -39,12 +39,12 @@ public class Robot extends TimedRobot {
 
     @Override
     public void robotInit() {
-        groundIntake = GroundIntakeController.getInstance();
+        //groundIntake = GroundIntakeController.getInstance();
         driveHelper = new DriveHelper();
        // intake = IntakeController.getInstance();
         controls = Controls.getInstance();
-        legClimberController = LegClimberController.getInstance();
-        legClimberController.resetEncoders();
+        //legClimberController = LegClimberController.getInstance();
+        //legClimberController.resetEncoders();
         driveTrain = DriveTrainController.getInstance();
        // elevator = ElevatorController.getInstance();
        // elevator.zeroSensor();
@@ -118,7 +118,7 @@ public class Robot extends TimedRobot {
         robotStateCalculator.resetRobotState();
         controlLoop.start();
         driveTrain.zeroGyro();
-        legClimberController.resetEncoders();
+        //legClimberController.resetEncoders();
     }
 
     /**
@@ -169,7 +169,7 @@ public class Robot extends TimedRobot {
 
 
         SmartDashboard.putBoolean("Camera Toggle", controls.getCameraToggle());
-
+/*
         if (controls.legClimber()){
             legClimberController.setLegClimber(controls.legClimber());
         } else if (controls.lowerClimber()){
@@ -178,7 +178,6 @@ public class Robot extends TimedRobot {
             legClimberController.stopClimber();
         }
 
-        /*
         if(controls.getIntake()){
             intake.cargoIntake();
 
