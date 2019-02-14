@@ -15,10 +15,6 @@ public class LegClimberController {
 
     private TalonSRX legClimberMotor = null;
 
-
-    //with assistance
-    private Solenoid LegClimberSolenoid1 = new Solenoid(Constants.LegClimber.kLegClimberSolenoid1id);
-
     private LegClimberController(){
         legClimberMotor = new TalonSRX(Constants.LegClimber.kLegClimberTalon1id);
         legClimberMotor.configFactoryDefault();
@@ -48,7 +44,7 @@ public class LegClimberController {
         if (timePassed <= 120 || legClimberButtonPressCount > 10) {//30 seconds left in the match OR button has been pressed 10 times
             if (isPressed) {
                 if(legClimberMotor.getSelectedSensorPosition() <= Constants.LegClimber.kClimberMotorDistance){
-                    legClimberMotor.set(ControlMode.PercentOutput, 1); //only drive forward if we haven't reached maximum encoder value
+                    legClimberMotor.set(ControlMode.PercentOutput, Constants.LegClimber.kLegClimberMotorVelocity); //only drive forward if we haven't reached maximum encoder value
                     System.out.println("RUNNING");
                 }else {
                     stopClimber();
