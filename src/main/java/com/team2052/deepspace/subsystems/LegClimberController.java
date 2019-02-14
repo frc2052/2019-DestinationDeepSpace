@@ -16,7 +16,7 @@ public class LegClimberController {
             try {
                 instance = new LegClimberController();
             } catch (Exception exc) {
-                System.out.println("DANGER: Failed to create Climber: " + exc.getMessage());
+                System.out.println("DANGER: Failed to create LegClimberController: " + exc.getMessage());
                 exc.printStackTrace();
             }
         }
@@ -24,7 +24,6 @@ public class LegClimberController {
     }
 
     private TalonSRX legClimberMotor = null;
-
 
     private LegClimberController(){
         legClimberMotor = new TalonSRX(Constants.LegClimber.kLegClimberTalon1id);

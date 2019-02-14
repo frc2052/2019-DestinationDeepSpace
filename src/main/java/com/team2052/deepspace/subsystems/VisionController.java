@@ -4,8 +4,18 @@ import com.team2052.lib.DriveSignal;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class VisionController {
-    private static VisionController visionControllerInstance = new VisionController();
-    public static VisionController getInstance() { return visionControllerInstance; }
+    private static VisionController instance = null;
+    public static VisionController getInstance() {
+        if (instance == null) {
+            try {
+                instance = new VisionController();
+            } catch (Exception exc) {
+                System.out.println("DANGER: Failed to create Vision Controller: " + exc.getMessage());
+                exc.printStackTrace();
+            }
+        }
+        return instance;
+    }
 
     //Static method so all code access the smart dashboard the same way for camera
     public static void showBackPiCamera(boolean isBack){

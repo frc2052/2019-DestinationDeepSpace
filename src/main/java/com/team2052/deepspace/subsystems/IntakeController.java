@@ -12,7 +12,7 @@ public class IntakeController {
             try {
                 instance = new IntakeController();
             } catch (Exception exc) {
-                System.out.println("DANGER: Failed to create Front Intake: " + exc.getMessage());
+                System.out.println("DANGER: Failed to create IntakeController: " + exc.getMessage());
                 exc.printStackTrace();
             }
         }

@@ -16,7 +16,7 @@ public class GroundIntakeController implements ILoopable {
             try {
                 instance = new GroundIntakeController();
             } catch (Exception exc) {
-                System.out.println("DANGER: Failed to create Ground Intake: " + exc.getMessage());
+                System.out.println("DANGER: Failed to create GroundIntakeController: " + exc.getMessage());
                 exc.printStackTrace();
             }
         }
