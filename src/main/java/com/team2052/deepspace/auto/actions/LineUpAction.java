@@ -12,7 +12,7 @@ public class LineUpAction implements Action{
     private VisionController visionController = null;
     private RobotState robotState = null;
     private Position2d startPos;
-    
+
     private double targetDistance;
 
 
