@@ -10,7 +10,7 @@ public class LineFollowerController extends LineFollowerControllerBase {
             try {
                 instance = new LineFollowerController();
             } catch (Exception exc) {
-                System.out.println("DANGER: Failed to create Light sensor follower: " + exc.getMessage());
+                System.out.println("DANGER: Failed to create LineFollowerController: " + exc.getMessage());
                 exc.printStackTrace();
             }
         }

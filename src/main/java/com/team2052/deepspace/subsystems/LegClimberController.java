@@ -10,8 +10,18 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class LegClimberController {
 
-    private static LegClimberController singleLegClimberControllerInstance = new LegClimberController();
-    public static LegClimberController getInstance() { return singleLegClimberControllerInstance; }
+    private static LegClimberController instance= null;
+    public static LegClimberController getInstance(){
+        if (instance == null) {
+            try {
+                instance = new LegClimberController();
+            } catch (Exception exc) {
+                System.out.println("DANGER: Failed to create LegClimberController: " + exc.getMessage());
+                exc.printStackTrace();
+            }
+        }
+        return instance;
+    }
 
     private TalonSRX legClimberMotor = null;
 
@@ -44,7 +54,7 @@ public class LegClimberController {
         if (timePassed <= 120 || legClimberButtonPressCount > 10) {//30 seconds left in the match OR button has been pressed 10 times
             if (isPressed) {
                 if(legClimberMotor.getSelectedSensorPosition() <= Constants.LegClimber.kClimberMotorDistance){
-                    legClimberMotor.set(ControlMode.PercentOutput, Constants.LegClimber.kLegClimberMotorVelocity); //only drive forward if we haven't reached maximum encoder value
+                    legClimberMotor.set(ControlMode.PercentOutput, 1); //only drive forward if we haven't reached maximum encoder value
                     System.out.println("RUNNING");
                 }else {
                     stopClimber();

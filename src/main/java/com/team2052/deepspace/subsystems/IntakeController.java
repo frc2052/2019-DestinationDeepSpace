@@ -6,8 +6,18 @@ import com.team2052.deepspace.Constants;
 import edu.wpi.first.wpilibj.Solenoid;
 
 public class IntakeController {
-    private static IntakeController instance = new IntakeController();
-    public static IntakeController getInstance() {return instance;}
+    private static IntakeController instance = null;
+    public static IntakeController getInstance() {
+        if (instance == null) {
+            try {
+                instance = new IntakeController();
+            } catch (Exception exc) {
+                System.out.println("DANGER: Failed to create IntakeController: " + exc.getMessage());
+                exc.printStackTrace();
+            }
+        }
+        return instance;
+    }
 
     private TalonSRX intakeMotor = new TalonSRX (Constants.Intake.kIntakeMotorId);
     private TalonSRX clawTop = new TalonSRX(Constants.Intake.kClawTopMotor);
