@@ -7,7 +7,8 @@ import com.team2052.deepspace.Constants;
  */
 public abstract class AutoMode extends AutoModeBase{
     private StartDirection startDirection = Constants.Autonomous.defaultStartDirection;
-    private StartPosition startPosition = StartPosition.CENTER;
+    private LateralStartPosition lateralStartPosition = LateralStartPosition.CENTER;
+    private int forwardOffset;
 
     public void setStartDirection(StartDirection startDirection){this.startDirection = startDirection;}
     public StartDirection getStartDirection(){
@@ -26,11 +27,11 @@ public abstract class AutoMode extends AutoModeBase{
         }
     }
 
-    public void setStartPosition(StartPosition startPosition){this.startPosition = startPosition;}
-    public StartPosition getStartPosition(){
-        return startPosition;
+    public void setLateralStartPosition(LateralStartPosition lateralStartPosition){this.lateralStartPosition = lateralStartPosition;}
+    public LateralStartPosition getLateralStartPosition(){
+        return lateralStartPosition;
     }
-    public enum StartPosition{
+    public enum LateralStartPosition {
         LEFT(Constants.Autonomous.kStartLeftInchOffset),
         RIGHT(Constants.Autonomous.kStartRightInchOffset),
         CENTER(0.0)
@@ -38,8 +39,12 @@ public abstract class AutoMode extends AutoModeBase{
 
         public final double lateralOffset;
 
-        StartPosition(double lateralOffset){
+        LateralStartPosition(double lateralOffset){
             this.lateralOffset = lateralOffset;
         }
+    }
+    public void setForwardStartOffset(int offset){this.forwardOffset = offset;}
+    public int getForwardOffset(){
+        return forwardOffset;
     }
 }

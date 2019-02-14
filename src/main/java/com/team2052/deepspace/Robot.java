@@ -23,7 +23,6 @@ public class Robot extends TimedRobot {
     private IntakeController intake = null;
     private Controls controls = null;
     private DriveTrainController driveTrain = null;
-    private ElevatorController elevator = null;
     private LegClimberController legClimberController = null;
     private LineFollowerController lineFollower = null;
     private BackLineFollowerController backLineFollower = null;
@@ -36,18 +35,15 @@ public class Robot extends TimedRobot {
 
 
 
-
     @Override
     public void robotInit() {
-        //groundIntake = GroundIntakeController.getInstance();
+        groundIntake = GroundIntakeController.getInstance();
         driveHelper = new DriveHelper();
-       // intake = IntakeController.getInstance();
+        intake = IntakeController.getInstance();
         controls = Controls.getInstance();
-        //legClimberController = LegClimberController.getInstance();
-        //legClimberController.resetEncoders();
+        legClimberController = LegClimberController.getInstance();
+        legClimberController.resetEncoders();
         driveTrain = DriveTrainController.getInstance();
-       // elevator = ElevatorController.getInstance();
-       // elevator.zeroSensor();
         controlLoop.addLoopable(robotStateCalculator);
         visionController = VisionController.getInstance();
         lineFollower = LineFollowerController.getInstance();
@@ -86,10 +82,10 @@ public class Robot extends TimedRobot {
         //get the enum for the selected automode
         AutoModeSelector.AutoModeDefinition currentAutoModeDef = AutoModeSelector.getSelectedAutomode();
         //ask the factory to create an instance (if not already created)
-        AutoMode currentAutoMode = AutoModeFactory.getAutoMode(currentAutoModeDef);
+        AutoMode currentAutoMode = AutoModeFactory.getAutoMode(currentAutoModeDef, AutoModeSelector.getHab2Start());
         //use the instance to get direction and position
         robotStateCalculator.setStartDirection(currentAutoMode.getStartDirection().isForward);
-        robotStateCalculator.resetRobotState(currentAutoMode.getStartPosition().lateralOffset,0);
+        robotStateCalculator.resetRobotState(currentAutoMode.getLateralStartPosition().lateralOffset,currentAutoMode.getForwardOffset());
         //start running the auto mode
         autoModeRunner.start(currentAutoMode);
     }
@@ -100,7 +96,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousPeriodic() {
         robotstate.outputToSmartDashboard();
-        if(false){
+        if(controls.getAutoOverride()){
             autoModeRunner.stop();
             driveTrain.stop();
         }
@@ -149,29 +145,19 @@ public class Robot extends TimedRobot {
         if (selected != null)
         {
             //force the auto mode to preload so that all paths are calculated before AutoInit
-            AutoMode preload = AutoModeFactory.getAutoMode((selected));
+            AutoMode preload = AutoModeFactory.getAutoMode((selected), AutoModeSelector.getHab2Start());
         }
     }
 
     private void driverControlled(){
-        /*
-        System.out.println("Front Sensors");
-        lineFollower.getLightSensorMotorTurn(controls.getUnusedTank());
 
-        System.out.println("Back Sensors");
-        backLineFollower.getLightSensorMotorTurn(controls.getUnusedTank());
-        */
         if (controls.getLightFollow()){
-
-
             if(lineFollower.getLineSensed()) {
                 System.out.println("Front Sensors");
                 driveTrain.drive(lineFollower.getLightSensorMotorTurn(controls.getDriveTank()));
             }else if (backLineFollower.getLineSensed()){
                 System.out.println("Back Sensors");
                 driveTrain.drive(backLineFollower.getLightSensorMotorTurn(controls.getDriveTank()));
-            }else if (visionController.isTarget()){
-                driveTrain.drive(visionController.getMotorOutput(controls.getDriveTank()));
             } else {
                 driveTrain.drive(driveHelper.drive(controls.getDriveTank(), controls.getDriveTurn(), controls.getQuickTurn()));
             }
@@ -185,47 +171,29 @@ public class Robot extends TimedRobot {
 
 
         VisionController.showBackPiCamera(controls.getShowBackCamera());
-        /*
-        if (controls.legClimber()){
-            legClimberController.setLegClimber(controls.legClimber());
-        } else if (controls.lowerClimber()){
+
+        //always pass the button for climb to the leg climber
+        //it needs to keep track of how many times the button was pressed
+        //pressed 10 times will allow us to climb even if the match isn't in its last 30 seconds
+        legClimberController.setLegClimber(controls.getClimberUp());
+        if (controls.getClimberDown()){
             legClimberController.lowerClimber();
-        }else {
-            legClimberController.stopClimber();
         }
 
-        if(controls.getIntake()){
-            intake.cargoIntake();
+        intake.setCargoIntake(controls.getCargoIntake());
+        intake.setHatchPlace(controls.getHatchOuttake());
+        intake.toggleArmPosition(controls.getIntakeArmToggle());
 
-        } else {
-            intake.cargoNeutral();
+        if (controls.getCargoShoot() && controls.getRocket1Shoot()) {
+            intake.setShootCargo(IntakeController.ShootSpeed.ROCKET1);
+        } else if(controls.getCargoShoot() && controls.getRocket2Shoot()) {
+            intake.setShootCargo(IntakeController.ShootSpeed.ROCKET1);
+        } else if (controls.getCargoShoot()) {
+            intake.setShootCargo(IntakeController.ShootSpeed.CARGOSHIP);
         }
 
-        intake.grab(controls.getGrab());
-
-
-        if (controls.getElevatorGroundCargo()) {
-            elevator.setTarget(ElevatorController.ElevatorPresets.GROUND_CARGO);
-        } else if (controls.getElevatorHatch1()) {
-            elevator.setTarget(ElevatorController.ElevatorPresets.HATCH_LEVEL1);
-        } else if (controls.getElevatorHatch2()) {
-            elevator.setTarget(ElevatorController.ElevatorPresets.HATCH_LEVEL2);
-        } else if (controls.getElevatorHatch3()) {
-            elevator.setTarget(ElevatorController.ElevatorPresets.HATCH_LEVEL3);
-        } else if (controls.getElevatorCargoShipCargo()) {
-            elevator.setTarget(ElevatorController.ElevatorPresets.CARGOSHIP_CARGO);
-        } else if (controls.getElevatorRocketCargo1()) {
-            elevator.setTarget(ElevatorController.ElevatorPresets.ROCKET_CARGO1);
-        }else if (controls.getElevatorRocketCargo2()) {
-            elevator.setTarget(ElevatorController.ElevatorPresets.ROCKET_CARGO2);
-        }else if (controls.getElevatorRocketCargo3()) {
-            elevator.setTarget(ElevatorController.ElevatorPresets.ROCKET_CARGO3);
-        }
-
-        elevator.setElevatorAdjustmentUp(controls.getElevatorAdjustmentUp());
-        elevator.setElevatorAdjustmentDown(controls.getElevatorAdjustmentDown());
-        elevator.setEmergencyUp(controls.getElevatorEmergencyUp());
-        elevator.setEmergencyDown(controls.getElevatorEmergencyDown());
-        */
+        groundIntake.pickupFromFloor(controls.getGroundIntakeDown());
+        groundIntake.setUpClosed(controls.getGroundIntakeReady());
+        groundIntake.placement(controls.getGroundIntakePlace());
     }
 }

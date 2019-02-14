@@ -7,18 +7,24 @@ import com.team2052.deepspace.auto.paths.HatchPickUp.RHatchPickUpStartRightClose
 import com.team2052.deepspace.auto.paths.Path;
 import com.team2052.deepspace.auto.paths.RightSideHatchStarts.RCloseHatchStartRightHatchPickUpPathCompoundPath;
 import com.team2052.deepspace.auto.paths.RightSideHatchStarts.RMiddleHatchStartRightHatchPickUpPath;
+import com.team2052.deepspace.auto.paths.RightSideHatchStarts.RMiddleHatchStartRightHatchPickUpPathCompoundPath;
 import com.team2052.deepspace.auto.paths.RightStart.RStartSideRightMiddleHatchPath;
 
 import java.util.Arrays;
 
 public class RightStartSideRightMiddleHatchToRightCloseHatch extends AutoMode {
-    @Override
-    protected void init() {
-        runAction(new SeriesAction(Arrays.asList(
+    private Action myAction;
+    public RightStartSideRightMiddleHatchToRightCloseHatch(int forwardOffset){
+        super();
+        setStartDirection(StartDirection.BACKWARD);
+        setLateralStartPosition(LateralStartPosition.RIGHT);
+        setForwardStartOffset(forwardOffset);
+
+        myAction = new SeriesAction(Arrays.asList(
                 //Starting path starts going backwards
                 new FollowPathAction(new RStartSideRightMiddleHatchPath(Path.Direction.BACKWARD)),
                 //Vision
-                new LineUpAction(),
+                new LineUpAction(false),
                 // when true, ground outtake action
                 new GroundIntakeAction(true),
                 new ParallelAction(Arrays.asList(
@@ -26,15 +32,19 @@ public class RightStartSideRightMiddleHatchToRightCloseHatch extends AutoMode {
                         new GroundIntakeAction(false))
                 ),
                 //Vision
-                new LineUpAction(),
+                new LineUpAction(true),
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
                 //Compound path to make robot turn around
                 new FollowPathListAction(new RHatchPickUpStartRightCloseHatchPathCompoundPath().getPaths()),
                 //Vision
-                new LineUpAction(),
+                new LineUpAction(true),
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
                 //Turns robot around and drives back towards loading station
                 new FollowPathListAction(new RCloseHatchStartRightHatchPickUpPathCompoundPath().getPaths())
-        )));
+        ));
+    }
+    @Override
+    protected void init() {
+        runAction(myAction);
     }
 }

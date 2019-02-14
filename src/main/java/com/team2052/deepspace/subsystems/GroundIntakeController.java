@@ -18,14 +18,13 @@ public class GroundIntakeController implements ILoopable {
     private IntakeState controllerState; //Non-Static Context
     private IntakeState wantControllerState;
     private final TalonSRX groundIntakeMotor = new TalonSRX(Constants.Intake.kGroundIntakeMotor);
-    public final Solenoid grabberIn = new Solenoid(Constants.Intake.kGrabber2SolenoidId);
-    public final Solenoid grabberOut = new Solenoid(Constants.Intake.kGrabber1SolenoidId);
+    private final Solenoid grabberIn = new Solenoid(Constants.Intake.kGrabber2SolenoidId);
+    private final Solenoid grabberOut = new Solenoid(Constants.Intake.kGrabber1SolenoidId);
     private final int KDownEncoderPosition = 100;
     private final int KPlacementEncoderPosition = 45;
     private final int KStartingEncoderPosition = 0;
     private final int KUpEncoderPosition = 10;
     private boolean lastPressedState = false;
-
 
     public void pickupFromFloor(boolean isPressed) {
         if (isPressed) {

@@ -5,8 +5,8 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.team2052.deepspace.Constants;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Timer;
 
 public class LegClimberController {
 
@@ -14,10 +14,6 @@ public class LegClimberController {
     public static LegClimberController getInstance() { return singleLegClimberControllerInstance; }
 
     private TalonSRX legClimberMotor = null;
-
-
-    //with assistance
-    private Solenoid LegClimberSolenoid1 = new Solenoid(Constants.LegClimber.kLegClimberSolenoid1id);
 
     private LegClimberController(){
         legClimberMotor = new TalonSRX(Constants.LegClimber.kLegClimberTalon1id);
@@ -32,23 +28,23 @@ public class LegClimberController {
         legClimberMotor.setSelectedSensorPosition(0, Constants.DriveTrain.kVelocityControlSlot, Constants.DriveTrain.kCANBusConfigTimeoutMS);
     }
 
-    private int legClimberButton = 0;
-    private boolean isPressed = false;
+    private int legClimberButtonPressCount = 0;
+    private boolean wasLastPressed = false;
 
-    public void setLegClimber(boolean on) {
-        double time = DriverStation.getInstance().getMatchTime();
-        if (on && !isPressed){
-            legClimberButton++;
+    public void setLegClimber(boolean isPressed) {
+        double timePassed = Timer.getFPGATimestamp(); //this SHOULD be the time since the first "mode" began (aka, Auto)
+        if (isPressed && !wasLastPressed){ //button state has changed, was up and is now down
+            legClimberButtonPressCount++; //keep track of how many times the button was pressed
         }
 
         //keep track of whether button is up or down
-        isPressed = on;
+        wasLastPressed = isPressed;
 
-        //System.out.println("time: " + time );
-       // if (time <= 40) {//todo: timer count up?
-            if (on) {
+        System.out.println("time: " + timePassed );
+        if (timePassed <= 120 || legClimberButtonPressCount > 10) {//30 seconds left in the match OR button has been pressed 10 times
+            if (isPressed) {
                 if(legClimberMotor.getSelectedSensorPosition() <= Constants.LegClimber.kClimberMotorDistance){
-                    legClimberMotor.set(ControlMode.PercentOutput, 1);
+                    legClimberMotor.set(ControlMode.PercentOutput, Constants.LegClimber.kLegClimberMotorVelocity); //only drive forward if we haven't reached maximum encoder value
                     System.out.println("RUNNING");
                 }else {
                     stopClimber();
@@ -57,12 +53,11 @@ public class LegClimberController {
                 //LegClimberSolenoid1.set(true);
 
             }
- //       }
-       // else if (legClimberButton == 4){
-                //legClimberMotor.set(ControlMode.PercentOutput, Constants.LegClimber.kClimberMotorDistance);
-                //with assistance
-                //LegClimberSolenoid1.set(true);
-   //     }
+        }
+        else
+        {
+            System.out.println("Not enough time has passed to put leg down, and not more than 10 presses (" + legClimberButtonPressCount + ")");
+        }
     }
     public void lowerClimber(){
         if (legClimberMotor.getSelectedSensorPosition() > 0){

@@ -12,13 +12,18 @@ import com.team2052.deepspace.auto.paths.RightStart.RStartSideRightCloseHatchPat
 import java.util.Arrays;
 
 public class RightStartSideRightCloseHatchToRightMiddleHatch extends AutoMode {
-    @Override
-    protected void init() {
-        runAction(new SeriesAction(Arrays.asList(
+    private Action myAction;
+    public RightStartSideRightCloseHatchToRightMiddleHatch(int forwardOffset){
+        super();
+        setStartDirection(StartDirection.BACKWARD);
+        setLateralStartPosition(LateralStartPosition.RIGHT);
+        setForwardStartOffset(forwardOffset);
+
+        myAction = new SeriesAction(Arrays.asList(
                 //Starting path starts going backwards
                 new FollowPathAction(new RStartSideRightCloseHatchPath(Path.Direction.BACKWARD)),
                 //Vision
-                new LineUpAction(),
+                new LineUpAction(false),
                 // when true, ground outtake action
                 new GroundIntakeAction(true),
                 new ParallelAction(Arrays.asList(
@@ -26,15 +31,19 @@ public class RightStartSideRightCloseHatchToRightMiddleHatch extends AutoMode {
                         new GroundIntakeAction(false))
                 ),
                 //Vision
-                new LineUpAction(),
+                new LineUpAction(true),
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
                 //Compound path to make robot turn around
                 new FollowPathListAction(new RHatchPickUpStartRightMiddleHatchPathCompoundPath().getPaths()),
                 //Vision
-                new LineUpAction(),
+                new LineUpAction(true),
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
                 //Turns robot around and drives back towards loading station
                 new FollowPathListAction(new RMiddleHatchStartRightHatchPickUpPathCompoundPath().getPaths())
-        )));
+        ));
+    }
+    @Override
+    protected void init() {
+        runAction(myAction);
     }
 }

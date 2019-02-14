@@ -4,41 +4,46 @@ import com.team2052.deepspace.auto.AutoMode;
 import com.team2052.deepspace.auto.actions.*;
 import com.team2052.deepspace.auto.paths.HatchPickUp.LHatchPickUpStartLeftMiddleHatchPathCompoundPath;
 import com.team2052.deepspace.auto.paths.LeftHatchStarts.LCloseHatchStartLeftHatchPickUpPath;
+import com.team2052.deepspace.auto.paths.LeftHatchStarts.LMiddleHatchStartLeftHatchPickUpPathCompoundPath;
 import com.team2052.deepspace.auto.paths.LeftStart.LStartSideLeftCloseHatchPath;
 import com.team2052.deepspace.auto.paths.Path;
 
 import java.util.Arrays;
 
 public class LeftStartSideLeftCloseHatchToLeftMiddleHatch extends AutoMode {
-    public LeftStartSideLeftCloseHatchToLeftMiddleHatch(){
+    private Action myAction;
+    public LeftStartSideLeftCloseHatchToLeftMiddleHatch(int forwardOffset){
+        super();
         setStartDirection(StartDirection.BACKWARD);
-        setStartPosition(StartPosition.LEFT);
-    }
+        setLateralStartPosition(LateralStartPosition.LEFT);
+        setForwardStartOffset(forwardOffset);
 
-    @Override
-    protected void init() {
-        runAction(new SeriesAction(Arrays.asList(
+        myAction = new SeriesAction(Arrays.asList(
                 //Starting path starts going backwards
                 new FollowPathAction(new LStartSideLeftCloseHatchPath(Path.Direction.BACKWARD)),
                 //Vision
-                new LineUpAction(18, false),
+                new LineUpAction(18,false),
                 // when true, ground outtake action
-               // new GroundIntakeAction(true),
+                new GroundIntakeAction(true),
                 new ParallelAction(Arrays.asList(
-                        new FollowPathAction(new LCloseHatchStartLeftHatchPickUpPath(Path.Direction.FORWARD))//,
-                        //new GroundIntakeAction(false)
-                )),
+                        new FollowPathAction(new LCloseHatchStartLeftHatchPickUpPath(Path.Direction.FORWARD)),
+                        new GroundIntakeAction(false))
+                ),
 
                 //Vision
-                new LineUpAction(18, true),
-                //new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
+                new LineUpAction(18,true),
+                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
                 //Compound path to make robot turn around
                 new FollowPathListAction(new LHatchPickUpStartLeftMiddleHatchPathCompoundPath().getPaths()),
                 //Vision
-                new LineUpAction(18, true)
-                //new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
+                new LineUpAction(18,true),
+                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
                 //Turns robot around and drives back towards loading station
-                //new FollowPathListAction(new LMiddleHatchStartLeftHatchPickUpPathCompoundPath().getPaths())
-        )));
+                new FollowPathListAction(new LMiddleHatchStartLeftHatchPickUpPathCompoundPath().getPaths())
+        ));
+    }
+    @Override
+    protected void init() {
+        runAction(myAction);
     }
 }

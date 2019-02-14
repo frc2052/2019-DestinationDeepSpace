@@ -1,29 +1,30 @@
 package com.team2052.deepspace.auto.actions;
 
 import com.team2052.deepspace.Constants;
-import com.team2052.deepspace.RobotState;
 import com.team2052.deepspace.subsystems.*;
 import com.team2052.lib.Autonomous.Position2d;
 import com.team2052.lib.DriveSignal;
+import com.team2052.deepspace.RobotState;
 
-public class LineUpAction implements Action {
+public class LineUpAction implements Action{
     private LineFollowerControllerBase lineFollower = null;
     private DriveTrainController driveTrain = null;
     private VisionController visionController = null;
     private RobotState robotState = null;
     private Position2d startPos;
-    private boolean isForwards = false;
+    private boolean isForwards;
     private double targetDistance;
     private Position2d currentPos = new Position2d();
 
 
-    public LineUpAction(double targetDistance, boolean goingForwards) {
+    public LineUpAction(double targetDistance, boolean isForwards) {
         this.targetDistance = targetDistance;
-        isForwards = goingForwards;
+        this.isForwards = isForwards;
     }
 
-    public LineUpAction() {
+    public LineUpAction(boolean isForwards) {
         targetDistance = 12;
+        this.isForwards = isForwards;
     }
 
     @Override

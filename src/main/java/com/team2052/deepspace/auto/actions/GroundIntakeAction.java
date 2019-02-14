@@ -2,6 +2,7 @@ package com.team2052.deepspace.auto.actions;
 
 import com.team2052.deepspace.subsystems.GroundIntakeController;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 
 public class GroundIntakeAction implements Action {
     private GroundIntakeController controller;
@@ -29,13 +30,13 @@ public class GroundIntakeAction implements Action {
             controller.placement(true);
         }
         else {
-            timeSinceDoneHatch = DriverStation.getInstance().getMatchTime();
+            timeSinceDoneHatch = Timer.getFPGATimestamp(); //record when we started action, this should be the time when the robot started backing up
         }
 
     }
     @Override
     public void update(){
-        if(!placingHatch && ((DriverStation.getInstance().getMatchTime() - timeSinceDoneHatch) > 2)){ //Wait 2 Seconds until raise the arm
+        if(!placingHatch && ((Timer.getFPGATimestamp() - timeSinceDoneHatch) > 2)){ //Wait 2 Seconds until raise the arm
             controller.setStartPos();
             finished = true; //we don't need to wait for the arm to go back up
         }
