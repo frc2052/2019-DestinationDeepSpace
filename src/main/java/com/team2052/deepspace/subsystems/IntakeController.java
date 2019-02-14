@@ -55,10 +55,6 @@ public class IntakeController {
                 clawTop.set(ControlMode.PercentOutput, .50);
                 clawBottom.set(ControlMode.PercentOutput, -.50);
                 break;
-            case ROCKET3:
-                clawTop.set(ControlMode.PercentOutput, 1);
-                clawBottom.set(ControlMode.PercentOutput, -1);
-                break;
             default:
                 clawTop.set(ControlMode.PercentOutput, 0);
                 clawBottom.set(ControlMode.PercentOutput, 0);
@@ -93,7 +89,6 @@ public class IntakeController {
         NONE,
         ROCKET1,
         ROCKET2,
-        ROCKET3,
         CARGOSHIP
     }
 }
