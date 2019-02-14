@@ -1,5 +1,6 @@
 package com.team2052.deepspace.auto.paths.HatchPickUp;
 
+import com.team2052.deepspace.Constants;
 import com.team2052.deepspace.auto.paths.CompoundPath;
 import com.team2052.deepspace.auto.paths.Path;
 import com.team2052.lib.Autonomous.Position2d;
@@ -18,12 +19,10 @@ public class LHatchPickUpStartLeftMiddleHatchPathCompoundPath extends CompoundPa
         public LHatchPickUpStartLeftMiddleHatchPath1() {
             setDirection(Direction.BACKWARD);
             //TODO: these points need to be fixed to allow for a turn
-            addWaypoint(new Waypoint(new Position2d(-30,-125),100)); // D
-            addWaypoint(new Waypoint(new Position2d(30,-134),100)); // E
-            addWaypoint(new Waypoint(new Position2d(70,-70),100)); // E
-            addWaypoint(new Waypoint(new Position2d(218,-80),100)); // E
-            addWaypoint(new Waypoint(new Position2d(218,-110),100)); // E
-
+            addWaypoint(new Waypoint(new Position2d(-30,-125), Constants.Autonomous.kTestVelocity));
+            addWaypoint(new Waypoint(new Position2d(60,-70),Constants.Autonomous.kTestVelocity));
+            addWaypoint(new Waypoint(new Position2d(216,-60),Constants.Autonomous.kTestVelocity));
+            addWaypoint(new Waypoint(new Position2d(216,-80  ),Constants.Autonomous.kTestVelocity));
             OptimizePath();
         }
 
@@ -38,9 +37,8 @@ public class LHatchPickUpStartLeftMiddleHatchPathCompoundPath extends CompoundPa
         public LHatchPickUpStartLeftMiddleHatchPath2() {
             setDirection(Direction.FORWARD);
             //TODO: these points need to be fixed to allow for a turn
-            addWaypoint(new Waypoint(new Position2d(218,-110),100));
-            addWaypoint(new Waypoint(new Position2d(218,-47),100)); // Q
-            OptimizePath();
+            addWaypoint(new Waypoint(new Position2d(216,-80),Constants.Autonomous.kTestVelocity));
+            addWaypoint(new Waypoint(new Position2d(216,-55  ),Constants.Autonomous.kTestVelocity));
             OptimizePath();
         }
 

@@ -2,6 +2,9 @@ package com.team2052.deepspace.auto;
 
 import com.team2052.deepspace.Constants;
 
+/**
+ * This is for game specific code
+ */
 public abstract class AutoMode extends AutoModeBase{
     private StartDirection startDirection = Constants.Autonomous.defaultStartDirection;
     private LateralStartPosition lateralStartPosition = LateralStartPosition.CENTER;

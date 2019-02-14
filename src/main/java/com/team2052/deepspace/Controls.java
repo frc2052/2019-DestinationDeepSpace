@@ -22,15 +22,15 @@ public class Controls {
     public static final int kTankJoystickShiftButton = 2;
     public static final int kTankJoystickVisionDrive = 3;
 
-   public static final int kSecondaryCargoIntake = 1;
-   public static final int kSecondaryRocket1 = 2;
-   public static final int kSecondaryRocket2 = 3;
-   public static final int kSecondaryGroundPickupReady = 6;
-   public static final int kSecondaryGroundPickupDown = 7;
-   public static final int kSecondaryIntakeArmUpDown = 9;
-   public static final int kSecondaryGroundPickupPlace = 10;
-   public static final int kSecondaryClimberDown = 11;
-   public static final int kSecondaryClimberUp = 12;
+    public static final int kSecondaryCargoIntake = 1;
+    public static final int kSecondaryRocket1 = 2;
+    public static final int kSecondaryRocket2 = 3;
+    public static final int kSecondaryGroundPickupReady = 6;
+    public static final int kSecondaryGroundPickupDown = 7;
+    public static final int kSecondaryIntakeArmUpDown = 9;
+    public static final int kSecondaryGroundPickupPlace = 10;
+    public static final int kSecondaryClimberDown = 11;
+    public static final int kSecondaryClimberUp = 12;
 
     private Joystick turnPrimaryStick = new Joystick(0); //left joystick
     private Joystick tankPrimaryStick = new Joystick(1);//right joystick

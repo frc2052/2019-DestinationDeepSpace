@@ -46,13 +46,13 @@ public class Constants {
         public static final double kturnSpeed = 6.0; //constant from 1-5     higher = faster
         public static final double kMaxAccel = 120; //how fast the robot accelerates and decelerates
         public static final double kLookaheadDistance = 30; //12-25 // changes how smooth it follows path. lower = curves back and forth/fishtail, higher = less accurate
-        public static final double kA = 0.01 ; //0-.1 todo: test and see how robot responds
+        public static final double kA = 0.0 ; //0-.1 todo: test and see how robot responds
         public static final double kP = 0.0; //0-.1
         public static final double kTestVelocity = 7 * 12 * 1.0;
         public static final boolean kIsAutoHighGear = false;
 
 
-        public static final double kMaxAutoVelocity = kIsAutoHighGear ? (13*12.0) : 7*12.0; //13 ft/s is high, 7 ft/s is low
+        public static final double kMaxAutoVelocity = 7 * 12.0; //13 ft/s is high, 7 ft/s is low
 
         public static final long kloopPeriodMs = 50;
         public static final double kloopPeriodSec = kloopPeriodMs/1000.0; //int devision
@@ -64,10 +64,6 @@ public class Constants {
         public static final double kV = 1/(kMaxAutoVelocity);
         //todo: put ka and kp back here
         //pidf copied from 2017 needs testing
-        public static final double kTp = 0.2;
-        public static final double kTi = 0.0;
-        public static final double kTd = 3.0;
-        public static final double kTf = 0.3;
 
         public static final double kStartLeftInchOffset = -47;
         public static final double kStartRightInchOffset = -47;
@@ -117,17 +113,17 @@ public class Constants {
 
     public class LineFollower {
         //////ports//////
-        public static final int kLeftLightSensorId = 2;
-        public static final int kMiddleLightSensorId = 1;
-        public static final int kRightLightSensorId = 0;
-        public static final int kBackLeftLightSensorId = 5;
-        public static final int kBackMiddleLightSensorId = 4;
-        public static final int kBackRightLightSensorId = 3;
+        public static final int kLeftLightSensorId = 3;
+        public static final int kMiddleLightSensorId = 4;
+        public static final int kRightLightSensorId = 5;
+        public static final int kBackLeftLightSensorId = 0;
+        public static final int kBackMiddleLightSensorId = 1;
+        public static final int kBackRightLightSensorId = 2;
 
         //////speeds//////
         public static final double kLightSensorTurnHardSpeedReduction = -1;
         public static final double kLightSensorTurnLightSpeedReduction = -0.8;
-        public static final double kLightSensorMotorSpeed = 0.4;
+        public static final double kLightSensorMotorSpeed = 0.2;
     }
 
 

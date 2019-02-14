@@ -22,7 +22,7 @@ public class LeftStartSideLeftCloseHatchToLeftMiddleHatch extends AutoMode {
                 //Starting path starts going backwards
                 new FollowPathAction(new LStartSideLeftCloseHatchPath(Path.Direction.BACKWARD)),
                 //Vision
-                new LineUpAction(false),
+                new LineUpAction(18,false),
                 // when true, ground outtake action
                 new GroundIntakeAction(true),
                 new ParallelAction(Arrays.asList(
@@ -31,12 +31,12 @@ public class LeftStartSideLeftCloseHatchToLeftMiddleHatch extends AutoMode {
                 ),
 
                 //Vision
-                new LineUpAction(true),
+                new LineUpAction(18,true),
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
                 //Compound path to make robot turn around
                 new FollowPathListAction(new LHatchPickUpStartLeftMiddleHatchPathCompoundPath().getPaths()),
                 //Vision
-                new LineUpAction(true),
+                new LineUpAction(18,true),
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
                 //Turns robot around and drives back towards loading station
                 new FollowPathListAction(new LMiddleHatchStartLeftHatchPickUpPathCompoundPath().getPaths())

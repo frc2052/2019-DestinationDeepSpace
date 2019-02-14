@@ -14,32 +14,33 @@ public class VisionController {
 
     private double yaw;
     private double height;
-    private double width;
-    private double x;
+    private double width = 256;
+    private double x = -1;
     private double y;
 
     private int cameraW;
     private int cameraH;
 
-    public DriveSignal getMotorOutput(){
+    public DriveSignal getMotorOutput(double speed){
         getValues();
-
-        return new DriveSignal(x,1-x);
+        System.out.println("vision L: " + x * speed + " vision R " + (1-x) * speed);
+        return new DriveSignal(x * speed,(1-x) * speed);
     }
 
     private void getValues(){
-        cameraH = (int)SmartDashboard.getNumber("cameraHeight",0);
-        cameraW = (int)SmartDashboard.getNumber("cameraWidth",0);
+        //cameraH = (int)SmartDashboard.getNumber("cameraHeight",0);
+        //cameraW = (int)SmartDashboard.getNumber("cameraWidth",0);
         yaw =SmartDashboard.getNumber("yawToTarget",0);
         height = SmartDashboard.getNumber("targetHeight",0)/cameraH;
         width = SmartDashboard.getNumber("targetWidth",0)/cameraW;
         x = SmartDashboard.getNumber("targetX",0)/cameraW;
         y = SmartDashboard.getNumber("targetY",0)/cameraH;
+        System.out.println("x is " + x);
     }
 
     public boolean isTarget(){
         getValues();
-        return !(x==-1);
+        return x!=-1;
     }
 
     public boolean isClose(){

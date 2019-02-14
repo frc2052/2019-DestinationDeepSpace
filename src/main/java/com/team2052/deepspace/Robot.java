@@ -25,6 +25,7 @@ public class Robot extends TimedRobot {
     private DriveTrainController driveTrain = null;
     private LegClimberController legClimberController = null;
     private LineFollowerController lineFollower = null;
+    private BackLineFollowerController backLineFollower = null;
     private RobotState robotstate = RobotState.getInstance();
     private RobotStateCalculator robotStateCalculator = RobotStateCalculator.getInstance();
     private AutoModeRunner autoModeRunner = new AutoModeRunner();
@@ -45,8 +46,9 @@ public class Robot extends TimedRobot {
         driveTrain = DriveTrainController.getInstance();
         controlLoop.addLoopable(robotStateCalculator);
         visionController = VisionController.getInstance();
-
         lineFollower = LineFollowerController.getInstance();
+        backLineFollower = BackLineFollowerController.getInstance();
+
         try {
             compressor = new Compressor();
             compressor.setClosedLoopControl(true);
@@ -98,7 +100,7 @@ public class Robot extends TimedRobot {
             autoModeRunner.stop();
             driveTrain.stop();
         }
-        System.out.println("AUTO IS DONE?: " + autoModeRunner.isAutodone());
+        //System.out.println("is auto done: " + autoModeRunner.isAutodone());
 
         if(autoModeRunner.isAutodone()){
             driverControlled();
@@ -113,7 +115,9 @@ public class Robot extends TimedRobot {
         robotStateCalculator.resetRobotState();
         controlLoop.start();
         driveTrain.zeroGyro();
-        legClimberController.resetEncoders();
+        lineFollower.resetLineSensor();
+        backLineFollower.resetLineSensor();
+        //legClimberController.resetEncoders();
     }
 
     /**
@@ -146,8 +150,17 @@ public class Robot extends TimedRobot {
     }
 
     private void driverControlled(){
-        if (controls.getLightFollow() && lineFollower.getLineSensed()){ //if line follower sees/has seen line in last 2 seconds
-            driveTrain.drive(lineFollower.getLightSensorMotorTurn(controls.getDriveTank())); //line sensor controls turning towards line
+
+        if (controls.getLightFollow()){
+            if(lineFollower.getLineSensed()) {
+                System.out.println("Front Sensors");
+                driveTrain.drive(lineFollower.getLightSensorMotorTurn(controls.getDriveTank()));
+            }else if (backLineFollower.getLineSensed()){
+                System.out.println("Back Sensors");
+                driveTrain.drive(backLineFollower.getLightSensorMotorTurn(controls.getDriveTank()));
+            } else {
+                driveTrain.drive(driveHelper.drive(controls.getDriveTank(), controls.getDriveTurn(), controls.getQuickTurn()));
+            }
         } else {
             driveTrain.drive(driveHelper.drive(controls.getDriveTank(), controls.getDriveTurn(), controls.getQuickTurn()));
         }
