@@ -93,6 +93,7 @@ public class Robot extends TimedRobot {
     /**
      * This function is called periodically during autonomous.
      */
+
     @Override
     public void autonomousPeriodic() {
         robotstate.outputToSmartDashboard();
@@ -128,7 +129,6 @@ public class Robot extends TimedRobot {
         driverControlled();
     }
 
-
     /**
      * This function is called periodically during test mode.
      */
@@ -151,11 +151,12 @@ public class Robot extends TimedRobot {
 
     private void driverControlled(){
 
-        if (controls.getLightFollow()){
-            if(lineFollower.getLineSensed()) {
+    if (lineFollower != null && backLineFollower !=null) {
+        if (controls.getLightFollow()) {
+            if (lineFollower.getLineSensed()) {
                 System.out.println("Front Sensors");
                 driveTrain.drive(lineFollower.getLightSensorMotorTurn(controls.getDriveTank()));
-            }else if (backLineFollower.getLineSensed()){
+            } else if (backLineFollower.getLineSensed()) {
                 System.out.println("Back Sensors");
                 driveTrain.drive(backLineFollower.getLightSensorMotorTurn(controls.getDriveTank()));
             } else {
@@ -166,34 +167,38 @@ public class Robot extends TimedRobot {
         }
         robotstate.outputToSmartDashboard();
         driveTrain.setHighGear(controls.getShift());
-
+    }
         //legClimberController.printEncoder();
 
-
         VisionController.showBackPiCamera(controls.getShowBackCamera());
-
-        //always pass the button for climb to the leg climber
-        //it needs to keep track of how many times the button was pressed
-        //pressed 10 times will allow us to climb even if the match isn't in its last 30 seconds
-        legClimberController.setLegClimber(controls.getClimberUp());
-        if (controls.getClimberDown()){
-            legClimberController.lowerClimber();
+        if (legClimberController != null) {
+            //always pass the button for climb to the leg climber
+            //it needs to keep track of how many times the button was pressed
+            //pressed 10 times will allow us to climb even if the match isn't in its last 30 seconds
+            legClimberController.setLegClimber(controls.getClimberUp());
+            if (controls.getClimberDown()) {
+                legClimberController.lowerClimber();
+            }
         }
 
-        intake.setCargoIntake(controls.getCargoIntake());
-        intake.setHatchPlace(controls.getHatchOuttake());
-        intake.toggleArmPosition(controls.getIntakeArmToggle());
+        if(intake !=null) {
+            intake.setCargoIntake(controls.getCargoIntake());
+            intake.setHatchPlace(controls.getHatchOuttake());
+            intake.toggleArmPosition(controls.getIntakeArmToggle());
 
-        if (controls.getCargoShoot() && controls.getRocket1Shoot()) {
-            intake.setShootCargo(IntakeController.ShootSpeed.ROCKET1);
-        } else if(controls.getCargoShoot() && controls.getRocket2Shoot()) {
-            intake.setShootCargo(IntakeController.ShootSpeed.ROCKET1);
-        } else if (controls.getCargoShoot()) {
-            intake.setShootCargo(IntakeController.ShootSpeed.CARGOSHIP);
+            if (controls.getCargoShoot() && controls.getRocket1Shoot()) {
+                intake.setShootCargo(IntakeController.ShootSpeed.ROCKET1);
+            } else if (controls.getCargoShoot() && controls.getRocket2Shoot()) {
+                intake.setShootCargo(IntakeController.ShootSpeed.ROCKET1);
+            } else if (controls.getCargoShoot()) {
+                intake.setShootCargo(IntakeController.ShootSpeed.CARGOSHIP);
+            }
         }
 
-        groundIntake.pickupFromFloor(controls.getGroundIntakeDown());
-        groundIntake.setUpClosed(controls.getGroundIntakeReady());
-        groundIntake.placement(controls.getGroundIntakePlace());
+        if(groundIntake !=null) {
+            groundIntake.pickupFromFloor(controls.getGroundIntakeDown());
+            groundIntake.setUpClosed(controls.getGroundIntakeReady());
+            groundIntake.placement(controls.getGroundIntakePlace());
+            }
+        }
     }
-}
