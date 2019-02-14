@@ -12,8 +12,8 @@ public class IntakeController {
     private TalonSRX intakeMotor = new TalonSRX (Constants.Intake.kIntakeMotorId);
     private TalonSRX clawTop = new TalonSRX(Constants.Intake.kClawTopMotor);
     private TalonSRX clawBottom = new TalonSRX(Constants.Intake.kClawBottomMotor);
-    private Solenoid armInSolenoid = new Solenoid(Constants.Intake.kCargoInId);
-    private Solenoid armOutSolenoid = new Solenoid(Constants.Intake.kCargoOutId);
+    private Solenoid armInSolenoid = new Solenoid(Constants.Intake.kCargoInSolenoidId);
+    private Solenoid armOutSolenoid = new Solenoid(Constants.Intake.kCargoOutSolenoidId);
     private Solenoid hatchIntakeSolenoid = new Solenoid(Constants.Intake.kHatchInId);
     private Solenoid hatchOuttakeSolenoid = new Solenoid(Constants.Intake.kHatchOutId);
     private final double armIntakeSpeed = .6;
