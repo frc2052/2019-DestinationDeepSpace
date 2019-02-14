@@ -33,19 +33,10 @@ public class Constants {
         public static final int kIntakeMotorId = 1;
         public static final int kGrabber2SolenoidId = 2;
         public static final int kGrabber1SolenoidId = 3;
-        public static final int kCargoInId = 2;
-        public static final int kCargoOutId = 3;
+        public static final int kCargoInSolenoidId = 2;
+        public static final int kCargoOutSolenoidId = 3;
         public static final int kHatchInId = 3;
         public static final int kHatchOutId = 4;
-        public static final int kOuttakePercentSpeed = -30;
-        public static final int kNeutralSpeed = 20;
-        public static final int kIntakePercentSpeed = 50;
-        public static final double kGrabTime = .5;
-        public static final double kLiftTime = kGrabTime + .5;
-        public static final double kReleaseTime = .5;
-        public static final double kEscapeTime = kReleaseTime + .5;
-
-
     }
 
 
@@ -91,11 +82,9 @@ public class Constants {
     public  class LegClimber {
 
         //////ids//////
-        public static final int kLegClimberSolenoid1id = 7;
-        public static final int klegClimbersolenoid2id = 8;
         public static final int kLegClimberTalon1id = 7;
 
-        public static final double kLegClimberMotorVelocity = 0.7;
+        public static final double kLegClimberMotorVelocity = 1;
 
         public static final double kEncoderTicksPerRotation = 1024;
         public static final double kClimbMotorRotations = 940/4.0;
