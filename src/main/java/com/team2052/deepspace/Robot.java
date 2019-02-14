@@ -26,6 +26,7 @@ public class Robot extends TimedRobot {
     private ElevatorController elevator = null;
     private LegClimberController legClimberController = null;
     private LineFollowerController lineFollower = null;
+    private BackLineFollowerController backLineFollower = null;
     private RobotState robotstate = RobotState.getInstance();
     private RobotStateCalculator robotStateCalculator = RobotStateCalculator.getInstance();
     private AutoModeRunner autoModeRunner = new AutoModeRunner();
@@ -49,8 +50,9 @@ public class Robot extends TimedRobot {
        // elevator.zeroSensor();
         controlLoop.addLoopable(robotStateCalculator);
         visionController = VisionController.getInstance();
-
         lineFollower = LineFollowerController.getInstance();
+        backLineFollower = BackLineFollowerController.getInstance();
+
         try {
             compressor = new Compressor();
             compressor.setClosedLoopControl(true);
@@ -117,6 +119,8 @@ public class Robot extends TimedRobot {
         robotStateCalculator.resetRobotState();
         controlLoop.start();
         driveTrain.zeroGyro();
+        lineFollower.resetLineSensor();
+        backLineFollower.resetLineSensor();
         //legClimberController.resetEncoders();
     }
 
@@ -150,16 +154,29 @@ public class Robot extends TimedRobot {
     }
 
     private void driverControlled(){
+        /*
+        System.out.println("Front Sensors");
+        lineFollower.getLightSensorMotorTurn(controls.getUnusedTank());
+
+        System.out.println("Back Sensors");
+        backLineFollower.getLightSensorMotorTurn(controls.getUnusedTank());
+        */
         if (controls.getLightFollow()){
-            if(lineFollower.getLineSensed()){
-                driveTrain.drive(lineFollower.getLightSensorMotorTurn(controls.getDriveTank()));
+
+
+            if(lineFollower.getLineSensed()) {
+                System.out.println("Front Sensors");
+                driveTrain.drive(lineFollower.getLightSensorMotorTurn(controls.getUnusedTank()));
+            }else if (backLineFollower.getLineSensed()){
+                System.out.println("Back Sensors");
+                driveTrain.drive(backLineFollower.getLightSensorMotorTurn(controls.getUnusedTank()));
             }else if (visionController.isTarget()){
-                driveTrain.drive(visionController.getMotorOutput());
+                driveTrain.drive(visionController.getMotorOutput(controls.getUnusedTank()));
             } else {
-                driveTrain.drive(driveHelper.drive(controls.getDriveTank(), controls.getDriveTurn(), controls.getQuickTurn()));
+                driveTrain.drive(driveHelper.drive(controls.getUnusedTank(), controls.getDriveTurn(), controls.getQuickTurn()));
             }
         } else {
-            driveTrain.drive(driveHelper.drive(controls.getDriveTank(), controls.getDriveTurn(), controls.getQuickTurn()));
+            driveTrain.drive(driveHelper.drive(controls.getUnusedTank(), controls.getDriveTurn(), controls.getQuickTurn()));
         }
         robotstate.outputToSmartDashboard();
         driveTrain.setHighGear(controls.getShift());

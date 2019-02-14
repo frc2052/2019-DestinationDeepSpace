@@ -30,7 +30,11 @@ public class Controls {
     }
 
     public double getUnusedTank() {
-        return tankPrimaryStick.getY();
+        double val = -turnPrimaryStick.getY();
+        if (val < .15 && val > -.15) {
+            val = 0;
+        }
+        return val;
     }
 
     public double getDriveTurn() {
@@ -61,9 +65,9 @@ public class Controls {
     public boolean getGroundOuttake () {return secondaryControlPanel.getRawButton(Constants.Controls.kGroundOuttakeButton); }
 
 
-    public boolean getShift(){return tankPrimaryStick.getRawButton(Constants.Controls.kShiftButton);}
+    public boolean getShift(){return turnPrimaryStick.getRawButton(Constants.Controls.kShiftButton);}
 
-    public boolean getLightFollow(){return tankPrimaryStick.getRawButton(Constants.Controls.kLightSensorFollowButton);}
+    public boolean getLightFollow(){return turnPrimaryStick.getRawButton(Constants.Controls.kLightSensorFollowButton);}
 
     //////elevator//////
     public boolean getElevatorGroundCargo(){return secondaryControlPanel.getRawButton(Constants.Controls.kElevatorGroundGargoButton);}

@@ -22,7 +22,7 @@ public class NotSmoothTestCompoundPath extends CompoundPath {
             addWaypoint(new Waypoint(new Position2d(50,-47), Constants.Autonomous.kTestVelocity));
             addWaypoint(new Waypoint(new Position2d(170,-65),Constants.Autonomous.kTestVelocity));
             addWaypoint(new Waypoint(new Position2d(194,-65),Constants.Autonomous.kTestVelocity));
-            addWaypoint(new Waypoint(new Position2d(194,-47),Constants.Autonomous.kTestVelocity));
+            addWaypoint(new Waypoint(new Position2d(194,-55),Constants.Autonomous.kTestVelocity));
             OptimizePath();
         }
 
@@ -70,7 +70,7 @@ public class NotSmoothTestCompoundPath extends CompoundPath {
         public SecondHatchForward() {
             setDirection(Direction.FORWARD);
             addWaypoint(new Waypoint(new Position2d(216,-80),Constants.Autonomous.kTestVelocity));
-            addWaypoint(new Waypoint(new Position2d(216,-47  ),Constants.Autonomous.kTestVelocity));
+            addWaypoint(new Waypoint(new Position2d(216,-55  ),Constants.Autonomous.kTestVelocity));
             OptimizePath();
         }
 

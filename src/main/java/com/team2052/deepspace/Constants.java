@@ -31,7 +31,7 @@ public class Constants {
         public static final int kLegClimberButton = 4;
         public static final int kLegClimberLowerButton = 8;
 
-        public static final int kLightSensorFollowButton = 3;
+        public static final int kLightSensorFollowButton = 4; ///back to 3
     }
 
     public class DriveTrain{
@@ -150,12 +150,12 @@ public class Constants {
 
     public class LineFollower {
         //////ports//////
-        public static final int kLeftLightSensorId = 2;
-        public static final int kMiddleLightSensorId = 1;
-        public static final int kRightLightSensorId = 0;
-        public static final int kBackLeftLightSensorId = 5;
-        public static final int kBackMiddleLightSensorId = 4;
-        public static final int kBackRightLightSensorId = 3;
+        public static final int kLeftLightSensorId = 3;
+        public static final int kMiddleLightSensorId = 4;
+        public static final int kRightLightSensorId = 5;
+        public static final int kBackLeftLightSensorId = 0;
+        public static final int kBackMiddleLightSensorId = 1;
+        public static final int kBackRightLightSensorId = 2;
 
         //////speeds//////
         public static final double kLightSensorTurnHardSpeedReduction = -1;
