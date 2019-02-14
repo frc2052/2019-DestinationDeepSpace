@@ -31,7 +31,7 @@ public class Constants {
         public static final int kLegClimberButton = 4;
         public static final int kLegClimberLowerButton = 8;
 
-        public static final int kLightSensorFollowButton = 4; ///back to 3
+        public static final int kLightSensorFollowButton = 3;
     }
 
     public class DriveTrain{
@@ -160,7 +160,7 @@ public class Constants {
         //////speeds//////
         public static final double kLightSensorTurnHardSpeedReduction = -1;
         public static final double kLightSensorTurnLightSpeedReduction = -0.8;
-        public static final double kLightSensorMotorSpeed = 0.4;
+        public static final double kLightSensorMotorSpeed = 0.2;
     }
 
 

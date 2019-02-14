@@ -20,7 +20,7 @@ public abstract class AutoModeBase { //an abstract class cannot be run, only its
     protected void runAction(Action action){ //this is a method used by a subclass to run an action. you must send it an action from the actions package
         //isRunning(); //wtf does this do
         action.start();
-        while (!action.isFinished() && running){ //while the action is not done and the automode is running
+        while (running && !action.isFinished()){ //while the action is not done and the automode is running
             action.update();
             try { //can throw an exception so you must check if it does so code doesn't crash
                 Thread.sleep(Constants.Autonomous.kloopPeriodMs);

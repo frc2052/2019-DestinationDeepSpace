@@ -10,7 +10,6 @@ public class GroundIntakeAction implements Action {
     private double timeSinceDoneHatch;
     public GroundIntakeAction(boolean placeHatch){
         placingHatch = placeHatch;
-        start();
     } //Most of the work is actually done in controller.
 
     public void done(){
@@ -24,7 +23,7 @@ public class GroundIntakeAction implements Action {
         }
         return finished;
     }
-
+    @Override
     public void start(){
         if (placingHatch) { //place the hatch
             controller.placement(true);
@@ -34,7 +33,7 @@ public class GroundIntakeAction implements Action {
         }
 
     }
-
+    @Override
     public void update(){
         if(!placingHatch && ((DriverStation.getInstance().getMatchTime() - timeSinceDoneHatch) > 2)){ //Wait 2 Seconds until raise the arm
             controller.setStartPos();

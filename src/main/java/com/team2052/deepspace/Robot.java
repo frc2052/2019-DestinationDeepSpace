@@ -100,11 +100,11 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousPeriodic() {
         robotstate.outputToSmartDashboard();
-        if(controls.autoOverride()){
+        if(false){
             autoModeRunner.stop();
             driveTrain.stop();
         }
-        System.out.println("AUTO IS DONE?: " + autoModeRunner.isAutodone());
+        //System.out.println("is auto done: " + autoModeRunner.isAutodone());
 
         if(autoModeRunner.isAutodone()){
             driverControlled();
@@ -166,17 +166,17 @@ public class Robot extends TimedRobot {
 
             if(lineFollower.getLineSensed()) {
                 System.out.println("Front Sensors");
-                driveTrain.drive(lineFollower.getLightSensorMotorTurn(controls.getUnusedTank()));
+                driveTrain.drive(lineFollower.getLightSensorMotorTurn(controls.getDriveTank()));
             }else if (backLineFollower.getLineSensed()){
                 System.out.println("Back Sensors");
-                driveTrain.drive(backLineFollower.getLightSensorMotorTurn(controls.getUnusedTank()));
+                driveTrain.drive(backLineFollower.getLightSensorMotorTurn(controls.getDriveTank()));
             }else if (visionController.isTarget()){
-                driveTrain.drive(visionController.getMotorOutput(controls.getUnusedTank()));
+                driveTrain.drive(visionController.getMotorOutput(controls.getDriveTank()));
             } else {
-                driveTrain.drive(driveHelper.drive(controls.getUnusedTank(), controls.getDriveTurn(), controls.getQuickTurn()));
+                driveTrain.drive(driveHelper.drive(controls.getDriveTank(), controls.getDriveTurn(), controls.getQuickTurn()));
             }
         } else {
-            driveTrain.drive(driveHelper.drive(controls.getUnusedTank(), controls.getDriveTurn(), controls.getQuickTurn()));
+            driveTrain.drive(driveHelper.drive(controls.getDriveTank(), controls.getDriveTurn(), controls.getQuickTurn()));
         }
         robotstate.outputToSmartDashboard();
         driveTrain.setHighGear(controls.getShift());
