@@ -10,14 +10,21 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class LegClimberController {
 
-    private static LegClimberController singleLegClimberControllerInstance = new LegClimberController();
-    public static LegClimberController getInstance() { return singleLegClimberControllerInstance; }
+    private static LegClimberController instance= null;
+    public static LegClimberController getInstance(){
+        if (instance == null) {
+            try {
+                instance = new LegClimberController();
+            } catch (Exception exc) {
+                System.out.println("DANGER: Failed to create Climber: " + exc.getMessage());
+                exc.printStackTrace();
+            }
+        }
+        return instance;
+    }
 
     private TalonSRX legClimberMotor = null;
 
-
-    //with assistance
-    private Solenoid LegClimberSolenoid1 = new Solenoid(Constants.LegClimber.kLegClimberSolenoid1id);
 
     private LegClimberController(){
         legClimberMotor = new TalonSRX(Constants.LegClimber.kLegClimberTalon1id);

@@ -10,10 +10,18 @@ public class GroundIntakeController implements ILoopable {
     /* True is Intake, false is Outtake.
     Could be enum, but because intake and outtake already are enums with a done case
     There's no reason complicate it. */
-    private static GroundIntakeController instance = new GroundIntakeController();
-    public static GroundIntakeController getInstance(){
+    private static GroundIntakeController instance = null;
+    public static GroundIntakeController getInstance() {
+        if (instance == null) {
+            try {
+                instance = new GroundIntakeController();
+            } catch (Exception exc) {
+                System.out.println("DANGER: Failed to create Ground Intake: " + exc.getMessage());
+                exc.printStackTrace();
+            }
+        }
         return instance;
-    }//Singleton
+    }
 
     private IntakeState controllerState; //Non-Static Context
     private IntakeState wantControllerState;

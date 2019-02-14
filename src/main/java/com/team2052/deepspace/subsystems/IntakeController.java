@@ -6,14 +6,24 @@ import com.team2052.deepspace.Constants;
 import edu.wpi.first.wpilibj.Solenoid;
 
 public class IntakeController {
-    private static IntakeController instance = new IntakeController();
-    public static IntakeController getInstance() {return instance;}
+    private static IntakeController instance = null;
+    public static IntakeController getInstance() {
+        if (instance == null) {
+            try {
+                instance = new IntakeController();
+            } catch (Exception exc) {
+                System.out.println("DANGER: Failed to create Front Intake: " + exc.getMessage());
+                exc.printStackTrace();
+            }
+        }
+        return instance;
+    }
 
     private TalonSRX intakeMotor = new TalonSRX (Constants.Intake.kIntakeMotorId);
     private TalonSRX clawTop = new TalonSRX(Constants.Intake.kClawTopMotor);
     private TalonSRX clawBottom = new TalonSRX(Constants.Intake.kClawBottomMotor);
-    private Solenoid armInSolenoid = new Solenoid(Constants.Intake.kCargoInId);
-    private Solenoid armOutSolenoid = new Solenoid(Constants.Intake.kCargoOutId);
+    private Solenoid armInSolenoid = new Solenoid(Constants.Intake.kCargoInSolenoidId);
+    private Solenoid armOutSolenoid = new Solenoid(Constants.Intake.kCargoOutSolenoidId);
     private Solenoid hatchIntakeSolenoid = new Solenoid(Constants.Intake.kHatchInId);
     private Solenoid hatchOuttakeSolenoid = new Solenoid(Constants.Intake.kHatchOutId);
     private final double armIntakeSpeed = .6;
