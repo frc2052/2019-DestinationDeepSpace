@@ -154,6 +154,11 @@ public class Robot extends TimedRobot {
             //force the auto mode to preload so that all paths are calculated before AutoInit
             AutoMode preload = AutoModeFactory.getAutoMode((selected), AutoModeSelector.getHab2Start());
         }
+
+        GroundIntakeController gi = GroundIntakeController.getInstance();
+        if (gi != null) {
+            gi.resetEncoder();
+        }
     }
 
     private void driverControlled(){
@@ -203,10 +208,9 @@ public class Robot extends TimedRobot {
 
             //hatches
             //if primary driver had pulled trigger to place a hatch on the front
-            if (controls.getHatchOuttake()) {
-                groundIntake.setWantState(GroundIntakeController.IntakeState.STARTING);
-                intake.setHatchPlace(true);
-            } else {  //primary driver not holding front hatch trigger
+//            if (controls.getHatchOuttake()) {
+                intake.setHatchPlace(controls.getHatchOuttake());
+//            } else {  //primary driver not holding front hatch trigger
                 if (controls.getGroundIntakePlace()) {
                     groundIntake.setWantState(GroundIntakeController.IntakeState.PLACEMENT);
                 } else if (controls.getGroundIntakeReady()) {
@@ -216,10 +220,10 @@ public class Robot extends TimedRobot {
                 } else if (controls.getGroundIntakeStarting()) {
                     groundIntake.setWantState(GroundIntakeController.IntakeState.STARTING);
                 }
-                if (!groundIntake.getIsPlacing()) {
-                    intake.setHatchPlace(false); //only close the jaws based on primary driver trigger if ground pickup not in the process of placing
-                }
-            }
+//                if (!groundIntake.getIsPlacing()) {
+//                    intake.setHatchPlace(false); //only close the jaws based on primary driver trigger if ground pickup not in the process of placing
+//                }
+//            }
         }
     }
 }
