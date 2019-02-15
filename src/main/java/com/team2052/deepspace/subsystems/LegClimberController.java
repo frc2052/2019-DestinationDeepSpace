@@ -5,7 +5,6 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.team2052.deepspace.Constants;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
 
 public class LegClimberController {
@@ -50,7 +49,7 @@ public class LegClimberController {
         //keep track of whether button is up or down
         wasLastPressed = isPressed;
 
-        System.out.println("time: " + timePassed );
+//        System.out.println("time: " + timePassed );
         if (timePassed <= 120 || legClimberButtonPressCount > 10) {//30 seconds left in the match OR button has been pressed 10 times
             if (isPressed) {
                 if(legClimberMotor.getSelectedSensorPosition() <= Constants.LegClimber.kClimberMotorDistance){
@@ -64,7 +63,7 @@ public class LegClimberController {
 
             }
         }
-        else
+        else if (isPressed)
         {
             System.out.println("Not enough time has passed to put leg down, and not more than 10 presses (" + legClimberButtonPressCount + ")");
         }

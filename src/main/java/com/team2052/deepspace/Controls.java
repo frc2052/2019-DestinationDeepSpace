@@ -32,8 +32,9 @@ public class Controls {
     public static final int kSecondaryClimberDown = 11;
     public static final int kSecondaryClimberUp = 12;
 
-    private Joystick turnPrimaryStick = new Joystick(0); //left joystick
-    private Joystick tankPrimaryStick = new Joystick(1);//right joystick
+    //Wyatt likes tank joystick on right
+    private Joystick turnPrimaryStick = new Joystick(1); //left joystick
+    private Joystick tankPrimaryStick = new Joystick(0);//right joystick
     private Joystick secondaryControlPanel = new Joystick(2);
 
     public double getDriveTank() {
@@ -64,14 +65,14 @@ public class Controls {
 
     public boolean getClimberUp() { return secondaryControlPanel.getRawButton(kSecondaryClimberUp); }
     public boolean getClimberDown(){ return secondaryControlPanel.getRawButton(kSecondaryClimberDown); }
-    public boolean getCargoIntake () {return secondaryControlPanel.getTrigger();}
-    public boolean getGroundIntakeDown () {return secondaryControlPanel.getRawButton(kSecondaryGroundPickupDown); }
-    public boolean getGroundIntakePlace () {return secondaryControlPanel.getRawButton(kSecondaryGroundPickupPlace); }
-    public boolean getGroundIntakeReady () {return secondaryControlPanel.getRawButton(kSecondaryGroundPickupReady); }
+    public boolean getCargoIntake() { return secondaryControlPanel.getTrigger();}
+    public boolean getGroundIntakeDown() { return secondaryControlPanel.getRawButton(kSecondaryGroundPickupDown); }
+    public boolean getGroundIntakePlace() { return secondaryControlPanel.getRawButton(kSecondaryGroundPickupPlace); }
+    public boolean getGroundIntakeReady() { return secondaryControlPanel.getRawButton(kSecondaryGroundPickupReady); }
+    public boolean getGroundIntakeStarting() { return secondaryControlPanel.getRawButton(8); }
     public boolean getRocket1Shoot(){ return secondaryControlPanel.getRawButton(kSecondaryRocket1); }
     public boolean getRocket2Shoot(){ return secondaryControlPanel.getRawButton(kSecondaryRocket2); }
     public boolean getIntakeArmToggle(){ return secondaryControlPanel.getRawButton(kSecondaryIntakeArmUpDown); }
-
 
     //////elevator//////
     /*

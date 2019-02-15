@@ -31,12 +31,10 @@ public class Constants {
         public static final int kClawTopMotor = 10;
         public static final int kClawBottomMotor = 9;
         public static final int kIntakeMotorId = 8;
-        public static final int kGrabber2SolenoidId = 2;
-        public static final int kGrabber1SolenoidId = 3;
-        public static final int kCargoInSolenoidId = 2;
-        public static final int kCargoOutSolenoidId = 3;
-        public static final int kHatchInId = 3;
-        public static final int kHatchOutId = 4;
+        public static final int kGrabber2SolenoidId = 3;
+        public static final int kGrabber1SolenoidId = 2;
+        public static final int kCargoInSolenoidId = 4;
+        public static final int kCargoOutSolenoidId = 5;
     }
 
 

@@ -30,6 +30,7 @@ public class Robot extends TimedRobot {
     private RobotStateCalculator robotStateCalculator = RobotStateCalculator.getInstance();
     private AutoModeRunner autoModeRunner = new AutoModeRunner();
     private ControlLoop controlLoop = new ControlLoop(Constants.Autonomous.kloopPeriodSec);
+    private ControlLoop groundIntakeLooper = new ControlLoop(Constants.Autonomous.kloopPeriodSec);
     private Compressor compressor = null;
     private VisionController visionController = null;
 
@@ -38,6 +39,9 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         groundIntake = GroundIntakeController.getInstance();
+        if (groundIntake != null) {
+            groundIntakeLooper.addLoopable(groundIntake);
+        }
         driveHelper = new DriveHelper();
         intake = IntakeController.getInstance();
         controls = Controls.getInstance();
@@ -78,6 +82,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         controlLoop.start();
+        groundIntakeLooper.start();
         driveTrain.zeroGyro();
         //get the enum for the selected automode
         AutoModeSelector.AutoModeDefinition currentAutoModeDef = AutoModeSelector.getSelectedAutomode();
@@ -115,6 +120,7 @@ public class Robot extends TimedRobot {
     public void teleopInit(){
         robotStateCalculator.resetRobotState();
         controlLoop.start();
+        groundIntakeLooper.start();
         driveTrain.zeroGyro();
         lineFollower.resetLineSensor();
         backLineFollower.resetLineSensor();
@@ -140,6 +146,7 @@ public class Robot extends TimedRobot {
     public void disabledPeriodic(){
         autoModeRunner.stop();
         controlLoop.stop();
+        groundIntakeLooper.stop();
         driveTrain.stop();
         AutoModeSelector.AutoModeDefinition selected = AutoModeSelector.getSelectedAutomode();
         if (selected != null)
@@ -181,24 +188,38 @@ public class Robot extends TimedRobot {
             }
         }
 
-        if(intake !=null) {
+        if(intake != null && groundIntake !=null) {
             intake.setCargoIntake(controls.getCargoIntake());
-            intake.setHatchPlace(controls.getHatchOuttake());
             intake.toggleArmPosition(controls.getIntakeArmToggle());
 
+            //shooting cargo
             if (controls.getCargoShoot() && controls.getRocket1Shoot()) {
                 intake.setShootCargo(IntakeController.ShootSpeed.ROCKET1);
             } else if (controls.getCargoShoot() && controls.getRocket2Shoot()) {
-                intake.setShootCargo(IntakeController.ShootSpeed.ROCKET1);
+                intake.setShootCargo(IntakeController.ShootSpeed.ROCKET2);
             } else if (controls.getCargoShoot()) {
                 intake.setShootCargo(IntakeController.ShootSpeed.CARGOSHIP);
             }
-        }
 
-        if(groundIntake !=null) {
-            groundIntake.pickupFromFloor(controls.getGroundIntakeDown());
-            groundIntake.setUpClosed(controls.getGroundIntakeReady());
-            groundIntake.placement(controls.getGroundIntakePlace());
+            //hatches
+            //if primary driver had pulled trigger to place a hatch on the front
+            if (controls.getHatchOuttake()) {
+                groundIntake.setWantState(GroundIntakeController.IntakeState.STARTING);
+                intake.setHatchPlace(true);
+            } else {  //primary driver not holding front hatch trigger
+                if (controls.getGroundIntakePlace()) {
+                    groundIntake.setWantState(GroundIntakeController.IntakeState.PLACEMENT);
+                } else if (controls.getGroundIntakeReady()) {
+                    groundIntake.setWantState(GroundIntakeController.IntakeState.UP_CLOSED);
+                } else if (controls.getGroundIntakeDown()) {
+                    groundIntake.setWantState(GroundIntakeController.IntakeState.DOWN_OPEN);
+                } else if (controls.getGroundIntakeStarting()) {
+                    groundIntake.setWantState(GroundIntakeController.IntakeState.STARTING);
+                }
+                if (!groundIntake.getIsPlacing()) {
+                    intake.setHatchPlace(false); //only close the jaws based on primary driver trigger if ground pickup not in the process of placing
+                }
             }
         }
     }
+}
