@@ -82,7 +82,7 @@ public class LegClimberController {
         legClimberMotor.set(ControlMode.PercentOutput, 0.0);
     }
     public void printEncoder(){
-        System.out.println("climber pos: " + legClimberMotor.getSelectedSensorPosition());
+        //System.out.println("climber pos: " + legClimberMotor.getSelectedSensorPosition());
 
     }
 

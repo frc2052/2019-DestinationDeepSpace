@@ -1,7 +1,20 @@
 package com.team2052.deepspace.auto;
 
 public class AutoModeRunner {
-    Thread autoThread;
+
+    private static AutoModeRunner instance = null;
+    public static AutoModeRunner getInstance() {
+        if (instance == null) {
+            try {
+                instance = new AutoModeRunner();
+            } catch (Exception exc) {
+                System.out.println("DANGER: Failed to create AutoModeRunner: " + exc.getMessage());
+                exc.printStackTrace();
+            }
+        }
+        return instance;
+    }
+    Thread autoThread = null;
     AutoModeBase autoMode;
 
     public void start(AutoModeBase newMode) {//Initializes auto mode

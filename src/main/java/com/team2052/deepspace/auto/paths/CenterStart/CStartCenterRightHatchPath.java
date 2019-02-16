@@ -11,9 +11,9 @@ public class CStartCenterRightHatchPath extends Path{
     public CStartCenterRightHatchPath(Direction backward) {
         setDirection(Direction.FORWARD);
         addWaypoint(new Waypoint(new Position2d(0,0),50)); // *T*
-        addWaypoint(new Waypoint(new Position2d(50,0),50)); // i
+        addWaypoint(new Waypoint(new Position2d(50,0),50, "down")); // i
         addWaypoint(new Waypoint(new Position2d(100,13),50)); // j
-        addWaypoint(new Waypoint(new Position2d(124,13),50)); // k
+        addWaypoint(new Waypoint(new Position2d(116,13),50, "end")); // k
         OptimizePath();
     }
 

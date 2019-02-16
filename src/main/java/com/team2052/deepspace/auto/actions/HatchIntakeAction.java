@@ -1,27 +1,40 @@
 package com.team2052.deepspace.auto.actions;
 
 import com.team2052.deepspace.subsystems.IntakeController;
+import com.team2052.lib.KnightTimer;
 
 public class HatchIntakeAction implements Action {
-    private boolean finished = false;
     private hatchIntakeStateEnum state;
     private IntakeController intake = IntakeController.getInstance();
+    private KnightTimer timer;
+    private double startTime;
+
+
     public HatchIntakeAction(hatchIntakeStateEnum state){
         this.state = state; //When calling say whether to intake or outtake
+
     }
 
     @Override
     public void done(){
-        finished = true;
+        timer = null;
+        startTime = 0.0;
     }
 
     @Override
     public boolean isFinished(){
-        return finished; //Requirement of Action
+        return timer.getTime() - startTime > 1.0;
     }
 
     @Override
     public void start(){
+        timer = new KnightTimer();
+        startTime = timer.getTime();
+    }
+
+    @Override
+    public void update(){
+        System.out.println("HatchAction timer: " + (timer.getTime()-startTime));
         switch(state) {
             case INTAKE:
                 intake.setHatchPlace(false);
@@ -36,11 +49,6 @@ public class HatchIntakeAction implements Action {
                 intake.setArmDown(false);
                 break;
         }
-        finished = true;
-    }
-
-    @Override
-    public void update(){
 
     }
 

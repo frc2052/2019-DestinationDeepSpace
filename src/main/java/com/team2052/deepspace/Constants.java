@@ -25,6 +25,8 @@ public class Constants {
 
         public static final int kShiftInSolenoidID = 0;
         public static final int kShiftOutSolenoidID = 1;
+
+        public static final double kTurnInPlaceSpeed = .75;
     }
     public class Intake {
         public static final int kGroundIntakeMotor = 11;
@@ -35,6 +37,8 @@ public class Constants {
         public static final int kGrabber1SolenoidId = 2;
         public static final int kCargoInSolenoidId = 4;
         public static final int kCargoOutSolenoidId = 5;
+
+        public static final double kOuttakeCargoShipSpeed = .6;
     }
 
 

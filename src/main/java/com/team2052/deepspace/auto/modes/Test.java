@@ -1,19 +1,16 @@
 package com.team2052.deepspace.auto.modes;
 
 import com.team2052.deepspace.auto.AutoMode;
-import com.team2052.deepspace.auto.actions.FollowPathListAction;
-import com.team2052.deepspace.auto.actions.SeriesAction;
-import com.team2052.deepspace.auto.paths.CompoundPath;
-import com.team2052.deepspace.auto.paths.NotSmoothTestCompoundPath;
-import com.team2052.deepspace.auto.paths.SmoothTestCompoundPath;
+import com.team2052.deepspace.auto.actions.*;
+import com.team2052.deepspace.auto.paths.*;
 
 import java.util.Arrays;
 
 public class Test extends AutoMode {
 
     public Test(){
-        setStartDirection(StartDirection.BACKWARD);
-        setLateralStartPosition(LateralStartPosition.LEFT);
+        setStartDirection(StartDirection.FORWARD);
+        setLateralStartPosition(LateralStartPosition.CENTER);
     }
 
     CompoundPath p1 = new NotSmoothTestCompoundPath();
@@ -24,8 +21,19 @@ public class Test extends AutoMode {
         System.out.println("init");
 
         runAction(new SeriesAction(Arrays.asList(
+                /*
+                new ParallelAction(Arrays.asList(
+                        new FollowPathAction(new ForwardPath(Path.Direction.FORWARD)),
+                        new SeriesAction(Arrays.asList(
+                                new WaitForPathFlagAction("down"),
+                                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.ARMDOWN)
+                        ))
+                )),
 
-                new FollowPathListAction(p1.getPaths())
+                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE)
+                */
+                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.ARMDOWN)
+                //new FollowPathListAction(p1.getPaths())
         )));
     }
 }

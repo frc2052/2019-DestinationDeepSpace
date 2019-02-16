@@ -18,4 +18,9 @@ public class AutoModeFactory {
         return loadedMode;
     }
 
+    public void resetPreload(){
+        loadedMode = null;
+        loadedDefinition = null;
+    }
+
 }

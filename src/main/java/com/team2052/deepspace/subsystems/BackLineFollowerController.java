@@ -21,5 +21,6 @@ public class BackLineFollowerController extends LineFollowerControllerBase {
         this.leftLightSensor = new DigitalInput(Constants.LineFollower.kBackLeftLightSensorId);
         this.middleLightSensor = new DigitalInput(Constants.LineFollower.kBackMiddleLightSensorId);
         this.rightLightSensor = new DigitalInput(Constants.LineFollower.kBackRightLightSensorId);
+        reversed = true;
     }
 }

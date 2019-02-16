@@ -90,7 +90,7 @@ public abstract class Path {
                 //System.out.println("added point: x: " + pathPoints.get(pathPoints.size()-1).getPosition().getLateral() + "y: " + pathPoints.get(pathPoints.size()-1).getPosition().getForward());
                 for (int j = 0; j < numOfPts; j++) {
 
-                    pathPoints.add(pathPoints.size(), new Waypoint(pathPoints.get(pathPoints.size() - 1).getPosition().translateBy(new Position2d(dir.y, dir.x)), wayPoints.get(i - 1).getVelocity()));
+                    pathPoints.add(pathPoints.size(), new Waypoint(pathPoints.get(pathPoints.size() - 1).getPosition().translateBy(new Position2d(dir.y, dir.x)), wayPoints.get(i - 1).getVelocity(), wayPoints.get(i-1).getFlag()));
                     //System.out.println("added point: x: " + pathPoints.get(pathPoints.size()-1).getPosition().getLateral() + "y: " + pathPoints.get(pathPoints.size()-1).getPosition().getForward() + " vel: " + wayPoints.get(i-1).getVelocity());
                 }
             }

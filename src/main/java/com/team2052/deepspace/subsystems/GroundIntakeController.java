@@ -69,10 +69,10 @@ public class GroundIntakeController implements ILoopable {
 
     @Override
     public void update(){
-            System.out.println("Current Position: " + groundIntakeMotor.getSelectedSensorPosition());
+            //System.out.println("Current Position: " + groundIntakeMotor.getSelectedSensorPosition());
             switch (controllerState) {
                 case DOWN_OPEN:
-                    System.out.println("Ground State DOWNOPEN");
+                    //System.out.println("Ground State DOWNOPEN");
                     groundIntakeMotor.set(ControlMode.Position, KDownEncoderPosition );
                     if(wantControllerState == IntakeState.STARTING || wantControllerState == IntakeState.DOWN_CLOSED || wantControllerState == IntakeState.PLACEMENT){
 //                        grabberOpen(false);
@@ -80,7 +80,7 @@ public class GroundIntakeController implements ILoopable {
                     }
                     break;
                 case DOWN_CLOSED:
-                    System.out.println("Ground State DOWNCLOSED");
+                    //System.out.println("Ground State DOWNCLOSED");
                     groundIntakeMotor.set(ControlMode.Position, KDownEncoderPosition );
                     if(wantControllerState == IntakeState.STARTING){
                         controllerState = IntakeState.STARTING;
@@ -93,7 +93,7 @@ public class GroundIntakeController implements ILoopable {
                     }
                     break;
                 case UP_CLOSED:
-                    System.out.println("Ground State UP");
+                    //System.out.println("Ground State UP");
                     groundIntakeMotor.set(ControlMode.Position,KUpEncoderPosition);
                     if (wantControllerState == IntakeState.DOWN_OPEN || wantControllerState == IntakeState.DOWN_CLOSED){
                         controllerState = IntakeState.DOWN_CLOSED;
@@ -107,7 +107,7 @@ public class GroundIntakeController implements ILoopable {
                     }
                     break;
                 case PLACEMENT:
-                    System.out.println("Ground State PLACING");
+                    //System.out.println("Ground State PLACING");
                     groundIntakeMotor.set(ControlMode.Position,KPlacementEncoderPosition);
                     if (groundIntakeMotor.getSelectedSensorPosition() > KUpEncoderPosition){
 //                        grabberOpen(true);
@@ -124,7 +124,7 @@ public class GroundIntakeController implements ILoopable {
                     break;
                 default: //starting position
                     groundIntakeMotor.set(ControlMode.Position, KStartingEncoderPosition);
-                    System.out.println("Ground State STARTING");
+                    //System.out.println("Ground State STARTING");
                     if (wantControllerState == IntakeState.UP_CLOSED || wantControllerState == IntakeState.PLACEMENT){
 //                        grabberOpen(false);
                         controllerState = IntakeState.UP_CLOSED;

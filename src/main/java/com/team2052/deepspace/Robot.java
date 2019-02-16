@@ -28,11 +28,12 @@ public class Robot extends TimedRobot {
     private BackLineFollowerController backLineFollower = null;
     private RobotState robotstate = RobotState.getInstance();
     private RobotStateCalculator robotStateCalculator = RobotStateCalculator.getInstance();
-    private AutoModeRunner autoModeRunner = new AutoModeRunner();
+    private AutoModeRunner autoModeRunner = null;
     private ControlLoop controlLoop = new ControlLoop(Constants.Autonomous.kloopPeriodSec);
     private ControlLoop groundIntakeLooper = new ControlLoop(Constants.Autonomous.kloopPeriodSec);
     private Compressor compressor = null;
     private VisionController visionController = null;
+
 
 
 
@@ -53,6 +54,7 @@ public class Robot extends TimedRobot {
         lineFollower = LineFollowerController.getInstance();
         backLineFollower = BackLineFollowerController.getInstance();
 
+        autoModeRunner = AutoModeRunner.getInstance();
         try {
             compressor = new Compressor();
             compressor.setClosedLoopControl(true);
@@ -161,7 +163,7 @@ public class Robot extends TimedRobot {
     private void driverControlled(){
 
         if (controls.getLightFollow()) {
-            if (lineFollower != null && lineFollower.getLineSensed()) {
+            if (lineFollower != null && controls.getDriveTank() > 0 && lineFollower.getLineSensed()) {
                 System.out.println("Front Sensors");
                 driveTrain.drive(lineFollower.getLightSensorMotorTurn(controls.getDriveTank()));
             } else if (backLineFollower != null && backLineFollower.getLineSensed()) {
