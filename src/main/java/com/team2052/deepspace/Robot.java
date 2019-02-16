@@ -90,7 +90,7 @@ public class Robot extends TimedRobot {
         AutoMode currentAutoMode = AutoModeFactory.getAutoMode(currentAutoModeDef, AutoModeSelector.getHab2Start());
         //use the instance to get direction and position
         robotStateCalculator.setStartDirection(currentAutoMode.getStartDirection().isForward);
-        robotStateCalculator.resetRobotState(currentAutoMode.getLateralStartPosition().lateralOffset,currentAutoMode.getForwardOffset());
+        robotStateCalculator.resetRobotState(currentAutoMode.getLateralStartPosition().lateralOffset,0);
         //start running the auto mode
         autoModeRunner.start(currentAutoMode);
     }
@@ -124,7 +124,7 @@ public class Robot extends TimedRobot {
         driveTrain.zeroGyro();
         lineFollower.resetLineSensor();
         backLineFollower.resetLineSensor();
-        //legClimberController.resetEncoders();
+        legClimberController.resetEncoders();
     }
 
     /**
@@ -155,20 +155,16 @@ public class Robot extends TimedRobot {
             AutoMode preload = AutoModeFactory.getAutoMode((selected), AutoModeSelector.getHab2Start());
         }
 
-        GroundIntakeController gi = GroundIntakeController.getInstance();
-        if (gi != null) {
-            gi.resetEncoder();
-        }
+        groundIntake.resetEncoder();
     }
 
     private void driverControlled(){
 
-    if (lineFollower != null && backLineFollower !=null) {
         if (controls.getLightFollow()) {
-            if (lineFollower.getLineSensed()) {
+            if (lineFollower != null && lineFollower.getLineSensed()) {
                 System.out.println("Front Sensors");
                 driveTrain.drive(lineFollower.getLightSensorMotorTurn(controls.getDriveTank()));
-            } else if (backLineFollower.getLineSensed()) {
+            } else if (backLineFollower != null && backLineFollower.getLineSensed()) {
                 System.out.println("Back Sensors");
                 driveTrain.drive(backLineFollower.getLightSensorMotorTurn(controls.getDriveTank()));
             } else {
@@ -179,8 +175,8 @@ public class Robot extends TimedRobot {
         }
         robotstate.outputToSmartDashboard();
         driveTrain.setHighGear(controls.getShift());
-    }
-        //legClimberController.printEncoder();
+
+        legClimberController.printEncoder();
 
         VisionController.showBackPiCamera(controls.getShowBackCamera());
         if (legClimberController != null) {

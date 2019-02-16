@@ -49,6 +49,8 @@ public class GroundIntakeController implements ILoopable {
     public void resetEncoder() {
         /* zero the sensor */
         groundIntakeMotor.setSelectedSensorPosition(0, 0, 10);
+        this.wantControllerState = IntakeState.STARTING;
+        this.controllerState = IntakeState.STARTING;
     }
 
     private HatchGrabberController grabber = null;
@@ -72,7 +74,7 @@ public class GroundIntakeController implements ILoopable {
                 case DOWN_OPEN:
                     System.out.println("Ground State DOWNOPEN");
                     groundIntakeMotor.set(ControlMode.Position, KDownEncoderPosition );
-                    if(wantControllerState == IntakeState.STARTING || wantControllerState == IntakeState.DOWN_CLOSED){
+                    if(wantControllerState == IntakeState.STARTING || wantControllerState == IntakeState.DOWN_CLOSED || wantControllerState == IntakeState.PLACEMENT){
 //                        grabberOpen(false);
                         controllerState = IntakeState.DOWN_CLOSED;
                     }

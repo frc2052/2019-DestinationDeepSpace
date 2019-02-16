@@ -64,7 +64,7 @@ public class Constants {
         //pidf copied from 2017 needs testing
 
         public static final double kStartLeftInchOffset = -47;
-        public static final double kStartRightInchOffset = -47;
+        public static final double kStartRightInchOffset = 47;
 
         public static final double kMinVelocity = 0.05; //range 0-1: minimum amount of power to overcome static friction
 

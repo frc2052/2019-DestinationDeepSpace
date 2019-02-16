@@ -27,7 +27,7 @@ public class IntakeController {
     private VictorSPX clawBottom = new VictorSPX(Constants.Intake.kClawBottomMotor);
     private Solenoid armInSolenoid = new Solenoid(Constants.Intake.kCargoInSolenoidId);
     private Solenoid armOutSolenoid = new Solenoid(Constants.Intake.kCargoOutSolenoidId);
-    private final double armIntakeSpeed = -1;
+    private final double armIntakeSpeed = -.8;
     private final double intakeTopClawSpeed = .6;
     private final double intakeBottomClawSpeed = -.6;
     private boolean isArmDown;
@@ -53,8 +53,8 @@ public class IntakeController {
     public void setShootCargo(ShootSpeed shoot) {
         switch (shoot) {
             case ROCKET1:
-                clawTop.set(ControlMode.PercentOutput, -.25);
-                clawBottom.set(ControlMode.PercentOutput, .25);
+                clawTop.set(ControlMode.PercentOutput, -.30);
+                clawBottom.set(ControlMode.PercentOutput, .15);
                 break;
             case CARGOSHIP:
                 clawTop.set(ControlMode.PercentOutput, -.70);

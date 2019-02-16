@@ -33,8 +33,8 @@ public class Controls {
     public static final int kSecondaryClimberUp = 12;
 
     //Wyatt likes tank joystick on right
-    private Joystick turnPrimaryStick = new Joystick(1); //left joystick
-    private Joystick tankPrimaryStick = new Joystick(0);//right joystick
+    private Joystick turnPrimaryStick = new Joystick(0); //left joystick
+    private Joystick tankPrimaryStick = new Joystick(1);//right joystick
     private Joystick secondaryControlPanel = new Joystick(2);
 
     public double getDriveTank() {
@@ -49,6 +49,14 @@ public class Controls {
         double val = turnPrimaryStick.getX();
         if (val < .15 && val > -.15) {
             val = 0; // dead zone
+        }
+        return val;
+    }
+
+    public double getUnusedTank(){
+        double val = -turnPrimaryStick.getY();
+        if (val < .15 && val > -.15) { // dead zone
+            val = 0;
         }
         return val;
     }

@@ -1,9 +1,9 @@
 package com.team2052.deepspace.auto.modes.LeftStart;
 
 import com.team2052.deepspace.auto.AutoMode;
-import com.team2052.deepspace.auto.actions.*;
-import com.team2052.deepspace.auto.paths.CenterHatchStarts.CLeftHatchStartLeftHatchPickUpPath;
-import com.team2052.deepspace.auto.paths.CenterHatchStarts.CLeftHatchStartLeftHatchPickUpPathCompoundPath;
+import com.team2052.deepspace.auto.actions.Action;
+import com.team2052.deepspace.auto.actions.FollowPathAction;
+import com.team2052.deepspace.auto.actions.SeriesAction;
 import com.team2052.deepspace.auto.paths.LeftStart.LStartCenterLeftHatchPath;
 import com.team2052.deepspace.auto.paths.Path;
 
@@ -11,23 +11,24 @@ import java.util.Arrays;
 
 public class LeftStartCenterLeftCenterHatch extends AutoMode {
     private Action myAction;
-    public LeftStartCenterLeftCenterHatch(int forwardOffset){
+    public LeftStartCenterLeftCenterHatch(){
         super();
-        setStartDirection(StartDirection.BACKWARD);
+        setStartDirection(StartDirection.FORWARD);
         setLateralStartPosition(LateralStartPosition.LEFT);
-        setForwardStartOffset(forwardOffset);
+        //setForwardStartOffset(forwardOffset);
 
         myAction = new SeriesAction(Arrays.asList(
                 //Starting path starts going backwards
-                new FollowPathAction(new LStartCenterLeftHatchPath(Path.Direction.BACKWARD)),
+                new FollowPathAction(new LStartCenterLeftHatchPath(Path.Direction.FORWARD))//,
                 //Vision
-                new LineUpAction(false),
+                //new LineUpAction(false),
                 // when true, ground outtake action
-                new GroundIntakeAction(true),
+                //new GroundIntakeAction(true),
                 //Turns robot around and drives back towards loading station
-                new ParallelAction(Arrays.asList(
-                        new FollowPathListAction(new CLeftHatchStartLeftHatchPickUpPathCompoundPath().getPaths()),
-                        new GroundIntakeAction(false)))
+               // new ParallelAction(Arrays.asList(
+                       // new FollowPathListAction(new CLeftHatchStartLeftHatchPickUpPathCompoundPath().getPaths())//,
+                        //new GroundIntakeAction(false)
+                //))
         ));
     }
     @Override
