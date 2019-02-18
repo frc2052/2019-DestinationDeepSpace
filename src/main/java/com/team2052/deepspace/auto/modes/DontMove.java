@@ -1,6 +1,7 @@
 package com.team2052.deepspace.auto.modes;
 
 import com.team2052.deepspace.auto.AutoMode;
+import com.team2052.deepspace.auto.actions.WaitAction;
 
 /**
  * Starts: Anywhere
@@ -10,6 +11,6 @@ import com.team2052.deepspace.auto.AutoMode;
 public class DontMove extends AutoMode{
     @Override
     protected void init() {
-
+        setAction(new WaitAction(0));
     }
 }

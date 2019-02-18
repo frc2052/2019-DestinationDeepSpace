@@ -7,11 +7,13 @@ import com.team2052.deepspace.auto.actions.Action;
  * This is for game specific code
  */
 public abstract class AutoMode{
-    private Action action;
+    private Action action = null;
     protected abstract void init();
 
     public Action getAction(){
-        init();
+        if(action != null){
+            init();
+        }
         return action;
     }
 

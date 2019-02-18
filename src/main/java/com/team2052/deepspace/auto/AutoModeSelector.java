@@ -62,7 +62,7 @@ public class AutoModeSelector {
     public static Action getSelectedAction(){
         AutoModeDefinition firstSelected = getFirstSelectedAutomode();
         AutoModeDefinition secondSelected = getSecondSelectedAutomode();
-        Action autoAction = null;
+        Action autoAction = new DontMove().getAction();
         try {
             //System.out.println("Selected" + selected);
 

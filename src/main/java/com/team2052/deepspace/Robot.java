@@ -38,7 +38,7 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         groundIntake = GroundIntakeController.getInstance();
         driveHelper = new DriveHelper();
-        intake = IntakeController.getInstance();
+        //intake = IntakeController.getInstance();
         controls = Controls.getInstance();
         legClimberController = LegClimberController.getInstance();
         legClimberController.resetEncoders();
@@ -136,10 +136,10 @@ public class Robot extends TimedRobot {
 
     @Override
     public void disabledPeriodic(){
-        autoModeRunner.stop();
+        //autoModeRunner.stop();
         controlLoop.stop();
         driveTrain.stop();
-        autoModeRunner.setAction(AutoModeSelector.getSelectedAction());
+        //autoModeRunner.setAction(AutoModeSelector.getSelectedAction());
     }
 
     private void driverControlled(){
@@ -168,10 +168,14 @@ public class Robot extends TimedRobot {
             //always pass the button for climb to the leg climber
             //it needs to keep track of how many times the button was pressed
             //pressed 10 times will allow us to climb even if the match isn't in its last 30 seconds
-            legClimberController.setLegClimber(controls.getClimberUp());
-            if (controls.getClimberDown()) {
-                legClimberController.lowerClimber();
+            if(controls.getClimberDown()){
+                legClimberController.runClimber(LegClimberController.State.DOWN);
+            }else if(controls.getClimberUp()){
+                legClimberController.runClimber(LegClimberController.State.UP);
+            }else{
+                legClimberController.runClimber(LegClimberController.State.STOP);
             }
+
         }
 
         if(intake !=null) {
