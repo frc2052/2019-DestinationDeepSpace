@@ -76,6 +76,10 @@ public class AutoModeSelector {
         }
     }
 
+    private static PositionSelection lastPosition = null;
+    private static FirstTargetSelection lastFirst = null;
+    private static SecondTargetSelection lastSecond = null;
+    private static AutoMode selectedAuto = null;
     public static AutoMode getSelectedAutoMode() {
 //        Action autoAction = new DontMove().getAction();
 //        AutoModeDefinition firstSelected = getFirstSelectedAutomode();
@@ -98,66 +102,69 @@ public class AutoModeSelector {
 //            SmartDashboard.putBoolean("Does AutoMode Exist?", false);
 //        }
 
-        PositionSelection start = sendableChooserPosition.getSelected();
+        PositionSelection position = sendableChooserPosition.getSelected();
         FirstTargetSelection first = sendableChooserFirstTarget.getSelected();
-        AutoMode selectedAuto = null;
-        switch (start)
-        {
-            case TEST:
-                selectedAuto = new Test(start.startPos);
-                break;
-            case LEFT:
-            case LEFTHAB2:
-                switch (first)
-                {
-                    case CLHATCH:
-                        selectedAuto = new LeftToCenterLeft(start.startPos);
-                    break;
-                    case LCHATCH:
-                        selectedAuto = new LeftToLeftClose(start.startPos);
-                    break;
-                    case LMHATCH:
-                        selectedAuto = new LeftToLeftMiddle(start.startPos);
-                    break;
-                    case LFHATCH:
-                        selectedAuto = new LeftToLeftFar(start.startPos);
-                    break;
-                }
-                break;
-            case RIGHT:
-            case RIGHTHAB2:
-                switch(first)
-                {
-                    case CRHATCH:
-                        selectedAuto = new CenterToCenterRight(start.startPos);
-                    break;
-                    case RMHATCH:
-                        selectedAuto = new RightToRightMiddle(start.startPos);
-                    break;
-                    case RFHATCH:
-                        selectedAuto = new RightToRightFar(start.startPos);
-                    break;
-                    case RCHATCH:
-                        selectedAuto = new RightToRightClose(start.startPos);
-                    break;
-                }
-                break;
-            case CENTER:
-                switch(first)
-                {
-                    case CLHATCH:
-                        selectedAuto = new CenterToCenterLeft(start.startPos);
-                    break;
-                    case CRHATCH:
-                        selectedAuto = new CenterToCenterRight(start.startPos);
-                    break;
+        SecondTargetSelection second = sendableChooserSecondTarget.getSelected();
 
-                }
-                break;
-            case NONE:
-            default:
-                selectedAuto = new DontMove();
+        if (selectedAuto == null || position != lastPosition || first != lastFirst || second != lastSecond) {
+            lastPosition = position;
+            lastFirst = first;
+            lastSecond = second;
+            switch (position) {
+                case TEST:
+                    selectedAuto = new Test(position.startPos);
+                    break;
+                case LEFT:
+                case LEFTHAB2:
+                    switch (first) {
+                        case CLHATCH:
+                            selectedAuto = new LeftToCenterLeft(position.startPos);
+                            break;
+                        case LCHATCH:
+                            selectedAuto = new LeftToLeftClose(position.startPos);
+                            break;
+                        case LMHATCH:
+                            selectedAuto = new LeftToLeftMiddle(position.startPos);
+                            break;
+                        case LFHATCH:
+                            selectedAuto = new LeftToLeftFar(position.startPos);
+                            break;
+                    }
+                    break;
+                case RIGHT:
+                case RIGHTHAB2:
+                    switch (first) {
+                        case CRHATCH:
+                            selectedAuto = new CenterToCenterRight(position.startPos);
+                            break;
+                        case RMHATCH:
+                            selectedAuto = new RightToRightMiddle(position.startPos);
+                            break;
+                        case RFHATCH:
+                            selectedAuto = new RightToRightFar(position.startPos);
+                            break;
+                        case RCHATCH:
+                            selectedAuto = new RightToRightClose(position.startPos);
+                            break;
+                    }
+                    break;
+                case CENTER:
+                    switch (first) {
+                        case CLHATCH:
+                            selectedAuto = new CenterToCenterLeft(position.startPos);
+                            break;
+                        case CRHATCH:
+                            selectedAuto = new CenterToCenterRight(position.startPos);
+                            break;
+
+                    }
+                    break;
+                case NONE:
+                default:
+                    selectedAuto = new DontMove();
+            }
         }
+
         if (selectedAuto != null) {
             SmartDashboard.putBoolean("Does AutoMode Exist?", true);
 //            selectedAuto.init();

@@ -53,8 +53,8 @@ public class IntakeController {
     public void setShootCargo(ShootSpeed shoot) {
         switch (shoot) {
             case ROCKET1:
-                clawTop.set(ControlMode.PercentOutput, -.7);
-                clawBottom.set(ControlMode.PercentOutput, .7);
+                clawTop.set(ControlMode.PercentOutput, -.15);
+                clawBottom.set(ControlMode.PercentOutput, .35);
                 break;
             case CARGOSHIP:
                 clawTop.set(ControlMode.PercentOutput, - Constants.Intake.kOuttakeCargoShipSpeed);
