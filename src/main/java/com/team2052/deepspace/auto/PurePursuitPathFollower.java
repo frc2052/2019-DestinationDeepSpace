@@ -263,6 +263,9 @@ public class PurePursuitPathFollower{
         SmartDashboard.putNumber("SetLeftVel", leftWheelVel);
         SmartDashboard.putNumber("SetRightVel", rightWheelVel);
         SmartDashboard.putNumber("SetRobotVel", (rightWheelVel + leftWheelVel)/2);
+        if(!currentFlag().equals("")) {
+            SmartDashboard.putString("current flag", currentFlag());
+        }
     }
 
     /**

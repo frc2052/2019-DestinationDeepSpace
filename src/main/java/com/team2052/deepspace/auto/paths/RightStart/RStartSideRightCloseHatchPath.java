@@ -1,5 +1,7 @@
 package com.team2052.deepspace.auto.paths.RightStart;
 
+import com.team2052.deepspace.Constants;
+import com.team2052.deepspace.auto.AutoModeSelector;
 import com.team2052.deepspace.auto.paths.Path;
 import com.team2052.lib.Autonomous.Position2d;
 import com.team2052.lib.Autonomous.Waypoint;
@@ -8,12 +10,13 @@ import java.util.List;
 
 public class RStartSideRightCloseHatchPath extends Path {
 
-    public RStartSideRightCloseHatchPath(Direction backward) {
-        setDirection(Direction.FORWARD);
-        addWaypoint(new Waypoint(new Position2d(0,47),50)); // C
-        addWaypoint(new Waypoint(new Position2d(68,65),50)); // f
-        addWaypoint(new Waypoint(new Position2d(194,65),50)); // n
-        addWaypoint(new Waypoint(new Position2d(194,47),50)); // p
+    public RStartSideRightCloseHatchPath(Direction direction) {
+        setDirection(direction);
+        addWaypoint(new Waypoint(new Position2d(AutoModeSelector.getForwardOffset(),47),60));
+        addWaypoint(new Waypoint(new Position2d(50,47), Constants.Autonomous.kTestVelocity, "down"));
+        addWaypoint(new Waypoint(new Position2d(170,75),Constants.Autonomous.kTestVelocity));
+        addWaypoint(new Waypoint(new Position2d(194,75),Constants.Autonomous.kTestVelocity));
+        addWaypoint(new Waypoint(new Position2d(194,65),Constants.Autonomous.kTestVelocity, "end"));
         OptimizePath();
     }
 
