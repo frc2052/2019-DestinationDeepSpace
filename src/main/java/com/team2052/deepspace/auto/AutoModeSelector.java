@@ -1,92 +1,133 @@
 package com.team2052.deepspace.auto;
 
+import com.team2052.deepspace.Constants;
+import com.team2052.deepspace.auto.actions.Action;
+import com.team2052.deepspace.auto.actions.SeriesAction;
 import com.team2052.deepspace.auto.modes.CenterStart.*;
 import com.team2052.deepspace.auto.modes.DontMove;
 import com.team2052.deepspace.auto.modes.LeftStart.*;
 import com.team2052.deepspace.auto.modes.RightStart.*;
 import com.team2052.deepspace.auto.modes.Test;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import com.team2052.lib.Autonomous.Position2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import java.util.Arrays;
 
 public class AutoModeSelector {
     private static SendableChooser<PositionSelection> sendableChooserPosition;
     private static SendableChooser<FirstTargetSelection> sendableChooserFirstTarget;
     private static SendableChooser<SecondTargetSelection> sendableChooserSecondTarget;
 
-    public static void putToShuffleBoard(){
+    public static void putToShuffleBoard() {
         sendableChooserPosition = new SendableChooser<PositionSelection>();
         sendableChooserFirstTarget = new SendableChooser<FirstTargetSelection>();
         sendableChooserSecondTarget = new SendableChooser<SecondTargetSelection>();
 
-        for (int i = 0; i < PositionSelection.values().length; i++){
+        for (int i = 0; i < PositionSelection.values().length; i++) {
             PositionSelection mode = PositionSelection.values()[i];
-            if(i == 0){
-                sendableChooserPosition.setDefaultOption(mode.name,mode);
-            }else{
+            if (i == 0) {
+                sendableChooserPosition.setDefaultOption(mode.name, mode);
+            } else {
                 sendableChooserPosition.addOption(mode.name, mode);
             }
         }
 
-        for (int i = 0; i < FirstTargetSelection.values().length; i++){
+        for (int i = 0; i < FirstTargetSelection.values().length; i++) {
             FirstTargetSelection mode = FirstTargetSelection.values()[i];
-            if(i == 0){
-                sendableChooserFirstTarget.setDefaultOption(mode.name,mode);
-            }else{
+            if (i == 0) {
+                sendableChooserFirstTarget.setDefaultOption(mode.name, mode);
+            } else {
                 sendableChooserFirstTarget.addOption(mode.name, mode);
             }
         }
 
-        for (int i = 0; i < SecondTargetSelection.values().length; i++){
+        for (int i = 0; i < SecondTargetSelection.values().length; i++) {
             SecondTargetSelection mode = SecondTargetSelection.values()[i];
-            if(i == 0){
-                sendableChooserSecondTarget.setDefaultOption(mode.name,mode);
-            }else{
+            if (i == 0) {
+                sendableChooserSecondTarget.setDefaultOption(mode.name, mode);
+            } else {
                 sendableChooserSecondTarget.addOption(mode.name, mode);
             }
         }
-        SmartDashboard.putBoolean("Start Hab 2?",false);
-        SmartDashboard.putData("Auto Start Pos", sendableChooserPosition);
+        SmartDashboard.putData("Start Position", sendableChooserPosition);
         SmartDashboard.putData("First Target", sendableChooserFirstTarget);
         SmartDashboard.putData("Second Target", sendableChooserSecondTarget);
     }
-    public static boolean getHab2Start (){
-        return SmartDashboard.getBoolean("Start Hab 2?", false);
+
+    public static boolean getStartDirection(){
+        return getFirstSelectedAutomode().autoMode.getStartDirection().isForward;
     }
-    public static AutoModeDefinition getSelectedAutomode(){
-        String selected = "";
+
+    public static Action getSelectedAction(){
+        AutoModeDefinition firstSelected = getFirstSelectedAutomode();
+        AutoModeDefinition secondSelected = getSecondSelectedAutomode();
+        Action autoAction = null;
         try {
-            selected = sendableChooserPosition.getSelected().name + sendableChooserFirstTarget.getSelected().name
-                    + (sendableChooserSecondTarget.getSelected().name.equals("None") ? "" : sendableChooserSecondTarget.getSelected().name);
-        }catch (Exception e){
-            System.out.println("ERROR AT SELECTED");
-        }
-        AutoModeDefinition selectedMode = null;
-        try{
             //System.out.println("Selected" + selected);
-            selectedMode = AutoModeDefinition.valueOf(selected);
+
+            if(sendableChooserSecondTarget.getSelected().name.equals("none")) {
+                autoAction = firstSelected.autoMode.action;
+            }else{
+                autoAction = new SeriesAction(Arrays.asList(
+                        firstSelected.autoMode.getAction(),
+                        secondSelected.autoMode.getAction()
+                ));
+            }
             SmartDashboard.putBoolean("Does AutoMode Exist?", true);
-        }catch(Exception e){
+        } catch (Exception e) {
             SmartDashboard.putBoolean("Does AutoMode Exist?", false);
         }
-        return selectedMode;
+        return autoAction;
+
     }
-    public enum PositionSelection
-    {
-        NONE("Select Start"),
-        LEFT("StartLeft"),
-        CENTER("StartCenter"),
-        RIGHT("StartRight"),
-        TEST("test");
+
+    private static AutoModeDefinition getFirstSelectedAutomode() {
+        AutoModeDefinition selectedAuto = null;
+
+        try {
+            String selected = sendableChooserPosition.getSelected().name + sendableChooserFirstTarget.getSelected().name;
+            selected = selected.replaceAll("Hab2", "");
+            selectedAuto = AutoModeDefinition.valueOf(selected);
+        } catch (Exception e) {
+            System.out.println("ERROR with first selection");
+        }
+        return selectedAuto;
+    }
+
+    private static AutoModeDefinition getSecondSelectedAutomode() {
+        AutoModeDefinition selectedAuto = null;
+        try {
+            selectedAuto = AutoModeDefinition.valueOf(sendableChooserFirstTarget.getSelected().name + sendableChooserSecondTarget.getSelected().name);
+        } catch (Exception e) {
+            System.out.println("ERROR with second selection");
+        }
+        return selectedAuto;
+    }
+
+    public static Position2d getStartingPos() {
+        return sendableChooserPosition.getSelected().startPos;
+    }
+
+    public enum PositionSelection {
+        NONE("Select Start", new Position2d(0, 0)),
+        LEFT("StartLeft", new Position2d(0, Constants.Autonomous.kStartLeftInchOffset)),
+        CENTER("StartCenter", new Position2d(0, 0)),
+        RIGHT("StartRight", new Position2d(0, Constants.Autonomous.kStartRightInchOffset)),
+        LEFTHAB2("startLeftHab2", new Position2d(Constants.Autonomous.kStartHab2Offset, Constants.Autonomous.kStartLeftInchOffset)),
+        RIGHTHAB2("startRightHab2", new Position2d(Constants.Autonomous.kStartHab2Offset, Constants.Autonomous.kStartRightInchOffset)),
+        TEST("test", new Position2d(0, 0));
 
         public String name;
-        PositionSelection(String name){
-            this.name = name;
-        }
-        }
+        public Position2d startPos;
 
-    public enum FirstTargetSelection
-    {
+        PositionSelection(String name, Position2d startPos) {
+            this.name = name;
+            this.startPos = startPos;
+        }
+    }
+
+    public enum FirstTargetSelection {
         NONE("Select Target One"),
         LHATCH("CenterLeftHatch"),
         RHATCH("CenterRightHatch"),
@@ -99,14 +140,14 @@ public class AutoModeSelector {
         TEST("test");
 
         public String name;
-        FirstTargetSelection(String name){
+
+        FirstTargetSelection(String name) {
             this.name = name;
         }
     }
 
     //ADD All POSSIBLE COMBONATIONS KEYWORDS  CREATE ALL CLASSES!!!
-    public enum SecondTargetSelection
-    {
+    public enum SecondTargetSelection {
         NONE("None"),
         LHATCH("CenterLeftHatch"),
         RHATCH("CenterRightHatch"),
@@ -119,111 +160,36 @@ public class AutoModeSelector {
 
 
         public String name;
-        SecondTargetSelection(String name){
+
+        SecondTargetSelection(String name) {
             this.name = name;
         }
     }
 
-    public enum AutoModeDefinition
-    {
-        DontMove(DontMove.class),
+    public enum AutoModeDefinition {
+        DontMove(new DontMove()),
 
-        testtest(Test.class),
+        testtest(new Test()),
         //Single path AMDs
-        StartLeftLeftFarHatch(LeftStartSideLeftFarHatch.class),
-        StartLeftLeftMiddleHatch(LeftStartSideLeftMiddleHatch.class),
-        StartLeftLeftCloseHatch(LeftStartSideLeftCloseHatch.class),
-        StartLeftCenterLeftHatch(LeftStartCenterLeftCenterHatch.class),
+        StartLeftLeftFarHatch(new LeftToLeftFar()),
+        StartLeftLeftMiddleHatch(new LeftToLeftMiddle()),
+        StartLeftLeftCloseHatch(new LeftToLeftClose()),
+        StartLeftCenterLeftHatch(new LeftToCenterLeft()),
 
-        StartRightCenterRightHatch(RightStartCenterRightCenterHatch.class),
-        StartRightRightFarHatch(RightStartSideRightFarHatch.class),
-        StartRightRightMiddleHatch(RightStartSideRightMiddleHatch.class),
-        StartRightRightCloseHatch(RightStartSideRightCloseHatch.class),
+        StartRightCenterRightHatch(new RightToRightMiddle()),
+        StartRightRightFarHatch(new RightToRightFar()),
+        StartRightRightMiddleHatch(new RightToRightClose()),
+        StartRightRightCloseHatch(new RightToCenterRight()),
 
-        StartCenterCenterLeftHatch(CenterStartCenterLeftHatch.class),
-        StartCenterCenterRightHatch(CenterStartCenterRightHatch.class),
-
-        //Double path AMDs
-
-        StartCenterCenterLeftHatchLeftFarHatch(CenterStartCenterLeftHatchToLeftFarHatch.class),
-        StartCenterCenterLeftHatchLeftMiddleHatch(CenterStartCenterLeftHatchToLeftMiddleHatch.class),
-        StartCenterCenterLeftHatchLeftCloseHatch(CenterStartCenterLeftHatchToLeftCloseHatch.class),
-
-        StartCenterCenterRightHatchRightFarHatch(CenterStartCenterRightHatchToRightFarHatch.class),
-        StartCenterCenterRightHatchRightMiddleHatch(CenterStartCenterRightHatchToRightMiddleHatch.class),
-        StartCenterCenterRightHatchRightCloseHatch(CenterStartCenterRightHatchToRightCloseHatch.class),
+        StartCenterCenterLeftHatch(new CenterToCenterLeft()),
+        StartCenterCenterRightHatch(new CenterToCenterRight());
 
 
-        StartLeftLeftFarHatchLeftCloseHatch(LeftStartSideLeftFarHatchToLeftCloseHatch.class),
-        StartLeftLeftFarHatchLeftMiddleHatch(LeftStartSideLeftFarHatchToLeftMiddleHatch.class),
+        public final AutoMode autoMode;
 
-        StartLeftLeftMiddleHatchLeftFarHatch(LeftStartSideLeftMiddleHatchToLeftFarHatch.class),
-        StartLeftLeftMiddleHatchLeftCloseHatch(LeftStartSideLeftFarHatchToLeftCloseHatch.class),
-
-        StartLeftLeftCloseHatchLeftMiddleHatch(LeftStartSideLeftCloseHatchToLeftMiddleHatch.class),
-        StartLeftLeftCloseHatchLeftFarHatch(LeftStartSideLeftCloseHatchToLeftFarHatch.class),
-
-        StartLeftCenterLeftHatchLeftCloseHatch(LeftStartCenterLeftHatchToLeftCloseHatch.class),
-        StartLeftCenterLeftHatchLeftMiddleHatch(LeftStartCenterLeftHatchToLeftMiddleHatch.class),
-        StartLeftCenterLeftHatchLeftFarHatch(LeftStartCenterLeftHatchToLeftFarHatch.class),
-
-
-        StartRightCenterRightHatchRightCloseHatch(RightStartCenterRightHatchToRightCloseHatch.class),
-        StartRightCenterRightHatchRightFarHatch(RightStartCenterRightHatchToRightFarHatch.class),
-        StartRightCenterRightHatchRightMiddleHatch(RightStartCenterRightHatchToRightMiddleHatch.class),
-
-
-        StartRightRightCloseHatchRightFarHatch(RightStartSideRightCloseHatchToRightFarHatch.class),
-        StartRightRightCloseHatchRightMiddleHatch(RightStartSideRightCloseHatchToRightMiddleHatch.class),
-
-
-        StartRightRightMiddleHatchRightFarHatch(RightStartSideRightMiddleHatchToRightFarHatch.class),
-        StartRightRightMiddleHatchRightCloseHatch(RightStartSideRightMiddleHatchToRightCloseHatch.class),
-
-        StartRightRightFarHatchRightMiddleHatch(RightStartSideRightFarHatchToRightMiddleHatch.class),
-        StartRightRightFarHatchRightCloseHatch(RightStartSideRightFarHatchToRightCloseHatch.class);
-
-
-        private final Class<? extends AutoMode> clazz;
-
-        AutoModeDefinition(Class<? extends  AutoMode> clazz){
-            this.clazz = clazz;
+        AutoModeDefinition(AutoMode autoMode) {
+            this.autoMode = autoMode;
         }
-
-        public AutoMode createInstance(int forwardOffset) { //creates a new instance of the AutoModeBase
-            AutoMode instance = tryCreateWithIntConstructor(forwardOffset);
-            if (instance == null){
-                instance = tryCreateDefaultConstructor();
-            }
-            return  instance;
-        }
-
-        private AutoMode tryCreateWithIntConstructor(int forwardOffset) {
-            AutoMode instance;
-            try {
-                //Look for constructer with int parameter
-                Class[] carg = new Class[1];
-                carg[0] = Integer.class;
-                instance = clazz.getDeclaredConstructor(carg).newInstance(forwardOffset);
-                return instance;
-            } catch (NoSuchMethodException nsm) {
-                return null;
-            } catch (Exception e) {
-                System.out.println("CREATION OF AUTOMODE FAILED");
-                return null;
-            }
-        }
-
-        private AutoMode tryCreateDefaultConstructor() {
-            AutoMode instance;
-            try {
-                instance = clazz.getDeclaredConstructor().newInstance();
-                return instance;
-            } catch (Exception e) {
-                System.out.println("CREATION OF AUTOMODE FAILED");
-                return null;
-            }
-        }
-
     }
 }
+

@@ -1,43 +1,36 @@
 package com.team2052.deepspace.auto;
 
-public class AutoModeRunner {
-    Thread autoThread;
-    AutoModeBase autoMode;
+import com.team2052.deepspace.auto.actions.Action;
+import edu.wpi.first.wpilibj.Timer;
 
-    public void start(AutoModeBase newMode) {//Initializes auto mode
-        if (this.autoMode != null) { //there is already a auto mode, should only happen in testing
-            try {
-                System.out.println("Existing Automode already in AutomodeRunner");
-                System.out.println(this.autoMode.getClass().getName());
-                this.autoMode.stop();
-            }
-            catch (Exception e)
-            {
-                System.out.println("Failed to stop existing Automode");
-                System.out.println(e.getMessage());
-                e.printStackTrace();
-            }
+
+public class AutoModeRunner {
+    private AutoThread autoThread;
+    private Timer timer = new Timer();
+    private Action action;
+
+    public void setAction(Action action){
+        this.action = action;
+    }
+
+    public void start() {//Initializes auto mode
+        if(action != null) {
+            timer.reset();
+            timer.start();
+            autoThread = new AutoThread(action);
+            Thread thread = new Thread(autoThread);
+            thread.start();
         }
-        this.autoMode = newMode;
-        if (this.autoMode == null) {
-            return;
-        }
-        System.out.println("Starting new automode " + this.autoMode.getClass().getName());
-        autoThread = new Thread(() -> this.autoMode.start());
-        autoThread.start();
     }
 
     public void stop() {//Stops auto mode
-        if (autoMode != null) {
-            autoMode.stop();
-            autoMode = null;
-        }
+        autoThread.stop();
         autoThread = null;
     }
 
     public boolean isAutodone(){
         try {
-            return !autoMode.isRunning();
+            return !autoThread.isRunning();
         }catch(Exception e){
             return true;
         }

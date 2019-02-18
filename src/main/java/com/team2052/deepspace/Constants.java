@@ -67,6 +67,7 @@ public class Constants {
 
         public static final double kStartLeftInchOffset = -47;
         public static final double kStartRightInchOffset = -47;
+        public static final double kStartHab2Offset = -48;
 
         public static final double kMinVelocity = 0.05; //range 0-1: minimum amount of power to overcome static friction
 

@@ -1,9 +1,8 @@
 package com.team2052.deepspace;
 
-import com.team2052.deepspace.auto.AutoMode;
-import com.team2052.deepspace.auto.AutoModeFactory;
 import com.team2052.deepspace.auto.AutoModeRunner;
 import com.team2052.deepspace.auto.AutoModeSelector;
+import com.team2052.deepspace.auto.actions.Action;
 import com.team2052.deepspace.subsystems.*;
 import com.team2052.lib.ControlLoop;
 import com.team2052.lib.DriveHelper;
@@ -80,14 +79,13 @@ public class Robot extends TimedRobot {
         controlLoop.start();
         driveTrain.zeroGyro();
         //get the enum for the selected automode
-        AutoModeSelector.AutoModeDefinition currentAutoModeDef = AutoModeSelector.getSelectedAutomode();
+        Action currentAction = AutoModeSelector.getSelectedAction();
         //ask the factory to create an instance (if not already created)
-        AutoMode currentAutoMode = AutoModeFactory.getAutoMode(currentAutoModeDef, AutoModeSelector.getHab2Start());
         //use the instance to get direction and position
-        robotStateCalculator.setStartDirection(currentAutoMode.getStartDirection().isForward);
-        robotStateCalculator.resetRobotState(currentAutoMode.getLateralStartPosition().lateralOffset,currentAutoMode.getForwardOffset());
+        robotStateCalculator.setStartDirection(AutoModeSelector.getStartDirection());
+        robotStateCalculator.resetRobotState(AutoModeSelector.getStartingPos());
         //start running the auto mode
-        autoModeRunner.start(currentAutoMode);
+        autoModeRunner.start();
     }
 
     /**
@@ -141,12 +139,7 @@ public class Robot extends TimedRobot {
         autoModeRunner.stop();
         controlLoop.stop();
         driveTrain.stop();
-        AutoModeSelector.AutoModeDefinition selected = AutoModeSelector.getSelectedAutomode();
-        if (selected != null)
-        {
-            //force the auto mode to preload so that all paths are calculated before AutoInit
-            AutoMode preload = AutoModeFactory.getAutoMode((selected), AutoModeSelector.getHab2Start());
-        }
+        autoModeRunner.setAction(AutoModeSelector.getSelectedAction());
     }
 
     private void driverControlled(){

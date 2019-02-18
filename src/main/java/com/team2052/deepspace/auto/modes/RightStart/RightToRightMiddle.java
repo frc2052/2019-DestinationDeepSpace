@@ -9,15 +9,15 @@ import com.team2052.deepspace.auto.paths.RightStart.RStartSideRightMiddleHatchPa
 
 import java.util.Arrays;
 
-public class RightStartSideRightMiddleHatch extends AutoMode {
-    private Action myAction;
-    public RightStartSideRightMiddleHatch(int forwardOffset){
-        super();
-        setStartDirection(StartDirection.BACKWARD);
-        setLateralStartPosition(LateralStartPosition.RIGHT);
-        setForwardStartOffset(forwardOffset);
+public class RightToRightMiddle extends AutoMode {
 
-        myAction = new SeriesAction(Arrays.asList(
+    public RightToRightMiddle(){
+        super();
+
+    }
+    @Override
+    protected void init() {
+        action  = new SeriesAction(Arrays.asList(
                 //Starting path starts going backwards
                 new FollowPathAction(new RStartSideRightMiddleHatchPath(Path.Direction.BACKWARD)),
                 //Vision
@@ -30,9 +30,5 @@ public class RightStartSideRightMiddleHatch extends AutoMode {
                         new GroundIntakeAction(false))
                 )
         ));
-    }
-    @Override
-    protected void init() {
-        runAction(myAction);
     }
 }

@@ -19,9 +19,9 @@ public class Test2 extends AutoMode {
 
         System.out.println("init");
 
-        runAction(new SeriesAction(Arrays.asList(
+        action = new SeriesAction(Arrays.asList(
                 new FollowPathAction(testPath),
                 new FollowPathAction(testBPath)
-        )));
+        ));
     }
 }

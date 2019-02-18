@@ -1,16 +1,24 @@
 package com.team2052.deepspace.auto;
 
 import com.team2052.deepspace.Constants;
+import com.team2052.deepspace.auto.actions.Action;
 
 /**
  * This is for game specific code
  */
-public abstract class AutoMode extends AutoModeBase{
-    private StartDirection startDirection = Constants.Autonomous.defaultStartDirection;
-    private LateralStartPosition lateralStartPosition = LateralStartPosition.CENTER;
-    private int forwardOffset;
+public abstract class AutoMode{
+    protected Action action;
+    protected abstract void init();
 
-    public void setStartDirection(StartDirection startDirection){this.startDirection = startDirection;}
+    public Action getAction(){
+        init();
+        return action;
+    }
+
+    private StartDirection startDirection = Constants.Autonomous.defaultStartDirection;
+    private AutoModeSelector.PositionSelection startPosition = AutoModeSelector.PositionSelection.CENTER;
+
+    protected void setStartDirection(StartDirection startDirection){this.startDirection = startDirection;}
     public StartDirection getStartDirection(){
         return startDirection;
     }
@@ -27,24 +35,11 @@ public abstract class AutoMode extends AutoModeBase{
         }
     }
 
-    public void setLateralStartPosition(LateralStartPosition lateralStartPosition){this.lateralStartPosition = lateralStartPosition;}
-    public LateralStartPosition getLateralStartPosition(){
-        return lateralStartPosition;
+    protected void setStartPosition(AutoModeSelector.PositionSelection startPosition){
+        this.startPosition = startPosition;
     }
-    public enum LateralStartPosition {
-        LEFT(Constants.Autonomous.kStartLeftInchOffset),
-        RIGHT(Constants.Autonomous.kStartRightInchOffset),
-        CENTER(0.0)
-        ;
+    public AutoModeSelector.PositionSelection getStartPosition(){
+        return startPosition;
+    }
 
-        public final double lateralOffset;
-
-        LateralStartPosition(double lateralOffset){
-            this.lateralOffset = lateralOffset;
-        }
-    }
-    public void setForwardStartOffset(int offset){this.forwardOffset = offset;}
-    public int getForwardOffset(){
-        return forwardOffset;
-    }
 }

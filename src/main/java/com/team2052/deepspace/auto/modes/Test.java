@@ -13,7 +13,6 @@ public class Test extends AutoMode {
 
     public Test(){
         setStartDirection(StartDirection.BACKWARD);
-        setLateralStartPosition(LateralStartPosition.LEFT);
     }
 
     CompoundPath p1 = new NotSmoothTestCompoundPath();
@@ -23,9 +22,9 @@ public class Test extends AutoMode {
 
         System.out.println("init");
 
-        runAction(new SeriesAction(Arrays.asList(
+        action = new SeriesAction(Arrays.asList(
 
                 new FollowPathListAction(p1.getPaths())
-        )));
+        ));
     }
 }

@@ -65,10 +65,10 @@ public class RobotStateCalculator implements ILoopable{
 
     }
 
-    public void resetRobotState(double lateralOffset, double forwardOffset){
+    public void resetRobotState(Position2d pos){
         latestPosition.reset();
-        latestPosition.setForward(forwardOffset);
-        latestPosition.setLateral(lateralOffset);
+        latestPosition.setForward(pos.getForward());
+        latestPosition.setLateral(pos.getLateral());
         driveTrain.resetEncoders();
         pastLeftInches = 0;
         pastRightInches = 0;
