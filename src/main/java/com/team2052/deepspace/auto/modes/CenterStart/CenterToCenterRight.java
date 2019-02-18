@@ -5,12 +5,13 @@ import com.team2052.deepspace.auto.actions.*;
 import com.team2052.deepspace.auto.paths.CenterHatchStarts.CRightHatchStartRightHatchPickUpPathCompoundPath;
 import com.team2052.deepspace.auto.paths.CenterStart.CStartCenterRightHatchPath;
 import com.team2052.deepspace.auto.paths.Path;
+import com.team2052.lib.Autonomous.Position2d;
 
 import java.util.Arrays;
 
 public class CenterToCenterRight extends AutoMode {
-    public CenterToCenterRight(){
-        super();
+    public CenterToCenterRight(Position2d startPos){
+        super(startPos);
         setStartDirection(StartDirection.BACKWARD);
 
     }
@@ -18,7 +19,7 @@ public class CenterToCenterRight extends AutoMode {
     protected void init() {
         setAction(new SeriesAction(Arrays.asList(
                 //Starting path starts going backwards
-                new FollowPathAction(new CStartCenterRightHatchPath(Path.Direction.BACKWARD)),
+                new FollowPathAction(new CStartCenterRightHatchPath(startingPos, Path.Direction.BACKWARD)),
                 //Vision
                 new LineUpAction(false),
                 // when true, ground outtake action

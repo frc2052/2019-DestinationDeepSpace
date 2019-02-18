@@ -2,17 +2,27 @@ package com.team2052.deepspace.auto;
 
 import com.team2052.deepspace.Constants;
 import com.team2052.deepspace.auto.actions.Action;
+import com.team2052.lib.Autonomous.Position2d;
 
 /**
  * This is for game specific code
  */
 public abstract class AutoMode{
+
+    protected Position2d startingPos;
     private Action action = null;
+
+    public AutoMode(Position2d startPos)  {
+        this.startingPos = startPos;
+    }
+
     protected abstract void init();
 
     public Action getAction(){
-        if(action != null){
+        System.out.println("is action ! null in automode: " + (action == null));
+        if(action == null){
             init();
+            System.out.println("AFTER INIT");
         }
         return action;
     }
@@ -23,7 +33,6 @@ public abstract class AutoMode{
 
 
     private StartDirection startDirection = Constants.Autonomous.defaultStartDirection;
-    private AutoModeSelector.PositionSelection startPosition = AutoModeSelector.PositionSelection.CENTER;
 
     protected void setStartDirection(StartDirection startDirection){this.startDirection = startDirection;}
     public StartDirection getStartDirection(){
@@ -40,13 +49,6 @@ public abstract class AutoMode{
         StartDirection(boolean isForward){
             this.isForward = isForward;
         }
-    }
-
-    protected void setStartPosition(AutoModeSelector.PositionSelection startPosition){
-        this.startPosition = startPosition;
-    }
-    public AutoModeSelector.PositionSelection getStartPosition(){
-        return startPosition;
     }
 
 }

@@ -8,9 +8,9 @@ import java.util.List;
 
 public class LStartSideLeftFarHatchPath extends Path {
 
-    public LStartSideLeftFarHatchPath(Direction backward) {
+    public LStartSideLeftFarHatchPath(Position2d startPos, Direction backward) {
         setDirection(Direction.FORWARD);
-        addWaypoint(new Waypoint(new Position2d(0,0),50));
+        addWaypoint(new Waypoint(startPos,50));
         OptimizePath();
     }
 

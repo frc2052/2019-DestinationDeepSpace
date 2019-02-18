@@ -143,11 +143,11 @@ public class Robot extends TimedRobot {
 
     @Override
     public void disabledPeriodic(){
-        //autoModeRunner.stop();
+        autoModeRunner.stop();
         controlLoop.stop();
         groundIntakeLooper.stop();
         driveTrain.stop();
-        //autoModeRunner.setAction(AutoModeSelector.getSelectedAction());
+        autoModeRunner.setAction(AutoModeSelector.getSelectedAction());
     }
 
     private void driverControlled(){
@@ -167,7 +167,6 @@ public class Robot extends TimedRobot {
         }
         robotstate.outputToSmartDashboard();
         driveTrain.setHighGear(controls.getShift());
-    }
         //legClimberController.printEncoder();
 
         VisionController.showBackPiCamera(controls.getShowBackCamera());
@@ -185,6 +184,7 @@ public class Robot extends TimedRobot {
         }
 
         if(intake != null && groundIntake != null) {
+            //System.out.println("INTAKES ARE NOT NULL");
             intake.setCargoIntake(controls.getCargoIntake());
             intake.toggleArmPosition(controls.getIntakeArmToggle());
 
@@ -217,3 +217,4 @@ public class Robot extends TimedRobot {
 //            }
         }
     }
+}

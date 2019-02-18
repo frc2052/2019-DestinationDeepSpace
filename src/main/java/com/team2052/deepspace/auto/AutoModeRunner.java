@@ -10,11 +10,26 @@ public class AutoModeRunner {
     private Action action;
     private Thread thread = null;
 
+    private static AutoModeRunner instance = null;
+    public static AutoModeRunner getInstance() {
+        if (instance == null) {
+            try {
+                instance = new AutoModeRunner();
+            } catch (Exception exc) {
+                System.out.println("DANGER: Failed to create AutoodeRunner: " + exc.getMessage());
+                exc.printStackTrace();
+            }
+        }
+        return instance;
+    }
+
     public void setAction(Action action){
+        //System.out.println("setting action");
         this.action = action;
     }
 
     public void start() {//Initializes auto mode
+        //System.out.println("is action ! null: " + (action != null));
         if(action != null) {
             timer.reset();
             timer.start();
@@ -25,9 +40,10 @@ public class AutoModeRunner {
     }
 
     public void stop() {//Stops auto mode
-        autoRunnable.stop();
+        if(autoRunnable != null) {
+            autoRunnable.stop();
+        }
         autoRunnable = null;
-        action = null;
         thread = null;
     }
 
