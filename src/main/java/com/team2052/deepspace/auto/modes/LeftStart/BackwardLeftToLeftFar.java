@@ -9,9 +9,9 @@ import com.team2052.lib.Autonomous.Position2d;
 
 import java.util.Arrays;
 
-public class LeftToLeftFar extends AutoMode {
+public class BackwardLeftToLeftFar extends AutoMode {
 
-    public LeftToLeftFar(Position2d startPos){
+    public BackwardLeftToLeftFar(Position2d startPos){
         super(startPos);
         setStartDirection(StartDirection.BACKWARD);
 

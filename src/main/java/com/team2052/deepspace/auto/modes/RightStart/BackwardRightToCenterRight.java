@@ -1,17 +1,17 @@
-package com.team2052.deepspace.auto.modes.LeftStart;
+package com.team2052.deepspace.auto.modes.RightStart;
 
 import com.team2052.deepspace.auto.AutoMode;
 import com.team2052.deepspace.auto.actions.*;
-import com.team2052.deepspace.auto.paths.LeftHatchStarts.LCloseHatchStartLeftHatchPickUpPathCompoundPath;
-import com.team2052.deepspace.auto.paths.LeftStart.LStartSideLeftCloseHatchPath;
+import com.team2052.deepspace.auto.paths.CenterHatchStarts.CRightHatchStartRightHatchPickUpPathCompoundPath;
 import com.team2052.deepspace.auto.paths.Path;
+import com.team2052.deepspace.auto.paths.RightStart.RStartCenterRightHatchPath;
 import com.team2052.lib.Autonomous.Position2d;
 
 import java.util.Arrays;
 
-public class LeftToLeftClose extends AutoMode {
+public class BackwardRightToCenterRight extends AutoMode {
 
-    public LeftToLeftClose(Position2d startPos){
+    public BackwardRightToCenterRight(Position2d startPos){
         super(startPos);
         setStartDirection(StartDirection.BACKWARD);
     }
@@ -19,14 +19,14 @@ public class LeftToLeftClose extends AutoMode {
     protected void init() {
         setAction(new SeriesAction(Arrays.asList(
                 //Starting path starts going backwards
-                new FollowPathAction(new LStartSideLeftCloseHatchPath(startingPos, Path.Direction.BACKWARD)),
+                new FollowPathAction(new RStartCenterRightHatchPath(startingPos, Path.Direction.BACKWARD)),
                 //Vision
-                new LineUpAction(18,false),
+                new LineUpAction(false),
                 // when true, ground outtake action
                 new GroundIntakeAction(true),
                 new ParallelAction(Arrays.asList(
                         //Turns robot around and drives back towards loading station
-                        new FollowPathListAction(new LCloseHatchStartLeftHatchPickUpPathCompoundPath().getPaths()),
+                        new FollowPathListAction(new CRightHatchStartRightHatchPickUpPathCompoundPath().getPaths()),
                         new GroundIntakeAction(false)
                 ))
         )));

@@ -7,13 +7,8 @@ import com.team2052.deepspace.auto.modes.CenterStart.BackwardCenterToCenterRight
 import com.team2052.deepspace.auto.modes.CenterStart.ForwardCanterToCenterLeft;
 import com.team2052.deepspace.auto.modes.CenterStart.ForwardCenterToCenterRight;
 import com.team2052.deepspace.auto.modes.DontMove;
-import com.team2052.deepspace.auto.modes.LeftStart.LeftToCenterLeft;
-import com.team2052.deepspace.auto.modes.LeftStart.LeftToLeftClose;
-import com.team2052.deepspace.auto.modes.LeftStart.LeftToLeftFar;
-import com.team2052.deepspace.auto.modes.LeftStart.LeftToLeftMiddle;
-import com.team2052.deepspace.auto.modes.RightStart.RightToRightClose;
-import com.team2052.deepspace.auto.modes.RightStart.RightToRightFar;
-import com.team2052.deepspace.auto.modes.RightStart.RightToRightMiddle;
+import com.team2052.deepspace.auto.modes.LeftStart.*;
+import com.team2052.deepspace.auto.modes.RightStart.*;
 import com.team2052.deepspace.auto.modes.Test;
 import com.team2052.lib.Autonomous.Position2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -119,7 +114,7 @@ public class AutoModeSelector {
             second = SecondTargetSelection.NONE;
         }
 
-        if (selectedAuto == null || position != lastPosition || first != lastFirst || second != lastSecond) {
+        if (selectedAuto == null || selectedAuto.getAction().isFinished() || position != lastPosition || first != lastFirst || second != lastSecond) {
             lastPosition = position;
             lastFirst = first;
             lastSecond = second;
@@ -131,17 +126,28 @@ public class AutoModeSelector {
                 case LEFTHAB2:
                     switch (first) {
                         case BCLHATCH:
-                            selectedAuto = new LeftToCenterLeft(position.startPos);
+                            selectedAuto = new BackwardLeftToCenterLeft(position.startPos);
                             break;
-                        case LCHATCH:
-                            selectedAuto = new LeftToLeftClose(position.startPos);
+                        case BLCHATCH:
+                            selectedAuto = new BackwardLeftToLeftClose(position.startPos);
                             break;
-                        case LMHATCH:
-                            selectedAuto = new LeftToLeftMiddle(position.startPos);
+                        case BLMHATCH:
+                            selectedAuto = new BackwardLeftToLeftMiddle(position.startPos);
                             break;
-                        case LFHATCH:
-                            selectedAuto = new LeftToLeftFar(position.startPos);
+                        case BLFHATCH:
+                            selectedAuto = new BackwardLeftToLeftFar(position.startPos);
                             break;
+                        case FCLHATCH:
+                            selectedAuto = new ForwardLeftToCenterLeft(position.startPos);
+                            break;
+                        case FLCHATCH:
+                            selectedAuto = new ForwardLeftToLeftClose(position.startPos);
+                            break;
+                        case FLMHATCH:
+                            selectedAuto = new ForwardLeftToLeftMiddle(position.startPos);
+                            break;
+                        case FLFHATCH:
+                            selectedAuto = new ForwardLeftToLeftFar(position.startPos);
                     }
                     break;
                 case RIGHT:
@@ -150,14 +156,26 @@ public class AutoModeSelector {
                         case BCRHATCH:
                             selectedAuto = new BackwardCenterToCenterRight(position.startPos);
                             break;
-                        case RMHATCH:
-                            selectedAuto = new RightToRightMiddle(position.startPos);
+                        case BRMHATCH:
+                            selectedAuto = new BackwardRightToRightMiddle(position.startPos);
                             break;
-                        case RFHATCH:
-                            selectedAuto = new RightToRightFar(position.startPos);
+                        case BRFHATCH:
+                            selectedAuto = new BackwardRightToRightFar(position.startPos);
                             break;
-                        case RCHATCH:
-                            selectedAuto = new RightToRightClose(position.startPos);
+                        case BRCHATCH:
+                            selectedAuto = new BackwardRightToRightClose(position.startPos);
+                            break;
+                        case FCRHATCH:
+                            selectedAuto = new ForwardCenterToCenterRight(position.startPos);
+                            break;
+                        case FRMHATCH:
+                            selectedAuto = new ForwardRightToRightMiddle(position.startPos);
+                            break;
+                        case FRFHATCH:
+                            selectedAuto = new ForwardRightToRightFar(position.startPos);
+                            break;
+                        case FRCHATCH:
+                            selectedAuto = new ForwardRightToRightClose(position.startPos);
                             break;
                     }
                     break;
@@ -244,12 +262,18 @@ public class AutoModeSelector {
         BCRHATCH("BackCenterRightHatch"),
         FCLHATCH("FrontCenterLeftHatch"),
         FCRHATCH("FrontCenterRightHatch"),
-        LFHATCH("LeftFarHatch"),
-        RFHATCH("RightFarHatch"),
-        LMHATCH("LeftMiddleHatch"),
-        RMHATCH("RightMiddleHatch"),
-        LCHATCH("LeftCloseHatch"),
-        RCHATCH("RightCloseHatch"),
+        BLFHATCH("BackLeftFarHatch"),
+        FLFHATCH("FrontLeftFarHatch"),
+        BRFHATCH("BackRightFarHatch"),
+        FRFHATCH("FrontRightFarHatch"),
+        BLMHATCH("BackLeftMiddleHatch"),
+        FLMHATCH("FrontLeftMiddleHatch"),
+        BRMHATCH("BackRightMiddleHatch"),
+        FRMHATCH("FrontRightMiddleHatch"),
+        BLCHATCH("BackLeftCloseHatch"),
+        FLCHATCH("FrontLeftCloseHatch"),
+        BRCHATCH("BackRightCloseHatch"),
+        FRCHATCH("FrontRightCloseHatch"),
         TEST("test");
 
         public String name;

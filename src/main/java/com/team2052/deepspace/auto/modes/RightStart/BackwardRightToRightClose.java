@@ -1,16 +1,17 @@
-package com.team2052.deepspace.auto.modes.LeftStart;
+package com.team2052.deepspace.auto.modes.RightStart;
 
 import com.team2052.deepspace.auto.AutoMode;
 import com.team2052.deepspace.auto.actions.*;
-import com.team2052.deepspace.auto.paths.CenterHatchStarts.CLeftHatchStartLeftHatchPickUpPathCompoundPath;
-import com.team2052.deepspace.auto.paths.LeftStart.LStartCenterLeftHatchPath;
 import com.team2052.deepspace.auto.paths.Path;
+import com.team2052.deepspace.auto.paths.RightSideHatchStarts.RCloseHatchStartRightHatchPickUpPathCompoundPath;
+import com.team2052.deepspace.auto.paths.RightStart.RStartSideRightCloseHatchPath;
 import com.team2052.lib.Autonomous.Position2d;
 
 import java.util.Arrays;
 
-public class LeftToCenterLeft extends AutoMode {
-    public LeftToCenterLeft(Position2d startPos){
+public class BackwardRightToRightClose extends AutoMode {
+
+    public BackwardRightToRightClose(Position2d startPos){
         super(startPos);
         setStartDirection(StartDirection.BACKWARD);
     }
@@ -18,14 +19,14 @@ public class LeftToCenterLeft extends AutoMode {
     protected void init() {
         setAction(new SeriesAction(Arrays.asList(
                 //Starting path starts going backwards
-                new FollowPathAction(new LStartCenterLeftHatchPath(startingPos, Path.Direction.BACKWARD)),
+                new FollowPathAction(new RStartSideRightCloseHatchPath(startingPos, Path.Direction.BACKWARD)),
                 //Vision
                 new LineUpAction(false),
                 // when true, ground outtake action
                 new GroundIntakeAction(true),
-                //Turns robot around and drives back towards loading station
                 new ParallelAction(Arrays.asList(
-                        new FollowPathListAction(new CLeftHatchStartLeftHatchPickUpPathCompoundPath().getPaths()),
+                        //Turns robot around and drives back towards loading station
+                        new FollowPathListAction(new RCloseHatchStartRightHatchPickUpPathCompoundPath().getPaths()),
                         new GroundIntakeAction(false)
                 ))
         )));
