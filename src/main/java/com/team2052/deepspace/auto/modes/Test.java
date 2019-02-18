@@ -22,9 +22,9 @@ public class Test extends AutoMode {
 
         System.out.println("init");
 
-        action = new SeriesAction(Arrays.asList(
+        setAction(new SeriesAction(Arrays.asList(
 
                 new FollowPathListAction(p1.getPaths())
-        ));
+        )));
     }
 }

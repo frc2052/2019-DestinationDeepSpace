@@ -16,7 +16,7 @@ public class LeftToLeftMiddle extends AutoMode {
     }
     @Override
     protected void init() {
-        action = new SeriesAction(Arrays.asList(
+        setAction(new SeriesAction(Arrays.asList(
                 //Starting path starts going backwards
                 new FollowPathAction(new LStartSideLeftMiddleHatchPath(Path.Direction.BACKWARD)),
                 //Vision
@@ -26,8 +26,8 @@ public class LeftToLeftMiddle extends AutoMode {
                 new ParallelAction(Arrays.asList(
                         //Turns robot around and drives back towards loading station
                         new FollowPathListAction(new LMiddleHatchStartLeftHatchPickUpPathCompoundPath().getPaths()),
-                        new GroundIntakeAction(false))
-                )
-        ));
+                        new GroundIntakeAction(false)
+                ))
+        )));
     }
 }

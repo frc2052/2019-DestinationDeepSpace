@@ -76,7 +76,7 @@ public class Constants {
     }
 
 
-    public  class LegClimber {
+    public class LegClimber {
 
         //////ids//////
         public static final int kLegClimberTalon1id = 7;

@@ -17,7 +17,7 @@ public class RightToCenterRight extends AutoMode {
     }
     @Override
     protected void init() {
-        action = new SeriesAction(Arrays.asList(
+        setAction(new SeriesAction(Arrays.asList(
                 //Starting path starts going backwards
                 new FollowPathAction(new RStartCenterRightHatchPath(Path.Direction.BACKWARD)),
                 //Vision
@@ -27,8 +27,8 @@ public class RightToCenterRight extends AutoMode {
                 new ParallelAction(Arrays.asList(
                         //Turns robot around and drives back towards loading station
                         new FollowPathListAction(new CRightHatchStartRightHatchPickUpPathCompoundPath().getPaths()),
-                        new GroundIntakeAction(false))
-                )
-        ));
+                        new GroundIntakeAction(false)
+                ))
+        )));
     }
 }

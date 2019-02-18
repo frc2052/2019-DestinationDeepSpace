@@ -3,10 +3,10 @@ package com.team2052.deepspace.auto;
 import com.team2052.deepspace.Constants;
 import com.team2052.deepspace.auto.actions.Action;
 
-public class AutoThread implements Runnable{
+public class AutoRunnable implements Runnable{
     Action action;
     boolean running;
-    public AutoThread(Action action){
+    public AutoRunnable(Action action){
         this.action = action;
     }
 

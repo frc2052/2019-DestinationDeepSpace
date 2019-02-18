@@ -5,9 +5,10 @@ import edu.wpi.first.wpilibj.Timer;
 
 
 public class AutoModeRunner {
-    private AutoThread autoThread;
+    private AutoRunnable autoRunnable;
     private Timer timer = new Timer();
     private Action action;
+    private Thread thread = null;
 
     public void setAction(Action action){
         this.action = action;
@@ -17,20 +18,22 @@ public class AutoModeRunner {
         if(action != null) {
             timer.reset();
             timer.start();
-            autoThread = new AutoThread(action);
-            Thread thread = new Thread(autoThread);
+            autoRunnable = new AutoRunnable(action);
+            thread = new Thread(autoRunnable);
             thread.start();
         }
     }
 
     public void stop() {//Stops auto mode
-        autoThread.stop();
-        autoThread = null;
+        autoRunnable.stop();
+        autoRunnable = null;
+        action = null;
+        thread = null;
     }
 
     public boolean isAutodone(){
         try {
-            return !autoThread.isRunning();
+            return !autoRunnable.isRunning();
         }catch(Exception e){
             return true;
         }

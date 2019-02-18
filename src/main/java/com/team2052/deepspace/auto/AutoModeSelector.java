@@ -67,7 +67,7 @@ public class AutoModeSelector {
             //System.out.println("Selected" + selected);
 
             if(sendableChooserSecondTarget.getSelected().name.equals("none")) {
-                autoAction = firstSelected.autoMode.action;
+                autoAction = firstSelected.autoMode.getAction();
             }else{
                 autoAction = new SeriesAction(Arrays.asList(
                         firstSelected.autoMode.getAction(),

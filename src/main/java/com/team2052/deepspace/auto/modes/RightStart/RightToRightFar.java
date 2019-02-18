@@ -18,7 +18,7 @@ public class RightToRightFar extends AutoMode {
     }
     @Override
     protected void init() {
-        action = new SeriesAction(Arrays.asList(
+        setAction(new SeriesAction(Arrays.asList(
                 //Starting path starts going backwards
                 new FollowPathAction(new RStartSideRightFarHatchPath(Path.Direction.BACKWARD)),
                 //Vision
@@ -28,8 +28,8 @@ public class RightToRightFar extends AutoMode {
                 new ParallelAction(Arrays.asList(
                         //Turns robot around and drives back towards loading station
                         new FollowPathListAction(new RFarHatchStartRightHatchPickUpPathCompoundPath().getPaths()),
-                        new GroundIntakeAction(false))
-                )
-        ));
+                        new GroundIntakeAction(false)
+                ))
+        )));
     }
 }

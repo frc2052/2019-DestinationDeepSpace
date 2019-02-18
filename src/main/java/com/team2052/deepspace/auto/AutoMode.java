@@ -7,13 +7,18 @@ import com.team2052.deepspace.auto.actions.Action;
  * This is for game specific code
  */
 public abstract class AutoMode{
-    protected Action action;
+    private Action action;
     protected abstract void init();
 
     public Action getAction(){
         init();
         return action;
     }
+
+    protected void setAction(Action action){
+        this.action = action;
+    }
+
 
     private StartDirection startDirection = Constants.Autonomous.defaultStartDirection;
     private AutoModeSelector.PositionSelection startPosition = AutoModeSelector.PositionSelection.CENTER;
