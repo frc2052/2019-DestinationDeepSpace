@@ -2,8 +2,10 @@ package com.team2052.deepspace.auto;
 
 import com.team2052.deepspace.Constants;
 import com.team2052.deepspace.auto.actions.Action;
-import com.team2052.deepspace.auto.modes.CenterStart.CenterToCenterLeft;
-import com.team2052.deepspace.auto.modes.CenterStart.CenterToCenterRight;
+import com.team2052.deepspace.auto.modes.CenterStart.BackwardCenterToCenterLeft;
+import com.team2052.deepspace.auto.modes.CenterStart.BackwardCenterToCenterRight;
+import com.team2052.deepspace.auto.modes.CenterStart.ForwardCanterToCenterLeft;
+import com.team2052.deepspace.auto.modes.CenterStart.ForwardCenterToCenterRight;
 import com.team2052.deepspace.auto.modes.DontMove;
 import com.team2052.deepspace.auto.modes.LeftStart.LeftToCenterLeft;
 import com.team2052.deepspace.auto.modes.LeftStart.LeftToLeftClose;
@@ -106,6 +108,17 @@ public class AutoModeSelector {
         FirstTargetSelection first = sendableChooserFirstTarget.getSelected();
         SecondTargetSelection second = sendableChooserSecondTarget.getSelected();
 
+        //set defaults if none selected
+        if (position == null){
+            position = PositionSelection.CENTER;
+        }
+        if (first == null) {
+            first = FirstTargetSelection.NONE;
+        }
+        if (second == null) {
+            second = SecondTargetSelection.NONE;
+        }
+
         if (selectedAuto == null || position != lastPosition || first != lastFirst || second != lastSecond) {
             lastPosition = position;
             lastFirst = first;
@@ -117,7 +130,7 @@ public class AutoModeSelector {
                 case LEFT:
                 case LEFTHAB2:
                     switch (first) {
-                        case CLHATCH:
+                        case BCLHATCH:
                             selectedAuto = new LeftToCenterLeft(position.startPos);
                             break;
                         case LCHATCH:
@@ -134,8 +147,8 @@ public class AutoModeSelector {
                 case RIGHT:
                 case RIGHTHAB2:
                     switch (first) {
-                        case CRHATCH:
-                            selectedAuto = new CenterToCenterRight(position.startPos);
+                        case BCRHATCH:
+                            selectedAuto = new BackwardCenterToCenterRight(position.startPos);
                             break;
                         case RMHATCH:
                             selectedAuto = new RightToRightMiddle(position.startPos);
@@ -150,13 +163,18 @@ public class AutoModeSelector {
                     break;
                 case CENTER:
                     switch (first) {
-                        case CLHATCH:
-                            selectedAuto = new CenterToCenterLeft(position.startPos);
+                        case BCLHATCH:
+                            selectedAuto = new BackwardCenterToCenterLeft(position.startPos);
                             break;
-                        case CRHATCH:
-                            selectedAuto = new CenterToCenterRight(position.startPos);
+                        case BCRHATCH:
+                            selectedAuto = new BackwardCenterToCenterLeft(position.startPos);
                             break;
-
+                        case FCLHATCH:
+                            selectedAuto = new ForwardCanterToCenterLeft(position.startPos);
+                            break;
+                        case FCRHATCH:
+                            selectedAuto = new ForwardCenterToCenterRight(position.startPos);
+                            break;
                     }
                     break;
                 case NONE:
@@ -222,8 +240,10 @@ public class AutoModeSelector {
 
     public enum FirstTargetSelection {
         NONE("Select Target One"),
-        CLHATCH("CenterLeftHatch"),
-        CRHATCH("CenterRightHatch"),
+        BCLHATCH("BackCenterLeftHatch"),
+        BCRHATCH("BackCenterRightHatch"),
+        FCLHATCH("FrontCenterLeftHatch"),
+        FCRHATCH("FrontCenterRightHatch"),
         LFHATCH("LeftFarHatch"),
         RFHATCH("RightFarHatch"),
         LMHATCH("LeftMiddleHatch"),

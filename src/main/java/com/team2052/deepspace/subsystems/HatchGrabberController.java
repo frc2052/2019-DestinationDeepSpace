@@ -21,6 +21,7 @@ public class HatchGrabberController {
     private Solenoid hatchOuttakeSolenoid = new Solenoid(Constants.Intake.kGrabber2SolenoidId);
 
     public void setHatchPlace (boolean isPressed) {
+//        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!HATCH " + isPressed + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         isOpen = isPressed;
         if (isPressed) {
             hatchIntakeSolenoid.set(true);

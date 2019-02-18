@@ -19,7 +19,7 @@ public abstract class AutoMode{
     protected abstract void init();
 
     public Action getAction(){
-        System.out.println("is action ! null in automode: " + (action == null));
+//        System.out.println("is action ! null in automode: " + (action == null));
         if(action == null){
             init();
             System.out.println("AFTER INIT");

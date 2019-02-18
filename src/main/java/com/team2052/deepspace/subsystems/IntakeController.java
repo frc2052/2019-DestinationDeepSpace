@@ -33,8 +33,9 @@ public class IntakeController {
     private boolean isArmDown;
 
     public void setArmDown (boolean isDown ) {
-        armInSolenoid.set(isDown);
-        armOutSolenoid.set(!isDown);
+//        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ARM " + isDown + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        armInSolenoid.set(!isDown);
+        armOutSolenoid.set(isDown);
         isArmDown = isDown;
     } 
 

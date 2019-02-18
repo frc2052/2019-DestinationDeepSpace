@@ -11,9 +11,9 @@ import com.team2052.lib.Autonomous.Position2d;
 
 import java.util.Arrays;
 
-public class CenterToCenterLeft extends AutoMode {
+public class BackwardCenterToCenterLeft extends AutoMode {
 
-    public CenterToCenterLeft(Position2d startPos) {
+    public BackwardCenterToCenterLeft(Position2d startPos) {
         super(startPos);
         setStartDirection(StartDirection.BACKWARD);
     }
