@@ -29,13 +29,15 @@ public class VisionController {
     private double xPercent;
     private double y;
 
+    public static int xOffset = 0;
+
     private int cameraW;
     private int cameraH;
 
     public DriveSignal getMotorOutput(double speed){
         getValues();
-        System.out.println("vision L: " + x * speed + " vision R " + (1-x) * speed);
-        return new DriveSignal(x * speed,(1-x) * speed);
+        System.out.println("vision L: " + xPercent * speed + " vision R " + (1-xPercent) * speed);
+        return new DriveSignal(xPercent * speed,(1-xPercent) * speed);
     }
 
     public void getValues(){
@@ -47,7 +49,7 @@ public class VisionController {
         x = SmartDashboard.getNumber("targetX",-2);
         y = SmartDashboard.getNumber("targetY",0)/cameraH;
         //System.out.println("x is " + x);
-        xPercent = (x-30)/100;
+        xPercent = (x-xOffset)/150;
         SmartDashboard.putNumber("xPercent", xPercent);
     }
 
