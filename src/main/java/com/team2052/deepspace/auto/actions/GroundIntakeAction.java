@@ -7,7 +7,7 @@ public class GroundIntakeAction implements Action {
     private GroundIntakeController controller;
     private boolean finished = false;
     private boolean placingHatch;
-    private double timeSinceDoneHatch;
+    private double timeSinceStartAction;
     public GroundIntakeAction(boolean placeHatch){
         placingHatch = placeHatch;
     } //Most of the work is actually done in controller.
@@ -25,19 +25,22 @@ public class GroundIntakeAction implements Action {
     }
     @Override
     public void start(){
+        timeSinceStartAction = Timer.getFPGATimestamp();
         if (placingHatch) { //place the hatch
             controller.setWantState(GroundIntakeController.IntakeState.PLACEMENT);
         }
-        else {
-            timeSinceDoneHatch = Timer.getFPGATimestamp(); //record when we started action, this should be the time when the robot started backing up
-        }
-
     }
     @Override
     public void update(){
-        if(!placingHatch && ((Timer.getFPGATimestamp() - timeSinceDoneHatch) > 2)){ //Wait 2 Seconds until raise the arm
-            controller.setStartPos();
-            finished = true; //we don't need to wait for the arm to go back up
+        if (placingHatch) {
+            if(Timer.getFPGATimestamp() - timeSinceStartAction > .5) {
+                controller.setGrabberOpen(true);
+            }
+        } else { //dropping off
+            if ((Timer.getFPGATimestamp() - timeSinceStartAction) > 2) { //Wait 2 Seconds until raise the arm
+                controller.setWantState(GroundIntakeController.IntakeState.STARTING);
+                finished = true; //we don't need to wait for the arm to go back up
+            }
         }
     }
 }

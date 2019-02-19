@@ -29,7 +29,6 @@ public class Robot extends TimedRobot {
     private RobotStateCalculator robotStateCalculator = RobotStateCalculator.getInstance();
     private AutoModeRunner autoModeRunner = null;
     private ControlLoop controlLoop = new ControlLoop(Constants.Autonomous.kloopPeriodSec);
-    private ControlLoop groundIntakeLooper = new ControlLoop(Constants.Autonomous.kloopPeriodSec);
     private Compressor compressor = null;
     private VisionController visionController = null;
 
@@ -38,9 +37,6 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         groundIntake = GroundIntakeController.getInstance();
-        if (groundIntake != null) {
-            groundIntakeLooper.addLoopable(groundIntake);
-        }
         driveHelper = new DriveHelper();
         intake = IntakeController.getInstance();
         controls = Controls.getInstance();
@@ -82,7 +78,6 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         controlLoop.start();
-        groundIntakeLooper.start();
         driveTrain.zeroGyro();
         //get the enum for the selected automode
         Action currentAction = AutoModeSelector.getSelectedAction();
@@ -119,7 +114,6 @@ public class Robot extends TimedRobot {
     public void teleopInit(){
         robotStateCalculator.resetRobotState();
         controlLoop.start();
-        groundIntakeLooper.start();
         groundIntake.setWantState(GroundIntakeController.IntakeState.STARTING);
         driveTrain.zeroGyro();
         lineFollower.resetLineSensor();
@@ -146,7 +140,6 @@ public class Robot extends TimedRobot {
     public void disabledPeriodic(){
         autoModeRunner.stop();
         controlLoop.stop();
-        groundIntakeLooper.stop();
         driveTrain.stop();
         autoModeRunner.setAction(AutoModeSelector.getSelectedAction());
     }
@@ -207,9 +200,9 @@ public class Robot extends TimedRobot {
                 if (controls.getGroundIntakePlace()) {
                     groundIntake.setWantState(GroundIntakeController.IntakeState.PLACEMENT);
                 } else if (controls.getGroundIntakeReady()) {
-                    groundIntake.setWantState(GroundIntakeController.IntakeState.UP_CLOSED);
+                    groundIntake.setWantState(GroundIntakeController.IntakeState.READY);
                 } else if (controls.getGroundIntakeDown()) {
-                    groundIntake.setWantState(GroundIntakeController.IntakeState.DOWN_OPEN);
+                    groundIntake.setWantState(GroundIntakeController.IntakeState.DOWN);
                 } else if (controls.getGroundIntakeStarting()) {
                     groundIntake.setWantState(GroundIntakeController.IntakeState.STARTING);
                 }
