@@ -10,7 +10,8 @@ public class ForwardPath extends Path{
     public ForwardPath(Direction direction) {
         setDirection(direction);
         addWaypoint(new Waypoint(new Position2d(0,0),120));
-        addWaypoint(new Waypoint(new Position2d(96,0),120));
+        addWaypoint(new Waypoint(new Position2d(12,0),120, "down"));
+        addWaypoint(new Waypoint(new Position2d(24,0),120));
         OptimizePath();
     }
 

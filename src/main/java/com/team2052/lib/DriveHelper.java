@@ -1,5 +1,7 @@
 package com.team2052.lib;
 
+import com.team2052.deepspace.Constants;
+
 public class DriveHelper {
     double mQuickStopAccumulator;
     public static final double kThrottleDeadband = 0.1;
@@ -28,7 +30,7 @@ public class DriveHelper {
                 mQuickStopAccumulator = (1 - alpha) * mQuickStopAccumulator + alpha * limit(wheel, 1.0) * 2;
             }
             overPower = 1.0;
-            angularPower = wheel;
+            angularPower = wheel * Constants.DriveTrain.kTurnInPlaceSpeed;
         } else {
             overPower = 0.0;
             angularPower = Math.abs(throttle) * wheel * kTurnSensitivity - mQuickStopAccumulator;

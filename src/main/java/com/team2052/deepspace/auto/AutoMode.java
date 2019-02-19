@@ -1,16 +1,40 @@
 package com.team2052.deepspace.auto;
 
 import com.team2052.deepspace.Constants;
+import com.team2052.deepspace.auto.actions.Action;
+import com.team2052.lib.Autonomous.Position2d;
 
 /**
  * This is for game specific code
  */
-public abstract class AutoMode extends AutoModeBase{
-    private StartDirection startDirection = Constants.Autonomous.defaultStartDirection;
-    private LateralStartPosition lateralStartPosition = LateralStartPosition.CENTER;
-    private int forwardOffset;
+public abstract class AutoMode{
 
-    public void setStartDirection(StartDirection startDirection){this.startDirection = startDirection;}
+    protected Position2d startingPos;
+    private Action action = null;
+
+    public AutoMode(Position2d startPos)  {
+        this.startingPos = startPos;
+    }
+
+    protected abstract void init();
+
+    public Action getAction(){
+//        System.out.println("is action ! null in automode: " + (action == null));
+        if(action == null){
+            init();
+            System.out.println("AFTER INIT");
+        }
+        return action;
+    }
+
+    protected void setAction(Action action){
+        this.action = action;
+    }
+
+
+    private StartDirection startDirection = Constants.Autonomous.defaultStartDirection;
+
+    protected void setStartDirection(StartDirection startDirection){this.startDirection = startDirection;}
     public StartDirection getStartDirection(){
         return startDirection;
     }
@@ -27,24 +51,4 @@ public abstract class AutoMode extends AutoModeBase{
         }
     }
 
-    public void setLateralStartPosition(LateralStartPosition lateralStartPosition){this.lateralStartPosition = lateralStartPosition;}
-    public LateralStartPosition getLateralStartPosition(){
-        return lateralStartPosition;
-    }
-    public enum LateralStartPosition {
-        LEFT(Constants.Autonomous.kStartLeftInchOffset),
-        RIGHT(Constants.Autonomous.kStartRightInchOffset),
-        CENTER(0.0)
-        ;
-
-        public final double lateralOffset;
-
-        LateralStartPosition(double lateralOffset){
-            this.lateralOffset = lateralOffset;
-        }
-    }
-    public void setForwardStartOffset(int offset){this.forwardOffset = offset;}
-    public int getForwardOffset(){
-        return forwardOffset;
-    }
 }

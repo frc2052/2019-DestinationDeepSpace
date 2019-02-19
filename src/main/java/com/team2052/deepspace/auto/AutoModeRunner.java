@@ -1,43 +1,55 @@
 package com.team2052.deepspace.auto;
 
-public class AutoModeRunner {
-    Thread autoThread;
-    AutoModeBase autoMode;
+import com.team2052.deepspace.auto.actions.Action;
+import edu.wpi.first.wpilibj.Timer;
 
-    public void start(AutoModeBase newMode) {//Initializes auto mode
-        if (this.autoMode != null) { //there is already a auto mode, should only happen in testing
+
+public class AutoModeRunner {
+    private AutoRunnable autoRunnable;
+    private Timer timer = new Timer();
+    private Action action;
+    private Thread thread = null;
+
+    private static AutoModeRunner instance = null;
+    public static AutoModeRunner getInstance() {
+        if (instance == null) {
             try {
-                System.out.println("Existing Automode already in AutomodeRunner");
-                System.out.println(this.autoMode.getClass().getName());
-                this.autoMode.stop();
-            }
-            catch (Exception e)
-            {
-                System.out.println("Failed to stop existing Automode");
-                System.out.println(e.getMessage());
-                e.printStackTrace();
+                instance = new AutoModeRunner();
+            } catch (Exception exc) {
+                System.out.println("DANGER: Failed to create AutoodeRunner: " + exc.getMessage());
+                exc.printStackTrace();
             }
         }
-        this.autoMode = newMode;
-        if (this.autoMode == null) {
-            return;
+        return instance;
+    }
+
+    public void setAction(Action action){
+        //System.out.println("setting action");
+        this.action = action;
+    }
+
+    public void start() {//Initializes auto mode
+        //System.out.println("is action ! null: " + (action != null));
+        if(action != null) {
+            timer.reset();
+            timer.start();
+            autoRunnable = new AutoRunnable(action);
+            thread = new Thread(autoRunnable);
+            thread.start();
         }
-        System.out.println("Starting new automode " + this.autoMode.getClass().getName());
-        autoThread = new Thread(() -> this.autoMode.start());
-        autoThread.start();
     }
 
     public void stop() {//Stops auto mode
-        if (autoMode != null) {
-            autoMode.stop();
-            autoMode = null;
+        if(autoRunnable != null) {
+            autoRunnable.stop();
         }
-        autoThread = null;
+        autoRunnable = null;
+        thread = null;
     }
 
     public boolean isAutodone(){
         try {
-            return !autoMode.isRunning();
+            return !autoRunnable.isRunning();
         }catch(Exception e){
             return true;
         }

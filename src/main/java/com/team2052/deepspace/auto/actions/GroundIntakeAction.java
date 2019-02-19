@@ -1,7 +1,6 @@
 package com.team2052.deepspace.auto.actions;
 
 import com.team2052.deepspace.subsystems.GroundIntakeController;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 
 public class GroundIntakeAction implements Action {
@@ -27,7 +26,7 @@ public class GroundIntakeAction implements Action {
     @Override
     public void start(){
         if (placingHatch) { //place the hatch
-            controller.placement(true);
+            controller.setWantState(GroundIntakeController.IntakeState.PLACEMENT);
         }
         else {
             timeSinceDoneHatch = Timer.getFPGATimestamp(); //record when we started action, this should be the time when the robot started backing up

@@ -26,6 +26,7 @@ public class VisionController {
     private double height;
     private double width = 256;
     private double x = -1;
+    private double xPercent;
     private double y;
 
     private int cameraW;
@@ -37,15 +38,17 @@ public class VisionController {
         return new DriveSignal(x * speed,(1-x) * speed);
     }
 
-    private void getValues(){
+    public void getValues(){
         //cameraH = (int)SmartDashboard.getNumber("cameraHeight",0);
         //cameraW = (int)SmartDashboard.getNumber("cameraWidth",0);
         yaw =SmartDashboard.getNumber("yawToTarget",0);
         height = SmartDashboard.getNumber("targetHeight",0)/cameraH;
         width = SmartDashboard.getNumber("targetWidth",0)/cameraW;
-        x = SmartDashboard.getNumber("targetX",0)/cameraW;
+        x = SmartDashboard.getNumber("targetX",-2);
         y = SmartDashboard.getNumber("targetY",0)/cameraH;
-        System.out.println("x is " + x);
+        //System.out.println("x is " + x);
+        xPercent = (x-30)/100;
+        SmartDashboard.putNumber("xPercent", xPercent);
     }
 
     public boolean isTarget(){

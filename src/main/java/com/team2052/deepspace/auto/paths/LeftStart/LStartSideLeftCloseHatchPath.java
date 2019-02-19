@@ -9,13 +9,13 @@ import java.util.List;
 
 public class LStartSideLeftCloseHatchPath extends Path {
 
-    public LStartSideLeftCloseHatchPath(Direction direction) {
+    public LStartSideLeftCloseHatchPath(Position2d startPos, Direction direction) {
         setDirection(direction);
-        addWaypoint(new Waypoint(new Position2d(0,-47),60));
+        addWaypoint(new Waypoint(startPos,60));
         addWaypoint(new Waypoint(new Position2d(50,-47), Constants.Autonomous.kTestVelocity));
-        addWaypoint(new Waypoint(new Position2d(170,-65),Constants.Autonomous.kTestVelocity));
-        addWaypoint(new Waypoint(new Position2d(194,-65),Constants.Autonomous.kTestVelocity));
-        addWaypoint(new Waypoint(new Position2d(194,-55),Constants.Autonomous.kTestVelocity));
+        addWaypoint(new Waypoint(new Position2d(170,-80),Constants.Autonomous.kTestVelocity));
+        addWaypoint(new Waypoint(new Position2d(194,-80),Constants.Autonomous.kTestVelocity));
+        addWaypoint(new Waypoint(new Position2d(194,-60),Constants.Autonomous.kTestVelocity));
         OptimizePath();
     }
 

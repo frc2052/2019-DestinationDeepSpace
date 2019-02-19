@@ -13,7 +13,6 @@ public class WaitForPathFlagAction implements Action{
     @Override
     public void done() {
 
-
     }
 
     @Override

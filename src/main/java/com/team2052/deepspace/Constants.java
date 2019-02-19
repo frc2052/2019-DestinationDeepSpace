@@ -25,18 +25,20 @@ public class Constants {
 
         public static final int kShiftInSolenoidID = 0;
         public static final int kShiftOutSolenoidID = 1;
+
+        public static final double kTurnInPlaceSpeed = .75;
     }
     public class Intake {
         public static final int kGroundIntakeMotor = 11;
         public static final int kClawTopMotor = 10;
         public static final int kClawBottomMotor = 9;
         public static final int kIntakeMotorId = 8;
-        public static final int kGrabber2SolenoidId = 2;
-        public static final int kGrabber1SolenoidId = 3;
-        public static final int kCargoInSolenoidId = 2;
-        public static final int kCargoOutSolenoidId = 3;
-        public static final int kHatchInId = 3;
-        public static final int kHatchOutId = 4;
+        public static final int kGrabber2SolenoidId = 3;
+        public static final int kGrabber1SolenoidId = 2;
+        public static final int kCargoInSolenoidId = 4;
+        public static final int kCargoOutSolenoidId = 5;
+
+        public static final double kOuttakeCargoShipSpeed = .6;
     }
 
 
@@ -66,7 +68,8 @@ public class Constants {
         //pidf copied from 2017 needs testing
 
         public static final double kStartLeftInchOffset = -47;
-        public static final double kStartRightInchOffset = -47;
+        public static final double kStartRightInchOffset = 47;
+        public static final double kStartHab2Offset = -48;
 
         public static final double kMinVelocity = 0.05; //range 0-1: minimum amount of power to overcome static friction
 
@@ -75,7 +78,7 @@ public class Constants {
     }
 
 
-    public  class LegClimber {
+    public class LegClimber {
 
         //////ids//////
         public static final int kLegClimberTalon1id = 7;

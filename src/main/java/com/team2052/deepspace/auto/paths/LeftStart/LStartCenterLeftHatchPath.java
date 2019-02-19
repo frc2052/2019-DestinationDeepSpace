@@ -8,12 +8,12 @@ import java.util.List;
 
 public class LStartCenterLeftHatchPath extends Path{
 
-    public LStartCenterLeftHatchPath(Direction backward) {
-        setDirection(Direction.FORWARD);
-        addWaypoint(new Waypoint(new Position2d(0,-47),50)); // B
+    public LStartCenterLeftHatchPath(Position2d startPos, Direction direction) {
+        setDirection(direction);
+        addWaypoint(new Waypoint(startPos,50)); // B
         addWaypoint(new Waypoint(new Position2d(50,-47),50)); // B
-        addWaypoint(new Waypoint(new Position2d(68,-10),50)); // H
-        addWaypoint(new Waypoint(new Position2d(68,-10),50)); // K
+        addWaypoint(new Waypoint(new Position2d(100,-3),50)); // H
+        addWaypoint(new Waypoint(new Position2d(124,-3),50)); // K
         OptimizePath();
     }
 
