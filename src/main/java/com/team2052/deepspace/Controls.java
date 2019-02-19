@@ -23,12 +23,13 @@ public class Controls {
     public static final int kTankJoystickVisionDrive = 3;
 
     public static final int kSecondaryCargoIntake = 1;
-    public static final int kSecondaryRocket1 = 2;
-    public static final int kSecondaryRocket2 = 3;
-    public static final int kSecondaryGroundPickupReady = 6;
-    public static final int kSecondaryGroundPickupDown = 7;
+    public static final int kSecondaryGroundPickupStarting = 2;
+    public static final int kSecondaryGroundPickupPlace = 3;
+    public static final int kSecondaryGroundPickupReady = 4;
+    public static final int kSecondaryRocket2 = 6;
+    public static final int kSecondaryRocket1 = 7;
+    public static final int kSecondaryGroundPickupDown = 8;
     public static final int kSecondaryIntakeArmUpDown = 9;
-    public static final int kSecondaryGroundPickupPlace = 10;
     public static final int kSecondaryClimberDown = 11;
     public static final int kSecondaryClimberUp = 12;
 
@@ -77,7 +78,7 @@ public class Controls {
     public boolean getGroundIntakeDown() { return secondaryControlPanel.getRawButton(kSecondaryGroundPickupDown); }
     public boolean getGroundIntakePlace() { return secondaryControlPanel.getRawButton(kSecondaryGroundPickupPlace); }
     public boolean getGroundIntakeReady() { return secondaryControlPanel.getRawButton(kSecondaryGroundPickupReady); }
-    public boolean getGroundIntakeStarting() { return secondaryControlPanel.getRawButton(8); }
+    public boolean getGroundIntakeStarting() { return secondaryControlPanel.getRawButton(kSecondaryGroundPickupStarting); }
     public boolean getRocket1Shoot(){ return secondaryControlPanel.getRawButton(kSecondaryRocket1); }
     public boolean getRocket2Shoot(){ return secondaryControlPanel.getRawButton(kSecondaryRocket2); }
     public boolean getIntakeArmToggle(){ return secondaryControlPanel.getRawButton(kSecondaryIntakeArmUpDown); }
