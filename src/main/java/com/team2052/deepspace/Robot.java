@@ -114,7 +114,6 @@ public class Robot extends TimedRobot {
     public void teleopInit(){
         robotStateCalculator.resetRobotState();
         controlLoop.start();
-        groundIntake.setWantState(GroundIntakeController.IntakeState.STARTING);
         driveTrain.zeroGyro();
         lineFollower.resetLineSensor();
         backLineFollower.resetLineSensor();
@@ -153,6 +152,8 @@ public class Robot extends TimedRobot {
             } else if (backLineFollower != null && backLineFollower.getLineSensed()) {
                 System.out.println("Back Sensors");
                 driveTrain.drive(backLineFollower.getLightSensorMotorTurn(controls.getDriveTank()));
+            }else if(visionController.isTarget()){
+                driveTrain.drive(visionController.getMotorOutput(controls.getDriveTank()));
             } else {
                 driveTrain.drive(driveHelper.drive(controls.getDriveTank(), controls.getDriveTurn(), controls.getQuickTurn()));
             }
