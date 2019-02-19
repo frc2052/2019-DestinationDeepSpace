@@ -120,6 +120,7 @@ public class Robot extends TimedRobot {
         robotStateCalculator.resetRobotState();
         controlLoop.start();
         groundIntakeLooper.start();
+        groundIntake.setWantState(GroundIntakeController.IntakeState.STARTING);
         driveTrain.zeroGyro();
         lineFollower.resetLineSensor();
         backLineFollower.resetLineSensor();
@@ -170,6 +171,7 @@ public class Robot extends TimedRobot {
         //legClimberController.printEncoder();
 
         VisionController.showBackPiCamera(controls.getShowBackCamera());
+        visionController.getValues();
         if (legClimberController != null) {
             //always pass the button for climb to the leg climber
             //it needs to keep track of how many times the button was pressed

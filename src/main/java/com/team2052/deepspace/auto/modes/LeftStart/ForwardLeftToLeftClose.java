@@ -5,8 +5,8 @@ import com.team2052.deepspace.auto.actions.FollowPathAction;
 import com.team2052.deepspace.auto.actions.HatchIntakeAction;
 import com.team2052.deepspace.auto.actions.ParallelAction;
 import com.team2052.deepspace.auto.actions.SeriesAction;
-import com.team2052.deepspace.auto.paths.CenterHatchStarts.CenterBackupPath;
 import com.team2052.deepspace.auto.paths.LeftStart.LStartSideLeftCloseHatchPath;
+import com.team2052.deepspace.auto.paths.LeftStart.LeftCargoShipBackupPath;
 import com.team2052.deepspace.auto.paths.Path;
 import com.team2052.lib.Autonomous.Position2d;
 
@@ -30,7 +30,7 @@ public class ForwardLeftToLeftClose extends AutoMode{
 //                //Turns robot around and drives back towards loading station
                 new ParallelAction(Arrays.asList(
                         new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
-                        new FollowPathAction(new CenterBackupPath())
+                        new FollowPathAction(new LeftCargoShipBackupPath())
                 ))
         )));
     }
