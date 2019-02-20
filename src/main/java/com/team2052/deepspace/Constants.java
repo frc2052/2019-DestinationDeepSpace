@@ -87,7 +87,7 @@ public class Constants {
 
         public static final double kEncoderTicksPerRotation = 1024;
         public static final double kClimbMotorRotations = 940/4.0;
-        public static final int kClimberMotorDistance = 1438000;
+        public static final int kClimberMotorDistance = 1438000 + 40200;
     }
 
     public class Elevator{

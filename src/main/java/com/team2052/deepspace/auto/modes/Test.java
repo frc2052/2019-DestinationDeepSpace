@@ -2,7 +2,9 @@ package com.team2052.deepspace.auto.modes;
 
 import com.team2052.deepspace.auto.AutoMode;
 import com.team2052.deepspace.auto.actions.FollowPathAction;
+import com.team2052.deepspace.auto.actions.HatchIntakeAction;
 import com.team2052.deepspace.auto.actions.SeriesAction;
+import com.team2052.deepspace.auto.actions.VisionAction;
 import com.team2052.deepspace.auto.paths.*;
 import com.team2052.lib.Autonomous.Position2d;
 
@@ -12,7 +14,7 @@ public class Test extends AutoMode {
 
     public Test(Position2d startPos){
         super(startPos);
-        setStartDirection(StartDirection.BACKWARD);
+        setStartDirection(StartDirection.FORWARD);
     }
 
     CompoundPath p1 = new NotSmoothTestCompoundPath();
@@ -22,17 +24,12 @@ public class Test extends AutoMode {
     protected void init() {
 
         System.out.println("###########################################init###########################################");
-        System.out.println("###########################################init###########################################");
-        System.out.println("###########################################init###########################################");
-        System.out.println("###########################################init###########################################");
-        System.out.println("###########################################init###########################################");
-        System.out.println("###########################################init###########################################");
-        System.out.println("###########################################init###########################################");
-        System.out.println("###########################################init###########################################");
 
         setAction(new SeriesAction(Arrays.asList(
 
-                new FollowPathAction(new ForwardPath(Path.Direction.BACKWARD))
+                new FollowPathAction(new ForwardPath(Path.Direction.FORWARD)),
+                new VisionAction(true),
+                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE)
         )));
     }
 }

@@ -10,6 +10,7 @@ public class SeriesAction implements Action {
 
     private final ArrayList<Action> mRemainingActions;
     private Action mCurAction;
+    private boolean stopped = false;
 
     public SeriesAction(List<Action> actions) {
         //We don't want a reference of the list, we a copy
@@ -23,7 +24,7 @@ public class SeriesAction implements Action {
 
     @Override
     public boolean isFinished() {
-        return mRemainingActions.isEmpty() && mCurAction == null;
+        return stopped || (mRemainingActions.isEmpty() && mCurAction == null);
     }
 
     @Override
@@ -48,5 +49,9 @@ public class SeriesAction implements Action {
 
     @Override
     public void done() {
+    }
+
+    public void forceStop(){
+        stopped = true;
     }
 }

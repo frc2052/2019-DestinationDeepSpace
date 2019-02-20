@@ -1,14 +1,15 @@
 package com.team2052.deepspace.auto;
 
-import com.team2052.deepspace.auto.actions.Action;
+import com.team2052.deepspace.auto.actions.SeriesAction;
 import edu.wpi.first.wpilibj.Timer;
 
 
 public class AutoModeRunner {
     private AutoRunnable autoRunnable;
     private Timer timer = new Timer();
-    private Action action;
+    private SeriesAction action;
     private Thread thread = null;
+    private boolean hasStarted = false;
 
     private static AutoModeRunner instance = null;
     public static AutoModeRunner getInstance() {
@@ -23,7 +24,7 @@ public class AutoModeRunner {
         return instance;
     }
 
-    public void setAction(Action action){
+    public void setAction(SeriesAction action){
         //System.out.println("setting action");
         this.action = action;
     }

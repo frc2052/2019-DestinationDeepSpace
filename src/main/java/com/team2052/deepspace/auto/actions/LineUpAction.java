@@ -1,10 +1,9 @@
 package com.team2052.deepspace.auto.actions;
 
-import com.team2052.deepspace.Constants;
+import com.team2052.deepspace.RobotState;
 import com.team2052.deepspace.subsystems.*;
 import com.team2052.lib.Autonomous.Position2d;
 import com.team2052.lib.DriveSignal;
-import com.team2052.deepspace.RobotState;
 
 public class LineUpAction implements Action{
     private LineFollowerControllerBase lineFollower = null;
@@ -45,6 +44,7 @@ public class LineUpAction implements Action{
             lineFollower = BackLineFollowerController.getInstance();
         }
         driveTrain = DriveTrainController.getInstance();
+        visionController = VisionController.getInstance();
         robotState = RobotState.getInstance();
         startPos = robotState.getLatestPosition().getClone();
         currentPos = robotState.getLatestPosition();
@@ -55,7 +55,7 @@ public class LineUpAction implements Action{
         currentPos = robotState.getLatestPosition();
         System.out.println("sPos: " + startPos + " cPos: " + currentPos);
         System.out.println("LineUp dis: " + Math.sqrt(Math.pow(startPos.getForward() - currentPos.getForward(), 2) + Math.pow(startPos.getLateral() - currentPos.getLateral(), 2)));
-
+/*
         if (lineFollower.getLineSensed()) {
             if (isForwards) {
                 driveTrain.drive(lineFollower.getLightSensorMotorTurn(Constants.LineFollower.kLightSensorMotorSpeed));
@@ -63,6 +63,10 @@ public class LineUpAction implements Action{
                 driveTrain.drive(lineFollower.getLightSensorMotorTurn(-Constants.LineFollower.kLightSensorMotorSpeed)); //Reverse Speed for backwards.
             }
         } else {
+        */
+        if(visionController.isTarget()) {
+            driveTrain.drive(visionController.getMotorOutput(.5));
+        }else{
             if(isForwards){
                 driveTrain.drive(new DriveSignal(.15, .15));
             }else {

@@ -1,12 +1,12 @@
 package com.team2052.deepspace.auto;
 
 import com.team2052.deepspace.Constants;
-import com.team2052.deepspace.auto.actions.Action;
+import com.team2052.deepspace.auto.actions.SeriesAction;
 
 public class AutoRunnable implements Runnable{
-    Action action;
+    SeriesAction action;
     boolean running;
-    public AutoRunnable(Action action){
+    public AutoRunnable(SeriesAction action){
         this.action = action;
     }
 
@@ -28,6 +28,7 @@ public class AutoRunnable implements Runnable{
 
     public void stop(){
         running = false;
+        action.forceStop();
     }
 
     public boolean isRunning(){

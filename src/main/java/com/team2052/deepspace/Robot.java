@@ -146,13 +146,13 @@ public class Robot extends TimedRobot {
     private void driverControlled(){
 
         if (controls.getLightFollow()) {
-            if (lineFollower != null && controls.getDriveTank() > 0 && lineFollower.getLineSensed()) {
+            /*if (lineFollower != null && controls.getDriveTank() > 0 && lineFollower.getLineSensed()) {
                 System.out.println("Front Sensors");
                 driveTrain.drive(lineFollower.getLightSensorMotorTurn(controls.getDriveTank()));
             } else if (backLineFollower != null && backLineFollower.getLineSensed()) {
                 System.out.println("Back Sensors");
                 driveTrain.drive(backLineFollower.getLightSensorMotorTurn(controls.getDriveTank()));
-            }else if(visionController.isTarget()){
+            }else */if(visionController.isTarget()){
                 driveTrain.drive(visionController.getMotorOutput(controls.getDriveTank()));
             } else {
                 driveTrain.drive(driveHelper.drive(controls.getDriveTank(), controls.getDriveTurn(), controls.getQuickTurn()));

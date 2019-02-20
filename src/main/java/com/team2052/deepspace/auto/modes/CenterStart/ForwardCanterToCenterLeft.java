@@ -1,10 +1,7 @@
 package com.team2052.deepspace.auto.modes.CenterStart;
 
 import com.team2052.deepspace.auto.AutoMode;
-import com.team2052.deepspace.auto.actions.FollowPathAction;
-import com.team2052.deepspace.auto.actions.HatchIntakeAction;
-import com.team2052.deepspace.auto.actions.ParallelAction;
-import com.team2052.deepspace.auto.actions.SeriesAction;
+import com.team2052.deepspace.auto.actions.*;
 import com.team2052.deepspace.auto.paths.CenterHatchStarts.CenterBackupPath;
 import com.team2052.deepspace.auto.paths.CenterStart.CStartCenterLeftHatchPath;
 import com.team2052.deepspace.auto.paths.Path;
@@ -26,7 +23,7 @@ public class ForwardCanterToCenterLeft extends AutoMode {
                 //Starting path starts going backwards
                 new FollowPathAction(new CStartCenterLeftHatchPath(startingPos, Path.Direction.FORWARD)),
                 //Vision
-                //new LineUpAction(false),
+                new VisionAction(true),
                 // when true, ground outtake action
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
 //                //Turns robot around and drives back towards loading station

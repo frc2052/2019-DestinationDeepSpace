@@ -4,7 +4,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.team2052.deepspace.Constants;
-import com.team2052.lib.ILoopable;
 
 public class GroundIntakeController {
     /* True is Intake, false is Outtake.
@@ -63,7 +62,8 @@ public class GroundIntakeController {
     private final int KDownEncoderPosition = -125000;
     private boolean lastPressedState = false;
 
-    public void setWantState(IntakeState want) {
+    public void setWantState(IntakeState wantControllerState) {
+        controllerState = wantControllerState;
         switch (controllerState) {
             case DOWN:
                 //System.out.println("Ground State DOWNOPEN");
