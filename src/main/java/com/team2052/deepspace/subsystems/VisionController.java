@@ -27,9 +27,9 @@ public class VisionController {
     private double width = 256;
     private double x = -1;
     private double xPercent;
-    private double y;
+    private double y = -1;
 
-    public static int xOffset = 0;
+    public static double xOffset = 1.5;
 
     private int cameraW;
     private int cameraH;
@@ -46,10 +46,12 @@ public class VisionController {
         yaw =SmartDashboard.getNumber("yawToTarget",0);
         height = SmartDashboard.getNumber("targetHeight",0)/cameraH;
         width = SmartDashboard.getNumber("targetWidth",0)/cameraW;
-        x = SmartDashboard.getNumber("targetX",-2);
-        y = SmartDashboard.getNumber("targetY",0)/cameraH;
+        x = SmartDashboard.getNumber("targetX",-1);
+        y = SmartDashboard.getNumber("targetY",-1);
         //System.out.println("x is " + x);
-        xPercent = (x-xOffset)/150;
+        if(x > 0) {
+            xPercent = (x - xOffset) / 150;
+        }
         SmartDashboard.putNumber("xPercent", xPercent);
     }
 
@@ -59,6 +61,6 @@ public class VisionController {
     }
 
     public boolean isClose(){
-        return height > .8;
+        return y > 42.0;
     }
 }

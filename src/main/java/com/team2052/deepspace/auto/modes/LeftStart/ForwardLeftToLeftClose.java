@@ -1,10 +1,7 @@
 package com.team2052.deepspace.auto.modes.LeftStart;
 
 import com.team2052.deepspace.auto.AutoMode;
-import com.team2052.deepspace.auto.actions.FollowPathAction;
-import com.team2052.deepspace.auto.actions.HatchIntakeAction;
-import com.team2052.deepspace.auto.actions.ParallelAction;
-import com.team2052.deepspace.auto.actions.SeriesAction;
+import com.team2052.deepspace.auto.actions.*;
 import com.team2052.deepspace.auto.paths.LeftStart.LStartSideLeftCloseHatchPath;
 import com.team2052.deepspace.auto.paths.LeftStart.LeftCargoShipBackupPath;
 import com.team2052.deepspace.auto.paths.Path;
@@ -24,7 +21,7 @@ public class ForwardLeftToLeftClose extends AutoMode{
                 //Starting path starts going backwards
                 new FollowPathAction(new LStartSideLeftCloseHatchPath(startingPos, Path.Direction.FORWARD)),
                 //Vision
-                //new LineUpAction(false),
+                new VisionAction(true),
                 // when true, ground outtake action
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
 //                //Turns robot around and drives back towards loading station

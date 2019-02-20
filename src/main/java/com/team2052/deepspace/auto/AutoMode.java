@@ -1,7 +1,7 @@
 package com.team2052.deepspace.auto;
 
 import com.team2052.deepspace.Constants;
-import com.team2052.deepspace.auto.actions.Action;
+import com.team2052.deepspace.auto.actions.SeriesAction;
 import com.team2052.lib.Autonomous.Position2d;
 
 /**
@@ -10,7 +10,7 @@ import com.team2052.lib.Autonomous.Position2d;
 public abstract class AutoMode{
 
     protected Position2d startingPos;
-    private Action action = null;
+    private SeriesAction action = null;
 
     public AutoMode(Position2d startPos)  {
         this.startingPos = startPos;
@@ -18,16 +18,16 @@ public abstract class AutoMode{
 
     protected abstract void init();
 
-    public Action getAction(){
+    public SeriesAction getAction(){
 //        System.out.println("is action ! null in automode: " + (action == null));
         if(action == null){
             init();
-            System.out.println("AFTER INIT");
+            //System.out.println("AFTER INIT");
         }
         return action;
     }
 
-    protected void setAction(Action action){
+    protected void setAction(SeriesAction action){
         this.action = action;
     }
 

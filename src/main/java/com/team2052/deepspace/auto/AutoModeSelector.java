@@ -1,7 +1,7 @@
 package com.team2052.deepspace.auto;
 
 import com.team2052.deepspace.Constants;
-import com.team2052.deepspace.auto.actions.Action;
+import com.team2052.deepspace.auto.actions.SeriesAction;
 import com.team2052.deepspace.auto.modes.CenterStart.BackwardCenterToCenterLeft;
 import com.team2052.deepspace.auto.modes.CenterStart.BackwardCenterToCenterRight;
 import com.team2052.deepspace.auto.modes.CenterStart.ForwardCanterToCenterLeft;
@@ -64,12 +64,12 @@ public class AutoModeSelector {
         }
     }
 
-    public static Action getSelectedAction() {
+    public static SeriesAction getSelectedAction() {
         AutoMode selected = getSelectedAutoMode();
         if (selected != null) {
             return selected.getAction();
         } else {
-            return null;
+            return new DontMove().getAction();
         }
     }
 
@@ -77,6 +77,7 @@ public class AutoModeSelector {
     private static FirstTargetSelection lastFirst = null;
     private static SecondTargetSelection lastSecond = null;
     private static AutoMode selectedAuto = null;
+
     public static AutoMode getSelectedAutoMode() {
 //        Action autoAction = new DontMove().getAction();
 //        AutoModeDefinition firstSelected = getFirstSelectedAutomode();
@@ -197,7 +198,7 @@ public class AutoModeSelector {
                     break;
                 case NONE:
                 default:
-                    selectedAuto = new DontMove();
+                    selectedAuto = null;
             }
         }
 
