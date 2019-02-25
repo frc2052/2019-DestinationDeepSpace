@@ -55,30 +55,15 @@ public class AutoModeSelector {
         SmartDashboard.putData("Second Target", sendableChooserSecondTarget);
     }
 
-    //TODO: REVIEW- remove this, have all calls just get AutoMode
-    public static boolean getStartDirection(){
-        AutoMode selected = getSelectedAutoMode();
-        if (selected != null) {
-            return selected.getStartDirection().isForward;
-        } else {
-            return true;
-        }
-    }
-
-    //TODO: REVIEW- remove this, have all calls just get AutoMode
-    public static SeriesAction getSelectedAction() {
-        AutoMode selected = getSelectedAutoMode();
-        if (selected != null) {
-            return selected.getAction();
-        } else {
-            return new DontMove().getAction();
-        }
-    }
-
     private static PositionSelection lastPosition = null;
     private static FirstTargetSelection lastFirst = null;
     private static SecondTargetSelection lastSecond = null;
     private static AutoMode selectedAuto = null;
+
+    public static void checkSelectedAutoMode(){
+        //this method also updates smartdashboard
+        getSelectedAutoMode();
+    }
 
     public static AutoMode getSelectedAutoMode() {
 
@@ -98,7 +83,7 @@ public class AutoModeSelector {
         }
 
         //TODO: REVIEW - comment this logic
-        if (selectedAuto == null || selectedAuto.getAction().isFinished() || position != lastPosition || first != lastFirst || second != lastSecond) {
+        if (selectedAuto == null || selectedAuto.isActionFinished() || position != lastPosition || first != lastFirst || second != lastSecond) {
             lastPosition = position;
             lastFirst = first;
             lastSecond = second;
@@ -181,45 +166,19 @@ public class AutoModeSelector {
                     break;
                 case NONE:
                 default:
-                    selectedAuto = null;
+                    selectedAuto = null; //set null because we check if its null on line for smart dashboard
             }
         }
 
         if (selectedAuto != null) {
             SmartDashboard.putBoolean("Does AutoMode Exist?", true);
-            //TODO: REVIEW -  Why not do init here?
-//            selectedAuto.init();
+            selectedAuto.init();
             return selectedAuto;
         } else {
             SmartDashboard.putBoolean("Does AutoMode Exist?", false);
-            return null;
+            return new DontMove();
         }
     }
-
-    //TODO: REVIEW - Delete commented out code
-//
-//    private static AutoModeDefinition getFirstSelectedAutomode() {
-//        AutoModeDefinition selectedAuto = null;
-//
-//        try {
-//            String selected = sendableChooserPosition.getSelected().name + sendableChooserFirstTarget.getSelected().name;
-//            selected = selected.replaceAll("Hab2", "");
-//            selectedAuto = AutoModeDefinition.valueOf(selected);
-//        } catch (Exception e) {
-//            System.out.println("ERROR with first selection");
-//        }
-//        return selectedAuto;
-//    }
-//
-//    private static AutoModeDefinition getSecondSelectedAutomode() {
-//        AutoModeDefinition selectedAuto = null;
-//        try {
-//            selectedAuto = AutoModeDefinition.valueOf(sendableChooserFirstTarget.getSelected().name + sendableChooserSecondTarget.getSelected().name);
-//        } catch (Exception e) {
-//            //System.out.println("ERROR with second selection");
-//        }
-//        return selectedAuto;
-//    }
 
     public static Position2d getStartingPos() {
         return sendableChooserPosition.getSelected().startPos;
@@ -289,33 +248,5 @@ public class AutoModeSelector {
             this.name = name;
         }
     }
-
-    //TODO: REVIEW - Delete commented out code
-//
-//    public enum AutoModeDefinition {
-//        DontMove(new DontMove()),
-//
-//        testtest(new Test()),
-//        //Single path AMDs
-//        StartLeftLeftFarHatch(new LeftToLeftFar()),
-//        StartLeftLeftMiddleHatch(new LeftToLeftMiddle()),
-//        StartLeftLeftCloseHatch(new LeftToLeftClose()),
-//        StartLeftCenterLeftHatch(new LeftToCenterLeft()),
-//
-//        StartRightCenterRightHatch(new RightToRightMiddle()),
-//        StartRightRightFarHatch(new RightToRightFar()),
-//        StartRightRightMiddleHatch(new RightToRightClose()),
-//        StartRightRightCloseHatch(new RightToCenterRight()),
-//
-//        StartCenterCenterLeftHatch(new CenterToCenterLeft()),
-//        StartCenterCenterRightHatch(new CenterToCenterRight());
-//
-//
-//        public final AutoMode autoMode;
-//
-//        AutoModeDefinition(AutoMode autoMode) {
-//            this.autoMode = autoMode;
-//        }
-//    }
 }
 

@@ -7,7 +7,7 @@ import com.team2052.lib.Autonomous.Position2d;
 /**
  * This is for game specific code
  */
-public abstract class AutoMode{
+public abstract class AutoMode implements Runnable{
 
     protected Position2d startingPos;
 
@@ -18,17 +18,8 @@ public abstract class AutoMode{
         this.startingPos = startPos;
     }
 
-    //TODO: REVIEW - Add comments, what should every init override do?
+    //This is where we create our action list using setAction
     protected abstract void init();
-
-    public SeriesAction getAction(){
-//        System.out.println("is action ! null in automode: " + (action == null));
-        if(action == null){
-            init();
-            //System.out.println("AFTER INIT");
-        }
-        return action;
-    }
 
     protected void setAction(SeriesAction action){
         this.action = action;
@@ -43,6 +34,52 @@ public abstract class AutoMode{
         return startDirection;
     }
 
+
+    //<editor-fold desc="Runnable Interface">
+
+    private boolean running;
+
+        @Override
+    public void run () {
+        if (action == null) {
+            init();
+            //System.out.println("AFTER INIT");
+        }
+        running = true;
+        action.start();
+        while (running && !action.isFinished()) { //while the action is not done and the automode is running
+            action.update();
+            try { //can throw an exception so you must check if it does so code doesn't crash
+                Thread.sleep(Constants.Autonomous.kloopPeriodMs);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        action.done();
+        running = false;
+    }
+
+    public void stop () {
+        running = false;
+        action.forceStop();
+    }
+
+    public boolean isRunning () {
+        return running;
+    }
+
+    public boolean isActionFinished(){
+        if(action != null) {
+            return action.isFinished();
+        }else{
+            //not even started
+            return false;
+        }
+    }
+    //</editor-fold>
+
+
+
     //TODO: REVIEW - Consider using Path.Direction enum in place of this enum that has the exact same values
     public enum StartDirection{
         FORWARD(true),
@@ -55,5 +92,6 @@ public abstract class AutoMode{
             this.isForward = isForward;
         }
     }
+
 
 }
