@@ -6,6 +6,7 @@ import com.team2052.deepspace.auto.actions.SeriesAction;
 public class AutoRunnable implements Runnable{
     SeriesAction action;
     boolean running;
+    //TODO: REVIEW - Consider only allowing this to run a MasterAction?
     public AutoRunnable(SeriesAction action){
         this.action = action;
     }

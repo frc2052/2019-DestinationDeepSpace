@@ -79,12 +79,16 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         controlLoop.start();
         driveTrain.zeroGyro();
+
+        //TODO: REVIEW- get the AutoMode once, then pull isForward and Actions from it
         //get the enum for the selected automode
         Action currentAction = AutoModeSelector.getSelectedAction();
         //ask the factory to create an instance (if not already created)
         //use the instance to get direction and position
         robotStateCalculator.setStartDirection(AutoModeSelector.getStartDirection());
         robotStateCalculator.resetRobotState(AutoModeSelector.getStartingPos());
+
+        //TODO: REVIEW - Perhaps start should accept an automode as a parameter, rather than something somewhere seeting which automode will run
         //start running the auto mode
         autoModeRunner.start();
     }
@@ -140,6 +144,8 @@ public class Robot extends TimedRobot {
         autoModeRunner.stop();
         controlLoop.stop();
         driveTrain.stop();
+        //TODO: REVIEW- get the AutoMode instead of action
+        //TODO: REVIEW - autoModeRunner should probably not set the automode in disabled, just ask for it from selector so it is created by the factory.
         autoModeRunner.setAction(AutoModeSelector.getSelectedAction());
     }
 

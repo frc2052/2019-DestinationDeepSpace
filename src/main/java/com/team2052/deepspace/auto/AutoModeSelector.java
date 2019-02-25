@@ -55,6 +55,7 @@ public class AutoModeSelector {
         SmartDashboard.putData("Second Target", sendableChooserSecondTarget);
     }
 
+    //TODO: REVIEW- remove this, have all calls just get AutoMode
     public static boolean getStartDirection(){
         AutoMode selected = getSelectedAutoMode();
         if (selected != null) {
@@ -64,6 +65,7 @@ public class AutoModeSelector {
         }
     }
 
+    //TODO: REVIEW- remove this, have all calls just get AutoMode
     public static SeriesAction getSelectedAction() {
         AutoMode selected = getSelectedAutoMode();
         if (selected != null) {
@@ -79,26 +81,6 @@ public class AutoModeSelector {
     private static AutoMode selectedAuto = null;
 
     public static AutoMode getSelectedAutoMode() {
-//        Action autoAction = new DontMove().getAction();
-//        AutoModeDefinition firstSelected = getFirstSelectedAutomode();
-//        AutoModeDefinition secondSelected = getSecondSelectedAutomode();
-//        try {
-//            SmartDashboard.putString("selected2ndgoal",sendableChooserSecondTarget.getSelected().name + " " + sendableChooserSecondTarget.getSelected().name.equals("None"));
-//            if(sendableChooserSecondTarget.getSelected().name.equals("None")) {
-//                //System.out.println("ONLY FIrST");
-//                autoAction = firstSelected.autoMode.getAction();
-//            }else{
-//                //System.out.println("ONLY SECOND");
-//                autoAction = new SeriesAction(Arrays.asList(
-//                        firstSelected.autoMode.getAction(),
-//                        secondSelected.autoMode.getAction()
-//                ));
-//            }
-//            SmartDashboard.putBoolean("Does AutoMode Exist?", true);
-//        } catch (Exception e) {
-//            //e.printStackTrace();
-//            SmartDashboard.putBoolean("Does AutoMode Exist?", false);
-//        }
 
         PositionSelection position = sendableChooserPosition.getSelected();
         FirstTargetSelection first = sendableChooserFirstTarget.getSelected();
@@ -115,6 +97,7 @@ public class AutoModeSelector {
             second = SecondTargetSelection.NONE;
         }
 
+        //TODO: REVIEW - comment this logic
         if (selectedAuto == null || selectedAuto.getAction().isFinished() || position != lastPosition || first != lastFirst || second != lastSecond) {
             lastPosition = position;
             lastFirst = first;
@@ -204,6 +187,7 @@ public class AutoModeSelector {
 
         if (selectedAuto != null) {
             SmartDashboard.putBoolean("Does AutoMode Exist?", true);
+            //TODO: REVIEW -  Why not do init here?
 //            selectedAuto.init();
             return selectedAuto;
         } else {
@@ -211,6 +195,8 @@ public class AutoModeSelector {
             return null;
         }
     }
+
+    //TODO: REVIEW - Delete commented out code
 //
 //    private static AutoModeDefinition getFirstSelectedAutomode() {
 //        AutoModeDefinition selectedAuto = null;
@@ -303,6 +289,8 @@ public class AutoModeSelector {
             this.name = name;
         }
     }
+
+    //TODO: REVIEW - Delete commented out code
 //
 //    public enum AutoModeDefinition {
 //        DontMove(new DontMove()),
