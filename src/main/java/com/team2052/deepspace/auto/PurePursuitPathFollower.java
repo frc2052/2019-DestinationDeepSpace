@@ -38,7 +38,6 @@ public class PurePursuitPathFollower{
     private int closestPointIndex;
     private Position2d lookaheadPoint;
     private Position2d currentPos;
-    private boolean isForward;
 
     private boolean ranOutOfPath = false;
     private double curvature;
@@ -77,15 +76,16 @@ public class PurePursuitPathFollower{
      * @param path is a path created in an automode class
      */
     public void start(Path path) {
-        this.path = path;
         resetPathFollower();
+        this.path = path;
         VisionController.showBackPiCamera(!this.path.getIsForward());
     }
 
     /**
      * resets all class level variables
      */
-    private void resetPathFollower(){
+    public void resetPathFollower(){
+        path = null;
         ranOutOfPath = false;
         lookaheadPoint = null;
         currentPos = null;
@@ -117,7 +117,9 @@ public class PurePursuitPathFollower{
 
     /**
      * find a point that is both intersecting a circle radius kLookaheadDistance on the robot and the path
-     *
+     * 1.draw a circle around the robot
+     * 2. find where it intersects the path
+     * 3. find the one in front of the robot
      */
     private void findLookAheadPoint(){
 
@@ -170,6 +172,7 @@ public class PurePursuitPathFollower{
 
         double side = -Math.signum(Math.sin(currentPos.getHeading()) * (lookaheadPoint.getForward() - currentPos.getForward()) - Math.cos(currentPos.getHeading()) * (lookaheadPoint.getLateral() - currentPos.getLateral()));
 
+        //curvature is 1/radius of the circle the robot must drive on
         curvature = side * ((2*x)/ (Constants.Autonomous.kLookaheadDistance * Constants.Autonomous.kLookaheadDistance));
     }
 
@@ -181,15 +184,17 @@ public class PurePursuitPathFollower{
         double deltaVelocity = rateLimiter.constrain(path.getWaypoints().get(closestPointIndex+((closestPointIndex >= path.getWaypoints().size()-5)?1:0)).getVelocity() - robotState.getVelocityInch(), -Constants.Autonomous.kMaxAccel * Constants.Autonomous.kloopPeriodMs, Constants.Autonomous.kMaxAccel * Constants.Autonomous.kloopPeriodMs);
         double velocity = robotState.getVelocityInch() +  deltaVelocity;
         leftWheelVel = velocity * (2 + curvature * Constants.Autonomous.kTrackWidth)/2;
-        rightWheelVel = velocity * (2 - curvature * Constants.Autonomous.kTrackWidth)/2; //todo swap + & -
+        rightWheelVel = velocity * (2 - curvature * Constants.Autonomous.kTrackWidth)/2; //todo swap + & - if the robot turns away from the path
 
         //if velocity gets to fast scale it down so a wheel is not told to drive faster then 100%
         double highestVel = 0.0;
 
         highestVel = Math.max(highestVel, leftWheelVel);
         highestVel = Math.max(highestVel,rightWheelVel);
-        if(highestVel > Constants.Autonomous.kMaxAutoVelocity){
-            double scaling = Constants.Autonomous.kMaxAutoVelocity / highestVel;
+
+        //scale speed down if the robot goes faster then the speed given at a point
+        if(highestVel > path.getWaypoints().get(closestPointIndex).getVelocity()){
+            double scaling = path.getWaypoints().get(closestPointIndex).getVelocity() / highestVel;
             System.out.println("SCALING OUTPUTS DOWN");
             leftWheelVel*=scaling;
             rightWheelVel*=scaling;

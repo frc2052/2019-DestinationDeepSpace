@@ -3,6 +3,7 @@ package com.team2052.deepspace;
 import com.team2052.deepspace.auto.AutoMode;
 import com.team2052.deepspace.auto.AutoModeRunner;
 import com.team2052.deepspace.auto.AutoModeSelector;
+import com.team2052.deepspace.auto.PurePursuitPathFollower;
 import com.team2052.deepspace.subsystems.*;
 import com.team2052.lib.ControlLoop;
 import com.team2052.lib.DriveHelper;
@@ -143,6 +144,7 @@ public class Robot extends TimedRobot {
         controlLoop.stop();
         driveTrain.stop();
         AutoModeSelector.checkSelectedAutoMode();
+        PurePursuitPathFollower.getInstance().resetPathFollower();
     }
 
     private void driverControlled(){
