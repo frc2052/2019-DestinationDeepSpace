@@ -82,6 +82,7 @@ public class Robot extends TimedRobot {
         driveTrain.zeroGyro();
 
         AutoMode currentMode = AutoModeSelector.getSelectedAutoMode();
+        System.out.println("selected :" + currentMode.getClass().getName());
         //use the instance to get direction and position
         //todo: make one direction enum
         robotStateCalculator.setStartDirection(currentMode.getStartDirection().isForward);
@@ -118,9 +119,17 @@ public class Robot extends TimedRobot {
         robotStateCalculator.resetRobotState();
         controlLoop.start();
         driveTrain.zeroGyro();
-        lineFollower.resetLineSensor();
-        backLineFollower.resetLineSensor();
-        legClimberController.resetEncoders();
+        if(lineFollower != null) {
+            lineFollower.resetLineSensor();
+        }
+
+        if(backLineFollower != null) {
+            backLineFollower.resetLineSensor();
+        }
+
+        if(legClimberController != null) {
+            legClimberController.resetEncoders();
+        }
     }
 
     /**

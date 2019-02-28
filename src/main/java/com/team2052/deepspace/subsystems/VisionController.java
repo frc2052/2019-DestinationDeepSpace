@@ -34,6 +34,10 @@ public class VisionController {
     private int cameraW;
     private int cameraH;
 
+    public VisionController(){
+        SmartDashboard.putBoolean("CameraDebug", false);
+    }
+
     public DriveSignal getMotorOutput(double speed){
         getValues();
         System.out.println("vision L: " + xPercent * speed + " vision R " + (1-xPercent) * speed);

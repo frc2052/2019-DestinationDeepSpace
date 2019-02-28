@@ -1,7 +1,6 @@
 package com.team2052.deepspace.auto;
 
 import com.team2052.deepspace.Constants;
-import com.team2052.deepspace.auto.actions.SeriesAction;
 import com.team2052.deepspace.auto.modes.CenterStart.BackwardCenterToCenterLeft;
 import com.team2052.deepspace.auto.modes.CenterStart.BackwardCenterToCenterRight;
 import com.team2052.deepspace.auto.modes.CenterStart.ForwardCanterToCenterLeft;
@@ -89,6 +88,7 @@ public class AutoModeSelector {
             lastSecond = second;
             switch (position) {
                 case TEST:
+                    System.out.println("selected test");
                     selectedAuto = new Test(position.startPos);
                     break;
                 case LEFT:
@@ -168,11 +168,14 @@ public class AutoModeSelector {
                 default:
                     selectedAuto = null; //set null because we check if its null on line for smart dashboard
             }
+            if(selectedAuto != null){
+                selectedAuto.init();
+            }
         }
 
         if (selectedAuto != null) {
             SmartDashboard.putBoolean("Does AutoMode Exist?", true);
-            selectedAuto.init();
+
             return selectedAuto;
         } else {
             SmartDashboard.putBoolean("Does AutoMode Exist?", false);
