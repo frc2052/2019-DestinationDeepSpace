@@ -40,8 +40,12 @@ public class VisionController {
 
     public DriveSignal getMotorOutput(double speed){
         getValues();
-        System.out.println("vision L: " + xPercent * speed + " vision R " + (1-xPercent) * speed);
-        return new DriveSignal(xPercent * speed,(1-xPercent) * speed);
+        if(isTarget()) {
+            System.out.println("vision L: " + xPercent * speed + " vision R " + (1 - xPercent) * speed);
+            return new DriveSignal(xPercent * speed, (1 - xPercent) * speed);
+        }else{
+            return new DriveSignal(.5,.5);
+        }
     }
 
     public void getValues(){
