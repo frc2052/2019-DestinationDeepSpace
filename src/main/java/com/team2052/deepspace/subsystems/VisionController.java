@@ -19,7 +19,7 @@ public class VisionController {
 
     //Static method so all code access the smart dashboard the same way for camera
     public static void showBackPiCamera(boolean isBack){
-        SmartDashboard.putBoolean("Camera Toggle", isBack);
+        SmartDashboard.putBoolean("Camera Toggle", !isBack);
     }
 
     private double yaw;
@@ -36,11 +36,13 @@ public class VisionController {
 
     public VisionController(){
         SmartDashboard.putBoolean("CameraDebug", false);
+        SmartDashboard.putBoolean("Camera Toggle", false);
     }
 
     public DriveSignal getMotorOutput(double speed){
         getValues();
         if(isTarget()) {
+            xPercent = ((xPercent-.5)*1.5)+.5;
             System.out.println("vision L: " + xPercent * speed + " vision R " + (1 - xPercent) * speed);
             return new DriveSignal(xPercent * speed, (1 - xPercent) * speed);
         }else{
