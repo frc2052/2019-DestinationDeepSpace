@@ -174,6 +174,7 @@ public class PurePursuitPathFollower{
 
         //curvature is 1/radius of the circle the robot must drive on
         curvature = side * ((2*x)/ (Constants.Autonomous.kLookaheadDistance * Constants.Autonomous.kLookaheadDistance));
+        System.out.println("curvature " + curvature);
     }
 
     /**
@@ -185,28 +186,31 @@ public class PurePursuitPathFollower{
         double velocity = robotState.getVelocityInch() +  deltaVelocity;
         leftWheelVel = velocity * (2 + curvature * Constants.Autonomous.kTrackWidth)/2;
         rightWheelVel = velocity * (2 - curvature * Constants.Autonomous.kTrackWidth)/2; //todo swap + & - if the robot turns away from the path
-
+        System.out.println("left: " + leftWheelVel + " right: " + rightWheelVel + " velocity: " + velocity + " curv: " + curvature + " track: " + Constants.Autonomous.kTrackWidth);
         //if velocity gets to fast scale it down so a wheel is not told to drive faster then 100%
         double highestVel = 0.0;
 
-        highestVel = Math.max(highestVel, leftWheelVel);
-        highestVel = Math.max(highestVel,rightWheelVel);
+        highestVel = Math.max(highestVel, Math.abs(leftWheelVel));
+        highestVel = Math.max(highestVel, Math.abs(rightWheelVel));
 
         //scale speed down if the robot goes faster then the speed given at a point
         if(highestVel > path.getWaypoints().get(closestPointIndex).getVelocity()){
-            double scaling = path.getWaypoints().get(closestPointIndex).getVelocity() / highestVel;
+            double scaling = Math.abs(path.getWaypoints().get(closestPointIndex).getVelocity()) / highestVel;
             System.out.println("SCALING OUTPUTS DOWN");
             leftWheelVel*=scaling;
             rightWheelVel*=scaling;
+            System.out.println("scaling: " + scaling + " closest point: " + closestPointIndex + " vel: " + path.getWaypoints().get(closestPointIndex).getVelocity() + " highest value: " + highestVel);
+            System.out.println("left: " + leftWheelVel + " right: " + rightWheelVel);
         }
 
-        double leftFeedForward = Constants.Autonomous.kV * leftWheelVel + Constants.Autonomous.kA * deltaVelocity;
-        double rightFeedForward = Constants.Autonomous.kV * rightWheelVel + Constants.Autonomous.kA * deltaVelocity ;
-        double leftFeedBack = Constants.Autonomous.kP * (leftWheelVel - robotState.getLeftVelocityInch());
-        double rightFeedBack = Constants.Autonomous.kP * (rightWheelVel - robotState.getRightVelocityInch());
+        double leftFeedForward = Constants.Autonomous.kV * leftWheelVel; //+ Constants.Autonomous.kA * deltaVelocity;
+        double rightFeedForward = Constants.Autonomous.kV * rightWheelVel;// + Constants.Autonomous.kA * deltaVelocity ;
+        double leftFeedBack =0;// Constants.Autonomous.kP * (leftWheelVel - robotState.getLeftVelocityInch());
+        double rightFeedBack =0;// Constants.Autonomous.kP * (rightWheelVel - robotState.getRightVelocityInch());
 
         double leftSpeed = leftFeedForward + leftFeedBack;
         double rightSpeed = rightFeedForward + rightFeedBack;
+        System.out.println("leftSpeed: " + leftSpeed + " rightSpeed: " + rightSpeed);
 
         //System.out.println("leftvel: " + leftWheelVel + "rightvel: " + rightWheelVel + "vel: " + velocity + "dv:" + deltaVelocity + "tarVel: " + path.getWaypoints().get(closestPointIndex).getVelocity());
 

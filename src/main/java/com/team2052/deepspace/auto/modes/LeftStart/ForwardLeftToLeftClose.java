@@ -21,6 +21,7 @@ public class ForwardLeftToLeftClose extends AutoMode{
                 //Starting path starts going backwards
                 new FollowPathAction(new LStartSideLeftCloseHatchPath(startingPos, Path.Direction.FORWARD)),
                 //Vision
+
                 new VisionAction(true),
                 // when true, ground outtake action
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
@@ -29,6 +30,7 @@ public class ForwardLeftToLeftClose extends AutoMode{
                         new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
                         new FollowPathAction(new LeftCargoShipBackupPath())
                 ))
+
         )));
     }
 }

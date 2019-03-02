@@ -2,10 +2,12 @@ package com.team2052.deepspace.auto.modes;
 
 import com.team2052.deepspace.auto.AutoMode;
 import com.team2052.deepspace.auto.actions.FollowPathAction;
-import com.team2052.deepspace.auto.actions.HatchIntakeAction;
 import com.team2052.deepspace.auto.actions.SeriesAction;
-import com.team2052.deepspace.auto.actions.VisionAction;
-import com.team2052.deepspace.auto.paths.*;
+import com.team2052.deepspace.auto.paths.CompoundPath;
+import com.team2052.deepspace.auto.paths.LeftStart.LStartSideLeftCloseHatchPath;
+import com.team2052.deepspace.auto.paths.NotSmoothTestCompoundPath;
+import com.team2052.deepspace.auto.paths.Path;
+import com.team2052.deepspace.auto.paths.SmoothTestCompoundPath;
 import com.team2052.lib.Autonomous.Position2d;
 
 import java.util.Arrays;
@@ -27,9 +29,10 @@ public class Test extends AutoMode {
 
         setAction(new SeriesAction(Arrays.asList(
 
-                new FollowPathAction(new ForwardPath(Path.Direction.FORWARD)),
-                new VisionAction(true),
-                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE)
-        )));
+                new FollowPathAction(new LStartSideLeftCloseHatchPath(startingPos, Path.Direction.FORWARD)))
+               // new VisionAction(true),
+               // new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE)
+        //)
+        ));
     }
 }

@@ -58,6 +58,9 @@ public class Robot extends TimedRobot {
         }
 
         AutoModeSelector.putToShuffleBoard();
+
+        //todo: remove
+        Constants.initDashTesting();
     }
 
     /**
@@ -87,8 +90,7 @@ public class Robot extends TimedRobot {
         //todo: make one direction enum
         robotStateCalculator.setStartDirection(currentMode.getStartDirection().isForward);
         robotStateCalculator.resetRobotState(AutoModeSelector.getStartingPos());
-
-        //TODO: REVIEW - Perhaps start should accept an automode as a parameter, rather than something somewhere seeting which automode will run
+        System.out.println("starting x: " + robotstate.getLatestPosition().getLateral() + " y: "+ robotstate.getLatestPosition().getForward());
         //start running the auto mode
         autoModeRunner.start(currentMode);
     }
@@ -154,6 +156,7 @@ public class Robot extends TimedRobot {
         driveTrain.stop();
         AutoModeSelector.checkSelectedAutoMode();
         PurePursuitPathFollower.getInstance().resetPathFollower();
+        Constants.DashboardTesting();
     }
 
     private void driverControlled(){

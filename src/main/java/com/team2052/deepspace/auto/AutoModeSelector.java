@@ -1,13 +1,16 @@
 package com.team2052.deepspace.auto;
 
 import com.team2052.deepspace.Constants;
-import com.team2052.deepspace.auto.modes.CenterStart.BackwardCenterToCenterLeft;
-import com.team2052.deepspace.auto.modes.CenterStart.BackwardCenterToCenterRight;
 import com.team2052.deepspace.auto.modes.CenterStart.ForwardCanterToCenterLeft;
 import com.team2052.deepspace.auto.modes.CenterStart.ForwardCenterToCenterRight;
 import com.team2052.deepspace.auto.modes.DontMove;
-import com.team2052.deepspace.auto.modes.LeftStart.*;
-import com.team2052.deepspace.auto.modes.RightStart.*;
+import com.team2052.deepspace.auto.modes.LeftStart.ForwardLeftToCenterLeft;
+import com.team2052.deepspace.auto.modes.LeftStart.ForwardLeftToLeftClose;
+import com.team2052.deepspace.auto.modes.LeftStart.ForwardLeftToLeftFar;
+import com.team2052.deepspace.auto.modes.LeftStart.ForwardLeftToLeftMiddle;
+import com.team2052.deepspace.auto.modes.RightStart.ForwardRightToRightClose;
+import com.team2052.deepspace.auto.modes.RightStart.ForwardRightToRightFar;
+import com.team2052.deepspace.auto.modes.RightStart.ForwardRightToRightMiddle;
 import com.team2052.deepspace.auto.modes.Test;
 import com.team2052.lib.Autonomous.Position2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -94,6 +97,7 @@ public class AutoModeSelector {
                 case LEFT:
                 case LEFTHAB2:
                     switch (first) {
+                        /*
                         case BCLHATCH:
                             selectedAuto = new BackwardLeftToCenterLeft(position.startPos);
                             break;
@@ -106,6 +110,7 @@ public class AutoModeSelector {
                         case BLFHATCH:
                             selectedAuto = new BackwardLeftToLeftFar(position.startPos);
                             break;
+                            */
                         case FCLHATCH:
                             selectedAuto = new ForwardLeftToCenterLeft(position.startPos);
                             break;
@@ -117,11 +122,15 @@ public class AutoModeSelector {
                             break;
                         case FLFHATCH:
                             selectedAuto = new ForwardLeftToLeftFar(position.startPos);
+
+                        default:
+                            selectedAuto = null;
                     }
                     break;
                 case RIGHT:
                 case RIGHTHAB2:
                     switch (first) {
+                        /*
                         case BCRHATCH:
                             selectedAuto = new BackwardCenterToCenterRight(position.startPos);
                             break;
@@ -134,6 +143,7 @@ public class AutoModeSelector {
                         case BRCHATCH:
                             selectedAuto = new BackwardRightToRightClose(position.startPos);
                             break;
+                            */
                         case FCRHATCH:
                             selectedAuto = new ForwardCenterToCenterRight(position.startPos);
                             break;
@@ -146,22 +156,28 @@ public class AutoModeSelector {
                         case FRCHATCH:
                             selectedAuto = new ForwardRightToRightClose(position.startPos);
                             break;
+                        default:
+                            selectedAuto = null;
                     }
                     break;
                 case CENTER:
                     switch (first) {
+                        /*
                         case BCLHATCH:
                             selectedAuto = new BackwardCenterToCenterLeft(position.startPos);
                             break;
                         case BCRHATCH:
                             selectedAuto = new BackwardCenterToCenterLeft(position.startPos);
                             break;
+                            */
                         case FCLHATCH:
                             selectedAuto = new ForwardCanterToCenterLeft(position.startPos);
                             break;
                         case FCRHATCH:
                             selectedAuto = new ForwardCenterToCenterRight(position.startPos);
                             break;
+                        default:
+                            selectedAuto = null;
                     }
                     break;
                 case NONE:
@@ -208,23 +224,23 @@ public class AutoModeSelector {
 
     public enum FirstTargetSelection {
         NONE("Select Target One"),
-        BCLHATCH("BackCenterLeftHatch"),
-        BCRHATCH("BackCenterRightHatch"),
         FCLHATCH("FrontCenterLeftHatch"),
-        FCRHATCH("FrontCenterRightHatch"),
-        BLFHATCH("BackLeftFarHatch"),
-        FLFHATCH("FrontLeftFarHatch"),
-        BRFHATCH("BackRightFarHatch"),
-        FRFHATCH("FrontRightFarHatch"),
-        BLMHATCH("BackLeftMiddleHatch"),
-        FLMHATCH("FrontLeftMiddleHatch"),
-        BRMHATCH("BackRightMiddleHatch"),
-        FRMHATCH("FrontRightMiddleHatch"),
-        BLCHATCH("BackLeftCloseHatch"),
         FLCHATCH("FrontLeftCloseHatch"),
-        BRCHATCH("BackRightCloseHatch"),
+        FLMHATCH("FrontLeftMiddleHatch"),
+        FLFHATCH("FrontLeftFarHatch"),
+        FCRHATCH("FrontCenterRightHatch"),
         FRCHATCH("FrontRightCloseHatch"),
-        TEST("test");
+        FRMHATCH("FrontRightMiddleHatch"),
+        FRFHATCH("FrontRightFarHatch");/*,
+
+        BCLHATCH("BackCenterLeftHatch"),
+        BLCHATCH("BackLeftCloseHatch"),
+        BLMHATCH("BackLeftMiddleHatch"),
+        BLFHATCH("BackLeftFarHatch"),
+        BCRHATCH("BackCenterRightHatch"),
+        BRCHATCH("BackRightCloseHatch"),
+        BRMHATCH("BackRightMiddleHatch"),
+        BRFHATCH("BackRightFarHatch")*/
 
         public String name;
 
