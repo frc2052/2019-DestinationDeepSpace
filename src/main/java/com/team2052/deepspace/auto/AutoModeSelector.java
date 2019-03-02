@@ -169,6 +169,7 @@ public class AutoModeSelector {
                     selectedAuto = null; //set null because we check if its null on line for smart dashboard
             }
             if(selectedAuto != null){
+                System.out.println("INITING: "+selectedAuto.getClass().getSimpleName());
                 selectedAuto.init();
             }
         }

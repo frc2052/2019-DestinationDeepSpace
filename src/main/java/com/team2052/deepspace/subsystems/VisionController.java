@@ -29,7 +29,7 @@ public class VisionController {
     private double xPercent;
     private double y = -1;
 
-    public static double xOffset = 1.5;
+    public static double xOffset = 12;
 
     private int cameraW;
     private int cameraH;
@@ -43,7 +43,7 @@ public class VisionController {
         getValues();
         if(isTarget()) {
             xPercent = ((xPercent-.5)*1.5)+.5;
-            System.out.println("vision L: " + xPercent * speed + " vision R " + (1 - xPercent) * speed);
+            System.out.println("vision L: " + (xPercent * speed) + " vision R " + ((1 - xPercent) * speed) + " xP: " + xPercent);
             return new DriveSignal(xPercent * speed, (1 - xPercent) * speed);
         }else{
             return new DriveSignal(.5,.5);
@@ -71,6 +71,6 @@ public class VisionController {
     }
 
     public boolean isClose(){
-        return y > 42.0;
+        return y > 34.0;
     }
 }
