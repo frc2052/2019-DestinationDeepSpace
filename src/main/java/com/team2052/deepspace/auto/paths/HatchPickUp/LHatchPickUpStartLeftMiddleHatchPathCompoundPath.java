@@ -19,10 +19,10 @@ public class LHatchPickUpStartLeftMiddleHatchPathCompoundPath extends CompoundPa
         public LHatchPickUpStartLeftMiddleHatchPath1() {
             setDirection(Direction.BACKWARD);
             //TODO: these points need to be fixed to allow for a turn
-            addWaypoint(new Waypoint(new Position2d(-30,-125), Constants.Autonomous.kTestVelocity));
-            addWaypoint(new Waypoint(new Position2d(60,-70),Constants.Autonomous.kTestVelocity));
-            addWaypoint(new Waypoint(new Position2d(216,-60),Constants.Autonomous.kTestVelocity));
-            addWaypoint(new Waypoint(new Position2d(216,-80  ),Constants.Autonomous.kTestVelocity));
+            addWaypoint(new Waypoint(new Position2d(-30,-125), Constants.Autonomous.kAutoVelocity));
+            addWaypoint(new Waypoint(new Position2d(60,-70),Constants.Autonomous.kAutoVelocity));
+            addWaypoint(new Waypoint(new Position2d(216,-60),Constants.Autonomous.kAutoVelocity));
+            addWaypoint(new Waypoint(new Position2d(216,-80  ),Constants.Autonomous.kAutoVelocity));
             OptimizePath();
         }
 
@@ -37,8 +37,8 @@ public class LHatchPickUpStartLeftMiddleHatchPathCompoundPath extends CompoundPa
         public LHatchPickUpStartLeftMiddleHatchPath2() {
             setDirection(Direction.FORWARD);
             //TODO: these points need to be fixed to allow for a turn
-            addWaypoint(new Waypoint(new Position2d(216,-80),Constants.Autonomous.kTestVelocity));
-            addWaypoint(new Waypoint(new Position2d(216,-55  ),Constants.Autonomous.kTestVelocity));
+            addWaypoint(new Waypoint(new Position2d(216,-80),Constants.Autonomous.kAutoVelocity));
+            addWaypoint(new Waypoint(new Position2d(216,-55  ),Constants.Autonomous.kAutoVelocity));
             OptimizePath();
         }
 

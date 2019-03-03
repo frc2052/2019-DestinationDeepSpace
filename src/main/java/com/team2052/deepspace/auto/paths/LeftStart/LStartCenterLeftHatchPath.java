@@ -11,9 +11,9 @@ public class LStartCenterLeftHatchPath extends Path{
     public LStartCenterLeftHatchPath(Position2d startPos, Direction direction) {
         setDirection(direction);
         addWaypoint(new Waypoint(startPos,50)); // B
-        addWaypoint(new Waypoint(new Position2d(50,-47),50)); // B
-        addWaypoint(new Waypoint(new Position2d(100,-3),50)); // H
-        addWaypoint(new Waypoint(new Position2d(124,-3),50)); // K
+        addWaypoint(new Waypoint(new Position2d(55,-47),50)); // B
+        addWaypoint(new Waypoint(new Position2d(85,-3),50)); // H
+        addWaypoint(new Waypoint(new Position2d(94,-3),50)); // K
         OptimizePath();
     }
 

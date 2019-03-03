@@ -51,7 +51,7 @@ public class Constants {
         public static final double kLookaheadDistance = 30; //12-25 // changes how smooth it follows path. lower = curves back and forth/fishtail, higher = less accurate
         public static final double kA = 0.0 ; //0-.1 todo: test and see how robot responds
         public static final double kP = 0.0; //0-.1
-        public static double kTestVelocity = 7 * 12 * 1.0;
+        public static double kAutoVelocity = 7 * 12 * 1.0;
         public static boolean kIsAutoHighGear = false;
 
         //the physical max velocity the robot can drive
@@ -137,7 +137,7 @@ public class Constants {
     }
     public static void DashboardTesting(){
 
-        Autonomous.kTestVelocity = SmartDashboard.getNumber("FtPerS", 7) * 12 * 1.0;
+        Autonomous.kAutoVelocity = SmartDashboard.getNumber("FtPerS", 7) * 12 * 1.0;
         Autonomous.kIsAutoHighGear = SmartDashboard.getBoolean("HighGear?", false);
 
         //the physical max velocity the robot can drive

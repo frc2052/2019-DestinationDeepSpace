@@ -140,7 +140,7 @@ public class PurePursuitPathFollower{
             double discriminent = b*b - 4*a*c;
 
             if (discriminent < 0){
-                System.out.println("NO INTERSECTION");
+                System.out.println("NO INTERSECTION" + closestPointIndex + " " + path.getWaypoints().get(closestPointIndex).getPosition().getForward() + " " + path.getWaypoints().get(closestPointIndex).getPosition().getLateral());
                 ranOutOfPath = true;
             }else{
                 discriminent = Math.sqrt(discriminent);
@@ -152,6 +152,8 @@ public class PurePursuitPathFollower{
                 }else if (t1 >= 0 && t1 <=1){
                     t = t1;
                 }
+                System.out.println(closestPointIndex + " " + path.getWaypoints().get(closestPointIndex).getPosition().getForward() + " " + path.getWaypoints().get(closestPointIndex).getPosition().getLateral());
+
                 //System.out.println("% between 2 points lookahead pt is/ T: " + t);
             }
         }

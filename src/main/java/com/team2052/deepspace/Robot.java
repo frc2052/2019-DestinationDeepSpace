@@ -56,11 +56,11 @@ public class Robot extends TimedRobot {
         } catch (Exception exc) {
             System.out.println("DANGER: No compressor!");
         }
-
         AutoModeSelector.putToShuffleBoard();
 
         //todo: remove
         Constants.initDashTesting();
+        AutoModeSelector.nullSelectedAutoMode();
     }
 
     /**
@@ -118,6 +118,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopInit(){
+        AutoModeSelector.nullSelectedAutoMode();
         robotStateCalculator.resetRobotState();
         controlLoop.start();
         driveTrain.zeroGyro();
