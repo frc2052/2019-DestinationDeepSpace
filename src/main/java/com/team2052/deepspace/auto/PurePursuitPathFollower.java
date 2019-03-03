@@ -38,7 +38,6 @@ public class PurePursuitPathFollower{
     private int closestPointIndex;
     private Position2d lookaheadPoint;
     private Position2d currentPos;
-    private boolean isForward;
 
     private boolean ranOutOfPath = false;
     private double curvature;
@@ -77,15 +76,16 @@ public class PurePursuitPathFollower{
      * @param path is a path created in an automode class
      */
     public void start(Path path) {
-        this.path = path;
         resetPathFollower();
+        this.path = path;
         VisionController.showBackPiCamera(!this.path.getIsForward());
     }
 
     /**
      * resets all class level variables
      */
-    private void resetPathFollower(){
+    public void resetPathFollower(){
+        path = null;
         ranOutOfPath = false;
         lookaheadPoint = null;
         currentPos = null;
@@ -117,7 +117,9 @@ public class PurePursuitPathFollower{
 
     /**
      * find a point that is both intersecting a circle radius kLookaheadDistance on the robot and the path
-     *
+     * 1.draw a circle around the robot
+     * 2. find where it intersects the path
+     * 3. find the one in front of the robot
      */
     private void findLookAheadPoint(){
 
@@ -138,7 +140,7 @@ public class PurePursuitPathFollower{
             double discriminent = b*b - 4*a*c;
 
             if (discriminent < 0){
-                System.out.println("NO INTERSECTION");
+                System.out.println("NO INTERSECTION" + closestPointIndex + " " + path.getWaypoints().get(closestPointIndex).getPosition().getForward() + " " + path.getWaypoints().get(closestPointIndex).getPosition().getLateral());
                 ranOutOfPath = true;
             }else{
                 discriminent = Math.sqrt(discriminent);
@@ -150,6 +152,8 @@ public class PurePursuitPathFollower{
                 }else if (t1 >= 0 && t1 <=1){
                     t = t1;
                 }
+                System.out.println(closestPointIndex + " " + path.getWaypoints().get(closestPointIndex).getPosition().getForward() + " " + path.getWaypoints().get(closestPointIndex).getPosition().getLateral());
+
                 //System.out.println("% between 2 points lookahead pt is/ T: " + t);
             }
         }
@@ -170,7 +174,9 @@ public class PurePursuitPathFollower{
 
         double side = -Math.signum(Math.sin(currentPos.getHeading()) * (lookaheadPoint.getForward() - currentPos.getForward()) - Math.cos(currentPos.getHeading()) * (lookaheadPoint.getLateral() - currentPos.getLateral()));
 
+        //curvature is 1/radius of the circle the robot must drive on
         curvature = side * ((2*x)/ (Constants.Autonomous.kLookaheadDistance * Constants.Autonomous.kLookaheadDistance));
+        System.out.println("curvature " + curvature);
     }
 
     /**
@@ -181,27 +187,32 @@ public class PurePursuitPathFollower{
         double deltaVelocity = rateLimiter.constrain(path.getWaypoints().get(closestPointIndex+((closestPointIndex >= path.getWaypoints().size()-5)?1:0)).getVelocity() - robotState.getVelocityInch(), -Constants.Autonomous.kMaxAccel * Constants.Autonomous.kloopPeriodMs, Constants.Autonomous.kMaxAccel * Constants.Autonomous.kloopPeriodMs);
         double velocity = robotState.getVelocityInch() +  deltaVelocity;
         leftWheelVel = velocity * (2 + curvature * Constants.Autonomous.kTrackWidth)/2;
-        rightWheelVel = velocity * (2 - curvature * Constants.Autonomous.kTrackWidth)/2; //todo swap + & -
-
+        rightWheelVel = velocity * (2 - curvature * Constants.Autonomous.kTrackWidth)/2; //todo swap + & - if the robot turns away from the path
+        System.out.println("left: " + leftWheelVel + " right: " + rightWheelVel + " velocity: " + velocity + " curv: " + curvature + " track: " + Constants.Autonomous.kTrackWidth);
         //if velocity gets to fast scale it down so a wheel is not told to drive faster then 100%
         double highestVel = 0.0;
 
-        highestVel = Math.max(highestVel, leftWheelVel);
-        highestVel = Math.max(highestVel,rightWheelVel);
-        if(highestVel > Constants.Autonomous.kMaxAutoVelocity){
-            double scaling = Constants.Autonomous.kMaxAutoVelocity / highestVel;
+        highestVel = Math.max(highestVel, Math.abs(leftWheelVel));
+        highestVel = Math.max(highestVel, Math.abs(rightWheelVel));
+
+        //scale speed down if the robot goes faster then the speed given at a point
+        if(highestVel > path.getWaypoints().get(closestPointIndex).getVelocity()){
+            double scaling = Math.abs(path.getWaypoints().get(closestPointIndex).getVelocity()) / highestVel;
             System.out.println("SCALING OUTPUTS DOWN");
             leftWheelVel*=scaling;
             rightWheelVel*=scaling;
+            System.out.println("scaling: " + scaling + " closest point: " + closestPointIndex + " vel: " + path.getWaypoints().get(closestPointIndex).getVelocity() + " highest value: " + highestVel);
+            System.out.println("left: " + leftWheelVel + " right: " + rightWheelVel);
         }
 
-        double leftFeedForward = Constants.Autonomous.kV * leftWheelVel + Constants.Autonomous.kA * deltaVelocity;
-        double rightFeedForward = Constants.Autonomous.kV * rightWheelVel + Constants.Autonomous.kA * deltaVelocity ;
-        double leftFeedBack = Constants.Autonomous.kP * (leftWheelVel - robotState.getLeftVelocityInch());
-        double rightFeedBack = Constants.Autonomous.kP * (rightWheelVel - robotState.getRightVelocityInch());
+        double leftFeedForward = Constants.Autonomous.kV * leftWheelVel; //+ Constants.Autonomous.kA * deltaVelocity;
+        double rightFeedForward = Constants.Autonomous.kV * rightWheelVel;// + Constants.Autonomous.kA * deltaVelocity ;
+        double leftFeedBack =0;// Constants.Autonomous.kP * (leftWheelVel - robotState.getLeftVelocityInch());
+        double rightFeedBack =0;// Constants.Autonomous.kP * (rightWheelVel - robotState.getRightVelocityInch());
 
         double leftSpeed = leftFeedForward + leftFeedBack;
         double rightSpeed = rightFeedForward + rightFeedBack;
+        System.out.println("leftSpeed: " + leftSpeed + " rightSpeed: " + rightSpeed);
 
         //System.out.println("leftvel: " + leftWheelVel + "rightvel: " + rightWheelVel + "vel: " + velocity + "dv:" + deltaVelocity + "tarVel: " + path.getWaypoints().get(closestPointIndex).getVelocity());
 

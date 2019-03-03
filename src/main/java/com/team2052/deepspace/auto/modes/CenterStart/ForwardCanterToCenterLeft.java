@@ -19,9 +19,11 @@ public class ForwardCanterToCenterLeft extends AutoMode {
     @Override
     protected void init() {
         setAction(new SeriesAction(Arrays.asList(
-                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.ARMDOWN),
-                //Starting path starts going backwards
-                new FollowPathAction(new CStartCenterLeftHatchPath(startingPos, Path.Direction.FORWARD)),
+                new ParallelAction(Arrays.asList(
+                        new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.ARMDOWN),
+                        //Starting path starts going backwards
+                        new FollowPathAction(new CStartCenterLeftHatchPath(startingPos, Path.Direction.FORWARD))
+                )),
                 //Vision
                 new VisionAction(true),
                 // when true, ground outtake action

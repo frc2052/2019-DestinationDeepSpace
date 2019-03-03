@@ -2,8 +2,9 @@ package com.team2052.deepspace.auto.modes.LeftStart;
 
 import com.team2052.deepspace.auto.AutoMode;
 import com.team2052.deepspace.auto.actions.*;
+import com.team2052.deepspace.auto.paths.HatchPickUp.LHatchPickUpBackUp;
+import com.team2052.deepspace.auto.paths.LeftHatchStarts.LCloseHatchStartLeftHatchPickUpPathCompoundPath;
 import com.team2052.deepspace.auto.paths.LeftStart.LStartSideLeftCloseHatchPath;
-import com.team2052.deepspace.auto.paths.LeftStart.LeftCargoShipBackupPath;
 import com.team2052.deepspace.auto.paths.Path;
 import com.team2052.lib.Autonomous.Position2d;
 
@@ -17,9 +18,10 @@ public class ForwardLeftToLeftClose extends AutoMode{
     @Override
     protected void init() {
         setAction(new SeriesAction(Arrays.asList(
-                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.ARMDOWN),
-                //Starting path starts going backwards
-                new FollowPathAction(new LStartSideLeftCloseHatchPath(startingPos, Path.Direction.FORWARD)),
+                new ParallelAction(Arrays.asList(
+                        new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.ARMDOWN),
+                        new FollowPathAction(new LStartSideLeftCloseHatchPath(startingPos, Path.Direction.FORWARD))
+                )),
                 //Vision
                 new VisionAction(true),
                 // when true, ground outtake action
@@ -27,8 +29,13 @@ public class ForwardLeftToLeftClose extends AutoMode{
 //                //Turns robot around and drives back towards loading station
                 new ParallelAction(Arrays.asList(
                         new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
-                        new FollowPathAction(new LeftCargoShipBackupPath())
-                ))
+                        new FollowPathListAction(new LCloseHatchStartLeftHatchPickUpPathCompoundPath().getPaths())
+                )),
+
+                new VisionAction(true),
+                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
+                new FollowPathAction(new LHatchPickUpBackUp(Path.Direction.BACKWARD))
+
         )));
     }
 }

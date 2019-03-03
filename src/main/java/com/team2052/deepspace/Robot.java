@@ -1,8 +1,9 @@
 package com.team2052.deepspace;
 
+import com.team2052.deepspace.auto.AutoMode;
 import com.team2052.deepspace.auto.AutoModeRunner;
 import com.team2052.deepspace.auto.AutoModeSelector;
-import com.team2052.deepspace.auto.actions.Action;
+import com.team2052.deepspace.auto.PurePursuitPathFollower;
 import com.team2052.deepspace.subsystems.*;
 import com.team2052.lib.ControlLoop;
 import com.team2052.lib.DriveHelper;
@@ -55,8 +56,11 @@ public class Robot extends TimedRobot {
         } catch (Exception exc) {
             System.out.println("DANGER: No compressor!");
         }
-
         AutoModeSelector.putToShuffleBoard();
+
+        //todo: remove
+        Constants.initDashTesting();
+        AutoModeSelector.nullSelectedAutoMode();
     }
 
     /**
@@ -79,14 +83,16 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         controlLoop.start();
         driveTrain.zeroGyro();
-        //get the enum for the selected automode
-        Action currentAction = AutoModeSelector.getSelectedAction();
-        //ask the factory to create an instance (if not already created)
+
+        AutoMode currentMode = AutoModeSelector.getSelectedAutoMode();
+        System.out.println("selected :" + currentMode.getClass().getName());
         //use the instance to get direction and position
-        robotStateCalculator.setStartDirection(AutoModeSelector.getStartDirection());
+        //todo: make one direction enum
+        robotStateCalculator.setStartDirection(currentMode.getStartDirection().isForward);
         robotStateCalculator.resetRobotState(AutoModeSelector.getStartingPos());
+        System.out.println("starting x: " + robotstate.getLatestPosition().getLateral() + " y: "+ robotstate.getLatestPosition().getForward());
         //start running the auto mode
-        autoModeRunner.start();
+        autoModeRunner.start(currentMode);
     }
 
     /**
@@ -100,9 +106,9 @@ public class Robot extends TimedRobot {
             autoModeRunner.stop();
             driveTrain.stop();
         }
-        //System.out.println("is auto done: " + autoModeRunner.isAutodone());
+        //System.out.println("is auto done: " + autoModeRunner.isFinished());
 
-        if(autoModeRunner.isAutodone()){
+        if(autoModeRunner.isFinished()){
             driverControlled();
         }
     }
@@ -112,12 +118,21 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopInit(){
+        AutoModeSelector.nullSelectedAutoMode();
         robotStateCalculator.resetRobotState();
         controlLoop.start();
         driveTrain.zeroGyro();
-        lineFollower.resetLineSensor();
-        backLineFollower.resetLineSensor();
-        legClimberController.resetEncoders();
+        if(lineFollower != null) {
+            lineFollower.resetLineSensor();
+        }
+
+        if(backLineFollower != null) {
+            backLineFollower.resetLineSensor();
+        }
+
+        if(legClimberController != null) {
+            legClimberController.resetEncoders();
+        }
     }
 
     /**
@@ -140,7 +155,9 @@ public class Robot extends TimedRobot {
         autoModeRunner.stop();
         controlLoop.stop();
         driveTrain.stop();
-        autoModeRunner.setAction(AutoModeSelector.getSelectedAction());
+        AutoModeSelector.checkSelectedAutoMode();
+        PurePursuitPathFollower.getInstance().resetPathFollower();
+        Constants.DashboardTesting();
     }
 
     private void driverControlled(){

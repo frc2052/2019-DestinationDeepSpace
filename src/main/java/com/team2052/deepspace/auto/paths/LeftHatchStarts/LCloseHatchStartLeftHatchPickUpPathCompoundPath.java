@@ -1,5 +1,6 @@
 package com.team2052.deepspace.auto.paths.LeftHatchStarts;
 
+import com.team2052.deepspace.Constants;
 import com.team2052.deepspace.auto.paths.CompoundPath;
 import com.team2052.deepspace.auto.paths.Path;
 import com.team2052.lib.Autonomous.Position2d;
@@ -18,11 +19,9 @@ public class LCloseHatchStartLeftHatchPickUpPathCompoundPath extends CompoundPat
         public  LCloseHatchStartLeftHatchPickUpPath1() {
             setDirection(Direction.BACKWARD);
             //TODO: these points need to be fixed to allow for a turn
-            addWaypoint(new Waypoint(new Position2d(194, -48), 50)); //P
-            addWaypoint(new Waypoint(new Position2d(194,-65),50)); // N
-            addWaypoint(new Waypoint(new Position2d(153,-65),50)); // M
-            addWaypoint(new Waypoint(new Position2d(111, -134), 50)); // U
-            addWaypoint(new Waypoint(new Position2d(111, -154), 50)); // V
+            addWaypoint(new Waypoint(new Position2d(194, -48), Constants.Autonomous.kAutoVelocity)); //P
+            addWaypoint(new Waypoint(new Position2d(200,-20),Constants.Autonomous.kAutoVelocity)); // N
+            addWaypoint(new Waypoint(new Position2d(220,-65),Constants.Autonomous.kAutoVelocity)); // M
             OptimizePath();
         }
 
@@ -37,11 +36,10 @@ public class LCloseHatchStartLeftHatchPickUpPathCompoundPath extends CompoundPat
         public  LCloseHatchStartLeftHatchPickUpPath2() {
             setDirection(Direction.FORWARD);
             //TODO: these points need to be fixed to allow for a turn
-            addWaypoint(new Waypoint(new Position2d(111, -134), 50)); // V
-            addWaypoint(new Waypoint(new Position2d(111, -154), 50)); // U
-            addWaypoint(new Waypoint(new Position2d(68, -134), 50)); // W
-            addWaypoint(new Waypoint(new Position2d(29,-134),50)); // E
-            addWaypoint(new Waypoint(new Position2d(-66,-134),50)); // D
+            addWaypoint(new Waypoint(new Position2d(220, -65), Constants.Autonomous.kAutoVelocity)); // V
+            addWaypoint(new Waypoint(new Position2d(120, -65), Constants.Autonomous.kAutoVelocity)); // U
+            addWaypoint(new Waypoint(new Position2d(30,-122),Constants.Autonomous.kAutoVelocity)); // E
+            addWaypoint(new Waypoint(new Position2d(0,-122),Constants.Autonomous.kAutoVelocity)); // D
             OptimizePath();
         }
 

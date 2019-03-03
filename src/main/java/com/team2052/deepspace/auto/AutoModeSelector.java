@@ -1,14 +1,14 @@
 package com.team2052.deepspace.auto;
 
 import com.team2052.deepspace.Constants;
-import com.team2052.deepspace.auto.actions.SeriesAction;
-import com.team2052.deepspace.auto.modes.CenterStart.BackwardCenterToCenterLeft;
-import com.team2052.deepspace.auto.modes.CenterStart.BackwardCenterToCenterRight;
 import com.team2052.deepspace.auto.modes.CenterStart.ForwardCanterToCenterLeft;
 import com.team2052.deepspace.auto.modes.CenterStart.ForwardCenterToCenterRight;
 import com.team2052.deepspace.auto.modes.DontMove;
 import com.team2052.deepspace.auto.modes.LeftStart.*;
-import com.team2052.deepspace.auto.modes.RightStart.*;
+import com.team2052.deepspace.auto.modes.RightStart.ForwardRightToCenterRight;
+import com.team2052.deepspace.auto.modes.RightStart.ForwardRightToRightClose;
+import com.team2052.deepspace.auto.modes.RightStart.ForwardRightToRightFar;
+import com.team2052.deepspace.auto.modes.RightStart.ForwardRightToRightMiddle;
 import com.team2052.deepspace.auto.modes.Test;
 import com.team2052.lib.Autonomous.Position2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -55,50 +55,17 @@ public class AutoModeSelector {
         SmartDashboard.putData("Second Target", sendableChooserSecondTarget);
     }
 
-    public static boolean getStartDirection(){
-        AutoMode selected = getSelectedAutoMode();
-        if (selected != null) {
-            return selected.getStartDirection().isForward;
-        } else {
-            return true;
-        }
-    }
-
-    public static SeriesAction getSelectedAction() {
-        AutoMode selected = getSelectedAutoMode();
-        if (selected != null) {
-            return selected.getAction();
-        } else {
-            return new DontMove().getAction();
-        }
-    }
-
     private static PositionSelection lastPosition = null;
     private static FirstTargetSelection lastFirst = null;
     private static SecondTargetSelection lastSecond = null;
     private static AutoMode selectedAuto = null;
 
+    public static void checkSelectedAutoMode(){
+        //this method also updates smartdashboard
+        getSelectedAutoMode();
+    }
+
     public static AutoMode getSelectedAutoMode() {
-//        Action autoAction = new DontMove().getAction();
-//        AutoModeDefinition firstSelected = getFirstSelectedAutomode();
-//        AutoModeDefinition secondSelected = getSecondSelectedAutomode();
-//        try {
-//            SmartDashboard.putString("selected2ndgoal",sendableChooserSecondTarget.getSelected().name + " " + sendableChooserSecondTarget.getSelected().name.equals("None"));
-//            if(sendableChooserSecondTarget.getSelected().name.equals("None")) {
-//                //System.out.println("ONLY FIrST");
-//                autoAction = firstSelected.autoMode.getAction();
-//            }else{
-//                //System.out.println("ONLY SECOND");
-//                autoAction = new SeriesAction(Arrays.asList(
-//                        firstSelected.autoMode.getAction(),
-//                        secondSelected.autoMode.getAction()
-//                ));
-//            }
-//            SmartDashboard.putBoolean("Does AutoMode Exist?", true);
-//        } catch (Exception e) {
-//            //e.printStackTrace();
-//            SmartDashboard.putBoolean("Does AutoMode Exist?", false);
-//        }
 
         PositionSelection position = sendableChooserPosition.getSelected();
         FirstTargetSelection first = sendableChooserFirstTarget.getSelected();
@@ -115,17 +82,21 @@ public class AutoModeSelector {
             second = SecondTargetSelection.NONE;
         }
 
-        if (selectedAuto == null || selectedAuto.getAction().isFinished() || position != lastPosition || first != lastFirst || second != lastSecond) {
+        //TODO: REVIEW - comment this logic
+        if (selectedAuto == null || selectedAuto.isActionFinished() || position != lastPosition || first != lastFirst || second != lastSecond) {
             lastPosition = position;
             lastFirst = first;
             lastSecond = second;
+            //System.out.println("pos: "+ lastPosition.name + " " + lastPosition + " first: " + lastFirst.name + " " + lastFirst);
             switch (position) {
                 case TEST:
+                    System.out.println("selected test");
                     selectedAuto = new Test(position.startPos);
                     break;
                 case LEFT:
                 case LEFTHAB2:
                     switch (first) {
+                        /*
                         case BCLHATCH:
                             selectedAuto = new BackwardLeftToCenterLeft(position.startPos);
                             break;
@@ -138,6 +109,7 @@ public class AutoModeSelector {
                         case BLFHATCH:
                             selectedAuto = new BackwardLeftToLeftFar(position.startPos);
                             break;
+                            */
                         case FCLHATCH:
                             selectedAuto = new ForwardLeftToCenterLeft(position.startPos);
                             break;
@@ -149,11 +121,25 @@ public class AutoModeSelector {
                             break;
                         case FLFHATCH:
                             selectedAuto = new ForwardLeftToLeftFar(position.startPos);
+                            break;
+                        case FLSRCHATCH:
+                            selectedAuto = new ForwardLeftToRocketClose(position.startPos);
+                            break;
+                        case BLSRFHATCH:
+                            selectedAuto = new BackwardLeftToRocketFar(position.startPos);
+                            break;
+                        default:
+                            selectedAuto = null;
+                    }
+
+                    switch (second){
+
                     }
                     break;
                 case RIGHT:
                 case RIGHTHAB2:
                     switch (first) {
+                        /*
                         case BCRHATCH:
                             selectedAuto = new BackwardCenterToCenterRight(position.startPos);
                             break;
@@ -166,8 +152,9 @@ public class AutoModeSelector {
                         case BRCHATCH:
                             selectedAuto = new BackwardRightToRightClose(position.startPos);
                             break;
+                            */
                         case FCRHATCH:
-                            selectedAuto = new ForwardCenterToCenterRight(position.startPos);
+                            selectedAuto = new ForwardRightToCenterRight(position.startPos);
                             break;
                         case FRMHATCH:
                             selectedAuto = new ForwardRightToRightMiddle(position.startPos);
@@ -178,62 +165,49 @@ public class AutoModeSelector {
                         case FRCHATCH:
                             selectedAuto = new ForwardRightToRightClose(position.startPos);
                             break;
+                        default:
+                            selectedAuto = null;
                     }
                     break;
                 case CENTER:
                     switch (first) {
+                        /*
                         case BCLHATCH:
                             selectedAuto = new BackwardCenterToCenterLeft(position.startPos);
                             break;
                         case BCRHATCH:
                             selectedAuto = new BackwardCenterToCenterLeft(position.startPos);
                             break;
+                            */
                         case FCLHATCH:
                             selectedAuto = new ForwardCanterToCenterLeft(position.startPos);
                             break;
                         case FCRHATCH:
                             selectedAuto = new ForwardCenterToCenterRight(position.startPos);
                             break;
+                        default:
+                            selectedAuto = null;
                     }
                     break;
                 case NONE:
                 default:
-                    selectedAuto = null;
+                    selectedAuto = null; //set null because we check if its null on line for smart dashboard
+            }
+            if(selectedAuto != null){
+                System.out.println("INITING: "+selectedAuto.getClass().getSimpleName());
+                selectedAuto.init();
             }
         }
 
         if (selectedAuto != null) {
             SmartDashboard.putBoolean("Does AutoMode Exist?", true);
-//            selectedAuto.init();
+
             return selectedAuto;
         } else {
             SmartDashboard.putBoolean("Does AutoMode Exist?", false);
-            return null;
+            return new DontMove();
         }
     }
-//
-//    private static AutoModeDefinition getFirstSelectedAutomode() {
-//        AutoModeDefinition selectedAuto = null;
-//
-//        try {
-//            String selected = sendableChooserPosition.getSelected().name + sendableChooserFirstTarget.getSelected().name;
-//            selected = selected.replaceAll("Hab2", "");
-//            selectedAuto = AutoModeDefinition.valueOf(selected);
-//        } catch (Exception e) {
-//            System.out.println("ERROR with first selection");
-//        }
-//        return selectedAuto;
-//    }
-//
-//    private static AutoModeDefinition getSecondSelectedAutomode() {
-//        AutoModeDefinition selectedAuto = null;
-//        try {
-//            selectedAuto = AutoModeDefinition.valueOf(sendableChooserFirstTarget.getSelected().name + sendableChooserSecondTarget.getSelected().name);
-//        } catch (Exception e) {
-//            //System.out.println("ERROR with second selection");
-//        }
-//        return selectedAuto;
-//    }
 
     public static Position2d getStartingPos() {
         return sendableChooserPosition.getSelected().startPos;
@@ -259,23 +233,25 @@ public class AutoModeSelector {
 
     public enum FirstTargetSelection {
         NONE("Select Target One"),
+        FCLHATCH("ForwardCenterLeftHatch"),
+        FCRHATCH("ForwardCenterRightHatch"),
+        FLCHATCH("ForwardLeftCloseHatch"),
+        FLMHATCH("ForwardLeftMiddleHatch"),
+        FLFHATCH("ForwardLeftFarHatch"),
+        FRCHATCH("ForwardRightCloseHatch"),
+        FRMHATCH("ForwardRightMiddleHatch"),
+        FRFHATCH("ForwardRightFarHatch"),
+        FLSRCHATCH("ForwardLeftRocketClose"),
+        BLSRFHATCH("BackwardLeftRocketFar");
+/*
         BCLHATCH("BackCenterLeftHatch"),
-        BCRHATCH("BackCenterRightHatch"),
-        FCLHATCH("FrontCenterLeftHatch"),
-        FCRHATCH("FrontCenterRightHatch"),
-        BLFHATCH("BackLeftFarHatch"),
-        FLFHATCH("FrontLeftFarHatch"),
-        BRFHATCH("BackRightFarHatch"),
-        FRFHATCH("FrontRightFarHatch"),
-        BLMHATCH("BackLeftMiddleHatch"),
-        FLMHATCH("FrontLeftMiddleHatch"),
-        BRMHATCH("BackRightMiddleHatch"),
-        FRMHATCH("FrontRightMiddleHatch"),
         BLCHATCH("BackLeftCloseHatch"),
-        FLCHATCH("FrontLeftCloseHatch"),
+        BLMHATCH("BackLeftMiddleHatch"),
+        BLFHATCH("BackLeftFarHatch"),
+        BCRHATCH("BackCenterRightHatch"),
         BRCHATCH("BackRightCloseHatch"),
-        FRCHATCH("FrontRightCloseHatch"),
-        TEST("test");
+        BRMHATCH("BackRightMiddleHatch"),
+        BRFHATCH("BackRightFarHatch")*/
 
         public String name;
 
@@ -303,31 +279,9 @@ public class AutoModeSelector {
             this.name = name;
         }
     }
-//
-//    public enum AutoModeDefinition {
-//        DontMove(new DontMove()),
-//
-//        testtest(new Test()),
-//        //Single path AMDs
-//        StartLeftLeftFarHatch(new LeftToLeftFar()),
-//        StartLeftLeftMiddleHatch(new LeftToLeftMiddle()),
-//        StartLeftLeftCloseHatch(new LeftToLeftClose()),
-//        StartLeftCenterLeftHatch(new LeftToCenterLeft()),
-//
-//        StartRightCenterRightHatch(new RightToRightMiddle()),
-//        StartRightRightFarHatch(new RightToRightFar()),
-//        StartRightRightMiddleHatch(new RightToRightClose()),
-//        StartRightRightCloseHatch(new RightToCenterRight()),
-//
-//        StartCenterCenterLeftHatch(new CenterToCenterLeft()),
-//        StartCenterCenterRightHatch(new CenterToCenterRight());
-//
-//
-//        public final AutoMode autoMode;
-//
-//        AutoModeDefinition(AutoMode autoMode) {
-//            this.autoMode = autoMode;
-//        }
-//    }
+
+    public static void nullSelectedAutoMode() {
+        selectedAuto = null;
+    }
 }
 

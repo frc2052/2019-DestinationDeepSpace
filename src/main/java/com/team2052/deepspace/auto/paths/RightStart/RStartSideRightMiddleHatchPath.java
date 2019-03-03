@@ -12,10 +12,10 @@ public class RStartSideRightMiddleHatchPath extends Path {
     public RStartSideRightMiddleHatchPath(Position2d startPos, Direction backward) {
         setDirection(Direction.FORWARD);
         addWaypoint(new Waypoint(startPos,60));
-        addWaypoint(new Waypoint(new Position2d(50,47), Constants.Autonomous.kTestVelocity));
-        addWaypoint(new Waypoint(new Position2d(170,75),Constants.Autonomous.kTestVelocity, "down"));
-        addWaypoint(new Waypoint(new Position2d(215,75),Constants.Autonomous.kTestVelocity));
-        addWaypoint(new Waypoint(new Position2d(215,65),Constants.Autonomous.kTestVelocity,"end"));
+        addWaypoint(new Waypoint(new Position2d(50,47), Constants.Autonomous.kAutoVelocity));
+        addWaypoint(new Waypoint(new Position2d(170,75),Constants.Autonomous.kAutoVelocity, "down"));
+        addWaypoint(new Waypoint(new Position2d(215,75),Constants.Autonomous.kAutoVelocity));
+        addWaypoint(new Waypoint(new Position2d(215,65),Constants.Autonomous.kAutoVelocity,"end"));
         OptimizePath();
     }
 

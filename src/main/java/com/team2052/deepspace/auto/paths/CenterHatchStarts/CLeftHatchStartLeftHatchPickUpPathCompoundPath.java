@@ -1,7 +1,9 @@
 package com.team2052.deepspace.auto.paths.CenterHatchStarts;
 
+import com.team2052.deepspace.Constants;
 import com.team2052.deepspace.auto.paths.CompoundPath;
 import com.team2052.deepspace.auto.paths.Path;
+import com.team2052.lib.Autonomous.Position2d;
 import com.team2052.lib.Autonomous.Waypoint;
 
 import java.util.List;
@@ -16,8 +18,12 @@ public class CLeftHatchStartLeftHatchPickUpPathCompoundPath extends CompoundPath
     class   CLeftHatchStartLeftHatchPickUpPath1 extends Path {
         public  CLeftHatchStartLeftHatchPickUpPath1() {
             setDirection(Direction.BACKWARD);
-            //TODO: Identify points/paths the robot in order to turn around
-            //TODO: ADD COORDINATES
+            addWaypoint(new Waypoint(new Position2d(100,-3),50));
+            addWaypoint(new Waypoint(new Position2d(90,-5), Constants.Autonomous.kAutoVelocity));
+            addWaypoint(new Waypoint(new Position2d(80,-15), Constants.Autonomous.kAutoVelocity));
+            addWaypoint(new Waypoint(new Position2d(80,-100),Constants.Autonomous.kAutoVelocity));
+            addWaypoint(new Waypoint(new Position2d(90,-115),Constants.Autonomous.kAutoVelocity));
+
             OptimizePath();
         }
 
@@ -31,8 +37,9 @@ public class CLeftHatchStartLeftHatchPickUpPathCompoundPath extends CompoundPath
     class  CLeftHatchStartLeftHatchPickUpPath2 extends Path {
         public  CLeftHatchStartLeftHatchPickUpPath2() {
             setDirection(Direction.FORWARD);
-            //TODO: Identify points/paths the robot in order to turn around
-            //TODO: ADD COORDINATES
+            addWaypoint(new Waypoint(new Position2d(90,-115),Constants.Autonomous.kAutoVelocity));
+            addWaypoint(new Waypoint(new Position2d(30,-127),Constants.Autonomous.kAutoVelocity));
+            addWaypoint(new Waypoint(new Position2d(0,-127),Constants.Autonomous.kAutoVelocity));
             OptimizePath();
         }
 

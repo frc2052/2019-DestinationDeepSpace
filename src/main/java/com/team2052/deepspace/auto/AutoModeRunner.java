@@ -5,10 +5,9 @@ import edu.wpi.first.wpilibj.Timer;
 
 
 public class AutoModeRunner {
-    private AutoRunnable autoRunnable;
     private Timer timer = new Timer();
-    private SeriesAction action;
     private Thread thread = null;
+    private AutoMode autoMode;
     private boolean hasStarted = false;
 
     private static AutoModeRunner instance = null;
@@ -24,33 +23,33 @@ public class AutoModeRunner {
         return instance;
     }
 
-    public void setAction(SeriesAction action){
-        //System.out.println("setting action");
-        this.action = action;
-    }
 
-    public void start() {//Initializes auto mode
+    public void start(AutoMode autoMode) {//Initializes auto mode
+        stop();
+        this.autoMode = autoMode;
         //System.out.println("is action ! null: " + (action != null));
-        if(action != null) {
+        if(autoMode != null) {
+            //TODO: REVIEW - what is this timer for?
             timer.reset();
             timer.start();
-            autoRunnable = new AutoRunnable(action);
-            thread = new Thread(autoRunnable);
+            //In java, a thread will run only as long as the Runnable it is created with is running
+            //as soon as the runnable exits is run() method, the thread dies
+            thread = new Thread(autoMode);
             thread.start();
         }
     }
 
     public void stop() {//Stops auto mode
-        if(autoRunnable != null) {
-            autoRunnable.stop();
+        if(autoMode != null) {
+            autoMode.stop();
         }
-        autoRunnable = null;
+        autoMode = null;
         thread = null;
     }
 
-    public boolean isAutodone(){
+      public boolean isFinished(){
         try {
-            return !autoRunnable.isRunning();
+            return !autoMode.isRunning();
         }catch(Exception e){
             return true;
         }

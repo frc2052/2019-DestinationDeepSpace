@@ -8,6 +8,7 @@ public class HatchIntakeAction implements Action {
     private IntakeController intake = IntakeController.getInstance();
 //    private KnightTimer timer;
     private double startTime;
+    private boolean finished = false;
 
 //    private boolean finished = false;
 
@@ -23,10 +24,10 @@ public class HatchIntakeAction implements Action {
 
     @Override
     public boolean isFinished(){
-//        return finished;
-        double timePasssed = Timer.getFPGATimestamp() - startTime;
-        System.out.println("Time Passed " + timePasssed);
-        return timePasssed > 1.0;
+        return finished;
+//        double timePasssed = Timer.getFPGATimestamp() - startTime;
+//        System.out.println("Time Passed " + timePasssed);
+//        return timePasssed > 1.0;
     }
 
     @Override
@@ -53,6 +54,7 @@ public class HatchIntakeAction implements Action {
                 intake.setArmDown(false);
                 break;
         }
+        finished = true;
     }
 
     public enum hatchIntakeStateEnum {

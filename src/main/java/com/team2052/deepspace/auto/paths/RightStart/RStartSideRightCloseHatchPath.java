@@ -12,10 +12,10 @@ public class RStartSideRightCloseHatchPath extends Path {
     public RStartSideRightCloseHatchPath(Position2d startPos, Direction direction) {
         setDirection(direction);
         addWaypoint(new Waypoint(startPos,60));
-        addWaypoint(new Waypoint(new Position2d(50,47), Constants.Autonomous.kTestVelocity, "down"));
-        addWaypoint(new Waypoint(new Position2d(170,75),Constants.Autonomous.kTestVelocity));
-        addWaypoint(new Waypoint(new Position2d(194,75),Constants.Autonomous.kTestVelocity));
-        addWaypoint(new Waypoint(new Position2d(194,65),Constants.Autonomous.kTestVelocity, "end"));
+        addWaypoint(new Waypoint(new Position2d(50,47), Constants.Autonomous.kAutoVelocity));
+        addWaypoint(new Waypoint(new Position2d(170,100),Constants.Autonomous.kAutoVelocity));
+        addWaypoint(new Waypoint(new Position2d(194,85),Constants.Autonomous.kAutoVelocity));
+        addWaypoint(new Waypoint(new Position2d(194,75),Constants.Autonomous.kAutoVelocity));
         OptimizePath();
     }
 

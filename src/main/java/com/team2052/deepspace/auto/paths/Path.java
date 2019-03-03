@@ -91,7 +91,7 @@ public abstract class Path {
                 for (int j = 0; j < numOfPts; j++) {
 
                     pathPoints.add(pathPoints.size(), new Waypoint(pathPoints.get(pathPoints.size() - 1).getPosition().translateBy(new Position2d(dir.y, dir.x)), wayPoints.get(i - 1).getVelocity(), wayPoints.get(i-1).getFlag()));
-                    //System.out.println("added point: x: " + pathPoints.get(pathPoints.size()-1).getPosition().getLateral() + "y: " + pathPoints.get(pathPoints.size()-1).getPosition().getForward() + " vel: " + wayPoints.get(i-1).getVelocity());
+//                    System.out.println("added point: x: " + pathPoints.get(pathPoints.size()-1).getPosition().getLateral() + "y: " + pathPoints.get(pathPoints.size()-1).getPosition().getForward() + " vel: " + wayPoints.get(i-1).getVelocity());
                 }
             }
         }
@@ -227,11 +227,11 @@ public abstract class Path {
         }
 
         //print the final points
-/*
-        for(int i = 0; i < pathPoints.size(); i++){
-            System.out.println("path points: x: " + pathPoints.get(i).getPosition().getLateral() + "y: " + pathPoints.get(i).getPosition().getForward() + " vel: " + pathPoints.get(i).getVelocity());
-        }
-        */
+
+//        for(int i = 0; i < pathPoints.size(); i++){
+//            System.out.println("path points: x: " + pathPoints.get(i).getPosition().getLateral() + "y: " + pathPoints.get(i).getPosition().getForward() + " vel: " + pathPoints.get(i).getVelocity());
+//        }
+
         pushPathToSmartDashboard(pathPoints);
         wayPoints = pathPoints;
     }
