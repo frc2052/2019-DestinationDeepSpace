@@ -5,12 +5,14 @@ import com.team2052.deepspace.auto.modes.CenterStart.ForwardCanterToCenterLeft;
 import com.team2052.deepspace.auto.modes.CenterStart.ForwardCenterToCenterRight;
 import com.team2052.deepspace.auto.modes.DontMove;
 import com.team2052.deepspace.auto.modes.LeftHatchPickUp.LeftSecondHatchBackUp;
+import com.team2052.deepspace.auto.modes.LeftHatchPickUp.LeftSecondHatchCenterLeft;
 import com.team2052.deepspace.auto.modes.LeftHatchPickUp.LeftSecondHatchLeftClose;
 import com.team2052.deepspace.auto.modes.LeftHatchPickUp.LeftSecondHatchLeftMiddle;
 import com.team2052.deepspace.auto.modes.LeftStart.*;
 import com.team2052.deepspace.auto.modes.RightHatchPickUp.RightSecondHatchBackUp;
-import com.team2052.deepspace.auto.modes.RightHatchPickUp.RightSecondHatchLeftClose;
-import com.team2052.deepspace.auto.modes.RightHatchPickUp.RightSecondHatchLeftMiddle;
+import com.team2052.deepspace.auto.modes.RightHatchPickUp.RightSecondHatchCenterRight;
+import com.team2052.deepspace.auto.modes.RightHatchPickUp.RightSecondHatchRightClose;
+import com.team2052.deepspace.auto.modes.RightHatchPickUp.RightSecondHatchRightMiddle;
 import com.team2052.deepspace.auto.modes.RightStart.ForwardRightToCenterRight;
 import com.team2052.deepspace.auto.modes.RightStart.ForwardRightToRightClose;
 import com.team2052.deepspace.auto.modes.RightStart.ForwardRightToRightFar;
@@ -140,8 +142,11 @@ public class AutoModeSelector {
                     }
 
                     switch (second){
-                        case LHATCH:
+                        case BACKUP:
                             secondAuto = new LeftSecondHatchBackUp(position.startPos);
+                            break;
+                        case LHATCH:
+                            secondAuto = new LeftSecondHatchCenterLeft(position.startPos);
                             break;
                         case LCHATCH:
                             secondAuto = new LeftSecondHatchLeftClose(position.startPos);
@@ -194,14 +199,17 @@ public class AutoModeSelector {
                     }
 
                     switch (second){
-                        case RHATCH:
+                        case BACKUP:
                             secondAuto = new RightSecondHatchBackUp(position.startPos);
                             break;
+                        case RHATCH:
+                            secondAuto = new RightSecondHatchCenterRight(position.startPos);
+                            break;
                         case RCHATCH:
-                            secondAuto = new RightSecondHatchLeftClose(position.startPos);
+                            secondAuto = new RightSecondHatchRightClose(position.startPos);
                             break;
                         case RMHATCH:
-                            new RightSecondHatchLeftMiddle(position.startPos);
+                            new RightSecondHatchRightMiddle(position.startPos);
                             break;
                         case RFHATCH:
                             secondAuto = null;
@@ -322,6 +330,7 @@ public class AutoModeSelector {
     //ADD All POSSIBLE COMBONATIONS KEYWORDS  CREATE ALL CLASSES!!!
     public enum SecondTargetSelection {
         NONE("None"),
+        BACKUP("Backup"),
         LHATCH("CenterLeftHatch"),
         RHATCH("CenterRightHatch"),
         LFHATCH("LeftFarHatch"),

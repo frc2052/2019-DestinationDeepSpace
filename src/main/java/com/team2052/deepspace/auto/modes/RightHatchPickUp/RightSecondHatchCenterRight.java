@@ -12,8 +12,8 @@ import com.team2052.lib.Autonomous.Position2d;
 
 import java.util.Arrays;
 
-public class RightSecondHatchLeftMiddle extends AutoMode {
-    public RightSecondHatchLeftMiddle(Position2d startPos){
+public class RightSecondHatchCenterRight extends AutoMode {
+    public RightSecondHatchCenterRight(Position2d startPos){
         super(startPos);
         setStartDirection(StartDirection.FORWARD);
     }
