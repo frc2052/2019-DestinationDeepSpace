@@ -152,7 +152,7 @@ public class AutoModeSelector {
                             secondAuto = new LeftSecondHatchLeftClose(position.startPos);
                             break;
                         case LMHATCH:
-                                new LeftSecondHatchLeftMiddle(position.startPos);
+                            secondAuto = new LeftSecondHatchLeftMiddle(position.startPos);
                             break;
                         case LFHATCH:
                                 secondAuto = null;
@@ -209,7 +209,7 @@ public class AutoModeSelector {
                             secondAuto = new RightSecondHatchRightClose(position.startPos);
                             break;
                         case RMHATCH:
-                            new RightSecondHatchRightMiddle(position.startPos);
+                            secondAuto = new RightSecondHatchRightMiddle(position.startPos);
                             break;
                         case RFHATCH:
                             secondAuto = null;
