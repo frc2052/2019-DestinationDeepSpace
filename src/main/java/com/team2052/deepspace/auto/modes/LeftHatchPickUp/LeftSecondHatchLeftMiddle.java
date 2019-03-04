@@ -4,6 +4,7 @@ import com.team2052.deepspace.auto.AutoMode;
 import com.team2052.deepspace.auto.actions.*;
 import com.team2052.deepspace.auto.paths.CenterHatchStarts.CLeftHatchStartLeftHatchPickUpPathCompoundPath;
 import com.team2052.deepspace.auto.paths.HatchPickUp.LHatchPickUpBackUp;
+import com.team2052.deepspace.auto.paths.HatchPickUp.LHatchPickUpStartLeftMiddleHatchPathCompoundPath;
 import com.team2052.deepspace.auto.paths.LeftStart.LStartCenterLeftHatchPath;
 import com.team2052.deepspace.auto.paths.Path;
 import com.team2052.lib.Autonomous.Position2d;
@@ -20,7 +21,7 @@ public class LeftSecondHatchLeftMiddle extends AutoMode {
         setAction(new SeriesAction(Arrays.asList(
                 new ParallelAction(Arrays.asList(
                         new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
-                        new FollowPathAction(new LHatchPickUpBackUp(Path.Direction.BACKWARD))
+                        new FollowPathListAction(new LHatchPickUpStartLeftMiddleHatchPathCompoundPath().getPaths())
                 ))
         )));
     }
