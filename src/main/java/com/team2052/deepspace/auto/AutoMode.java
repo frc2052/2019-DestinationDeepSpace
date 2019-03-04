@@ -4,6 +4,8 @@ import com.team2052.deepspace.Constants;
 import com.team2052.deepspace.auto.actions.*;
 import com.team2052.lib.Autonomous.Position2d;
 
+import java.util.Arrays;
+
 /**
  * This is for game specific code
  */
@@ -23,6 +25,19 @@ public abstract class AutoMode implements Runnable{
 
     protected void setAction(SeriesAction action){
         this.action = action;
+    }
+
+    public void appendAction(Action appendAction){
+        if(action != null){
+            action = new SeriesAction(Arrays.asList(
+               action,
+               appendAction
+            ));
+        }
+    }
+
+    public SeriesAction getAction(){
+        return action;
     }
 
     //TODO: REVIEW - this seems dangerous. Should we force the developer to set a start direction, have a default be "invalid" to catch errors?
