@@ -33,8 +33,7 @@ public class ForwardLeftToRocketClose extends AutoMode {
                 )),
 
                 new VisionAction(true),
-                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
-                new FollowPathAction(new LHatchPickUpBackUp(Path.Direction.BACKWARD))
+                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE)
         )));
     }
 }

@@ -4,7 +4,15 @@ import com.team2052.deepspace.Constants;
 import com.team2052.deepspace.auto.modes.CenterStart.ForwardCanterToCenterLeft;
 import com.team2052.deepspace.auto.modes.CenterStart.ForwardCenterToCenterRight;
 import com.team2052.deepspace.auto.modes.DontMove;
+import com.team2052.deepspace.auto.modes.LeftHatchPickUp.LeftSecondHatchBackUp;
+import com.team2052.deepspace.auto.modes.LeftHatchPickUp.LeftSecondHatchCenterLeft;
+import com.team2052.deepspace.auto.modes.LeftHatchPickUp.LeftSecondHatchLeftClose;
+import com.team2052.deepspace.auto.modes.LeftHatchPickUp.LeftSecondHatchLeftMiddle;
 import com.team2052.deepspace.auto.modes.LeftStart.*;
+import com.team2052.deepspace.auto.modes.RightHatchPickUp.RightSecondHatchBackUp;
+import com.team2052.deepspace.auto.modes.RightHatchPickUp.RightSecondHatchCenterRight;
+import com.team2052.deepspace.auto.modes.RightHatchPickUp.RightSecondHatchRightClose;
+import com.team2052.deepspace.auto.modes.RightHatchPickUp.RightSecondHatchRightMiddle;
 import com.team2052.deepspace.auto.modes.RightStart.ForwardRightToCenterRight;
 import com.team2052.deepspace.auto.modes.RightStart.ForwardRightToRightClose;
 import com.team2052.deepspace.auto.modes.RightStart.ForwardRightToRightFar;
@@ -59,6 +67,7 @@ public class AutoModeSelector {
     private static FirstTargetSelection lastFirst = null;
     private static SecondTargetSelection lastSecond = null;
     private static AutoMode selectedAuto = null;
+    private static AutoMode secondAuto  = null;
 
     public static void checkSelectedAutoMode(){
         //this method also updates smartdashboard
@@ -125,7 +134,7 @@ public class AutoModeSelector {
                         case FLSRCHATCH:
                             selectedAuto = new ForwardLeftToRocketClose(position.startPos);
                             break;
-                        case BLSRFHATCH:
+                        case BLSRFHATCH: // does notwork
                             selectedAuto = new BackwardLeftToRocketFar(position.startPos);
                             break;
                         default:
@@ -133,7 +142,27 @@ public class AutoModeSelector {
                     }
 
                     switch (second){
-
+                        case BACKUP:
+                            secondAuto = new LeftSecondHatchBackUp(position.startPos);
+                            break;
+                        case LHATCH:
+                            secondAuto = new LeftSecondHatchCenterLeft(position.startPos);
+                            break;
+                        case LCHATCH:
+                            secondAuto = new LeftSecondHatchLeftClose(position.startPos);
+                            break;
+                        case LMHATCH:
+                            secondAuto = new LeftSecondHatchLeftMiddle(position.startPos);
+                            break;
+                        case LFHATCH:
+                                secondAuto = null;
+                            break;
+                        case NONE:
+                            secondAuto = new DontMove();
+                            break;
+                        default:
+                            secondAuto = null;
+                            break;
                     }
                     break;
                 case RIGHT:
@@ -168,6 +197,31 @@ public class AutoModeSelector {
                         default:
                             selectedAuto = null;
                     }
+
+                    switch (second){
+                        case BACKUP:
+                            secondAuto = new RightSecondHatchBackUp(position.startPos);
+                            break;
+                        case RHATCH:
+                            secondAuto = new RightSecondHatchCenterRight(position.startPos);
+                            break;
+                        case RCHATCH:
+                            secondAuto = new RightSecondHatchRightClose(position.startPos);
+                            break;
+                        case RMHATCH:
+                            secondAuto = new RightSecondHatchRightMiddle(position.startPos);
+                            break;
+                        case RFHATCH:
+                            secondAuto = null;
+                            break;
+                        case NONE:
+                            secondAuto = new DontMove();
+                            break;
+                        default:
+                            secondAuto = null;
+                            break;
+                    }
+
                     break;
                 case CENTER:
                     switch (first) {
@@ -188,18 +242,31 @@ public class AutoModeSelector {
                         default:
                             selectedAuto = null;
                     }
+
+                    switch (second){
+                        case NONE:
+                            secondAuto = new DontMove();
+                            break;
+                        default:
+                            secondAuto = null;
+                            break;
+                    }
                     break;
                 case NONE:
                 default:
                     selectedAuto = null; //set null because we check if its null on line for smart dashboard
             }
-            if(selectedAuto != null){
+            if(selectedAuto != null && secondAuto != null){
                 System.out.println("INITING: "+selectedAuto.getClass().getSimpleName());
                 selectedAuto.init();
+                System.out.println("INITING SECOND: "+secondAuto.getClass().getSimpleName());
+                secondAuto.init();
+                selectedAuto.appendAction(secondAuto.getAction());
+
             }
         }
 
-        if (selectedAuto != null) {
+        if (selectedAuto != null && secondAuto != null) {
             SmartDashboard.putBoolean("Does AutoMode Exist?", true);
 
             return selectedAuto;
@@ -263,6 +330,7 @@ public class AutoModeSelector {
     //ADD All POSSIBLE COMBONATIONS KEYWORDS  CREATE ALL CLASSES!!!
     public enum SecondTargetSelection {
         NONE("None"),
+        BACKUP("Backup"),
         LHATCH("CenterLeftHatch"),
         RHATCH("CenterRightHatch"),
         LFHATCH("LeftFarHatch"),

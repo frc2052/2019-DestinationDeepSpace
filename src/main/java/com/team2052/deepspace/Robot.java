@@ -58,8 +58,6 @@ public class Robot extends TimedRobot {
         }
         AutoModeSelector.putToShuffleBoard();
 
-        //todo: remove
-        Constants.initDashTesting();
         AutoModeSelector.nullSelectedAutoMode();
     }
 
@@ -157,7 +155,6 @@ public class Robot extends TimedRobot {
         driveTrain.stop();
         AutoModeSelector.checkSelectedAutoMode();
         PurePursuitPathFollower.getInstance().resetPathFollower();
-        Constants.DashboardTesting();
     }
 
     private void driverControlled(){

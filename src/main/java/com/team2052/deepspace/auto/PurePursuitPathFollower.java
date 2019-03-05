@@ -54,6 +54,7 @@ public class PurePursuitPathFollower{
      */
     public void update() {
         if (path != null) {
+            driveTrain.setHighGear(path.getIsHighGear());
             currentPos = robotState.getLatestPosition();
             updateClosestPointIndex();
             findLookAheadPoint();
@@ -79,6 +80,7 @@ public class PurePursuitPathFollower{
         resetPathFollower();
         this.path = path;
         VisionController.showBackPiCamera(!this.path.getIsForward());
+        driveTrain.setHighGear(path.getIsHighGear());
     }
 
     /**
@@ -91,7 +93,6 @@ public class PurePursuitPathFollower{
         currentPos = null;
         curvature = 0;
         closestPointIndex = 0;
-        driveTrain.setHighGear(Constants.Autonomous.kIsAutoHighGear);
     }
 
     /**
@@ -201,12 +202,17 @@ public class PurePursuitPathFollower{
             System.out.println("SCALING OUTPUTS DOWN");
             leftWheelVel*=scaling;
             rightWheelVel*=scaling;
+
+            if(Math.abs(leftWheelVel) < .05 && Math.abs(rightWheelVel) < .05){
+                leftWheelVel = Math.signum(path.getWaypoints().get(0).getVelocity()) * .05;
+                rightWheelVel = Math.signum(path.getWaypoints().get(0).getVelocity()) * .05;
+            }
             System.out.println("scaling: " + scaling + " closest point: " + closestPointIndex + " vel: " + path.getWaypoints().get(closestPointIndex).getVelocity() + " highest value: " + highestVel);
             System.out.println("left: " + leftWheelVel + " right: " + rightWheelVel);
         }
 
-        double leftFeedForward = Constants.Autonomous.kV * leftWheelVel; //+ Constants.Autonomous.kA * deltaVelocity;
-        double rightFeedForward = Constants.Autonomous.kV * rightWheelVel;// + Constants.Autonomous.kA * deltaVelocity ;
+        double leftFeedForward = (path.getIsHighGear() ? Constants.Autonomous.kHighGearkV : Constants.Autonomous.kV) * leftWheelVel; //+ Constants.Autonomous.kA * deltaVelocity;
+        double rightFeedForward = (path.getIsHighGear() ? Constants.Autonomous.kHighGearkV : Constants.Autonomous.kV) * rightWheelVel;// + Constants.Autonomous.kA * deltaVelocity ;
         double leftFeedBack =0;// Constants.Autonomous.kP * (leftWheelVel - robotState.getLeftVelocityInch());
         double rightFeedBack =0;// Constants.Autonomous.kP * (rightWheelVel - robotState.getRightVelocityInch());
 

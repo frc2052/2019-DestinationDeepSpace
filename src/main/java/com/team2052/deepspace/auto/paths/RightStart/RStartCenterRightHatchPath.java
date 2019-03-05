@@ -1,5 +1,6 @@
 package com.team2052.deepspace.auto.paths.RightStart;
 
+import com.team2052.deepspace.Constants;
 import com.team2052.deepspace.auto.paths.Path;
 import com.team2052.lib.Autonomous.Position2d;
 import com.team2052.lib.Autonomous.Waypoint;
@@ -12,9 +13,9 @@ public class RStartCenterRightHatchPath extends Path {
         System.out.println("StaringPos " + startPos.getForward() + " " + startPos.getLateral());
         setDirection(direction);
         addWaypoint(new Waypoint(startPos,50)); // B
-        addWaypoint(new Waypoint(new Position2d(55,47),50)); // B
-        addWaypoint(new Waypoint(new Position2d(85,3),50)); // H
-        addWaypoint(new Waypoint(new Position2d(94,3),50)); // K
+        addWaypoint(new Waypoint(new Position2d(55,47), Constants.Autonomous.kAutoVelocity)); // B
+        addWaypoint(new Waypoint(new Position2d(85,3),Constants.Autonomous.kAutoVelocity)); // H
+        addWaypoint(new Waypoint(new Position2d(94,3),Constants.Autonomous.kAutoVelocity)); // K
         OptimizePath();
     }
 

@@ -1,5 +1,6 @@
 package com.team2052.deepspace.auto.paths.HatchPickUp;
 
+import com.team2052.deepspace.Constants;
 import com.team2052.deepspace.auto.paths.CompoundPath;
 import com.team2052.deepspace.auto.paths.Path;
 import com.team2052.lib.Autonomous.Position2d;
@@ -17,10 +18,12 @@ public class LHatchPickUpStartLeftCloseHatchCompoundPath extends CompoundPath {
     class LHatchPickUpStartLeftCloseHatchPath1 extends Path {
         public LHatchPickUpStartLeftCloseHatchPath1() {
             setDirection(Direction.BACKWARD);
+            isHighGear = true;
             //TODO: these points need to be fixed to allow for a turn
-            addWaypoint(new Waypoint(new Position2d(-66,-134),50)); // D
-            addWaypoint(new Waypoint(new Position2d(29,-134),50)); // E
-            addWaypoint(new Waypoint(new Position2d(68,-65),50)); // F
+            addWaypoint(new Waypoint(new Position2d(-30,-125), Constants.Autonomous.kAutoVelocity));
+            addWaypoint(new Waypoint(new Position2d(60,-90),Constants.Autonomous.kAutoVelocity));
+            addWaypoint(new Waypoint(new Position2d(195,-70),Constants.Autonomous.kAutoVelocity));
+            addWaypoint(new Waypoint(new Position2d(195,-80  ),Constants.Autonomous.kAutoVelocity));
             OptimizePath();
         }
 
@@ -35,9 +38,9 @@ public class LHatchPickUpStartLeftCloseHatchCompoundPath extends CompoundPath {
         public LHatchPickUpStartLeftCloseHatchPath2() {
             setDirection(Direction.FORWARD);
             //TODO: these points need to be fixed to allow for a turn
-            addWaypoint(new Waypoint(new Position2d(68,-65),50)); // F
-            addWaypoint(new Waypoint(new Position2d(194,-65),50)); // N
-            addWaypoint(new Waypoint(new Position2d(194,-47),50)); // P
+            addWaypoint(new Waypoint(new Position2d(195,-80),50));
+            addWaypoint(new Waypoint(new Position2d(195,-65),50));
+
             OptimizePath();
         }
 

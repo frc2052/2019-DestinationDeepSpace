@@ -33,8 +33,7 @@ public class ForwardRightToCenterRight extends AutoMode {
                 )),
 
                 new VisionAction(true),
-                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
-                new FollowPathAction(new RHatchPickUpBackUp(Path.Direction.BACKWARD))
+                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE)
         )));
     }
 }

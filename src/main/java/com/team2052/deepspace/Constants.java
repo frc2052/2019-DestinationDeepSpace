@@ -2,7 +2,6 @@ package com.team2052.deepspace;
 
 
 import com.team2052.deepspace.auto.AutoMode;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Constants {
     //All constant values for the robot code will go in this class.
@@ -51,11 +50,16 @@ public class Constants {
         public static final double kLookaheadDistance = 30; //12-25 // changes how smooth it follows path. lower = curves back and forth/fishtail, higher = less accurate
         public static final double kA = 0.0 ; //0-.1 todo: test and see how robot responds
         public static final double kP = 0.0; //0-.1
-        public static double kAutoVelocity = 7 * 12 * 1.0;
-        public static boolean kIsAutoHighGear = false;
+        public static final double kAutoVelocity = 7 * 12 * 1.0;
+
+        public static final double kHighGearturnSpeed = 2.5; //constant from 1-5     higher = faster
+        public static final double kHighGearMaxAccel = 120; //how fast the robot accelerates and decelerates
+        public static final double kHighGearLookaheadDistance = 30; //12-25 // changes how smooth it follows path. lower = curves back and forth/fishtail, higher = less accurate
+        public static final double kHighGearAutoVelocity = 12 * 12 * 1.0;
 
         //the physical max velocity the robot can drive
-        public static double kMaxAutoVelocity = kIsAutoHighGear ? 12 *12 : 7 * 12.0; //13 ft/s is high, 7 ft/s is low
+        public static final double kMaxAutoVelocity = 7 * 12.0; //13 ft/s is high, 7 ft/s is low
+        public static final double kMaxHighGearAutoVelocity = 12 *12; //13 ft/s is high, 7 ft/s is low
 
         public static final long kloopPeriodMs = 50;
         public static final double kloopPeriodSec = kloopPeriodMs/1000.0; //int devision
@@ -65,6 +69,7 @@ public class Constants {
         public static final double kTrackWidth = 28.0;
         public static final double kRequiredDistanceFromEnd = 3;
         public static final double kV = 1/(kMaxAutoVelocity);
+        public static final double kHighGearkV = 1/(kMaxHighGearAutoVelocity);
         //todo: put ka and kp back here
         //pidf copied from 2017 needs testing
 
@@ -129,19 +134,4 @@ public class Constants {
         public static final double kLightSensorTurnLightSpeedReduction = -0.8;
         public static final double kLightSensorMotorSpeed = 0.2;
     }
-
-//todo: quick test should not exist
-    public static void initDashTesting(){
-        SmartDashboard.putNumber("FtPerS",7);
-        SmartDashboard.putBoolean("HighGear?", false);
-    }
-    public static void DashboardTesting(){
-
-        Autonomous.kAutoVelocity = SmartDashboard.getNumber("FtPerS", 7) * 12 * 1.0;
-        Autonomous.kIsAutoHighGear = SmartDashboard.getBoolean("HighGear?", false);
-
-        //the physical max velocity the robot can drive
-        Autonomous.kMaxAutoVelocity = Autonomous.kIsAutoHighGear ? 14 *12 : 7 * 12.0;
-    }
-
 }
