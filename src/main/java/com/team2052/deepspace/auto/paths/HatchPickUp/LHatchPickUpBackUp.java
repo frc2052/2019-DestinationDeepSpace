@@ -1,5 +1,6 @@
 package com.team2052.deepspace.auto.paths.HatchPickUp;
 
+import com.team2052.deepspace.Constants;
 import com.team2052.deepspace.auto.paths.Path;
 import com.team2052.lib.Autonomous.Position2d;
 import com.team2052.lib.Autonomous.Waypoint;
@@ -10,8 +11,9 @@ public class LHatchPickUpBackUp extends Path {
 
     public LHatchPickUpBackUp(Direction direction) {
         setDirection(direction);
-        addWaypoint(new Waypoint(new Position2d(-20,-130),20));
-        addWaypoint(new Waypoint(new Position2d(30,-130),20, "down"));
+        isHighGear = true;
+        addWaypoint(new Waypoint(new Position2d(-20,-130), Constants.Autonomous.kHighGearAutoVelocity));
+        addWaypoint(new Waypoint(new Position2d(190,-130),Constants.Autonomous.kHighGearAutoVelocity, "down"));
         OptimizePath();
     }
 

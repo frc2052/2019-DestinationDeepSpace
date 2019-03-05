@@ -66,14 +66,15 @@ public class RobotStateCalculator implements ILoopable{
     }
 
     public void resetRobotState(Position2d pos){
-        latestPosition.reset();
+        //latestPosition.reset();
         latestPosition.setForward(pos.getForward());
         latestPosition.setLateral(pos.getLateral());
+        latestPosition.setHeading(0);
         driveTrain.resetEncoders();
         pastLeftInches = 0;
         pastRightInches = 0;
         timeSinceReset = 0;
-
+        robotState.setLatestPosition(latestPosition);
     }
     @Override
     public void update() {
@@ -88,7 +89,6 @@ public class RobotStateCalculator implements ILoopable{
 
     @Override
     public void onStart() {
-        latestPosition.reset();
     }
 
     @Override

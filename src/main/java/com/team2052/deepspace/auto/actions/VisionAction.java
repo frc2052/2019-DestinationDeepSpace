@@ -34,6 +34,7 @@ public class VisionAction implements Action{
         driveTrainController = DriveTrainController.getInstance();
         timer.start();
         startValue = timer.get();
+        visionController.getValues();
     }
 
     @Override

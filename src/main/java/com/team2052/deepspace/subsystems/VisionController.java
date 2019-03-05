@@ -44,7 +44,7 @@ public class VisionController {
         if(isTarget()) {
             xPercent = ((xPercent-.5)*1.0)+.5;
             System.out.println("vision L: " + (xPercent * speed) + " vision R " + ((1 - xPercent) * speed) + " xP: " + xPercent);
-            return new DriveSignal(xPercent * speed, (1 - xPercent) * speed);
+            return new DriveSignal(xPercent * speed * 1.0, (1 - xPercent) * speed * 1.0);
         }else{
             return new DriveSignal(.5,.5);
         }

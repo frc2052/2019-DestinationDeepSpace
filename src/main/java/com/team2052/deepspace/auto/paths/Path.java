@@ -17,10 +17,11 @@ public abstract class Path {
 
     protected List<Waypoint> wayPoints = new ArrayList<Waypoint>();
     protected boolean isForward;
+    protected boolean isHighGear = false;
     //this is used so the path follower can automatically change which camera is viewed based on which direction
     //the robot is driving in auto
     public boolean getIsForward() {return isForward; }
-
+    public boolean getIsHighGear(){return  isHighGear;}
     /**
      * create an empty path
      */
@@ -197,12 +198,17 @@ public abstract class Path {
                 if (pathPoints.get(i).getCurvature() != 0){
                     //System.out.println("Curvature: " + pathPoints.get(i).getCurvature());
                     //System.out.println("MINIMUM OF: " + (Constants.Autonomous.kturnSpeed / pathPoints.get(i).getCurvature()) + " , " + pathPoints.get(i).getVelocity());
-                    double vel = Math.min(Constants.Autonomous.kturnSpeed / pathPoints.get(i).getCurvature(), pathPoints.get(i).getVelocity());
+                    double vel = Math.min((isHighGear ? Constants.Autonomous.kHighGearturnSpeed : Constants.Autonomous.kturnSpeed) / pathPoints.get(i).getCurvature(), pathPoints.get(i).getVelocity());
                     pathPoints.get(i).setVelocity(vel);
                 }
-
-                if (pathPoints.get(i).getVelocity() > Constants.Autonomous.kMaxAutoVelocity || pathPoints.get(i).getVelocity() < -Constants.Autonomous.kMaxAutoVelocity){
-                    pathPoints.get(i).setVelocity(Constants.Autonomous.kMaxAutoVelocity);
+                if(isHighGear) {
+                    if (pathPoints.get(i).getVelocity() > Constants.Autonomous.kMaxHighGearAutoVelocity || pathPoints.get(i).getVelocity() < -Constants.Autonomous.kMaxHighGearAutoVelocity) {
+                        pathPoints.get(i).setVelocity(Constants.Autonomous.kMaxHighGearAutoVelocity);
+                    }
+                }else {
+                    if (pathPoints.get(i).getVelocity() > Constants.Autonomous.kMaxAutoVelocity || pathPoints.get(i).getVelocity() < -Constants.Autonomous.kMaxAutoVelocity) {
+                        pathPoints.get(i).setVelocity(Constants.Autonomous.kMaxAutoVelocity);
+                    }
                 }
             }
         }

@@ -134,7 +134,7 @@ public class AutoModeSelector {
                         case FLSRCHATCH:
                             selectedAuto = new ForwardLeftToRocketClose(position.startPos);
                             break;
-                        case BLSRFHATCH:
+                        case BLSRFHATCH: // does notwork
                             selectedAuto = new BackwardLeftToRocketFar(position.startPos);
                             break;
                         default:
