@@ -38,7 +38,7 @@ public class Constants {
         public static final int kCargoInSolenoidId = 4;
         public static final int kCargoOutSolenoidId = 5;
 
-        public static final double kOuttakeCargoShipSpeed = .6;
+        public static final double kOuttakeCargoShipSpeed = .50;
     }
 
 

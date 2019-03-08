@@ -184,7 +184,13 @@ public class Robot extends TimedRobot {
             //always pass the button for climb to the leg climber
             //it needs to keep track of how many times the button was pressed
             //pressed 10 times will allow us to climb even if the match isn't in its last 30 seconds
-            if(controls.getClimberDown()){
+            if(controls.getClimberOverride()){
+                if(controls.getClimberDown()){
+                    legClimberController.runClimber(LegClimberController.State.OVERRIDEDOWN);
+                }else if(controls.getClimberUp()){
+                    legClimberController.runClimber(LegClimberController.State.OVERRIDEUP);
+                }
+            }else if(controls.getClimberDown()){
                 legClimberController.runClimber(LegClimberController.State.DOWN);
             }else if(controls.getClimberUp()){
                 legClimberController.runClimber(LegClimberController.State.UP);

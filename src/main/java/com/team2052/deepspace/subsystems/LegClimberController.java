@@ -47,7 +47,7 @@ public class LegClimberController {
         switch (state){
             case UP:
 
-                double timePassed = startTime - Timer.getFPGATimestamp(); //this SHOULD be the time since the first "mode" began (aka, Auto)
+                double timeLeft = Timer.getMatchTime(); //this SHOULD be the time since the first "mode" began (aka, Auto)
                 if (!wasLastPressed){ //button state has changed, was up and is now down
                     legClimberButtonPressCount++; //keep track of how many times the button was pressed
                 }
@@ -56,11 +56,11 @@ public class LegClimberController {
                 wasLastPressed = true;
 
                 //System.out.println("time: " + timePassed );
-                if (timePassed >= 120 || legClimberButtonPressCount > 10) {//30 seconds left in the match OR button has been pressed 10 times
+                if (timeLeft < 30 || legClimberButtonPressCount > 0) {//30 seconds left in the match OR button has been pressed 10 times
                     printEncoder();
                     if(legClimberMotor.getSelectedSensorPosition() <= Constants.LegClimber.kClimberMotorDistance){
                         legClimberMotor.set(ControlMode.PercentOutput, 1); //only drive forward if we haven't reached maximum encoder value
-                        System.out.println("RUNNING");
+                        System.out.println("RUNNING" + " FPGA: " + Timer.getFPGATimestamp() + " MATCH TIME: " + Timer.getMatchTime());
                         if(legClimberMotor.getSelectedSensorPosition() == 0){
                             System.out.println("ERROR: WARNING CLIMBER ENCODER IS 0");
                         }
@@ -77,9 +77,17 @@ public class LegClimberController {
                 wasLastPressed = false;
                 printEncoder();
                 if (legClimberMotor.getSelectedSensorPosition() > 0){
-                    legClimberMotor.set(ControlMode.PercentOutput, -1);
+                    legClimberMotor.set(ControlMode.PercentOutput, -.5);
                     System.out.println("RUNNING BACK");
                 }
+                break;
+            case OVERRIDEUP:
+                System.out.println("OVERRIDING DOWN");
+                legClimberMotor.set(ControlMode.PercentOutput, -.5); //only drive forward if we haven't reached maximum encoder value
+                break;
+            case OVERRIDEDOWN:
+                System.out.println("OVERRIDING UP");
+                legClimberMotor.set(ControlMode.PercentOutput, 1);
                 break;
             case STOP:
                 //no break, fall through to default
@@ -103,6 +111,8 @@ public class LegClimberController {
     public enum State{
         UP,
         DOWN,
+        OVERRIDEUP,
+        OVERRIDEDOWN,
         STOP
     }
 
