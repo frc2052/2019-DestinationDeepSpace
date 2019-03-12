@@ -189,6 +189,8 @@ public class Robot extends TimedRobot {
                     legClimberController.runClimber(LegClimberController.State.OVERRIDEDOWN);
                 }else if(controls.getClimberUp()){
                     legClimberController.runClimber(LegClimberController.State.OVERRIDEUP);
+                }else{
+                    legClimberController.runClimber(LegClimberController.State.STOP);
                 }
             }else if(controls.getClimberDown()){
                 legClimberController.runClimber(LegClimberController.State.DOWN);
@@ -198,6 +200,7 @@ public class Robot extends TimedRobot {
                 legClimberController.runClimber(LegClimberController.State.STOP);
             }
         }
+        legClimberController.printEncoder();
 
         if(intake != null && groundIntake != null) {
             //System.out.println("INTAKES ARE NOT NULL");
@@ -211,6 +214,9 @@ public class Robot extends TimedRobot {
                 intake.setShootCargo(IntakeController.ShootSpeed.ROCKET2);
             } else if (controls.getCargoShoot()) {
                 intake.setShootCargo(IntakeController.ShootSpeed.CARGOSHIP);
+            } else if(!controls.getCargoIntake()){
+                //only stop motors if we're not doing cargo intake
+                intake.setShootCargo(IntakeController.ShootSpeed.NONE);
             }
 
             //hatches

@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.team2052.deepspace.Constants;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Timer;
 
 public class IntakeController {
     private static IntakeController instance = null;
@@ -31,6 +32,8 @@ public class IntakeController {
     private final double intakeTopClawSpeed = .6;
     private final double intakeBottomClawSpeed = -.6;
     private boolean isArmDown;
+    private Timer rocketTimer = new Timer();
+    private boolean isRocket1 = false;
 
     public void setArmDown (boolean isDown ) {
 //        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ARM " + isDown + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -54,20 +57,52 @@ public class IntakeController {
     public void setShootCargo(ShootSpeed shoot) {
         switch (shoot) {
             case ROCKET1:
-                clawTop.set(ControlMode.PercentOutput, -.35);
-                clawBottom.set(ControlMode.PercentOutput, .30);
+                if(!isRocket1) {
+                    rocketTimer.reset();
+                    rocketTimer.start();
+                    System.out.println("reseting rocket one: " + rocketTimer.get());
+                    isRocket1 = true;
+                }
+
+                if(isRocket1 && rocketTimer.get() < .5) {
+                    setArmDown(true);
+                    if(rocketTimer.get() > .35) {
+                        clawTop.set(ControlMode.PercentOutput, -.45);
+                        clawBottom.set(ControlMode.PercentOutput, .45);
+                    }
+                    System.out.println("running motors: " + rocketTimer.get() + " bool: " +isRocket1);
+                }else{
+                    setArmDown(false);
+                    clawTop.set(ControlMode.PercentOutput, 0);
+                    clawBottom.set(ControlMode.PercentOutput, 0);
+                }
+
+                System.out.println("rocket1: " + isRocket1);
                 break;
             case CARGOSHIP:
                 clawTop.set(ControlMode.PercentOutput, - Constants.Intake.kOuttakeCargoShipSpeed);
                 clawBottom.set(ControlMode.PercentOutput, Constants.Intake.kOuttakeCargoShipSpeed);
+                if(isRocket1 == true){
+                    isRocket1 = false;
+                    setArmDown(false);
+                }
                 break;
             case ROCKET2:
                 clawTop.set(ControlMode.PercentOutput, -1);
                 clawBottom.set(ControlMode.PercentOutput, 1);
+                if(isRocket1 == true){
+                    isRocket1 = false;
+                    setArmDown(false);
+                }
                 break;
+            case NONE:
             default:
                 clawTop.set(ControlMode.PercentOutput, 0);
                 clawBottom.set(ControlMode.PercentOutput, 0);
+                if(isRocket1 == true){
+                    isRocket1 = false;
+                    setArmDown(false);
+                }
                 break;
         }
     }

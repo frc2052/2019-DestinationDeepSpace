@@ -30,7 +30,7 @@ public class VisionController {
     private double xPercent;
     private double y = -1;
 
-    public static double xOffset = 4;
+    public static double xOffset = 16;
 
     private int cameraW;
     private int cameraH;

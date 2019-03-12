@@ -83,11 +83,11 @@ public class LegClimberController {
                 break;
             case OVERRIDEUP:
                 System.out.println("OVERRIDING DOWN");
-                legClimberMotor.set(ControlMode.PercentOutput, -.5); //only drive forward if we haven't reached maximum encoder value
+                legClimberMotor.set(ControlMode.PercentOutput, 1); //only drive forward if we haven't reached maximum encoder value
                 break;
             case OVERRIDEDOWN:
                 System.out.println("OVERRIDING UP");
-                legClimberMotor.set(ControlMode.PercentOutput, 1);
+                legClimberMotor.set(ControlMode.PercentOutput, -.5);
                 break;
             case STOP:
                 //no break, fall through to default
