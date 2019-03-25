@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class VisionController {
     private static VisionController instance = null;
+
     public static VisionController getInstance() {
         if (instance == null) {
             try {
@@ -29,7 +30,7 @@ public class VisionController {
     private double xPercent;
     private double y = -1;
 
-    public static double xOffset = 12;
+    public static double xOffset = 16;
 
     private int cameraW;
     private int cameraH;
@@ -41,6 +42,7 @@ public class VisionController {
 
     public DriveSignal getMotorOutput(double speed){
         getValues();
+
         if(isTarget()) {
             xPercent = ((xPercent-.5)*1.0)+.5;
             System.out.println("vision L: " + (xPercent * speed) + " vision R " + ((1 - xPercent) * speed) + " xP: " + xPercent);
@@ -71,6 +73,6 @@ public class VisionController {
     }
 
     public boolean isClose(){
-        return y > 34.0;
+        return y >= 31.0;
     }
 }

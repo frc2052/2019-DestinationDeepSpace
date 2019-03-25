@@ -184,7 +184,15 @@ public class Robot extends TimedRobot {
             //always pass the button for climb to the leg climber
             //it needs to keep track of how many times the button was pressed
             //pressed 10 times will allow us to climb even if the match isn't in its last 30 seconds
-            if(controls.getClimberDown()){
+            if(controls.getClimberOverride()){
+                if(controls.getClimberDown()){
+                    legClimberController.runClimber(LegClimberController.State.OVERRIDEDOWN);
+                }else if(controls.getClimberUp()){
+                    legClimberController.runClimber(LegClimberController.State.OVERRIDEUP);
+                }else{
+                    legClimberController.runClimber(LegClimberController.State.STOP);
+                }
+            }else if(controls.getClimberDown()){
                 legClimberController.runClimber(LegClimberController.State.DOWN);
             }else if(controls.getClimberUp()){
                 legClimberController.runClimber(LegClimberController.State.UP);
@@ -192,6 +200,7 @@ public class Robot extends TimedRobot {
                 legClimberController.runClimber(LegClimberController.State.STOP);
             }
         }
+        legClimberController.printEncoder();
 
         if(intake != null && groundIntake != null) {
             //System.out.println("INTAKES ARE NOT NULL");
@@ -205,6 +214,9 @@ public class Robot extends TimedRobot {
                 intake.setShootCargo(IntakeController.ShootSpeed.ROCKET2);
             } else if (controls.getCargoShoot()) {
                 intake.setShootCargo(IntakeController.ShootSpeed.CARGOSHIP);
+            } else if(!controls.getCargoIntake()){
+                //only stop motors if we're not doing cargo intake
+                intake.setShootCargo(IntakeController.ShootSpeed.NONE);
             }
 
             //hatches

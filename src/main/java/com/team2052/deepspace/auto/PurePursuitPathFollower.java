@@ -79,7 +79,7 @@ public class PurePursuitPathFollower{
     public void start(Path path) {
         resetPathFollower();
         this.path = path;
-        VisionController.showBackPiCamera(!this.path.getIsForward());
+        VisionController.showBackPiCamera(false);//!this.path.getIsForward());
         driveTrain.setHighGear(path.getIsHighGear());
     }
 

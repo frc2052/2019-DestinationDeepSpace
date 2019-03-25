@@ -54,6 +54,14 @@ public class Controls {
         return val;
     }
 
+    public double getUnusedTurn() {
+        double val = tankPrimaryStick.getX();
+        if (val < .15 && val > -.15) {
+            val = 0; // dead zone
+        }
+        return val;
+    }
+
     public double getUnusedTank(){
         double val = -turnPrimaryStick.getY();
         if (val < .15 && val > -.15) { // dead zone
@@ -64,9 +72,9 @@ public class Controls {
 
 
     public boolean getQuickTurn(){ return turnPrimaryStick.getRawButton(kTurnJoystickQuickTurn); }
-    public boolean getShowBackCamera(){return turnPrimaryStick.getRawButton(kTurnJoystickCameraToggle);}
+    public boolean getShowBackCamera(){return turnPrimaryStick.getRawButton(kTurnJoystickCameraToggle) || secondaryControlPanel.getX() < -.25;}
     public boolean getHatchOuttake() {return turnPrimaryStick.getTrigger();}
-    public boolean getAutoOverride() {return turnPrimaryStick.getRawButton(kTurnJoystickAutoOverrideButton);}
+    public boolean getAutoOverride() {return turnPrimaryStick.getRawButton(kTurnJoystickAutoOverrideButton) || getDriveTank() != 0 || getDriveTurn() != 0 || getUnusedTank() != 0 || getUnusedTurn() != 0;}
 
     public boolean getShift(){return tankPrimaryStick.getRawButton(kTankJoystickShiftButton);}
     public boolean getLightFollow(){return tankPrimaryStick.getRawButton(kTankJoystickVisionDrive);}
@@ -82,6 +90,7 @@ public class Controls {
     public boolean getRocket1Shoot(){ return secondaryControlPanel.getRawButton(kSecondaryRocket1); }
     public boolean getRocket2Shoot(){ return secondaryControlPanel.getRawButton(kSecondaryRocket2); }
     public boolean getIntakeArmToggle(){ return secondaryControlPanel.getRawButton(kSecondaryIntakeArmUpDown); }
+    public boolean getClimberOverride(){return secondaryControlPanel.getY() < -.25;}
 
     //////elevator//////
     /*
