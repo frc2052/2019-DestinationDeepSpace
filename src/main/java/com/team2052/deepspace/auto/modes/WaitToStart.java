@@ -1,6 +1,5 @@
 package com.team2052.deepspace.auto.modes;
 
-import com.team2052.deepspace.Controls;
 import com.team2052.deepspace.auto.AutoMode;
 import com.team2052.deepspace.auto.actions.DriverButtonAction;
 import com.team2052.deepspace.auto.actions.SeriesAction;
@@ -17,7 +16,7 @@ public class WaitToStart extends AutoMode {
     @Override
     protected void init() {
         setAction(new SeriesAction(Arrays.asList(
-                new DriverButtonAction(Controls.Joysticks.TANK, 10)
+                new DriverButtonAction()
         )));
     }
 }

@@ -1,6 +1,5 @@
 package com.team2052.deepspace.auto.modes;
 
-import com.team2052.deepspace.Controls;
 import com.team2052.deepspace.auto.AutoMode;
 import com.team2052.deepspace.auto.actions.*;
 import com.team2052.deepspace.auto.paths.CompoundPath;
@@ -30,7 +29,7 @@ public class Test extends AutoMode {
         setAction(new SeriesAction(Arrays.asList(
 
                 new FollowPathAction(new LStartSideLeftCloseHatchPath(startingPos, Path.Direction.FORWARD)),
-                new OptionalAction(new DriverButtonAction(Controls.Joysticks.TANK, 6), new DriverControlledAction(), new VisionAction(true))
+                new OptionalAction(new DriverButtonAction(), new DriverControlledAction(), new VisionAction(true))
                // new VisionAction(true),
                // new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE)
         )));

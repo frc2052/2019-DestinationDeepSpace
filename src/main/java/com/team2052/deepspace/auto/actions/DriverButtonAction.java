@@ -5,12 +5,8 @@ import com.team2052.deepspace.Controls;
 public class DriverButtonAction implements Action{
 
     private Controls controls;
-    private int buttonId;
-    private Controls.Joysticks joystick;
 
-    public DriverButtonAction(Controls.Joysticks joystick, int buttonId){
-        this.buttonId = buttonId;
-        this.joystick = joystick;
+    public DriverButtonAction(){
         controls = Controls.getInstance();
     }
 
@@ -21,7 +17,7 @@ public class DriverButtonAction implements Action{
 
     @Override
     public boolean isFinished() {
-        return controls.getButtonOnJoyStick(joystick, buttonId);
+        return controls.getAutoInterrupt();
     }
 
     @Override

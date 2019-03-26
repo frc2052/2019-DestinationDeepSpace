@@ -74,7 +74,8 @@ public class Controls {
     public boolean getQuickTurn(){ return turnPrimaryStick.getRawButton(kTurnJoystickQuickTurn); }
     public boolean getShowBackCamera(){return turnPrimaryStick.getRawButton(kTurnJoystickCameraToggle) || secondaryControlPanel.getX() < -.25;}
     public boolean getHatchOuttake() {return turnPrimaryStick.getTrigger();}
-    public boolean getAutoOverride() {return turnPrimaryStick.getRawButton(kTurnJoystickAutoOverrideButton) || getDriveTank() != 0 || getDriveTurn() != 0 || getUnusedTank() != 0 || getUnusedTurn() != 0;}
+    public boolean getAutoOverride() {return getDriveTank() != 0 || getDriveTurn() != 0 || getUnusedTank() != 0 || getUnusedTurn() != 0;}
+    public boolean getAutoInterrupt() {return turnPrimaryStick.getRawButton(kTurnJoystickAutoOverrideButton);}
 
     public boolean getShift(){return tankPrimaryStick.getRawButton(kTankJoystickShiftButton);}
     public boolean getLightFollow(){return tankPrimaryStick.getRawButton(kTankJoystickVisionDrive);}
@@ -109,22 +110,4 @@ public class Controls {
     public boolean getElevatorEmergencyUp(){return secondaryControlPanel.getRawButton(Constants.Controls.kElevatorEmergencyUpButton);}
     public boolean getElevatorEmergencyDown(){return secondaryControlPanel.getRawButton(Constants.Controls.kElevatorEmergencyDownButton);}
 */
-
-    public boolean getButtonOnJoyStick(Joysticks joystick, int buttonId){
-        switch (joystick){
-            case TANK:
-                return tankPrimaryStick.getRawButton(buttonId);
-            case TURN:
-                return turnPrimaryStick.getRawButton(buttonId);
-            case SECONDARY:
-                return  secondaryControlPanel.getRawButton(buttonId);
-            default:
-                return false;
-        }
-    }
-    public enum Joysticks{
-        TANK,
-        TURN,
-        SECONDARY
-    }
 }

@@ -14,6 +14,7 @@ public class DriverControlledAction implements Action{
     private RobotState robotstate;
     private IntakeController intake;
     private GroundIntakeController groundIntake;
+    private boolean wasPressed = true;
 
     public DriverControlledAction(){
         driveTrain = DriveTrainController.getInstance();
@@ -31,7 +32,10 @@ public class DriverControlledAction implements Action{
 
     @Override
     public boolean isFinished() {
-        return controls.getAutoOverride(); //todo: add new button
+        if(wasPressed){
+            wasPressed = controls.getAutoInterrupt();
+        }
+        return controls.getAutoInterrupt() && !wasPressed;
     }
 
     @Override
