@@ -214,19 +214,19 @@ public class Robot extends TimedRobot {
                 intake.setShootCargo(IntakeController.ShootSpeed.ROCKET2);
             } else if (controls.getCargoShoot()) {
                 intake.setShootCargo(IntakeController.ShootSpeed.CARGOSHIP);
-            } else if(!controls.getCargoIntake()){
+            } else if (!controls.getCargoIntake()) {
                 //only stop motors if we're not doing cargo intake
                 intake.setShootCargo(IntakeController.ShootSpeed.NONE);
             }
 
             //hatches
             //if primary driver had pulled trigger to place a hatch on the front
-//            if (controls.getHatchOuttake()) {
+
+          if (controls.getHatchOuttake() && controls.getGroundIntakeReady()) {
+                groundIntake.setWantState(GroundIntakeController.IntakeState.PLACEMENT);
                 intake.setHatchPlace(controls.getHatchOuttake());
-//            } else {  //primary driver not holding front hatch trigger
-                if (controls.getGroundIntakePlace()) {
-                    groundIntake.setWantState(GroundIntakeController.IntakeState.PLACEMENT);
-                } else if (controls.getGroundIntakeReady()) {
+                }
+                 else if (controls.getGroundIntakeReady()) {
                     groundIntake.setWantState(GroundIntakeController.IntakeState.READY);
                 } else if (controls.getGroundIntakeDown()) {
                     groundIntake.setWantState(GroundIntakeController.IntakeState.DOWN);
