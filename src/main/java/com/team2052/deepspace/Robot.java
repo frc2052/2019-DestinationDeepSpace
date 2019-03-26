@@ -153,7 +153,7 @@ public class Robot extends TimedRobot {
         autoModeRunner.stop();
         controlLoop.stop();
         driveTrain.stop();
-        AutoModeSelector.checkSelectedAutoMode();
+        AutoModeSelector.getSelectedAutoMode();
         PurePursuitPathFollower.getInstance().resetPathFollower();
     }
 

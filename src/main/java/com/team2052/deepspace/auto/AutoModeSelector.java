@@ -18,6 +18,7 @@ import com.team2052.deepspace.auto.modes.RightStart.ForwardRightToRightClose;
 import com.team2052.deepspace.auto.modes.RightStart.ForwardRightToRightFar;
 import com.team2052.deepspace.auto.modes.RightStart.ForwardRightToRightMiddle;
 import com.team2052.deepspace.auto.modes.Test;
+import com.team2052.deepspace.auto.modes.WaitToStart;
 import com.team2052.lib.Autonomous.Position2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -61,6 +62,7 @@ public class AutoModeSelector {
         SmartDashboard.putData("Start Position", sendableChooserPosition);
         SmartDashboard.putData("First Target", sendableChooserFirstTarget);
         SmartDashboard.putData("Second Target", sendableChooserSecondTarget);
+        SmartDashboard.putBoolean("Wait To Start?", waitForStart);
     }
 
     private static PositionSelection lastPosition = null;
@@ -68,14 +70,10 @@ public class AutoModeSelector {
     private static SecondTargetSelection lastSecond = null;
     private static AutoMode selectedAuto = null;
     private static AutoMode secondAuto  = null;
-
-    public static void checkSelectedAutoMode(){
-        //this method also updates smartdashboard
-        getSelectedAutoMode();
-    }
+    private static boolean waitForStart = false;
 
     public static AutoMode getSelectedAutoMode() {
-
+        waitForStart = SmartDashboard.getBoolean("Wait To Start?", false);
         PositionSelection position = sendableChooserPosition.getSelected();
         FirstTargetSelection first = sendableChooserFirstTarget.getSelected();
         SecondTargetSelection second = sendableChooserSecondTarget.getSelected();
@@ -261,8 +259,16 @@ public class AutoModeSelector {
                 selectedAuto.init();
                 System.out.println("INITING SECOND: "+secondAuto.getClass().getSimpleName());
                 secondAuto.init();
-                selectedAuto.appendAction(secondAuto.getAction());
 
+                if(waitForStart){
+                    AutoMode delayStart = new WaitToStart(position.startPos);
+                    delayStart.init();
+                    delayStart.appendAction(selectedAuto.getAction());
+                    delayStart.appendAction(secondAuto.getAction());
+                    selectedAuto = delayStart;
+                }else {
+                    selectedAuto.appendAction(secondAuto.getAction());
+                }
             }
         }
 

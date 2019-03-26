@@ -110,4 +110,21 @@ public class Controls {
     public boolean getElevatorEmergencyDown(){return secondaryControlPanel.getRawButton(Constants.Controls.kElevatorEmergencyDownButton);}
 */
 
+    public boolean getButtonOnJoyStick(Joysticks joystick, int buttonId){
+        switch (joystick){
+            case TANK:
+                return tankPrimaryStick.getRawButton(buttonId);
+            case TURN:
+                return turnPrimaryStick.getRawButton(buttonId);
+            case SECONDARY:
+                return  secondaryControlPanel.getRawButton(buttonId);
+            default:
+                return false;
+        }
+    }
+    public enum Joysticks{
+        TANK,
+        TURN,
+        SECONDARY
+    }
 }
