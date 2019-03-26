@@ -24,7 +24,6 @@ public class Controls {
 
     public static final int kSecondaryCargoIntake = 1;
     public static final int kSecondaryGroundPickupStarting = 2;
-    public static final int kSecondaryGroundPickupPlace = 3;
     public static final int kSecondaryGroundPickupReady = 4;
     public static final int kSecondaryRocket2 = 6;
     public static final int kSecondaryRocket1 = 7;
@@ -84,7 +83,6 @@ public class Controls {
     public boolean getClimberDown(){ return secondaryControlPanel.getRawButton(kSecondaryClimberDown); }
     public boolean getCargoIntake() { return secondaryControlPanel.getTrigger();}
     public boolean getGroundIntakeDown() { return secondaryControlPanel.getRawButton(kSecondaryGroundPickupDown); }
-    public boolean getGroundIntakePlace() { return secondaryControlPanel.getRawButton(kSecondaryGroundPickupPlace); }
     public boolean getGroundIntakeReady() { return secondaryControlPanel.getRawButton(kSecondaryGroundPickupReady); }
     public boolean getGroundIntakeStarting() { return secondaryControlPanel.getRawButton(kSecondaryGroundPickupStarting); }
     public boolean getRocket1Shoot(){ return secondaryControlPanel.getRawButton(kSecondaryRocket1); }
