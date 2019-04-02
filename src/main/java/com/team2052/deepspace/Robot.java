@@ -212,6 +212,8 @@ public class Robot extends TimedRobot {
                 intake.setShootCargo(IntakeController.ShootSpeed.ROCKET1);
             } else if (controls.getCargoShoot() && controls.getRocket2Shoot()) {
                 intake.setShootCargo(IntakeController.ShootSpeed.ROCKET2);
+            }else if(controls.getCargoShoot() && controls.getIsShooterAgainstWall()){
+                intake.setShootCargo(IntakeController.ShootSpeed.AGAINSTWALL);
             } else if (controls.getCargoShoot()) {
                 intake.setShootCargo(IntakeController.ShootSpeed.CARGOSHIP);
             } else if(!controls.getCargoIntake()){
@@ -224,8 +226,9 @@ public class Robot extends TimedRobot {
 //            if (controls.getHatchOuttake()) {
                 intake.setHatchPlace(controls.getHatchOuttake());
 //            } else {  //primary driver not holding front hatch trigger
-                if (controls.getGroundIntakePlace()) {
+                if (controls.getGroundIntakeReady()&& controls.getHatchOuttake()) {
                     groundIntake.setWantState(GroundIntakeController.IntakeState.PLACEMENT);
+                    groundIntake.setGrabberOpen(true);
                 } else if (controls.getGroundIntakeReady()) {
                     groundIntake.setWantState(GroundIntakeController.IntakeState.READY);
                 } else if (controls.getGroundIntakeDown()) {

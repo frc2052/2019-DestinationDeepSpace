@@ -16,7 +16,7 @@ public class Controls {
     public static final int kTurnJoystickHatchOuttake = 1; //trigger
     public static final int kTurnJoystickAutoOverrideButton = 2;
     public static final int kTurnJoystickQuickTurn = 3;
-    public static final int kTurnJoystickCameraToggle = 5;
+    public static final int kAgainstWallShoot = 5;
 
     public static final int kTankJoystickCargoShoot = 1; // trigger
     public static final int kTankJoystickShiftButton = 2;
@@ -24,8 +24,8 @@ public class Controls {
 
     public static final int kSecondaryCargoIntake = 1;
     public static final int kSecondaryGroundPickupStarting = 2;
-    public static final int kSecondaryGroundPickupPlace = 3;
-    public static final int kSecondaryGroundPickupReady = 4;
+    public static final int kSecondaryGroundPickupPlace = 4;
+    public static final int kSecondaryGroundPickupReady = 3;
     public static final int kSecondaryRocket2 = 6;
     public static final int kSecondaryRocket1 = 7;
     public static final int kSecondaryGroundPickupDown = 8;
@@ -72,7 +72,8 @@ public class Controls {
 
 
     public boolean getQuickTurn(){ return turnPrimaryStick.getRawButton(kTurnJoystickQuickTurn); }
-    public boolean getShowBackCamera(){return turnPrimaryStick.getRawButton(kTurnJoystickCameraToggle) || secondaryControlPanel.getX() < -.25;}
+    public boolean getShowBackCamera(){return secondaryControlPanel.getX() < -.25;}
+    public boolean getIsShooterAgainstWall(){return turnPrimaryStick.getRawButton(kAgainstWallShoot);}
     public boolean getHatchOuttake() {return turnPrimaryStick.getTrigger();}
     public boolean getAutoOverride() {return getDriveTank() != 0 || getDriveTurn() != 0 || getUnusedTank() != 0 || getUnusedTurn() != 0;}
     public boolean getAutoInterrupt() {return turnPrimaryStick.getRawButton(kTurnJoystickAutoOverrideButton);}

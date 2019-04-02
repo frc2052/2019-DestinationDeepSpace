@@ -27,7 +27,7 @@ public class DriverButtonAction implements Action{
 
     @Override
     public void update() {
-
+        System.out.println("WAITING FOR BUTTON");
     }
 
 

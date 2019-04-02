@@ -2,7 +2,6 @@ package com.team2052.deepspace.auto.modes.LeftStart;
 
 import com.team2052.deepspace.auto.AutoMode;
 import com.team2052.deepspace.auto.actions.*;
-import com.team2052.deepspace.auto.paths.HatchPickUp.LHatchPickUpBackUp;
 import com.team2052.deepspace.auto.paths.LeftHatchStarts.LCloseHatchStartLeftHatchPickUpPathCompoundPath;
 import com.team2052.deepspace.auto.paths.LeftStart.LStartSideLeftCloseHatchPath;
 import com.team2052.deepspace.auto.paths.Path;
@@ -33,7 +32,8 @@ public class ForwardLeftToLeftClose extends AutoMode{
                 )),
 
                 new VisionAction(true),
-                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE)
+                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
+                new WaitAction(1.0)
 
         )));
     }

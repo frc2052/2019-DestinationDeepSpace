@@ -67,8 +67,8 @@ public class IntakeController {
                 if(isRocket1 && rocketTimer.get() < .5) {
                     setArmDown(true);
                     if(rocketTimer.get() > .35) {
-                        clawTop.set(ControlMode.PercentOutput, -.45);
-                        clawBottom.set(ControlMode.PercentOutput, .45);
+                        clawTop.set(ControlMode.PercentOutput, -.50);
+                        clawBottom.set(ControlMode.PercentOutput, .50);
                     }
                     System.out.println("running motors: " + rocketTimer.get() + " bool: " +isRocket1);
                 }else{
@@ -82,7 +82,7 @@ public class IntakeController {
             case CARGOSHIP:
                 clawTop.set(ControlMode.PercentOutput, - Constants.Intake.kOuttakeCargoShipSpeed);
                 clawBottom.set(ControlMode.PercentOutput, Constants.Intake.kOuttakeCargoShipSpeed);
-                if(isRocket1 == true){
+                if(isRocket1){
                     isRocket1 = false;
                     setArmDown(false);
                 }
@@ -90,7 +90,15 @@ public class IntakeController {
             case ROCKET2:
                 clawTop.set(ControlMode.PercentOutput, -1);
                 clawBottom.set(ControlMode.PercentOutput, 1);
-                if(isRocket1 == true){
+                if(isRocket1){
+                    isRocket1 = false;
+                    setArmDown(false);
+                }
+                break;
+            case AGAINSTWALL:
+                clawTop.set(ControlMode.PercentOutput, -Constants.Intake.kOuttakeCargoShipSpeed - .1); //.55
+                clawBottom.set(ControlMode.PercentOutput, Constants.Intake.kOuttakeCargoShipSpeed);
+                if(isRocket1){
                     isRocket1 = false;
                     setArmDown(false);
                 }
@@ -99,7 +107,7 @@ public class IntakeController {
             default:
                 clawTop.set(ControlMode.PercentOutput, 0);
                 clawBottom.set(ControlMode.PercentOutput, 0);
-                if(isRocket1 == true){
+                if(isRocket1){
                     isRocket1 = false;
                     setArmDown(false);
                 }
@@ -128,6 +136,7 @@ public class IntakeController {
         NONE,
         ROCKET1,
         ROCKET2,
-        CARGOSHIP
+        CARGOSHIP,
+        AGAINSTWALL
     }
 }

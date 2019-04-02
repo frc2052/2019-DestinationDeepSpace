@@ -4,6 +4,7 @@ import com.team2052.lib.DriveSignal;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class VisionController {
+
     private static VisionController instance = null;
 
     public static VisionController getInstance() {
@@ -30,7 +31,8 @@ public class VisionController {
     private double xPercent;
     private double y = -1;
 
-    public static double xOffset = 16;
+    private static double xOffset = 0;
+    private static double defaultXOffset = 5.4;
 
     private int cameraW;
     private int cameraH;
@@ -38,6 +40,7 @@ public class VisionController {
     public VisionController(){
         SmartDashboard.putBoolean("CameraDebug", false);
         SmartDashboard.putBoolean("Camera Toggle", false);
+        SmartDashboard.putNumber("centerOffset", 0);
     }
 
     public DriveSignal getMotorOutput(double speed){
@@ -53,6 +56,7 @@ public class VisionController {
     }
 
     public void getValues(){
+        xOffset = SmartDashboard.getNumber("centerOffset", 0);
         //cameraH = (int)SmartDashboard.getNumber("cameraHeight",0);
         //cameraW = (int)SmartDashboard.getNumber("cameraWidth",0);
         yaw =SmartDashboard.getNumber("yawToTarget",0);
@@ -62,9 +66,10 @@ public class VisionController {
         y = SmartDashboard.getNumber("targetY",-1);
         //System.out.println("x is " + x);
         if(x > 0) {
-            xPercent = (x - xOffset) / 150;
+            xPercent = (x + defaultXOffset + xOffset) / 150;
         }
         SmartDashboard.putNumber("xPercent", xPercent);
+        System.out.println("match offset:" + xOffset);
     }
 
     public boolean isTarget(){
