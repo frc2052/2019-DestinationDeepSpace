@@ -31,6 +31,9 @@ public class VisionController {
     private double xPercent;
     private double y = -1;
 
+    private double xPos = 0;
+    private double yPos = 0;
+
     private static double xOffset = 0;
     private static double defaultXOffset = 5.4;
 
