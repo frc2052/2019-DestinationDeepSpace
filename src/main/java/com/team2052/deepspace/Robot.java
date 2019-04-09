@@ -153,7 +153,7 @@ public class Robot extends TimedRobot {
         autoModeRunner.stop();
         controlLoop.stop();
         driveTrain.stop();
-        AutoModeSelector.checkSelectedAutoMode();
+        AutoModeSelector.getSelectedAutoMode();
         PurePursuitPathFollower.getInstance().resetPathFollower();
     }
 
@@ -212,21 +212,24 @@ public class Robot extends TimedRobot {
                 intake.setShootCargo(IntakeController.ShootSpeed.ROCKET1);
             } else if (controls.getCargoShoot() && controls.getRocket2Shoot()) {
                 intake.setShootCargo(IntakeController.ShootSpeed.ROCKET2);
+            }else if(controls.getCargoShoot() && controls.getIsShooterAgainstWall()){
+                intake.setShootCargo(IntakeController.ShootSpeed.AGAINSTWALL);
             } else if (controls.getCargoShoot()) {
                 intake.setShootCargo(IntakeController.ShootSpeed.CARGOSHIP);
-            } else if (!controls.getCargoIntake()) {
+            } else if(!controls.getCargoIntake()){
                 //only stop motors if we're not doing cargo intake
                 intake.setShootCargo(IntakeController.ShootSpeed.NONE);
             }
 
             //hatches
             //if primary driver had pulled trigger to place a hatch on the front
-
-          if (controls.getHatchOuttake() && controls.getGroundIntakeReady()) {
-                groundIntake.setWantState(GroundIntakeController.IntakeState.PLACEMENT);
+//            if (controls.getHatchOuttake()) {
                 intake.setHatchPlace(controls.getHatchOuttake());
-                }
-                 else if (controls.getGroundIntakeReady()) {
+//            } else {  //primary driver not holding front hatch trigger
+                if (controls.getGroundIntakeReady()&& controls.getHatchOuttake()) {
+                    groundIntake.setWantState(GroundIntakeController.IntakeState.PLACEMENT);
+                    groundIntake.setGrabberOpen(true);
+                } else if (controls.getGroundIntakeReady()) {
                     groundIntake.setWantState(GroundIntakeController.IntakeState.READY);
                 } else if (controls.getGroundIntakeDown()) {
                     groundIntake.setWantState(GroundIntakeController.IntakeState.DOWN);

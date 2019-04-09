@@ -1,8 +1,7 @@
 package com.team2052.deepspace.auto.modes;
 
 import com.team2052.deepspace.auto.AutoMode;
-import com.team2052.deepspace.auto.actions.FollowPathAction;
-import com.team2052.deepspace.auto.actions.SeriesAction;
+import com.team2052.deepspace.auto.actions.*;
 import com.team2052.deepspace.auto.paths.CompoundPath;
 import com.team2052.deepspace.auto.paths.LeftStart.LStartSideLeftCloseHatchPath;
 import com.team2052.deepspace.auto.paths.NotSmoothTestCompoundPath;
@@ -29,10 +28,10 @@ public class Test extends AutoMode {
 
         setAction(new SeriesAction(Arrays.asList(
 
-                new FollowPathAction(new LStartSideLeftCloseHatchPath(startingPos, Path.Direction.FORWARD)))
+                new FollowPathAction(new LStartSideLeftCloseHatchPath(startingPos, Path.Direction.FORWARD)),
+                new OptionalAction(new DriverButtonAction(), new DriverControlledAction(), new VisionAction(true))
                // new VisionAction(true),
                // new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE)
-        //)
-        ));
+        )));
     }
 }

@@ -3,7 +3,6 @@ package com.team2052.deepspace.auto.modes.RightStart;
 import com.team2052.deepspace.auto.AutoMode;
 import com.team2052.deepspace.auto.actions.*;
 import com.team2052.deepspace.auto.paths.CenterHatchStarts.CRightHatchStartRightHatchPickUpPathCompoundPath;
-import com.team2052.deepspace.auto.paths.HatchPickUp.RHatchPickUpBackUp;
 import com.team2052.deepspace.auto.paths.Path;
 import com.team2052.deepspace.auto.paths.RightStart.RStartCenterRightHatchPath;
 import com.team2052.lib.Autonomous.Position2d;
@@ -33,7 +32,8 @@ public class ForwardRightToCenterRight extends AutoMode {
                 )),
 
                 new VisionAction(true),
-                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE)
+                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
+                new WaitAction(1.0)
         )));
     }
 }

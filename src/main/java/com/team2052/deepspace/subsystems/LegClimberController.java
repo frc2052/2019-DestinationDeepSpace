@@ -23,9 +23,11 @@ public class LegClimberController {
     }
 
     private TalonSRX legClimberMotor = null;
+    //private DigitalOutput limitSwitch = null;
 
     private LegClimberController(){
         legClimberMotor = new TalonSRX(Constants.LegClimber.kLegClimberTalon1id);
+        //limitSwitch = new DigitalOutput(4);
         legClimberMotor.configFactoryDefault();
         legClimberMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.DriveTrain.kVelocityControlSlot, Constants.DriveTrain.kCANBusConfigTimeoutMS);
         legClimberMotor.setNeutralMode(NeutralMode.Brake);
@@ -44,6 +46,11 @@ public class LegClimberController {
     private double startTime = 0;
 
     public void runClimber(State state) {
+        /*
+        if (limitSwitch.get() && state != State.OVERRIDEDOWN && state != State.OVERRIDEUP && state != State.DOWN){
+            state = State.STOP;
+            System.out.println();
+        }*/
         switch (state){
             case UP:
 

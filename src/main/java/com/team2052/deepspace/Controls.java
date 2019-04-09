@@ -16,7 +16,7 @@ public class Controls {
     public static final int kTurnJoystickHatchOuttake = 1; //trigger
     public static final int kTurnJoystickAutoOverrideButton = 2;
     public static final int kTurnJoystickQuickTurn = 3;
-    public static final int kTurnJoystickCameraToggle = 5;
+    public static final int kAgainstWallShoot = 5;
 
     public static final int kTankJoystickCargoShoot = 1; // trigger
     public static final int kTankJoystickShiftButton = 2;
@@ -24,7 +24,8 @@ public class Controls {
 
     public static final int kSecondaryCargoIntake = 1;
     public static final int kSecondaryGroundPickupStarting = 2;
-    public static final int kSecondaryGroundPickupReady = 4;
+    public static final int kSecondaryGroundPickupPlace = 4;
+    public static final int kSecondaryGroundPickupReady = 3;
     public static final int kSecondaryRocket2 = 6;
     public static final int kSecondaryRocket1 = 7;
     public static final int kSecondaryGroundPickupDown = 8;
@@ -71,9 +72,11 @@ public class Controls {
 
 
     public boolean getQuickTurn(){ return turnPrimaryStick.getRawButton(kTurnJoystickQuickTurn); }
-    public boolean getShowBackCamera(){return turnPrimaryStick.getRawButton(kTurnJoystickCameraToggle) || secondaryControlPanel.getX() < -.25;}
+    public boolean getShowBackCamera(){return secondaryControlPanel.getX() < -.25;}
+    public boolean getIsShooterAgainstWall(){return turnPrimaryStick.getRawButton(kAgainstWallShoot);}
     public boolean getHatchOuttake() {return turnPrimaryStick.getTrigger();}
-    public boolean getAutoOverride() {return turnPrimaryStick.getRawButton(kTurnJoystickAutoOverrideButton) || getDriveTank() != 0 || getDriveTurn() != 0 || getUnusedTank() != 0 || getUnusedTurn() != 0;}
+    public boolean getAutoOverride() {return getDriveTank() != 0 || getDriveTurn() != 0 || getUnusedTank() != 0 || getUnusedTurn() != 0;}
+    public boolean getAutoInterrupt() {return turnPrimaryStick.getRawButton(kTurnJoystickAutoOverrideButton);}
 
     public boolean getShift(){return tankPrimaryStick.getRawButton(kTankJoystickShiftButton);}
     public boolean getLightFollow(){return tankPrimaryStick.getRawButton(kTankJoystickVisionDrive);}
@@ -83,6 +86,7 @@ public class Controls {
     public boolean getClimberDown(){ return secondaryControlPanel.getRawButton(kSecondaryClimberDown); }
     public boolean getCargoIntake() { return secondaryControlPanel.getTrigger();}
     public boolean getGroundIntakeDown() { return secondaryControlPanel.getRawButton(kSecondaryGroundPickupDown); }
+    public boolean getGroundIntakePlace() { return secondaryControlPanel.getRawButton(kSecondaryGroundPickupPlace); }
     public boolean getGroundIntakeReady() { return secondaryControlPanel.getRawButton(kSecondaryGroundPickupReady); }
     public boolean getGroundIntakeStarting() { return secondaryControlPanel.getRawButton(kSecondaryGroundPickupStarting); }
     public boolean getRocket1Shoot(){ return secondaryControlPanel.getRawButton(kSecondaryRocket1); }
@@ -107,5 +111,4 @@ public class Controls {
     public boolean getElevatorEmergencyUp(){return secondaryControlPanel.getRawButton(Constants.Controls.kElevatorEmergencyUpButton);}
     public boolean getElevatorEmergencyDown(){return secondaryControlPanel.getRawButton(Constants.Controls.kElevatorEmergencyDownButton);}
 */
-
 }
