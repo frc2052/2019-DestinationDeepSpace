@@ -9,6 +9,7 @@ import com.team2052.lib.ControlLoop;
 import com.team2052.lib.DriveHelper;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -32,8 +33,7 @@ public class Robot extends TimedRobot {
     private ControlLoop controlLoop = new ControlLoop(Constants.Autonomous.kloopPeriodSec);
     private Compressor compressor = null;
     private VisionController visionController = null;
-
-
+    private LifterController lifter = null;
 
     @Override
     public void robotInit() {
@@ -48,6 +48,7 @@ public class Robot extends TimedRobot {
         visionController = VisionController.getInstance();
         lineFollower = LineFollowerController.getInstance();
         backLineFollower = BackLineFollowerController.getInstance();
+        lifter = LifterController.getInstance();
 
         autoModeRunner = AutoModeRunner.getInstance();
         try {
@@ -199,8 +200,13 @@ public class Robot extends TimedRobot {
             }else{
                 legClimberController.runClimber(LegClimberController.State.STOP);
             }
+            legClimberController.printEncoder();
         }
-        legClimberController.printEncoder();
+
+        if (lifter != null) {
+            lifter.setLegsDown(controls.getLifterDown());
+        }
+
 
         if(intake != null && groundIntake != null) {
             //System.out.println("INTAKES ARE NOT NULL");
@@ -240,6 +246,18 @@ public class Robot extends TimedRobot {
 //                    intake.setHatchPlace(false); //only close the jaws based on primary driver trigger if ground pickup not in the process of placing
 //                }
 //            }
+
+            if (controls.getRocket1Shoot()) {
+                SmartDashboard.putString("LedStatus", "rocket1");
+            } else if (controls.getRocket2Shoot()) {
+                SmartDashboard.putString("LedStatus", "rocket2");
+            } else if (controls.getClimberUp()) {
+                SmartDashboard.putString("LedStatus", "climber");
+            } else if (visionController.isTarget()){
+                SmartDashboard.putString("LedStatus", "vision");
+            } else {
+                SmartDashboard.putString("LedStatus", "");
+            }
         }
     }
 }
