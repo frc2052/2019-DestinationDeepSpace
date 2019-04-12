@@ -166,18 +166,15 @@ public class PurePursuitPathFollower{
      */
     private void findDriveCurvature(){
 
-        double a = -Math.tan(currentPos.getHeading());
-        double b = 1;
         double c = Math.tan(currentPos.getHeading()) * currentPos.getForward() - currentPos.getLateral();
+        double x = Math.abs(-(Math.sin(currentPos.getHeading()) * lookaheadPoint.getForward()) + (lookaheadPoint.getLateral() + c) * Math.cos(currentPos.getHeading()));
 
-        double x = Math.abs(a * lookaheadPoint.getForward() + b * lookaheadPoint.getLateral() + c)/ Math.sqrt(a*a + b*b);
 
-
-        double side = -Math.signum(Math.sin(currentPos.getHeading()) * (lookaheadPoint.getForward() - currentPos.getForward()) - Math.cos(currentPos.getHeading()) * (lookaheadPoint.getLateral() - currentPos.getLateral()));
+        double side = -Math.signum(Math.tan(currentPos.getHeading()) * (lookaheadPoint.getForward() - currentPos.getForward()) - (lookaheadPoint.getLateral() - currentPos.getLateral()));
 
         //curvature is 1/radius of the circle the robot must drive on
-        curvature = side * ((2*x)/ (Constants.Autonomous.kLookaheadDistance * Constants.Autonomous.kLookaheadDistance));
-        System.out.println("curvature " + curvature);
+        curvature = (side * x) / (Constants.Autonomous.kLookaheadDistance * Constants.Autonomous.kLookaheadDistance);
+        System.out.println("curvature " + (2 * curvature));
     }
 
     /**
@@ -187,9 +184,9 @@ public class PurePursuitPathFollower{
         //if we are moving at higher velocitys, at the end look father ahead to stop
         double deltaVelocity = rateLimiter.constrain(path.getWaypoints().get(closestPointIndex+((closestPointIndex >= path.getWaypoints().size()-5)?1:0)).getVelocity() - robotState.getVelocityInch(), -Constants.Autonomous.kMaxAccel * Constants.Autonomous.kloopPeriodMs, Constants.Autonomous.kMaxAccel * Constants.Autonomous.kloopPeriodMs);
         double velocity = robotState.getVelocityInch() +  deltaVelocity;
-        leftWheelVel = velocity * (2 + curvature * Constants.Autonomous.kTrackWidth)/2;
-        rightWheelVel = velocity * (2 - curvature * Constants.Autonomous.kTrackWidth)/2; //todo swap + & - if the robot turns away from the path
-        System.out.println("left: " + leftWheelVel + " right: " + rightWheelVel + " velocity: " + velocity + " curv: " + curvature + " track: " + Constants.Autonomous.kTrackWidth);
+        leftWheelVel = velocity + velocity * curvature * Constants.Autonomous.kTrackWidth;
+        rightWheelVel = velocity - velocity * curvature * Constants.Autonomous.kTrackWidth; //TODO: swap + & - if the robot turns away from the path
+        System.out.println("left: " + leftWheelVel + " right: " + rightWheelVel + " velocity: " + velocity + " curv: " + (2 * curvature) + " track: " + Constants.Autonomous.kTrackWidth);
         //if velocity gets to fast scale it down so a wheel is not told to drive faster then 100%
         double highestVel = 0.0;
 
@@ -276,7 +273,7 @@ public class PurePursuitPathFollower{
      */
     private void pushToSmartDashboard(){
         SmartDashboard.putNumber("DistanceFromEnd", getDistanceFromEnd());
-        SmartDashboard.putNumber("Curvature", curvature);
+        SmartDashboard.putNumber("Curvature", (2 * curvature));
         SmartDashboard.putNumber("SetLeftVel", leftWheelVel);
         SmartDashboard.putNumber("SetRightVel", rightWheelVel);
         SmartDashboard.putNumber("SetRobotVel", (rightWheelVel + leftWheelVel)/2);
@@ -289,7 +286,7 @@ public class PurePursuitPathFollower{
      * prints and update to the console
      */
     private void printAnUpdate(){
-        System.out.println("L-Vel: " + leftWheelVel + " R-Vel " + rightWheelVel + " curv: " + curvature + " in. Left: " + getDistanceFromEnd() + " P. Vel: " + path.getWaypoints().get(closestPointIndex).getVelocity());
+        System.out.println("L-Vel: " + leftWheelVel + " R-Vel " + rightWheelVel + " curv: " + (2 * curvature) + " in. Left: " + getDistanceFromEnd() + " P. Vel: " + path.getWaypoints().get(closestPointIndex).getVelocity());
     }
 
     public String currentFlag(){
