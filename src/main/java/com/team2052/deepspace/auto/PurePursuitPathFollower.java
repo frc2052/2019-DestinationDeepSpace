@@ -165,15 +165,14 @@ public class PurePursuitPathFollower{
      * find the curvature of the circle that the robot must follow to get to the look ahead point
      */
     private void findDriveCurvature(){
+        double a = Math.sin(currentPos.getHeading()) * (currentPos.getForward() - lookaheadPoint.getForward());
+        double b = Math.cos(currentPos.getHeading()) * (lookaheadPoint.getLateral() - currentPos.getLateral());
+        //x = sin(h)(deltaF) + cos(h)(-deltaL)
+        double x = a + b;
 
-        double c = Math.tan(currentPos.getHeading()) * currentPos.getForward() - currentPos.getLateral();
-        double x = Math.abs(-(Math.sin(currentPos.getHeading()) * lookaheadPoint.getForward()) + (lookaheadPoint.getLateral() + c) * Math.cos(currentPos.getHeading()));
-
-
-        double side = -Math.signum(Math.tan(currentPos.getHeading()) * (lookaheadPoint.getForward() - currentPos.getForward()) - (lookaheadPoint.getLateral() - currentPos.getLateral()));
 
         //curvature is 1/radius of the circle the robot must drive on
-        curvature = (side * x) / (Constants.Autonomous.kLookaheadDistance * Constants.Autonomous.kLookaheadDistance);
+        curvature = x / (Constants.Autonomous.kLookaheadDistance * Constants.Autonomous.kLookaheadDistance);
         System.out.println("curvature " + (2 * curvature));
     }
 
