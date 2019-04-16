@@ -97,6 +97,7 @@ public class AutoModeSelector {
                 case TEST:
                     System.out.println("selected test");
                     selectedAuto = new Test(position.startPos);
+                    secondAuto = new DontMove();
                     break;
                 case LEFT:
                 case LEFTHAB2:

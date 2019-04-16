@@ -24,4 +24,3 @@ public class LineFollowerController extends LineFollowerControllerBase {
         reversed = true;
     }
 }
-

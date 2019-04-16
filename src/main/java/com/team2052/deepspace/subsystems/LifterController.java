@@ -20,7 +20,7 @@ public class LifterController {
     private Solenoid liftOutSolenoid = new Solenoid(Constants.Lifter.kLifterOutSolenoidId);
 
     public void setLegsDown(boolean isPressed) {
-        System.out.println("Lifter setting to " + isPressed);
+        //System.out.println("Lifter setting to " + isPressed);
         liftOutSolenoid.set(isPressed);
     }
 

@@ -69,7 +69,7 @@ public class VisionController {
             xPercent = (x + defaultXOffset + xOffset) / 150;
         }
         SmartDashboard.putNumber("xPercent", xPercent);
-        System.out.println("match offset:" + xOffset);
+        //System.out.println("match offset:" + xOffset);
     }
 
     public boolean isTarget(){
