@@ -18,6 +18,10 @@ public class ForwardLeftToCenterLeft extends AutoMode {
     protected void init() {
         setAction(new SeriesAction(Arrays.asList(
                 new ParallelAction(Arrays.asList(
+                       /* new SeriesAction(Arrays.asList(
+                                new WaitAction(1),
+                                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.ARMDOWN)
+                        )),*/
                         new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.ARMDOWN),
                         new FollowPathAction(new LStartCenterLeftHatchPath(startingPos, Path.Direction.FORWARD))
                 )),

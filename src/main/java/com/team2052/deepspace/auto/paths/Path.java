@@ -41,6 +41,7 @@ public abstract class Path {
 
     public abstract List<Waypoint> getWaypoints();
 
+    public void changeEndPos(double val){};
     /**
      * create a path that can be followed from a path created in an automode class
      *  a list of wayPoints that is more populated and have distances, velocities and curvature set
@@ -57,7 +58,7 @@ public abstract class Path {
             //print origional points
         /*
         for(int i = 0; i < wayPoints.size(); i++){
-            System.out.println("path points: x: " + wayPoints.get(i).getPosition().getLateral() + "y: " + wayPoints.get(i).getPosition().getForward());
+            System.out.println("path points: x: " + wayPoints.get(i).getPosition().getY() + "y: " + wayPoints.get(i).getPosition().getX());
         }*/
             //set the final point to 0 calculateDeceleration
             wayPoints.get(wayPoints.size() - 1).setVelocity(0); //todo test this end speed
@@ -88,11 +89,11 @@ public abstract class Path {
                 dir.x = (dir.x / mag) * (mag / numOfPts);
                 dir.y = (dir.y / mag) * (mag / numOfPts);
 
-                //System.out.println("added point: x: " + pathPoints.get(pathPoints.size()-1).getPosition().getLateral() + "y: " + pathPoints.get(pathPoints.size()-1).getPosition().getForward());
+                //System.out.println("added point: x: " + pathPoints.get(pathPoints.size()-1).getPosition().getY() + "y: " + pathPoints.get(pathPoints.size()-1).getPosition().getX());
                 for (int j = 0; j < numOfPts; j++) {
 
                     pathPoints.add(pathPoints.size(), new Waypoint(pathPoints.get(pathPoints.size() - 1).getPosition().translateBy(new Position2d(dir.y, dir.x)), wayPoints.get(i - 1).getVelocity(), wayPoints.get(i-1).getFlag()));
-//                    System.out.println("added point: x: " + pathPoints.get(pathPoints.size()-1).getPosition().getLateral() + "y: " + pathPoints.get(pathPoints.size()-1).getPosition().getForward() + " vel: " + wayPoints.get(i-1).getVelocity());
+//                    System.out.println("added point: x: " + pathPoints.get(pathPoints.size()-1).getPosition().getY() + "y: " + pathPoints.get(pathPoints.size()-1).getPosition().getX() + " vel: " + wayPoints.get(i-1).getVelocity());
                 }
             }
         }
@@ -235,7 +236,7 @@ public abstract class Path {
         //print the final points
 
 //        for(int i = 0; i < pathPoints.size(); i++){
-//            System.out.println("path points: x: " + pathPoints.get(i).getPosition().getLateral() + "y: " + pathPoints.get(i).getPosition().getForward() + " vel: " + pathPoints.get(i).getVelocity());
+//            System.out.println("path points: x: " + pathPoints.get(i).getPosition().getY() + "y: " + pathPoints.get(i).getPosition().getX() + " vel: " + pathPoints.get(i).getVelocity());
 //        }
 
         pushPathToSmartDashboard(pathPoints);

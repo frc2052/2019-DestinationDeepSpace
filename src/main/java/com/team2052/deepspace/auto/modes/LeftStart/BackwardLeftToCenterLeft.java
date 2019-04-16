@@ -2,7 +2,7 @@ package com.team2052.deepspace.auto.modes.LeftStart;
 
 import com.team2052.deepspace.auto.AutoMode;
 import com.team2052.deepspace.auto.actions.*;
-import com.team2052.deepspace.auto.paths.CenterHatchStarts.CLeftHatchStartLeftHatchPickUpPathCompoundPath;
+import com.team2052.deepspace.auto.paths.CenterHatchStarts.CLeftHatchStartLeftHatchPickUpPath;
 import com.team2052.deepspace.auto.paths.LeftStart.LStartCenterLeftHatchPath;
 import com.team2052.deepspace.auto.paths.Path;
 import com.team2052.lib.Autonomous.Position2d;
@@ -20,14 +20,19 @@ public class BackwardLeftToCenterLeft extends AutoMode {
                 //Starting path starts going backwards
                 new FollowPathAction(new LStartCenterLeftHatchPath(startingPos, Path.Direction.BACKWARD)),
                 //Vision
-                new LineUpAction(false),
+                new VisionAction(false),
                 // when true, ground outtake action
-                new GroundIntakeAction(true),
-                //Turns robot around and drives back towards loading station
+                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
+
                 new ParallelAction(Arrays.asList(
-                        new FollowPathListAction(new CLeftHatchStartLeftHatchPickUpPathCompoundPath().getPaths()),
-                        new GroundIntakeAction(false)
-                ))
+                        new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
+                        new FollowPathAction(new CLeftHatchStartLeftHatchPickUpPath())
+                )),
+
+                new VisionAction(true),
+                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
+                new WaitAction(1.0)
+
         )));
     }
 }

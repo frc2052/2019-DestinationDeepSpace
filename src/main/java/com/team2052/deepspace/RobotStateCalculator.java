@@ -49,10 +49,10 @@ public class RobotStateCalculator implements ILoopable{
         latestPosition.setLateral(deltaDistance * Math.sin(averageHeading) + latestPosition.getLateral());
         latestPosition.setHeading(radians);
 /*
-        System.out.println("forward" + latestPosition.getForward() + "encoderInch: " + rightInches);
-        System.out.println("lateral " + latestPosition.getLateral());
-        System.out.println("radians" + latestPosition.getHeading());
-        System.out.println("degrees " + latestPosition.getHeading() / 0.017453);
+        System.out.println("forward" + latestPosition.getX() + "encoderInch: " + rightInches);
+        System.out.println("lateral " + latestPosition.getY());
+        System.out.println("radians" + latestPosition.getZ());
+        System.out.println("degrees " + latestPosition.getZ() / 0.017453);
 */
     }
 
