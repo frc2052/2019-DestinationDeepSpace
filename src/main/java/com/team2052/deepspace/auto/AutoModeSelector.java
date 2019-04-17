@@ -123,17 +123,20 @@ public class AutoModeSelector {
                         case FLCHATCH:
                             selectedAuto = new ForwardLeftToLeftClose(position.startPos);
                             break;
+                            /*
                         case FLMHATCH:
                             selectedAuto = new ForwardLeftToLeftMiddle(position.startPos);
                             break;
                         case FLFHATCH:
                             selectedAuto = new ForwardLeftToLeftFar(position.startPos);
                             break;
-                        case FLSRCHATCH:
-                            selectedAuto = new ForwardLeftToRocketClose(position.startPos);
-                            break;
+
                         case BLSRFHATCH: // does notwork
                             selectedAuto = new BackwardLeftToRocketFar(position.startPos);
+                            break;
+                            */
+                        case FLSRCHATCH:
+                            selectedAuto = new ForwardLeftToRocketClose(position.startPos);
                             break;
                         default:
                             selectedAuto = null;
@@ -185,12 +188,14 @@ public class AutoModeSelector {
                         case FCRHATCH:
                             selectedAuto = new ForwardRightToCenterRight(position.startPos);
                             break;
-                        case FRMHATCH:
+                        /*
+                            case FRMHATCH:
                             selectedAuto = new ForwardRightToRightMiddle(position.startPos);
                             break;
                         case FRFHATCH:
                             selectedAuto = new ForwardRightToRightFar(position.startPos);
                             break;
+                            */
                         case FRCHATCH:
                             selectedAuto = new ForwardRightToRightClose(position.startPos);
                             break;
@@ -311,13 +316,13 @@ public class AutoModeSelector {
         FCLHATCH("ForwardCenterLeftHatch"),
         FCRHATCH("ForwardCenterRightHatch"),
         FLCHATCH("ForwardLeftCloseHatch"),
-        FLMHATCH("ForwardLeftMiddleHatch"),
-        FLFHATCH("ForwardLeftFarHatch"),
+        //FLMHATCH("ForwardLeftMiddleHatch"),
+        //FLFHATCH("ForwardLeftFarHatch"),
         FRCHATCH("ForwardRightCloseHatch"),
-        FRMHATCH("ForwardRightMiddleHatch"),
-        FRFHATCH("ForwardRightFarHatch"),
+        //FRMHATCH("ForwardRightMiddleHatch"),
+        //FRFHATCH("ForwardRightFarHatch"),
         FLSRCHATCH("ForwardLeftRocketClose"),
-        BLSRFHATCH("BackwardLeftRocketFar"),
+        //BLSRFHATCH("BackwardLeftRocketFar"),
 
         BCLHATCH("BackCenterLeftHatch"),
         BLCHATCH("BackLeftCloseHatch"),
