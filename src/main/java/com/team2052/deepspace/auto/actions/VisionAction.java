@@ -39,7 +39,7 @@ public class VisionAction implements Action{
 
     @Override
     public void update() {
-        if(visionController.isTarget()) {
+        if(visionController.getIsTarget()) {
             driveTrainController.drive(visionController.getMotorOutput(.5));
         }else{
             if(isForwards){

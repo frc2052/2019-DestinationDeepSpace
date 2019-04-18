@@ -30,6 +30,8 @@ public class PurePursuitPathFollower{
     }
 
     private Path path;
+    private Path overridePath;
+    private boolean pathOveridden = false;
 
     private RateLimiter rateLimiter = new RateLimiter();
     private DriveTrainController driveTrain = DriveTrainController.getInstance();
@@ -54,6 +56,11 @@ public class PurePursuitPathFollower{
      */
     public void update() {
         if (path != null) {
+            if(pathOveridden){
+                path = overridePath;
+                closestPointIndex = 0;
+                pathOveridden = false;
+            }
             driveTrain.setHighGear(path.getIsHighGear());
             currentPos = robotState.getLatestPosition();
             updateClosestPointIndex();
@@ -93,6 +100,11 @@ public class PurePursuitPathFollower{
         currentPos = null;
         curvature = 0;
         closestPointIndex = 0;
+    }
+
+    public void OverrideCurrentPath(Path path){
+        overridePath = path;
+        pathOveridden =true;
     }
 
     /**

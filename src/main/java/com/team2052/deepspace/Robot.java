@@ -167,7 +167,7 @@ public class Robot extends TimedRobot {
             } else if (backLineFollower != null && backLineFollower.getLineSensed()) {
                 System.out.println("Back Sensors");
                 driveTrain.drive(backLineFollower.getLightSensorMotorTurn(controls.getDriveTank()));
-            }else */if(visionController.isTarget()){
+            }else */if(visionController.getIsTarget()){
                 driveTrain.drive(visionController.getMotorOutput(controls.getDriveTank()));
             } else {
                 driveTrain.drive(driveHelper.drive(controls.getDriveTank(), controls.getDriveTurn(), controls.getQuickTurn()));
@@ -253,7 +253,7 @@ public class Robot extends TimedRobot {
                 SmartDashboard.putString("LedStatus", "rocket2");
             } else if (controls.getClimberUp()) {
                 SmartDashboard.putString("LedStatus", "climber");
-            } else if (visionController.isTarget()){
+            } else if (visionController.getIsTarget()){
                 SmartDashboard.putString("LedStatus", "vision");
             } else {
                 SmartDashboard.putString("LedStatus", "");

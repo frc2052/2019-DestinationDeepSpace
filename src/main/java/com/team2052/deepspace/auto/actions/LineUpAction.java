@@ -64,7 +64,7 @@ public class LineUpAction implements Action{
             }
         } else {
         */
-        if(visionController.isTarget()) {
+        if(visionController.getIsTarget()) {
             driveTrain.drive(visionController.getMotorOutput(.5));
         }else{
             if(isForwards){
