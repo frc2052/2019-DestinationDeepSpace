@@ -1,6 +1,7 @@
 package com.team2052.deepspace.subsystems;
 
 import com.team2052.lib.DriveSignal;
+import com.team2052.lib.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class VisionController {
@@ -23,6 +24,8 @@ public class VisionController {
     public static void showBackPiCamera(boolean isBack){
         SmartDashboard.putBoolean("Camera Toggle", !isBack);
     }
+
+    private PIDController pidController = new PIDController(0,0,0);
 
     private double yaw;
     private double height;
