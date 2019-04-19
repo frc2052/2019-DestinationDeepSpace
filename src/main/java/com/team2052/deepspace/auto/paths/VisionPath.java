@@ -11,8 +11,11 @@ public class VisionPath extends Path{
         setDirection(direction);
 
         Position2d startPoint = new Position2d();
-        startPoint.setLateral(target.getLateral() + 50 * target.cos());
-        startPoint.setForward(target.getForward() + 50 * target.sin());
+        Position2d endPoint = new Position2d();
+        startPoint.setLateral(target.getLateral() + 50 * target.sin());
+        startPoint.setForward(target.getForward() + 50 * target.cos());
+        endPoint.setLateral(target.getLateral() - 50 * target.sin());
+        endPoint.setForward(target.getForward() - 50 * target.cos());
 
 
         addWaypoint(new Waypoint(startPoint, 50));

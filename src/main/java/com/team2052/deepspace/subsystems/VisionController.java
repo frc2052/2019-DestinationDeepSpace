@@ -1,8 +1,5 @@
 package com.team2052.deepspace.subsystems;
 
-import com.team2052.deepspace.RobotState;
-import com.team2052.lib.Autonomous.Position2d;
-import com.team2052.lib.Autonomous.Position3d;
 import com.team2052.lib.DriveSignal;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -35,12 +32,9 @@ public class VisionController {
     private double y = -1;
 
     private static double xOffset = 0;
-    private static double defaultXOffset = 5.4;
+    private static double defaultXOffset = 6.6;
 
     private boolean isTarget = false;
-    private Position3d pos = new Position3d();
-    private Position3d rot = new Position3d();
-    private Position2d targetPos = new Position2d();
 
     public VisionController(){
         //run 20 times to make sure these are put on
@@ -57,9 +51,9 @@ public class VisionController {
         if(getIsTarget()) {
             xPercent = ((xPercent-.5)*1.0)+.5;
             System.out.println("vision L: " + (xPercent * speed) + " vision R " + ((1 - xPercent) * speed) + " xP: " + xPercent);
-            return new DriveSignal(xPercent * speed * 1.0, (1 - xPercent) * speed * 1.0);
+            return new DriveSignal(xPercent * speed * 1.1, (1 - xPercent) * speed * 1.1);
         }else{
-            return new DriveSignal(.5,.5);
+            return new DriveSignal(.6,.6);
         }
     }
 
@@ -80,23 +74,6 @@ public class VisionController {
         SmartDashboard.putNumber("xPercent", xPercent);
         //System.out.println("match offset:" + xOffset);
 
-        //new vision
-        isTarget = SmartDashboard.getBoolean("isVisionTarget", false);
-
-        //in Milimeters
-        pos.setX((SmartDashboard.getNumber("TarX",0) + 200) * 0.0393701);
-        pos.setY((SmartDashboard.getNumber("TarY",0) * 0.0393701));
-        pos.setZ((SmartDashboard.getNumber("TarZ",0) * 0.0393701));
-
-        //in radians
-        rot.setX(SmartDashboard.getNumber("TarRotX",0));
-        rot.setY(SmartDashboard.getNumber("TarRotY",0));
-        rot.setZ(SmartDashboard.getNumber("TarRotZ",0));
-
-        double angle = -Math.tanh(pos.getX()/pos.getZ());
-        targetPos.setForward(pos.getZ() * Math.cos(angle) - pos.getX() * Math.sin(angle)); //todo: convert to field coords and to inch
-        targetPos.setLateral(pos.getX() * Math.cos(angle) + pos.getZ() * Math.sin(angle));
-        targetPos.setHeading(rot.getY() + RobotState.getInstance().getLatestPosition().getHeading());
     }
 
     public boolean getIsTarget(){
@@ -105,10 +82,7 @@ public class VisionController {
     }
 
     public boolean isClose(){
-        return y >= 31.0;
+        return y >= 27.0;
     }
 
-    public Position2d getTargetPos(){
-        return targetPos;
-    }
 }

@@ -21,8 +21,10 @@ public class CLeftHatchStartLeftHatchPickUpPathCompoundPath extends CompoundPath
             addWaypoint(new Waypoint(new Position2d(120,-3),50));
             addWaypoint(new Waypoint(new Position2d(100,-10), Constants.Autonomous.kAutoVelocity));
             addWaypoint(new Waypoint(new Position2d(92,-16), Constants.Autonomous.kAutoVelocity));
-            addWaypoint(new Waypoint(new Position2d(80,-30), Constants.Autonomous.kAutoVelocity));
-            addWaypoint(new Waypoint(new Position2d(80,-100),Constants.Autonomous.kAutoVelocity));
+            addWaypoint(new Waypoint(new Position2d(84,-25), Constants.Autonomous.kAutoVelocity));
+            addWaypoint(new Waypoint(new Position2d(80,-40), Constants.Autonomous.kAutoVelocity));
+            addWaypoint(new Waypoint(new Position2d(80,-95),Constants.Autonomous.kAutoVelocity));
+            addWaypoint(new Waypoint(new Position2d(84,-108),Constants.Autonomous.kAutoVelocity));
             addWaypoint(new Waypoint(new Position2d(90,-115),Constants.Autonomous.kAutoVelocity));
 
             OptimizePath();
