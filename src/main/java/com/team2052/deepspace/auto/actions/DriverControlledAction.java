@@ -69,7 +69,7 @@ public class DriverControlledAction implements Action{
         driveTrain.setHighGear(controls.getShift());
         //legClimberController.printEncoder();
 
-        VisionController.showBackPiCamera(controls.getShowBackCamera());
+        visionController.showBackPiCamera(controls.getShowBackCamera());
         visionController.getValues();
 
         if(intake != null && groundIntake != null) {

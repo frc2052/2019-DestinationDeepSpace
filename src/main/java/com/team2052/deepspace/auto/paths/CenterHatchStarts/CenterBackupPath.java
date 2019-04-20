@@ -11,7 +11,7 @@ public class CenterBackupPath extends Path {
     public CenterBackupPath() {
         setDirection(Direction.BACKWARD);
         addWaypoint(new Waypoint(new Position2d(116,0),50)); //K
-        addWaypoint(new Waypoint(new Position2d(75,0),50, "end")); //K
+        addWaypoint(new Waypoint(new Position2d(90,0),50, "end")); //K
         OptimizePath();
     }
 

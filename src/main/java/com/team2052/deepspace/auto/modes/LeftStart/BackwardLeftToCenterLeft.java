@@ -20,7 +20,7 @@ public class BackwardLeftToCenterLeft extends AutoMode {
                 //Starting path starts going backwards
                 new FollowPathAction(new LStartCenterLeftHatchPath(startingPos, Path.Direction.BACKWARD)),
                 //Vision
-                //new VisionAction(false),
+                new VisionAction(false),
                 // when true, ground outtake action
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
 
@@ -29,7 +29,7 @@ public class BackwardLeftToCenterLeft extends AutoMode {
                         new FollowPathAction(new CLeftHatchStartLeftHatchPickUpPath())
                 )),
 
-                //new VisionAction(true),
+                new VisionAction(false),
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE)
                 //new WaitAction(1.0)
 

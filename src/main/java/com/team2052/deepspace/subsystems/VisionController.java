@@ -21,11 +21,12 @@ public class VisionController {
     }
 
     //Static method so all code access the smart dashboard the same way for camera
-    public static void showBackPiCamera(boolean isBack){
+    public void showBackPiCamera(boolean isBack){
+        this.isBack = isBack;
         SmartDashboard.putBoolean("Camera Toggle", !isBack);
     }
 
-    private PIDController pidController = new PIDController(0,0,0);
+    private PIDController pidController = new PIDController(10,0,0);
 
     private double yaw;
     private double height;
@@ -33,9 +34,10 @@ public class VisionController {
     private double x = -1;
     private double xPercent;
     private double y = -1;
+    private boolean isBack;
 
     private static double xOffset = 0;
-    private static double defaultXOffset = 6.6;
+    private static double defaultXOffset = -3.4;
 
     private boolean isTarget = false;
 
@@ -43,20 +45,33 @@ public class VisionController {
         //run 20 times to make sure these are put on
         for(int t = 0; t < 20; t++) {
             SmartDashboard.putBoolean("CameraDebug", false);
-            SmartDashboard.putBoolean("Camera Toggle", false);
+            SmartDashboard.putBoolean("Camera Toggle", true);
             SmartDashboard.putNumber("centerOffset", 0);
         }
     }
 
     public DriveSignal getMotorOutput(double speed){
         getValues();
-
         if(getIsTarget()) {
-            xPercent = ((xPercent-.5)*1.0)+.5;
-            System.out.println("vision L: " + (xPercent * speed) + " vision R " + ((1 - xPercent) * speed) + " xP: " + xPercent);
-            return new DriveSignal(xPercent * speed * 1.1, (1 - xPercent) * speed * 1.1);
+
+//            System.out.println("vision L: " + ((pidController.getOutput(xPercent, .5))) + " vision R " + pidController.getOutput(xPercent, .5) + " xP: " + xPercent);
+//            return new DriveSignal((pidController.getOutput(xPercent, .5)), pidController.getOutput(xPercent, .5) * speed);
+
+            if(!isBack) {
+                System.out.println("vision L: " + (xPercent * speed) + " vision R " + ((1 - xPercent) * speed) + " xP: " + xPercent);
+                xPercent = ((xPercent - .5) * 1.0) + .5;
+                return new DriveSignal(xPercent * speed * 1.1, (1 - xPercent) * speed * 1.1);
+            }else {
+                System.out.println("vision L: " + (xPercent * speed) + " vision R " + ((1 - xPercent) * speed) + " xP: " + xPercent);
+                xPercent = ((xPercent - .5) * 1.0) + .5;
+                return new DriveSignal((1-xPercent) * speed * 1.1, xPercent * speed * 1.1);
+            }
         }else{
-            return new DriveSignal(.6,.6);
+            if(!isBack) {
+                return new DriveSignal(.6, .6);
+            }else{
+                return new DriveSignal(-.6,-.6);
+            }
         }
     }
 
@@ -85,7 +100,11 @@ public class VisionController {
     }
 
     public boolean isClose(){
-        return y >= 27.0;
+        if(!isBack) {
+            return y >= 32.0;
+        }else {
+            return y >=55;
+        }
     }
 
 }

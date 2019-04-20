@@ -1,8 +1,8 @@
 package com.team2052.deepspace.auto.modes;
 
 import com.team2052.deepspace.auto.AutoMode;
-import com.team2052.deepspace.auto.actions.PnPVisionAction;
 import com.team2052.deepspace.auto.actions.SeriesAction;
+import com.team2052.deepspace.auto.actions.VisionAction;
 import com.team2052.deepspace.auto.paths.CompoundPath;
 import com.team2052.deepspace.auto.paths.NotSmoothTestCompoundPath;
 import com.team2052.deepspace.auto.paths.SmoothTestCompoundPath;
@@ -26,7 +26,7 @@ public class Test extends AutoMode {
         System.out.println("###########################################init###########################################");
 
         setAction(new SeriesAction(Arrays.asList(
-                new PnPVisionAction(1000)
+                new VisionAction(false)
                 //new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.ARMDOWN),
                 //new FollowPathAction(new TestPath03())
                // new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE)

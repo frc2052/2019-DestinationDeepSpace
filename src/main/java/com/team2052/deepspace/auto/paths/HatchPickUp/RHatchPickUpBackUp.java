@@ -12,7 +12,7 @@ public class RHatchPickUpBackUp extends Path {
         setDirection(direction);
         isHighGear = true;
         addWaypoint(new Waypoint(new Position2d(-20,130), Constants.Autonomous.kHighGearAutoVelocity));
-        addWaypoint(new Waypoint(new Position2d(190,130),Constants.Autonomous.kHighGearAutoVelocity, "down"));
+        addWaypoint(new Waypoint(new Position2d(190,100),Constants.Autonomous.kHighGearAutoVelocity, "down"));
         OptimizePath();
     }
 

@@ -13,7 +13,8 @@ public class LStartCenterLeftHatchPath extends Path{
         setDirection(direction);
         addWaypoint(new Waypoint(startPos,80));
         addWaypoint(new Waypoint(new Position2d(55,-47), Constants.Autonomous.kAutoVelocity));
-        addWaypoint(new Waypoint(new Position2d(85,-9),Constants.Autonomous.kAutoVelocity));
+        addWaypoint(new Waypoint(new Position2d(63,-35),Constants.Autonomous.kAutoVelocity));
+        addWaypoint(new Waypoint(new Position2d(85,-10),Constants.Autonomous.kAutoVelocity));
         addWaypoint(new Waypoint(new Position2d(94,-12),Constants.Autonomous.kAutoVelocity));
         OptimizePath();
     }

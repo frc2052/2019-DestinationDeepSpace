@@ -35,8 +35,7 @@ public class ForwardRightToCenterRight extends AutoMode {
                 )),
 
                 new VisionAction(true),
-                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
-                new WaitAction(1.0)
+                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE)
         )));
     }
 }

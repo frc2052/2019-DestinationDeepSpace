@@ -180,7 +180,7 @@ public class Robot extends TimedRobot {
         driveTrain.setHighGear(controls.getShift());
         //legClimberController.printEncoder();
 
-        VisionController.showBackPiCamera(controls.getShowBackCamera());
+        visionController.showBackPiCamera(controls.getShowBackCamera());
         visionController.getValues();
         if (legClimberController != null) {
             //always pass the button for climb to the leg climber

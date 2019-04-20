@@ -12,10 +12,11 @@ public class RStartCenterRightHatchPath extends Path {
     public RStartCenterRightHatchPath(Position2d startPos, Direction direction) {
         System.out.println("StaringPos " + startPos.getForward() + " " + startPos.getLateral());
         setDirection(direction);
-        addWaypoint(new Waypoint(startPos,50)); // B
-        addWaypoint(new Waypoint(new Position2d(55,47), Constants.Autonomous.kAutoVelocity)); // B
-        addWaypoint(new Waypoint(new Position2d(85,6),Constants.Autonomous.kAutoVelocity)); // H
-        addWaypoint(new Waypoint(new Position2d(94,7),Constants.Autonomous.kAutoVelocity)); // K
+        addWaypoint(new Waypoint(startPos,80)); // B
+        addWaypoint(new Waypoint(new Position2d(55,47), Constants.Autonomous.kAutoVelocity));
+        addWaypoint(new Waypoint(new Position2d(63,35),Constants.Autonomous.kAutoVelocity));
+        addWaypoint(new Waypoint(new Position2d(85,8),Constants.Autonomous.kAutoVelocity));
+        addWaypoint(new Waypoint(new Position2d(94,10),Constants.Autonomous.kAutoVelocity));
         OptimizePath();
     }
 

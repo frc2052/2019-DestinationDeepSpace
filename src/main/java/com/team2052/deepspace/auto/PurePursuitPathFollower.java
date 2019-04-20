@@ -37,6 +37,7 @@ public class PurePursuitPathFollower{
     private RateLimiter rateLimiter = new RateLimiter();
     private DriveTrainController driveTrain = DriveTrainController.getInstance();
     private RobotState robotState = RobotState.getInstance();
+    private VisionController visionController = VisionController.getInstance();
 
     private int closestPointIndex;
     private Position2d lookaheadPoint;
@@ -87,7 +88,7 @@ public class PurePursuitPathFollower{
     public void start(Path path) {
         resetPathFollower();
         this.path = path;
-        VisionController.showBackPiCamera(false);//!this.path.getIsForward());
+        visionController.showBackPiCamera(false);//!this.path.getIsForward());
         driveTrain.setHighGear(path.getIsHighGear());
     }
 

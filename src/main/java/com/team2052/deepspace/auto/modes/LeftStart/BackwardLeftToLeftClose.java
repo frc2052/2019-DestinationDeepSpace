@@ -18,11 +18,14 @@ public class BackwardLeftToLeftClose extends AutoMode {
     @Override
     protected void init() {
         setAction(new SeriesAction(Arrays.asList(
-                new FollowPathAction(new LStartSideLeftCloseHatchPath(startingPos, Path.Direction.FORWARD)),
+                new FollowPathAction(new LStartSideLeftCloseHatchPath(startingPos, Path.Direction.BACKWARD)),
                 //Vision
-                new VisionAction(true),
+                new VisionAction(false),
                 // when true, ground outtake action
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
+                new WaitAction(.5),
+                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.ARMDOWN),
+
 //                //Turns robot around and drives back towards loading station
 
                 new ParallelAction(Arrays.asList(
@@ -30,7 +33,7 @@ public class BackwardLeftToLeftClose extends AutoMode {
                         new FollowPathAction(new LCloseHatchStartLeftHatchPickUpPath(Path.Direction.FORWARD))
                 )),
 
-                new VisionAction(true),
+                new VisionAction(false),
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
                 new WaitAction(1.0)
         )));
