@@ -132,6 +132,9 @@ public class Robot extends TimedRobot {
         if(legClimberController != null) {
             legClimberController.resetEncoders();
         }
+        if(lifter != null) {
+            lifter.resetEncoder();
+        }
     }
 
     /**
@@ -201,13 +204,19 @@ public class Robot extends TimedRobot {
             }else{
                 legClimberController.runClimber(LegClimberController.State.STOP);
             }
-            legClimberController.printEncoder();
+            //legClimberController.printEncoder();
         }
 
         if (lifter != null) {
-            lifter.setLegsDown(controls.getLifterDown());
+            //System.out.println("LIFTER IS NOT NULL");
+            lifter.printLifterEncoder();
+            if(controls.getLifterDown()) {
+                lifter.setLegsDown(controls.getLifterDown());
+            }
+            else if (controls.getRampDown()) {
+                lifter.setRampDown(controls.getRampDown());
+            }
         }
-
 
         if(intake != null && groundIntake != null) {
             //System.out.println("INTAKES ARE NOT NULL");
