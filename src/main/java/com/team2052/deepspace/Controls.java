@@ -22,6 +22,7 @@ public class Controls {
     public static final int kTankJoystickShiftButton = 2;
     public static final int kTankJoystickVisionDrive = 3;
     public static final int kTankJoystickLegsDown = 5;
+    public static final int kTankJoystickRampDown = 6;
 
     public static final int kSecondaryCargoIntake = 1;
     public static final int kSecondaryGroundPickupStarting = 2;
@@ -83,6 +84,7 @@ public class Controls {
     public boolean getLightFollow(){return tankPrimaryStick.getRawButton(kTankJoystickVisionDrive);}
     public boolean getCargoShoot() { return tankPrimaryStick.getTrigger();}
     public boolean getLifterDown() { return tankPrimaryStick.getRawButton(kTankJoystickLegsDown); }
+    public boolean getRampDown() { return tankPrimaryStick.getRawButton(kTankJoystickRampDown); }
 
     public boolean getClimberUp() { return secondaryControlPanel.getRawButton(kSecondaryClimberUp); }
     public boolean getClimberDown(){ return secondaryControlPanel.getRawButton(kSecondaryClimberDown); }

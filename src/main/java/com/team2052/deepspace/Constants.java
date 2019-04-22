@@ -29,7 +29,7 @@ public class Constants {
         public static final double kTurnInPlaceSpeed = .75;
     }
     public class Intake {
-        public static final int kGroundIntakeMotor = 11;
+        public static final int kGroundIntakeMotor = 45;
         public static final int kClawTopMotor = 10;
         public static final int kClawBottomMotor = 9;
         public static final int kIntakeMotorId = 8;
@@ -41,8 +41,10 @@ public class Constants {
         public static final double kOuttakeCargoShipSpeed = .55;
     }
 
+
     public class Lifter {
         public static final int kLifterOutSolenoidId = 6;
+        public static final int kRampMotor = 11;
     }
 
 
