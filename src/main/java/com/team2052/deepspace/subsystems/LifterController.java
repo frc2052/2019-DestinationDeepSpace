@@ -54,7 +54,7 @@ public class LifterController {
         liftOutSolenoid.set(isPressed);
     }
 
-    private final int KDownEncoderPosition = -104701;
+    private final int KDownEncoderPosition = -85000;
 
     public void resetEncoder () {
         rampMotor.set(ControlMode.Position, 0);

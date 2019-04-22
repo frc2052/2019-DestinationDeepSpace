@@ -209,11 +209,10 @@ public class Robot extends TimedRobot {
 
         if (lifter != null) {
             //System.out.println("LIFTER IS NOT NULL");
-            lifter.printLifterEncoder();
-            if(controls.getLifterDown()) {
+//            lifter.printLifterEncoder();
+            if (controls.getLifterDown()) {
                 lifter.setLegsDown(controls.getLifterDown());
-            }
-            else if (controls.getRampDown()) {
+            } else if (controls.getRampDown()) {
                 lifter.setRampDown(controls.getRampDown());
             }
         }
