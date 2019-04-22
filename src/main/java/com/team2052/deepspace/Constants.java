@@ -29,7 +29,7 @@ public class Constants {
         public static final double kTurnInPlaceSpeed = .75;
     }
     public class Intake {
-        public static final int kGroundIntakeMotor = 11;
+        public static final int kGroundIntakeMotor = 45;
         public static final int kClawTopMotor = 10;
         public static final int kClawBottomMotor = 9;
         public static final int kIntakeMotorId = 8;
@@ -41,14 +41,16 @@ public class Constants {
         public static final double kOuttakeCargoShipSpeed = .55;
     }
 
+
     public class Lifter {
         public static final int kLifterOutSolenoidId = 6;
+        public static final int kRampMotor = 11;
     }
 
 
     public static class Autonomous{ //all units for distances, velocity, and acceleration are in inches
 
-        public static final double kturnSpeed = 6.0; //constant from 1-5     higher = faster
+        public static final double kturnSpeed = 7.0; //constant from 1-5     higher = faster
         public static final double kMaxAccel = 120; //how fast the robot accelerates and decelerates
         public static final double kLookaheadDistance = 30; //12-25 // changes how smooth it follows path. lower = curves back and forth/fishtail, higher = less accurate
         public static final double kA = 0.0 ; //0-.1 todo: test and see how robot responds

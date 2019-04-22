@@ -1,10 +1,16 @@
 package com.team2052.deepspace.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.team2052.deepspace.Constants;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
 
 public class LifterController {
+    private TalonSRX rampMotor;
+
+
     private static LifterController instance = null;
     public static LifterController getInstance() {
         if (instance == null) {
@@ -18,6 +24,30 @@ public class LifterController {
         return instance;
     }
 
+    private LifterController() {
+        rampMotor = new TalonSRX(Constants.Lifter.kRampMotor);
+        rampMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0,10);
+
+        /* set the peak and nominal outputs */
+        rampMotor.configNominalOutputForward(0, 10);
+        rampMotor.configNominalOutputReverse(0, 10);
+        rampMotor.configPeakOutputForward(0.4, 10);
+        rampMotor.configPeakOutputReverse(-0.2, 10);
+
+        /* set closed loop gains in slot0 - see documentation */
+        rampMotor.selectProfileSlot(0, 0);
+        rampMotor.config_kF(0, 0.2, 10); //1843
+        rampMotor.config_kP(0, .8, 10);
+        rampMotor.config_kI(0, 0, 10);
+        rampMotor.config_kD(0, 0, 10);
+    }
+
+
+    public void printLifterEncoder(){
+        System.out.println("lifter pos: " + rampMotor.getSelectedSensorPosition());
+    }
+
+
     private Solenoid liftOutSolenoid = new Solenoid(Constants.Lifter.kLifterOutSolenoidId);
     private int lifterButtonPressCount = 0;
     private boolean wasLastPressed = false;
@@ -26,12 +56,12 @@ public class LifterController {
 
         double timeLeft = Timer.getMatchTime(); //this SHOULD be the time remaining in the match
 
-        if (!wasLastPressed){ //button state has changed, was up and is now down
+        if (isPressed && !wasLastPressed){ //button state has changed, was up and is now down
             lifterButtonPressCount++; //keep track of how many times the button was pressed
         }
 
         //keep track of whether button is up or down
-        wasLastPressed = true;
+        wasLastPressed = isPressed;
 
         if ((timeLeft < 30 && lifterButtonPressCount > 0) || lifterButtonPressCount > 10) {
             System.out.println("Lifter setting to " + isPressed);
@@ -39,4 +69,15 @@ public class LifterController {
         }
     }
 
+    private final int KDownEncoderPosition = -85000;
+
+    public void resetEncoder () {
+        rampMotor.set(ControlMode.Position, 0);
+    }
+
+    public void setRampDown(boolean isPressed) {
+        if(isPressed) {
+            rampMotor.set(ControlMode.Position, KDownEncoderPosition);
+        }
+    }
 }

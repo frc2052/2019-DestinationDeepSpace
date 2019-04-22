@@ -8,15 +8,14 @@ import com.team2052.deepspace.auto.modes.LeftHatchPickUp.LeftSecondHatchBackUp;
 import com.team2052.deepspace.auto.modes.LeftHatchPickUp.LeftSecondHatchCenterLeft;
 import com.team2052.deepspace.auto.modes.LeftHatchPickUp.LeftSecondHatchLeftClose;
 import com.team2052.deepspace.auto.modes.LeftHatchPickUp.LeftSecondHatchLeftMiddle;
-import com.team2052.deepspace.auto.modes.LeftStart.*;
+import com.team2052.deepspace.auto.modes.LeftStart.ForwardLeftToCenterLeft;
+import com.team2052.deepspace.auto.modes.LeftStart.ForwardLeftToLeftClose;
 import com.team2052.deepspace.auto.modes.RightHatchPickUp.RightSecondHatchBackUp;
 import com.team2052.deepspace.auto.modes.RightHatchPickUp.RightSecondHatchCenterRight;
 import com.team2052.deepspace.auto.modes.RightHatchPickUp.RightSecondHatchRightClose;
 import com.team2052.deepspace.auto.modes.RightHatchPickUp.RightSecondHatchRightMiddle;
 import com.team2052.deepspace.auto.modes.RightStart.ForwardRightToCenterRight;
 import com.team2052.deepspace.auto.modes.RightStart.ForwardRightToRightClose;
-import com.team2052.deepspace.auto.modes.RightStart.ForwardRightToRightFar;
-import com.team2052.deepspace.auto.modes.RightStart.ForwardRightToRightMiddle;
 import com.team2052.deepspace.auto.modes.Test;
 import com.team2052.deepspace.auto.modes.WaitToStart;
 import com.team2052.lib.Autonomous.Position2d;
@@ -99,6 +98,7 @@ public class AutoModeSelector {
                 case TEST:
                     System.out.println("selected test");
                     selectedAuto = new Test(position.startPos);
+                    secondAuto = new DontMove();
                     break;
                 case LEFT:
                 case LEFTHAB2:
@@ -110,6 +110,7 @@ public class AutoModeSelector {
                         case BLCHATCH:
                             selectedAuto = new BackwardLeftToLeftClose(position.startPos);
                             break;
+
                         case BLMHATCH:
                             selectedAuto = new BackwardLeftToLeftMiddle(position.startPos);
                             break;
@@ -123,18 +124,22 @@ public class AutoModeSelector {
                         case FLCHATCH:
                             selectedAuto = new ForwardLeftToLeftClose(position.startPos);
                             break;
+                            /*
                         case FLMHATCH:
                             selectedAuto = new ForwardLeftToLeftMiddle(position.startPos);
                             break;
                         case FLFHATCH:
                             selectedAuto = new ForwardLeftToLeftFar(position.startPos);
                             break;
-                        case FLSRCHATCH:
-                            selectedAuto = new ForwardLeftToRocketClose(position.startPos);
-                            break;
+
                         case BLSRFHATCH: // does notwork
                             selectedAuto = new BackwardLeftToRocketFar(position.startPos);
                             break;
+
+                        case FLSRCHATCH:
+                            selectedAuto = new ForwardLeftToRocketClose(position.startPos);
+                            break;
+                            */
                         default:
                             selectedAuto = null;
                     }
@@ -152,12 +157,14 @@ public class AutoModeSelector {
                         case LMHATCH:
                             secondAuto = new LeftSecondHatchLeftMiddle(position.startPos);
                             break;
-                        case LFHATCH:
-                                secondAuto = null;
-                            break;
                         case NONE:
                             secondAuto = new DontMove();
                             break;
+                            /*
+                            case LFHATCH:
+                                secondAuto = null;
+                            break;
+                             */
                         default:
                             secondAuto = null;
                             break;
@@ -167,28 +174,32 @@ public class AutoModeSelector {
                 case RIGHTHAB2:
                     switch (first) {
                         /*
+                        case BRCHATCH:
+                            selectedAuto = new BackwardRightToRightClose(position.startPos);
+                            break;
                         case BCRHATCH:
                             selectedAuto = new BackwardCenterToCenterRight(position.startPos);
                             break;
+
                         case BRMHATCH:
                             selectedAuto = new BackwardRightToRightMiddle(position.startPos);
                             break;
                         case BRFHATCH:
                             selectedAuto = new BackwardRightToRightFar(position.startPos);
                             break;
-                        case BRCHATCH:
-                            selectedAuto = new BackwardRightToRightClose(position.startPos);
-                            break;
+
                             */
                         case FCRHATCH:
                             selectedAuto = new ForwardRightToCenterRight(position.startPos);
                             break;
-                        case FRMHATCH:
+                        /*
+                            case FRMHATCH:
                             selectedAuto = new ForwardRightToRightMiddle(position.startPos);
                             break;
                         case FRFHATCH:
                             selectedAuto = new ForwardRightToRightFar(position.startPos);
                             break;
+                            */
                         case FRCHATCH:
                             selectedAuto = new ForwardRightToRightClose(position.startPos);
                             break;
@@ -209,12 +220,14 @@ public class AutoModeSelector {
                         case RMHATCH:
                             secondAuto = new RightSecondHatchRightMiddle(position.startPos);
                             break;
-                        case RFHATCH:
-                            secondAuto = null;
-                            break;
                         case NONE:
                             secondAuto = new DontMove();
                             break;
+                            /*
+                            case RFHATCH:
+                            secondAuto = null;
+                            break;
+                             */
                         default:
                             secondAuto = null;
                             break;
@@ -309,20 +322,22 @@ public class AutoModeSelector {
         FCLHATCH("ForwardCenterLeftHatch"),
         FCRHATCH("ForwardCenterRightHatch"),
         FLCHATCH("ForwardLeftCloseHatch"),
-        FLMHATCH("ForwardLeftMiddleHatch"),
-        FLFHATCH("ForwardLeftFarHatch"),
-        FRCHATCH("ForwardRightCloseHatch"),
-        FRMHATCH("ForwardRightMiddleHatch"),
-        FRFHATCH("ForwardRightFarHatch"),
-        FLSRCHATCH("ForwardLeftRocketClose"),
-        BLSRFHATCH("BackwardLeftRocketFar");
-/*
-        BCLHATCH("BackCenterLeftHatch"),
-        BLCHATCH("BackLeftCloseHatch"),
+        //FLMHATCH("ForwardLeftMiddleHatch"),
+        //FLFHATCH("ForwardLeftFarHatch"),
+        FRCHATCH("ForwardRightCloseHatch");
+        //FRMHATCH("ForwardRightMiddleHatch"),
+        //FRFHATCH("ForwardRightFarHatch"),
+        //FLSRCHATCH("ForwardLeftRocketClose"),
+        //BLSRFHATCH("BackwardLeftRocketFar"),
+
+        //BCLHATCH("BackCenterLeftHatch"),
+        //BLCHATCH("BackLeftCloseHatch"),
+        //BCRHATCH("BackCenterRightHatch"),
+        //BRCHATCH("BackRightCloseHatch");
+            /*
         BLMHATCH("BackLeftMiddleHatch"),
         BLFHATCH("BackLeftFarHatch"),
-        BCRHATCH("BackCenterRightHatch"),
-        BRCHATCH("BackRightCloseHatch"),
+
         BRMHATCH("BackRightMiddleHatch"),
         BRFHATCH("BackRightFarHatch")*/
 
@@ -339,8 +354,8 @@ public class AutoModeSelector {
         BACKUP("Backup"),
         LHATCH("CenterLeftHatch"),
         RHATCH("CenterRightHatch"),
-        LFHATCH("LeftFarHatch"),
-        RFHATCH("RightFarHatch"),
+        //LFHATCH("LeftFarHatch"),
+        //FHATCH("RightFarHatch"),
         LMHATCH("LeftMiddleHatch"),
         RMHATCH("RightMiddleHatch"),
         LCHATCH("LeftCloseHatch"),

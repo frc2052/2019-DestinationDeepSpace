@@ -113,7 +113,6 @@ public class LegClimberController {
     }
     public void printEncoder(){
         System.out.println("climber pos: " + legClimberMotor.getSelectedSensorPosition());
-
     }
 
     public enum State{

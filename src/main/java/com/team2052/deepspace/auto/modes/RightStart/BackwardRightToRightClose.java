@@ -3,7 +3,7 @@ package com.team2052.deepspace.auto.modes.RightStart;
 import com.team2052.deepspace.auto.AutoMode;
 import com.team2052.deepspace.auto.actions.*;
 import com.team2052.deepspace.auto.paths.Path;
-import com.team2052.deepspace.auto.paths.RightSideHatchStarts.RCloseHatchStartRightHatchPickUpPathCompoundPath;
+import com.team2052.deepspace.auto.paths.RightSideHatchStarts.RCloseHatchStartRightHatchPickUpPath;
 import com.team2052.deepspace.auto.paths.RightStart.RStartSideRightCloseHatchPath;
 import com.team2052.lib.Autonomous.Position2d;
 
@@ -26,7 +26,7 @@ public class BackwardRightToRightClose extends AutoMode {
                 new GroundIntakeAction(true),
                 new ParallelAction(Arrays.asList(
                         //Turns robot around and drives back towards loading station
-                        new FollowPathListAction(new RCloseHatchStartRightHatchPickUpPathCompoundPath().getPaths()),
+                        new FollowPathAction(new RCloseHatchStartRightHatchPickUpPath()),
                         new GroundIntakeAction(false)
                 ))
         )));

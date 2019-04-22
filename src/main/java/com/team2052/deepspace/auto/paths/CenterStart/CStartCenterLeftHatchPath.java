@@ -12,8 +12,8 @@ public class CStartCenterLeftHatchPath extends Path{
         setDirection(dir);
         addWaypoint(new Waypoint(startPos,50)); //* T *
         addWaypoint(new Waypoint(new Position2d(50,0),50, "down")); //i
-        addWaypoint(new Waypoint(new Position2d(100,-10),50)); //J
-        addWaypoint(new Waypoint(new Position2d(110,-10),50, "end")); //K
+        addWaypoint(new Waypoint(new Position2d(80,-10),50)); //J
+        addWaypoint(new Waypoint(new Position2d(94,-10),50, "end")); //K
         OptimizePath();
     }
 

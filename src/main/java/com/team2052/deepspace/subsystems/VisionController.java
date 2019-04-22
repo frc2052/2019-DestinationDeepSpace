@@ -1,6 +1,7 @@
 package com.team2052.deepspace.subsystems;
 
 import com.team2052.lib.DriveSignal;
+import com.team2052.lib.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class VisionController {
@@ -20,9 +21,12 @@ public class VisionController {
     }
 
     //Static method so all code access the smart dashboard the same way for camera
-    public static void showBackPiCamera(boolean isBack){
+    public void showBackPiCamera(boolean isBack){
+        this.isBack = isBack;
         SmartDashboard.putBoolean("Camera Toggle", !isBack);
     }
+
+    private PIDController pidController = new PIDController(10,0,0);
 
     private double yaw;
     private double height;
@@ -30,38 +34,55 @@ public class VisionController {
     private double x = -1;
     private double xPercent;
     private double y = -1;
+    private boolean isBack;
 
     private static double xOffset = 0;
-    private static double defaultXOffset = 5.4;
+    private static double defaultXOffset = -3.4;
 
-    private int cameraW;
-    private int cameraH;
+    private boolean isTarget = false;
 
     public VisionController(){
-        SmartDashboard.putBoolean("CameraDebug", false);
-        SmartDashboard.putBoolean("Camera Toggle", false);
-        SmartDashboard.putNumber("centerOffset", 0);
+        //run 20 times to make sure these are put on
+        for(int t = 0; t < 20; t++) {
+            SmartDashboard.putBoolean("CameraDebug", false);
+            SmartDashboard.putBoolean("Camera Toggle", true);
+            SmartDashboard.putNumber("centerOffset", 0);
+        }
     }
 
     public DriveSignal getMotorOutput(double speed){
         getValues();
+        if(getIsTarget()) {
 
-        if(isTarget()) {
-            xPercent = ((xPercent-.5)*1.0)+.5;
-            System.out.println("vision L: " + (xPercent * speed) + " vision R " + ((1 - xPercent) * speed) + " xP: " + xPercent);
-            return new DriveSignal(xPercent * speed * 1.0, (1 - xPercent) * speed * 1.0);
+//            System.out.println("vision L: " + ((pidController.getOutput(xPercent, .5))) + " vision R " + pidController.getOutput(xPercent, .5) + " xP: " + xPercent);
+//            return new DriveSignal((pidController.getOutput(xPercent, .5)), pidController.getOutput(xPercent, .5) * speed);
+
+            if(!isBack) {
+                System.out.println("vision L: " + (xPercent * speed) + " vision R " + ((1 - xPercent) * speed) + " xP: " + xPercent);
+                xPercent = ((xPercent - .5) * 1.0) + .5;
+                return new DriveSignal(xPercent * speed * 1.1, (1 - xPercent) * speed * 1.1);
+            }else {
+                System.out.println("vision L: " + (xPercent * speed) + " vision R " + ((1 - xPercent) * speed) + " xP: " + xPercent);
+                xPercent = ((xPercent - .5) * 1.0) + .5;
+                return new DriveSignal((1-xPercent) * speed * 1.1, xPercent * speed * 1.1);
+            }
         }else{
-            return new DriveSignal(.5,.5);
+            if(!isBack) {
+                return new DriveSignal(.6, .6);
+            }else{
+                return new DriveSignal(-.6,-.6);
+            }
         }
     }
 
     public void getValues(){
+        //OLD WAY
         xOffset = SmartDashboard.getNumber("centerOffset", 0);
         //cameraH = (int)SmartDashboard.getNumber("cameraHeight",0);
         //cameraW = (int)SmartDashboard.getNumber("cameraWidth",0);
         yaw =SmartDashboard.getNumber("yawToTarget",0);
-        height = SmartDashboard.getNumber("targetHeight",0)/cameraH;
-        width = SmartDashboard.getNumber("targetWidth",0)/cameraW;
+        height = SmartDashboard.getNumber("targetHeight",0)/144;
+        width = SmartDashboard.getNumber("targetWidth",0)/256;
         x = SmartDashboard.getNumber("targetX",-1);
         y = SmartDashboard.getNumber("targetY",-1);
         //System.out.println("x is " + x);
@@ -69,15 +90,21 @@ public class VisionController {
             xPercent = (x + defaultXOffset + xOffset) / 150;
         }
         SmartDashboard.putNumber("xPercent", xPercent);
-        System.out.println("match offset:" + xOffset);
+        //System.out.println("match offset:" + xOffset);
+
     }
 
-    public boolean isTarget(){
+    public boolean getIsTarget(){
         getValues();
-        return x!=-1;
+        return x!=-1 || isTarget;
     }
 
     public boolean isClose(){
-        return y >= 31.0;
+        if(!isBack) {
+            return y >= 32.0;
+        }else {
+            return y >=55;
+        }
     }
+
 }

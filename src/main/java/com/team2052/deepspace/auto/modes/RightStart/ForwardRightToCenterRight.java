@@ -18,7 +18,10 @@ public class ForwardRightToCenterRight extends AutoMode {
     protected void init() {
         setAction(new SeriesAction(Arrays.asList(
                 new ParallelAction(Arrays.asList(
-                        new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.ARMDOWN),
+                        new SeriesAction(Arrays.asList(
+                                new WaitAction(1.4),
+                                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.ARMDOWN)
+                        )),
                         new FollowPathAction(new RStartCenterRightHatchPath(startingPos, Path.Direction.FORWARD))
                 )),
                 //Vision
@@ -32,8 +35,7 @@ public class ForwardRightToCenterRight extends AutoMode {
                 )),
 
                 new VisionAction(true),
-                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
-                new WaitAction(1.0)
+                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE)
         )));
     }
 }

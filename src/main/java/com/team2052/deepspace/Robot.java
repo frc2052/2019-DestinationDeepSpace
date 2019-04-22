@@ -132,6 +132,9 @@ public class Robot extends TimedRobot {
         if(legClimberController != null) {
             legClimberController.resetEncoders();
         }
+        if(lifter != null) {
+            lifter.resetEncoder();
+        }
     }
 
     /**
@@ -167,7 +170,8 @@ public class Robot extends TimedRobot {
             } else if (backLineFollower != null && backLineFollower.getLineSensed()) {
                 System.out.println("Back Sensors");
                 driveTrain.drive(backLineFollower.getLightSensorMotorTurn(controls.getDriveTank()));
-            }else */if(visionController.isTarget()){
+            }else */
+            if(visionController.getIsTarget()){
                 driveTrain.drive(visionController.getMotorOutput(controls.getDriveTank()));
             } else {
                 driveTrain.drive(driveHelper.drive(controls.getDriveTank(), controls.getDriveTurn(), controls.getQuickTurn()));
@@ -179,7 +183,7 @@ public class Robot extends TimedRobot {
         driveTrain.setHighGear(controls.getShift());
         //legClimberController.printEncoder();
 
-        VisionController.showBackPiCamera(controls.getShowBackCamera());
+        visionController.showBackPiCamera(controls.getShowBackCamera());
         visionController.getValues();
         if (legClimberController != null) {
             //always pass the button for climb to the leg climber
@@ -200,13 +204,18 @@ public class Robot extends TimedRobot {
             }else{
                 legClimberController.runClimber(LegClimberController.State.STOP);
             }
-            legClimberController.printEncoder();
+            //legClimberController.printEncoder();
         }
 
         if (lifter != null) {
-            lifter.setLegsDown(controls.getLifterDown());
+            //System.out.println("LIFTER IS NOT NULL");
+//            lifter.printLifterEncoder();
+            if (controls.getLifterDown()) {
+                lifter.setLegsDown(controls.getLifterDown());
+            } else if (controls.getRampDown()) {
+                lifter.setRampDown(controls.getRampDown());
+            }
         }
-
 
         if(intake != null && groundIntake != null) {
             //System.out.println("INTAKES ARE NOT NULL");
@@ -253,7 +262,7 @@ public class Robot extends TimedRobot {
                 SmartDashboard.putString("LedStatus", "rocket2");
             } else if (controls.getClimberUp()) {
                 SmartDashboard.putString("LedStatus", "climber");
-            } else if (visionController.isTarget()){
+            } else if (visionController.getIsTarget()){
                 SmartDashboard.putString("LedStatus", "vision");
             } else {
                 SmartDashboard.putString("LedStatus", "");

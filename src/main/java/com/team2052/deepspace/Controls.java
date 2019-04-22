@@ -17,6 +17,7 @@ public class Controls {
     public static final int kTurnJoystickAutoOverrideButton = 2;
     public static final int kTurnJoystickQuickTurn = 3;
     public static final int kTurnJoystickAgainstWallShoot = 5;
+    public static final int kTurnJoystickRampDown = 6;
 
     public static final int kTankJoystickCargoShoot = 1; // trigger
     public static final int kTankJoystickShiftButton = 2;
@@ -83,6 +84,7 @@ public class Controls {
     public boolean getLightFollow(){return tankPrimaryStick.getRawButton(kTankJoystickVisionDrive);}
     public boolean getCargoShoot() { return tankPrimaryStick.getTrigger();}
     public boolean getLifterDown() { return tankPrimaryStick.getRawButton(kTankJoystickLegsDown); }
+    public boolean getRampDown() { return turnPrimaryStick.getRawButton(kTurnJoystickRampDown); }
 
     public boolean getClimberUp() { return secondaryControlPanel.getRawButton(kSecondaryClimberUp); }
     public boolean getClimberDown(){ return secondaryControlPanel.getRawButton(kSecondaryClimberDown); }
