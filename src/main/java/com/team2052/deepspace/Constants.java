@@ -41,6 +41,9 @@ public class Constants {
         public static final double kOuttakeCargoShipSpeed = .55;
     }
 
+    public class Lifter {
+        public static final int kLifterOutSolenoidId = 6;
+    }
 
 
     public static class Autonomous{ //all units for distances, velocity, and acceleration are in inches

@@ -70,6 +70,7 @@ public class IntakeController {
                         clawTop.set(ControlMode.PercentOutput, -.50);
                         clawBottom.set(ControlMode.PercentOutput, .50);
                     }
+
                     System.out.println("running motors: " + rocketTimer.get() + " bool: " +isRocket1);
                 }else{
                     setArmDown(false);

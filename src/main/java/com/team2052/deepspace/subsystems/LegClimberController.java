@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.team2052.deepspace.Constants;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Timer;
 
 public class LegClimberController {
@@ -23,11 +24,11 @@ public class LegClimberController {
     }
 
     private TalonSRX legClimberMotor = null;
-    //private DigitalOutput limitSwitch = null;
+    private DigitalOutput limitSwitch = null;
 
     private LegClimberController(){
         legClimberMotor = new TalonSRX(Constants.LegClimber.kLegClimberTalon1id);
-        //limitSwitch = new DigitalOutput(4);
+        limitSwitch = new DigitalOutput(4);
         legClimberMotor.configFactoryDefault();
         legClimberMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.DriveTrain.kVelocityControlSlot, Constants.DriveTrain.kCANBusConfigTimeoutMS);
         legClimberMotor.setNeutralMode(NeutralMode.Brake);
@@ -46,15 +47,15 @@ public class LegClimberController {
     private double startTime = 0;
 
     public void runClimber(State state) {
-        /*
+
         if (limitSwitch.get() && state != State.OVERRIDEDOWN && state != State.OVERRIDEUP && state != State.DOWN){
             state = State.STOP;
             System.out.println();
-        }*/
+        }
         switch (state){
             case UP:
 
-                double timeLeft = Timer.getMatchTime(); //this SHOULD be the time since the first "mode" began (aka, Auto)
+                double timeLeft = Timer.getMatchTime(); //this SHOULD be the time remaining in the match
                 if (!wasLastPressed){ //button state has changed, was up and is now down
                     legClimberButtonPressCount++; //keep track of how many times the button was pressed
                 }
@@ -63,7 +64,7 @@ public class LegClimberController {
                 wasLastPressed = true;
 
                 //System.out.println("time: " + timePassed );
-                if (timeLeft < 30 || legClimberButtonPressCount > 0) {//30 seconds left in the match OR button has been pressed 10 times
+                if ((timeLeft < 30 && legClimberButtonPressCount > 0) || legClimberButtonPressCount > 10) {//30 seconds left in the match OR button has been pressed 10 times
                     printEncoder();
                     if(legClimberMotor.getSelectedSensorPosition() <= Constants.LegClimber.kClimberMotorDistance){
                         legClimberMotor.set(ControlMode.PercentOutput, 1); //only drive forward if we haven't reached maximum encoder value
