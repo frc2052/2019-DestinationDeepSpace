@@ -22,7 +22,7 @@ public class BackwardRightToRightFar extends AutoMode {
                 //Starting path starts going backwards
                 new FollowPathAction(new RStartSideRightFarHatchPath(startingPos, Path.Direction.BACKWARD)),
                 //Vision
-                new LineUpAction(false),
+                new VisionAction(true),
                 // when true, ground outtake action
                 new GroundIntakeAction(true),
                 new ParallelAction(Arrays.asList(
