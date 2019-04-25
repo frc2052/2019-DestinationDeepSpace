@@ -186,6 +186,7 @@ public class Robot extends TimedRobot {
         visionController.showBackPiCamera(controls.getShowBackCamera());
         visionController.getValues();
         if (legClimberController != null) {
+            legClimberController.printEncoder();
             //always pass the button for climb to the leg climber
             //it needs to keep track of how many times the button was pressed
             //pressed 10 times will allow us to climb even if the match isn't in its last 30 seconds
@@ -211,9 +212,16 @@ public class Robot extends TimedRobot {
             //System.out.println("LIFTER IS NOT NULL");
 //            lifter.printLifterEncoder();
             if (controls.getLifterDown()) {
-                lifter.setLegsDown(controls.getLifterDown());
-            } else if (controls.getRampDown()) {
-                lifter.setRampDown(controls.getRampDown());
+                lifter.setLegsDown(true);
+            }else{
+                lifter.setLegsDown(false);
+            }
+
+            if (controls.getRampDown() || controls.getGroundIntakeDown()) {
+                System.out.println("RAMP DOWN");
+                lifter.setRampDown(true);
+            }else{
+                lifter.setRampDown(false);
             }
         }
 
