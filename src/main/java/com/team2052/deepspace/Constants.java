@@ -38,7 +38,7 @@ public class Constants {
         public static final int kCargoInSolenoidId = 4;
         public static final int kCargoOutSolenoidId = 5;
 
-        public static final double kOuttakeCargoShipSpeed = .55;
+        public static final double kOuttakeCargoShipSpeed = .6;
     }
 
 
@@ -98,7 +98,7 @@ public class Constants {
 
         public static final double kEncoderTicksPerRotation = 1024;
         public static final double kClimbMotorRotations = 940/4.0;
-        public static final int kClimberMotorDistance = 1438000 + 40200;
+        public static final int kClimberMotorDistance = 1680000;
     }
 
     public class Elevator{

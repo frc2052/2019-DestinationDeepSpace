@@ -66,7 +66,7 @@ public class IntakeController {
 
                 if(isRocket1 && rocketTimer.get() < .5) {
                     setArmDown(true);
-                    if(rocketTimer.get() > .35) {
+                    if(rocketTimer.get() > .25) {
                         clawTop.set(ControlMode.PercentOutput, -.50);
                         clawBottom.set(ControlMode.PercentOutput, .50);
                     }
@@ -74,8 +74,8 @@ public class IntakeController {
                     System.out.println("running motors: " + rocketTimer.get() + " bool: " +isRocket1);
                 }else{
                     setArmDown(false);
-                    clawTop.set(ControlMode.PercentOutput, 0);
-                    clawBottom.set(ControlMode.PercentOutput, 0);
+                    clawTop.set(ControlMode.PercentOutput, -.50);
+                    clawBottom.set(ControlMode.PercentOutput, .50);
                 }
 
                 System.out.println("rocket1: " + isRocket1);
@@ -97,8 +97,8 @@ public class IntakeController {
                 }
                 break;
             case AGAINSTWALL:
-                clawTop.set(ControlMode.PercentOutput, -Constants.Intake.kOuttakeCargoShipSpeed - .1); //.55
-                clawBottom.set(ControlMode.PercentOutput, Constants.Intake.kOuttakeCargoShipSpeed);
+                clawTop.set(ControlMode.PercentOutput, -.55); //.55
+                clawBottom.set(ControlMode.PercentOutput, .55);
                 if(isRocket1){
                     isRocket1 = false;
                     setArmDown(false);

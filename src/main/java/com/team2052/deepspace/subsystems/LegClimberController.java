@@ -72,6 +72,8 @@ public class LegClimberController {
                         if(legClimberMotor.getSelectedSensorPosition() == 0){
                             System.out.println("ERROR: WARNING CLIMBER ENCODER IS 0");
                         }
+                    }else{
+                        legClimberMotor.set(ControlMode.PercentOutput, 0);
                     }
                         //with Assistance
                         //LegClimberSolenoid1.set(true);

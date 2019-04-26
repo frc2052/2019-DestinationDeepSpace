@@ -15,8 +15,8 @@ public class RStartCenterRightHatchPath extends Path {
         addWaypoint(new Waypoint(startPos,80)); // B
         addWaypoint(new Waypoint(new Position2d(55,47), Constants.Autonomous.kAutoVelocity));
         addWaypoint(new Waypoint(new Position2d(63,35),Constants.Autonomous.kAutoVelocity));
-        addWaypoint(new Waypoint(new Position2d(85,8),Constants.Autonomous.kAutoVelocity));
-        addWaypoint(new Waypoint(new Position2d(94,10),Constants.Autonomous.kAutoVelocity));
+        addWaypoint(new Waypoint(new Position2d(85,14),Constants.Autonomous.kAutoVelocity));
+        addWaypoint(new Waypoint(new Position2d(94,16),Constants.Autonomous.kAutoVelocity));
         OptimizePath();
     }
 
