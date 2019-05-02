@@ -77,7 +77,13 @@ public class Controls {
     public boolean getShowBackCamera(){return secondaryControlPanel.getX() < -.25;}
     public boolean getIsShooterAgainstWall(){return turnPrimaryStick.getRawButton(kTurnJoystickAgainstWallShoot);}
     public boolean getHatchOuttake() {return turnPrimaryStick.getTrigger();}
-    public boolean getAutoOverride() {return getDriveTank() != 0 || getDriveTurn() != 0 || getUnusedTank() != 0 || getUnusedTurn() != 0;}
+    public boolean getAutoOverride() {
+        /*
+        return getDriveTank() != 0 || getDriveTurn() != 0 || getUnusedTank() != 0 || getUnusedTurn() != 0;
+        */
+        return getCargoShoot();
+    }
+
     public boolean getAutoInterrupt() {return turnPrimaryStick.getRawButton(kTurnJoystickAutoOverrideButton);}
 
     public boolean getShift(){return tankPrimaryStick.getRawButton(kTankJoystickShiftButton);}
