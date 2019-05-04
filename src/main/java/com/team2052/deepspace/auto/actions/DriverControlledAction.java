@@ -15,9 +15,12 @@ public class DriverControlledAction implements Action{
     private RobotState robotstate;
     private IntakeController intake;
     private GroundIntakeController groundIntake;
-    private boolean wasPressed = true;
+    private boolean wasPressed = false;
+    private boolean finished = false;
 
-    public DriverControlledAction(){
+    private boolean intakeToggle;
+
+    public DriverControlledAction(boolean startToggle){
         driveTrain = DriveTrainController.getInstance();
         controls = Controls.getInstance();
         visionController = VisionController.getInstance();
@@ -25,7 +28,10 @@ public class DriverControlledAction implements Action{
         robotstate = RobotState.getInstance();
         intake = IntakeController.getInstance();
         groundIntake = GroundIntakeController.getInstance();
+        intakeToggle = startToggle;
     }
+
+
     @Override
     public void done() {
 
@@ -34,7 +40,7 @@ public class DriverControlledAction implements Action{
     @Override
     //TODO: Make a button and ask Wat wat he likes
     public boolean isFinished() {
-        return controls.getAutoInterrupt();
+        return controls.getHatchOuttake();
     }
 
     @Override
@@ -91,7 +97,14 @@ public class DriverControlledAction implements Action{
             //hatches
             //if primary driver had pulled trigger to place a hatch on the front
 //            if (controls.getHatchOuttake()) {
-            intake.setHatchPlace(controls.getHatchOuttake());
+//            System.out.println(intakeToggle);
+//            intake.setHatchPlace(intakeToggle);
+//            if(controls.getHatchOuttake() && !wasPressed){
+//                intakeToggle = !intakeToggle;
+//                finished = true;
+//                wasPressed = true;
+//                System.out.println("TOGGLEING HATCH" + finished);
+//            }
 //            } else {  //primary driver not holding front hatch trigger
 
 //                if (!groundIntake.getIsPlacing()) {

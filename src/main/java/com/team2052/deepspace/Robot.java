@@ -104,6 +104,7 @@ public class Robot extends TimedRobot {
         if(controls.getAutoOverride()){
             autoModeRunner.stop();
             driveTrain.stop();
+            System.out.println("WHAT THE FUCK AUTO IS DONE");
         }
         //System.out.println("is auto done: " + autoModeRunner.isFinished());
 
@@ -186,7 +187,7 @@ public class Robot extends TimedRobot {
         visionController.showBackPiCamera(controls.getShowBackCamera());
         visionController.getValues();
         if (legClimberController != null) {
-            legClimberController.printEncoder();
+            //legClimberController.printEncoder();
             //always pass the button for climb to the leg climber
             //it needs to keep track of how many times the button was pressed
             //pressed 10 times will allow us to climb even if the match isn't in its last 30 seconds

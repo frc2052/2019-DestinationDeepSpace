@@ -306,7 +306,7 @@ public class AutoModeSelector {
         RIGHT("StartRight", new Position2d(0, Constants.Autonomous.kStartRightInchOffset)),
         LEFTHAB2("startLeftHab2", new Position2d(Constants.Autonomous.kStartHab2Offset, Constants.Autonomous.kStartLeftInchOffset)),
         RIGHTHAB2("startRightHab2", new Position2d(Constants.Autonomous.kStartHab2Offset, Constants.Autonomous.kStartRightInchOffset)),
-        TEST("test", new Position2d(0, 0));
+        TEST("test", new Position2d(0, -10));
 
         public String name;
         public Position2d startPos;

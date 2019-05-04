@@ -8,9 +8,9 @@ import com.team2052.lib.Autonomous.Waypoint;
 
 import java.util.List;
 
-public class CLeftHatchStartRightHatchPickUpPathTwoHatchCompoundPath extends CompoundPath {
+public class CRightHatchStartLeftHatchPickUpPathTwoHatchCompoundPath extends CompoundPath {
 
-    public CLeftHatchStartRightHatchPickUpPathTwoHatchCompoundPath() {
+    public CRightHatchStartLeftHatchPickUpPathTwoHatchCompoundPath() {
         addPath(new  CLeftHatchStartLeftHatchPickUpPath1());
         addPath(new  CLeftHatchStartLeftHatchPickUpPath2());
     }
@@ -27,11 +27,11 @@ public class CLeftHatchStartRightHatchPickUpPathTwoHatchCompoundPath extends Com
 //            addWaypoint(new Waypoint(new Position2d(80,95),Constants.Autonomous.kHighGearAutoVelocity));
 //            addWaypoint(new Waypoint(new Position2d(84,108),Constants.Autonomous.kHighGearAutoVelocity));
 //            addWaypoint(new Waypoint(new Position2d(90,115),Constants.Autonomous.kHighGearAutoVelocity));
-            addWaypoint(new Waypoint(new Position2d(130,-3),100));
-            addWaypoint(new Waypoint(new Position2d(95,20),Constants.Autonomous.kHighGearAutoVelocity));
-            addWaypoint(new Waypoint(new Position2d(80,60),Constants.Autonomous.kHighGearAutoVelocity));
-            addWaypoint(new Waypoint(new Position2d(80,80),Constants.Autonomous.kHighGearAutoVelocity));
-            addWaypoint(new Waypoint(new Position2d(90,100),Constants.Autonomous.kHighGearAutoVelocity));
+            addWaypoint(new Waypoint(new Position2d(130,3),100));
+            addWaypoint(new Waypoint(new Position2d(95,-20),Constants.Autonomous.kHighGearAutoVelocity));
+            addWaypoint(new Waypoint(new Position2d(80,-60),Constants.Autonomous.kHighGearAutoVelocity));
+            addWaypoint(new Waypoint(new Position2d(80,-80),Constants.Autonomous.kHighGearAutoVelocity));
+            addWaypoint(new Waypoint(new Position2d(90,-100),Constants.Autonomous.kHighGearAutoVelocity));
             //OptimizePath();
             forceQuickOptimization();
         }
@@ -47,9 +47,9 @@ public class CLeftHatchStartRightHatchPickUpPathTwoHatchCompoundPath extends Com
         public  CLeftHatchStartLeftHatchPickUpPath2() {
             setDirection(Direction.FORWARD);
             isHighGear = true;
-            addWaypoint(new Waypoint(new Position2d(90,110),Constants.Autonomous.kHighGearAutoVelocity));
-            addWaypoint(new Waypoint(new Position2d(30,140),Constants.Autonomous.kHighGearAutoVelocity));
-            addWaypoint(new Waypoint(new Position2d(-10,140),Constants.Autonomous.kHighGearAutoVelocity));
+            addWaypoint(new Waypoint(new Position2d(90,-110),Constants.Autonomous.kHighGearAutoVelocity));
+            addWaypoint(new Waypoint(new Position2d(30,-140),Constants.Autonomous.kHighGearAutoVelocity));
+            addWaypoint(new Waypoint(new Position2d(-10,-140),Constants.Autonomous.kHighGearAutoVelocity));
 //            OptimizePath();
             forceQuickOptimization();
         }
