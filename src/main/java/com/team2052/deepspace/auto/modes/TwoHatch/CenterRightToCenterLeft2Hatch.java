@@ -3,16 +3,14 @@ package com.team2052.deepspace.auto.modes.TwoHatch;
 import com.team2052.deepspace.auto.AutoMode;
 import com.team2052.deepspace.auto.actions.*;
 import com.team2052.deepspace.auto.paths.CenterHatchStarts.CRightHatchStartLeftHatchPickUpPathTwoHatchCompoundPath;
-import com.team2052.deepspace.auto.paths.CenterStart.CStartCenterRightTwoHatchPath;
 import com.team2052.deepspace.auto.paths.HatchPickUp.LHatchPickUpStartCenterLeftTwoHatchPathCompoundPath;
-import com.team2052.deepspace.auto.paths.Path;
 import com.team2052.lib.Autonomous.Position2d;
 
 import java.util.Arrays;
 
-public class ForwardCenterLeftToCenterRight extends AutoMode {
+public class CenterRightToCenterLeft2Hatch extends AutoMode {
 
-    public ForwardCenterLeftToCenterRight(Position2d startPos){
+    public CenterRightToCenterLeft2Hatch(Position2d startPos){
         super(startPos);
         setStartDirection(StartDirection.FORWARD);
     }
@@ -23,20 +21,14 @@ public class ForwardCenterLeftToCenterRight extends AutoMode {
         System.out.println("###########################################init###########################################");
 
         setAction(new SeriesAction(Arrays.asList(
-                //new DriverControlledAction(),
-                //new PrintAction("Hi")
-                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.ARMDOWN),
-                new FollowPathAction(new CStartCenterRightTwoHatchPath(startingPos, Path.Direction.FORWARD)),
-                new DriverControlledAction(false),
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
+                new WaitAction(.15),
                 new FollowPathListAction(new CRightHatchStartLeftHatchPickUpPathTwoHatchCompoundPath().getPaths()),
                 new DriverControlledAction(true),
-                new ParallelAction(Arrays.asList(
-                        new FollowPathListAction(new LHatchPickUpStartCenterLeftTwoHatchPathCompoundPath().getPaths()),
-                        new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE)
-                )),
+                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
+                new WaitAction(.15),
+                new FollowPathListAction(new LHatchPickUpStartCenterLeftTwoHatchPathCompoundPath().getPaths()),
                 new DriverControlledAction(false)
-
         )));
     }
 }

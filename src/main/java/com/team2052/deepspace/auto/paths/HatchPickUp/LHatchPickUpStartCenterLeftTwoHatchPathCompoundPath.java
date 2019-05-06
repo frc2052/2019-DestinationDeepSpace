@@ -18,6 +18,7 @@ public class LHatchPickUpStartCenterLeftTwoHatchPathCompoundPath extends Compoun
     class   RHatchPickUpStartRightCloseHatchPath1 extends Path {
         public  RHatchPickUpStartRightCloseHatchPath1() {
             setDirection(Direction.BACKWARD);
+            isHighGear = true;
             //TODO: these points need to be fixed to allow for a turn
             addWaypoint(new Waypoint(new Position2d(-30,-134),100)); // d
             addWaypoint(new Waypoint(new Position2d(0,-134),Constants.Autonomous.kHighGearAutoVelocity)); // d
@@ -36,6 +37,7 @@ public class LHatchPickUpStartCenterLeftTwoHatchPathCompoundPath extends Compoun
     class  RHatchPickUpStartRightCloseHatchPath2 extends Path {
         public  RHatchPickUpStartRightCloseHatchPath2() {
             setDirection(Direction.FORWARD);
+            isHighGear = true;
             //TODO: these points need to be fixed to allow for a turn
             addWaypoint(new Waypoint(new Position2d(60,10), Constants.Autonomous.kHighGearAutoVelocity)); // f
             addWaypoint(new Waypoint(new Position2d(85,-10),Constants.Autonomous.kHighGearAutoVelocity)); // n

@@ -17,6 +17,10 @@ import com.team2052.deepspace.auto.modes.RightHatchPickUp.RightSecondHatchRightM
 import com.team2052.deepspace.auto.modes.RightStart.ForwardRightToCenterRight;
 import com.team2052.deepspace.auto.modes.RightStart.ForwardRightToRightClose;
 import com.team2052.deepspace.auto.modes.Test;
+import com.team2052.deepspace.auto.modes.TwoHatch.CenterLeftToCenterRight2Hatch;
+import com.team2052.deepspace.auto.modes.TwoHatch.CenterRightToCenterLeft2Hatch;
+import com.team2052.deepspace.auto.modes.TwoHatch.ForwardCenterLeft2Hatch;
+import com.team2052.deepspace.auto.modes.TwoHatch.ForwardCenterRight2Hatch;
 import com.team2052.deepspace.auto.modes.WaitToStart;
 import com.team2052.lib.Autonomous.Position2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -263,7 +267,37 @@ public class AutoModeSelector {
                             break;
                     }
                     break;
+                case CENTERLEFT:
+                    switch (first){
+                        case FCLHATCH:
+                            selectedAuto = new ForwardCenterLeft2Hatch(position.startPos);
+                    }
+
+                    switch (second){
+                        case RHATCH:
+                            secondAuto = new CenterLeftToCenterRight2Hatch(position.startPos);
+                    }
+                    break;
+                case CENTERRIGHT:
+                    switch (first){
+                        case FCRHATCH:
+                            selectedAuto = new ForwardCenterRight2Hatch(position.startPos);
+                    }
+
+                    switch (second){
+                        case LHATCH:
+                            secondAuto = new CenterRightToCenterLeft2Hatch(position.startPos);
+                    }
+                    break;
                 case NONE:
+                    switch (first){
+                        case NONE:
+                            selectedAuto = new DontMove();
+                            break;
+                        default:
+                            selectedAuto = null;
+                    }
+
                 default:
                     selectedAuto = null; //set null because we check if its null on line for smart dashboard
             }
@@ -301,10 +335,12 @@ public class AutoModeSelector {
 
     public enum PositionSelection {
         NONE("Select Start", new Position2d(0, 0)),
-        LEFT("StartLeft", new Position2d(0, Constants.Autonomous.kStartLeftInchOffset)),
         CENTER("StartCenter", new Position2d(0, 0)),
-        RIGHT("StartRight", new Position2d(0, Constants.Autonomous.kStartRightInchOffset)),
+        CENTERLEFT("StartCenterLeft", new Position2d(0,-10)),
+        CENTERRIGHT("StartCenterRight", new Position2d(0,10)),
+        LEFT("StartLeft", new Position2d(0, Constants.Autonomous.kStartLeftInchOffset)),
         LEFTHAB2("startLeftHab2", new Position2d(Constants.Autonomous.kStartHab2Offset, Constants.Autonomous.kStartLeftInchOffset)),
+        RIGHT("StartRight", new Position2d(0, Constants.Autonomous.kStartRightInchOffset)),
         RIGHTHAB2("startRightHab2", new Position2d(Constants.Autonomous.kStartHab2Offset, Constants.Autonomous.kStartRightInchOffset)),
         TEST("test", new Position2d(0, -10));
 
