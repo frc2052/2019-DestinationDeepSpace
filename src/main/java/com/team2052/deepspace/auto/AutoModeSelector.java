@@ -17,10 +17,7 @@ import com.team2052.deepspace.auto.modes.RightHatchPickUp.RightSecondHatchRightM
 import com.team2052.deepspace.auto.modes.RightStart.ForwardRightToCenterRight;
 import com.team2052.deepspace.auto.modes.RightStart.ForwardRightToRightClose;
 import com.team2052.deepspace.auto.modes.Test;
-import com.team2052.deepspace.auto.modes.TwoHatch.CenterLeftToCenterRight2Hatch;
-import com.team2052.deepspace.auto.modes.TwoHatch.CenterRightToCenterLeft2Hatch;
-import com.team2052.deepspace.auto.modes.TwoHatch.ForwardCenterLeft2Hatch;
-import com.team2052.deepspace.auto.modes.TwoHatch.ForwardCenterRight2Hatch;
+import com.team2052.deepspace.auto.modes.TwoHatch.*;
 import com.team2052.deepspace.auto.modes.WaitToStart;
 import com.team2052.lib.Autonomous.Position2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -276,6 +273,8 @@ public class AutoModeSelector {
                     switch (second){
                         case RHATCH:
                             secondAuto = new CenterLeftToCenterRight2Hatch(position.startPos);
+                        case LCHATCH:
+                            secondAuto = new CenterLeftToLeftClose2Hatch(position.startPos);
                     }
                     break;
                 case CENTERRIGHT:
@@ -287,6 +286,8 @@ public class AutoModeSelector {
                     switch (second){
                         case LHATCH:
                             secondAuto = new CenterRightToCenterLeft2Hatch(position.startPos);
+                        case RCHATCH:
+                            secondAuto = new CenterRightToRightClose2Hatch(position.startPos);
                     }
                     break;
                 case NONE:
