@@ -12,7 +12,7 @@ public class CStartCenterRightTwoHatchPath extends Path{
         setDirection(dir);
         isHighGear = true;
         addWaypoint(new Waypoint(new Position2d(0,10),100));
-        addWaypoint(new Waypoint(new Position2d(94,10),50, "end"));
+        addWaypoint(new Waypoint(new Position2d(85,10),50, "end"));
         OptimizePath();
     }
 

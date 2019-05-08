@@ -268,26 +268,44 @@ public class AutoModeSelector {
                     switch (first){
                         case FCLHATCH:
                             selectedAuto = new ForwardCenterLeft2Hatch(position.startPos);
+                            break;
+                        default:
+                            selectedAuto = null;
+                            break;
                     }
 
                     switch (second){
                         case RHATCH:
                             secondAuto = new CenterLeftToCenterRight2Hatch(position.startPos);
+                            break;
                         case LCHATCH:
                             secondAuto = new CenterLeftToLeftClose2Hatch(position.startPos);
+                            break;
+                        default:
+                            secondAuto = null;
+                            break;
                     }
                     break;
                 case CENTERRIGHT:
                     switch (first){
                         case FCRHATCH:
                             selectedAuto = new ForwardCenterRight2Hatch(position.startPos);
+                            break;
+                        default:
+                            selectedAuto = null;
+                            break;
                     }
 
                     switch (second){
                         case LHATCH:
                             secondAuto = new CenterRightToCenterLeft2Hatch(position.startPos);
+                            break;
                         case RCHATCH:
                             secondAuto = new CenterRightToRightClose2Hatch(position.startPos);
+                            break;
+                        default:
+                            secondAuto = null;
+                            break;
                     }
                     break;
                 case NONE:
@@ -297,6 +315,7 @@ public class AutoModeSelector {
                             break;
                         default:
                             selectedAuto = null;
+                            break;
                     }
 
                 default:
@@ -343,7 +362,7 @@ public class AutoModeSelector {
         LEFTHAB2("startLeftHab2", new Position2d(Constants.Autonomous.kStartHab2Offset, Constants.Autonomous.kStartLeftInchOffset)),
         RIGHT("StartRight", new Position2d(0, Constants.Autonomous.kStartRightInchOffset)),
         RIGHTHAB2("startRightHab2", new Position2d(Constants.Autonomous.kStartHab2Offset, Constants.Autonomous.kStartRightInchOffset)),
-        TEST("test", new Position2d(0, -10));
+        TEST("test", new Position2d(0, Constants.Autonomous.kStartLeftInchOffset));
 
         public String name;
         public Position2d startPos;

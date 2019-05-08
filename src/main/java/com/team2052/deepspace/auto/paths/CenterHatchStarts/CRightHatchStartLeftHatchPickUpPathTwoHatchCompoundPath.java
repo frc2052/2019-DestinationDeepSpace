@@ -47,10 +47,10 @@ public class CRightHatchStartLeftHatchPickUpPathTwoHatchCompoundPath extends Com
         public  CLeftHatchStartLeftHatchPickUpPath2() {
             setDirection(Direction.FORWARD);
             isHighGear = true;
-            addWaypoint(new Waypoint(new Position2d(90,-110),Constants.Autonomous.kHighGearAutoVelocity));
-            addWaypoint(new Waypoint(new Position2d(30,-140),Constants.Autonomous.kHighGearAutoVelocity));
-            addWaypoint(new Waypoint(new Position2d(-10,-140),Constants.Autonomous.kHighGearAutoVelocity));
-//            OptimizePath();
+            addWaypoint(new Waypoint(new Position2d(90,-110),Constants.Autonomous.kHighGearAutoVelocity)); //110, 120
+            addWaypoint(new Waypoint(new Position2d(70,-110),Constants.Autonomous.kHighGearAutoVelocity));
+            addWaypoint(new Waypoint(new Position2d(30,-125),Constants.Autonomous.kHighGearAutoVelocity));
+            addWaypoint(new Waypoint(new Position2d(0,-130),Constants.Autonomous.kHighGearAutoVelocity));
             forceQuickOptimization();
         }
 

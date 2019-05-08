@@ -12,7 +12,7 @@ public class RHatchPickUpStartCenterRightTwoHatchPathCompoundPath extends Compou
 
     public RHatchPickUpStartCenterRightTwoHatchPathCompoundPath() {
         addPath(new  RHatchPickUpStartRightCloseHatchPath1());
-        addPath(new  RHatchPickUpStartRightCloseHatchPath2());
+        //addPath(new  RHatchPickUpStartRightCloseHatchPath2());
     }
 
     class   RHatchPickUpStartRightCloseHatchPath1 extends Path {
@@ -22,9 +22,8 @@ public class RHatchPickUpStartCenterRightTwoHatchPathCompoundPath extends Compou
             //TODO: these points need to be fixed to allow for a turn
             addWaypoint(new Waypoint(new Position2d(-30,134),100)); // d
             addWaypoint(new Waypoint(new Position2d(0,134),Constants.Autonomous.kHighGearAutoVelocity)); // d
-            addWaypoint(new Waypoint(new Position2d(50,60),Constants.Autonomous.kHighGearAutoVelocity)); // e
-            addWaypoint(new Waypoint(new Position2d(100,30),Constants.Autonomous.kHighGearAutoVelocity)); // f
-            addWaypoint(new Waypoint(new Position2d(80,10),Constants.Autonomous.kHighGearAutoVelocity)); // f
+            addWaypoint(new Waypoint(new Position2d(80,60),Constants.Autonomous.kHighGearAutoVelocity)); // e
+            addWaypoint(new Waypoint(new Position2d(80,25),Constants.Autonomous.kHighGearAutoVelocity)); // f
             forceQuickOptimization();
         }
 

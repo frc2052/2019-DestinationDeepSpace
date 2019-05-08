@@ -12,7 +12,7 @@ public class RHatchPickUpStartRightCloseTwoHatchPathCompoundPath extends Compoun
 
     public RHatchPickUpStartRightCloseTwoHatchPathCompoundPath() {
         addPath(new  RHatchPickUpStartRightCloseHatchPath1());
-        addPath(new  RHatchPickUpStartRightCloseHatchPath2());
+        //addPath(new  RHatchPickUpStartRightCloseHatchPath2());
     }
 
     class   RHatchPickUpStartRightCloseHatchPath1 extends Path {
@@ -20,9 +20,8 @@ public class RHatchPickUpStartRightCloseTwoHatchPathCompoundPath extends Compoun
             setDirection(Direction.BACKWARD);
             isHighGear = true;
             addWaypoint(new Waypoint(new Position2d(-30,125), Constants.Autonomous.kHighGearAutoVelocity));
-            addWaypoint(new Waypoint(new Position2d(60,90),Constants.Autonomous.kHighGearAutoVelocity));
-            addWaypoint(new Waypoint(new Position2d(195,70),Constants.Autonomous.kHighGearAutoVelocity));
-            addWaypoint(new Waypoint(new Position2d(195,80  ),Constants.Autonomous.kHighGearAutoVelocity));
+            addWaypoint(new Waypoint(new Position2d(0,120),Constants.Autonomous.kHighGearAutoVelocity));
+            addWaypoint(new Waypoint(new Position2d(178,75),Constants.Autonomous.kHighGearAutoVelocity));
             forceQuickOptimization();
         }
 

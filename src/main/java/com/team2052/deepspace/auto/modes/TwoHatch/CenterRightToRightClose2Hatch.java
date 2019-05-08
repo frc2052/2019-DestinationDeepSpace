@@ -2,9 +2,7 @@ package com.team2052.deepspace.auto.modes.TwoHatch;
 
 import com.team2052.deepspace.auto.AutoMode;
 import com.team2052.deepspace.auto.actions.*;
-import com.team2052.deepspace.auto.paths.CenterHatchStarts.CLeftHatchStartRightHatchPickUpPathTwoHatchCompoundPath;
 import com.team2052.deepspace.auto.paths.CenterHatchStarts.CRightHatchStartRightHatchPickUpPathTwoHatchCompoundPath;
-import com.team2052.deepspace.auto.paths.HatchPickUp.RHatchPickUpStartCenterRightTwoHatchPathCompoundPath;
 import com.team2052.deepspace.auto.paths.HatchPickUp.RHatchPickUpStartRightCloseTwoHatchPathCompoundPath;
 import com.team2052.lib.Autonomous.Position2d;
 
@@ -30,8 +28,8 @@ public class CenterRightToRightClose2Hatch extends AutoMode {
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
                 new WaitAction(.15),
                 new FollowPathListAction(new RHatchPickUpStartRightCloseTwoHatchPathCompoundPath().getPaths()),
+                new TurnInPlaceAction(TurnInPlaceAction.TurnMode.FIELDCENTRIC, -90),
                 new DriverControlledAction(false)
-
         )));
     }
 }
