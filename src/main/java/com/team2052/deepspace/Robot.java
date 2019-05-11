@@ -277,5 +277,20 @@ public class Robot extends TimedRobot {
                 SmartDashboard.putString("LedStatus", "");
             }
         }
+
+//        if(false && controls.getAutoInterrupt()){
+//            AutoMode currentMode;
+//            if(robotstate.getLatestPosition().getLateral() < 0) {
+//                currentMode = new TeleopLeftTest(robotstate.getLatestPosition());
+//            }else{
+//                currentMode = new TeleopRightTest(robotstate.getLatestPosition());
+//            }
+//            System.out.println("Teleop return to hatch");
+//            System.out.println("starting x: " + robotstate.getLatestPosition().getLateral() + " y: "+ robotstate.getLatestPosition().getForward());
+//            //start running the auto mode
+//            autoModeRunner.start(currentMode);
+//        }else if(!autoModeRunner.isFinished()){
+//            autoModeRunner.stop();
+//        }
     }
 }

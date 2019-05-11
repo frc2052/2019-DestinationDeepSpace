@@ -2,12 +2,7 @@ package com.team2052.deepspace.auto.modes.TwoHatch;
 
 import com.team2052.deepspace.auto.AutoMode;
 import com.team2052.deepspace.auto.actions.*;
-import com.team2052.deepspace.auto.paths.CenterHatchStarts.CLeftHatchStartRightHatchPickUpPathTwoHatchCompoundPath;
-import com.team2052.deepspace.auto.paths.CenterHatchStarts.CRightHatchStartLeftHatchPickUpPathTwoHatchCompoundPath;
 import com.team2052.deepspace.auto.paths.CenterStart.CStartCenterLeftTwoHatchPath;
-import com.team2052.deepspace.auto.paths.CenterStart.CStartCenterRightTwoHatchPath;
-import com.team2052.deepspace.auto.paths.HatchPickUp.LHatchPickUpStartCenterLeftTwoHatchPathCompoundPath;
-import com.team2052.deepspace.auto.paths.HatchPickUp.RHatchPickUpStartCenterRightTwoHatchPathCompoundPath;
 import com.team2052.deepspace.auto.paths.Path;
 import com.team2052.lib.Autonomous.Position2d;
 
@@ -29,7 +24,8 @@ public class ForwardCenterLeft2Hatch extends AutoMode {
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.ARMDOWN),
                 new FollowPathAction(new CStartCenterLeftTwoHatchPath(startingPos, Path.Direction.FORWARD)),
                 new DriverControlledAction(false),
-                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE)
+                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
+                new PrintAction("WHY!!")
         )));
     }
 }

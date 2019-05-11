@@ -31,6 +31,13 @@ public class TurnInPlaceAction implements Action {
         driveTrainController = DriveTrainController.getInstance();
         robotState = RobotState.getInstance();
     }
+    public TurnInPlaceAction(TurnMode mode, double turnDegrees, double speed){
+        this.mode = mode;
+        turnAngle = turnDegrees;
+        driveTrainController = DriveTrainController.getInstance();
+        robotState = RobotState.getInstance();
+        baseSpeedConstant = speed;
+    }
 
     @Override
     public void done() {
