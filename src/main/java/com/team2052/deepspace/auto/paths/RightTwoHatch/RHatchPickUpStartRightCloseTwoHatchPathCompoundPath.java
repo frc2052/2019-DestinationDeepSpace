@@ -1,4 +1,4 @@
-package com.team2052.deepspace.auto.paths.HatchPickUp;
+package com.team2052.deepspace.auto.paths.RightTwoHatch;
 
 import com.team2052.deepspace.Constants;
 import com.team2052.deepspace.auto.paths.CompoundPath;
