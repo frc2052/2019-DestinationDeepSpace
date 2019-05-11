@@ -12,8 +12,8 @@ public class LCloseHatchBackup extends Path {
     public LCloseHatchBackup() {
         setDirection(Direction.BACKWARD);
         isHighGear = true;
-        addWaypoint(new Waypoint(new Position2d(194,-47), Constants.Autonomous.kAutoVelocity));
-        addWaypoint(new Waypoint(new Position2d(194,-80),Constants.Autonomous.kAutoVelocity, "end")); //K
+        addWaypoint(new Waypoint(new Position2d(194,-47), Constants.Autonomous.kHighGearAutoVelocity));
+        addWaypoint(new Waypoint(new Position2d(194,-55),Constants.Autonomous.kHighGearAutoVelocity, "end")); //K
         forceQuickOptimization();
     }
 

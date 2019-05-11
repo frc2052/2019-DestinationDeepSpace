@@ -14,7 +14,7 @@ public class LHatchPickUpStartLeftMiddle2HatchPath extends Path {
         isHighGear = true;
         addWaypoint(new Waypoint(new Position2d(-30,-125), Constants.Autonomous.kHighGearAutoVelocity));
         addWaypoint(new Waypoint(new Position2d(0,-120),Constants.Autonomous.kHighGearAutoVelocity));
-        addWaypoint(new Waypoint(new Position2d(200,-75),Constants.Autonomous.kHighGearAutoVelocity));
+        addWaypoint(new Waypoint(new Position2d(173,-75),Constants.Autonomous.kHighGearAutoVelocity));
         forceQuickOptimization();
     }
 

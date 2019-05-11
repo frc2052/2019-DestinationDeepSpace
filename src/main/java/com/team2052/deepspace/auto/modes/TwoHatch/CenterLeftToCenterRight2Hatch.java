@@ -28,7 +28,7 @@ public class CenterLeftToCenterRight2Hatch extends AutoMode {
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
                 new WaitAction(.15),
                 new FollowPathListAction(new RHatchPickUpStartCenterRightTwoHatchPathCompoundPath().getPaths()),
-                new TurnInPlaceAction(TurnInPlaceAction.TurnMode.FIELDNONTURNSPECIFIC, 10),
+                new TurnInPlaceAction(TurnInPlaceAction.TurnMode.FIELDNONTURNSPECIFIC, 15),
                 new DriverControlledAction(false)
 
         )));

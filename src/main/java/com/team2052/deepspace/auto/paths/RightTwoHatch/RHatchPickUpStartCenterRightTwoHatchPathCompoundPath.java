@@ -23,7 +23,7 @@ public class RHatchPickUpStartCenterRightTwoHatchPathCompoundPath extends Compou
             addWaypoint(new Waypoint(new Position2d(-30,134),100)); // d
             addWaypoint(new Waypoint(new Position2d(0,134),Constants.Autonomous.kHighGearAutoVelocity)); // d
             addWaypoint(new Waypoint(new Position2d(80,60),Constants.Autonomous.kHighGearAutoVelocity)); // e
-            addWaypoint(new Waypoint(new Position2d(80,25),Constants.Autonomous.kHighGearAutoVelocity)); // f
+            addWaypoint(new Waypoint(new Position2d(80,35),Constants.Autonomous.kHighGearAutoVelocity)); // f
             forceQuickOptimization();
         }
 

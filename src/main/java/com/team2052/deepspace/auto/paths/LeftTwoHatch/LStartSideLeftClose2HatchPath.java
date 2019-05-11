@@ -13,11 +13,9 @@ public class LStartSideLeftClose2HatchPath extends Path {
         setDirection(direction);
         isHighGear = true;
         addWaypoint(new Waypoint(startPos,80));
-        addWaypoint(new Waypoint(new Position2d(50,-47), Constants.Autonomous.kAutoVelocity));
-        addWaypoint(new Waypoint(new Position2d(160,-100),Constants.Autonomous.kAutoVelocity));
-        addWaypoint(new Waypoint(new Position2d(170,-92),Constants.Autonomous.kAutoVelocity));
-        addWaypoint(new Waypoint(new Position2d(188,-84),Constants.Autonomous.kAutoVelocity));//188, -84
-        addWaypoint(new Waypoint(new Position2d(186,-75),Constants.Autonomous.kAutoVelocity)); //185 -75
+        addWaypoint(new Waypoint(new Position2d(50,-47), Constants.Autonomous.kHighGearAutoVelocity));
+        addWaypoint(new Waypoint(new Position2d(140,-65), Constants.Autonomous.kAutoVelocity));
+        addWaypoint(new Waypoint(new Position2d(160,-65),0)); //185 -75
         forceQuickOptimization();
     }
 

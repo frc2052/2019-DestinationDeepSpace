@@ -21,7 +21,7 @@ public class RHatchPickUpStartRightCloseTwoHatchPathCompoundPath extends Compoun
             isHighGear = true;
             addWaypoint(new Waypoint(new Position2d(-30,125), Constants.Autonomous.kHighGearAutoVelocity));
             addWaypoint(new Waypoint(new Position2d(0,120),Constants.Autonomous.kHighGearAutoVelocity));
-            addWaypoint(new Waypoint(new Position2d(178,75),Constants.Autonomous.kHighGearAutoVelocity));
+            addWaypoint(new Waypoint(new Position2d(175,75),Constants.Autonomous.kHighGearAutoVelocity));
             forceQuickOptimization();
         }
 

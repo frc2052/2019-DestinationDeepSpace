@@ -12,10 +12,10 @@ public class LCloseHatchStartLeft2HatchPickUpPath extends Path{
     public LCloseHatchStartLeft2HatchPickUpPath() {
         setDirection(Direction.FORWARD);
         isHighGear = true;
-        addWaypoint(new Waypoint(new Position2d(194,-80),Constants.Autonomous.kHighGearAutoVelocity)); //110, 120
+        addWaypoint(new Waypoint(new Position2d(194,-60),Constants.Autonomous.kHighGearAutoVelocity)); //110, 120
         addWaypoint(new Waypoint(new Position2d(70,-110),Constants.Autonomous.kHighGearAutoVelocity));
-        addWaypoint(new Waypoint(new Position2d(30,-125),Constants.Autonomous.kHighGearAutoVelocity));
-        addWaypoint(new Waypoint(new Position2d(0,-130),Constants.Autonomous.kHighGearAutoVelocity));
+        addWaypoint(new Waypoint(new Position2d(30,-126),Constants.Autonomous.kAutoVelocity));
+        addWaypoint(new Waypoint(new Position2d(10,-123),Constants.Autonomous.kHighGearAutoVelocity));
         forceQuickOptimization();
     }
 
