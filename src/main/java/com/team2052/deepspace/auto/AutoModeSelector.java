@@ -7,13 +7,11 @@ import com.team2052.deepspace.auto.modes.DontMove;
 import com.team2052.deepspace.auto.modes.LeftHatchPickUp.LeftSecondHatchBackUp;
 import com.team2052.deepspace.auto.modes.LeftHatchPickUp.LeftSecondHatchCenterLeft;
 import com.team2052.deepspace.auto.modes.LeftHatchPickUp.LeftSecondHatchLeftClose;
-import com.team2052.deepspace.auto.modes.LeftHatchPickUp.LeftSecondHatchLeftMiddle;
 import com.team2052.deepspace.auto.modes.LeftStart.ForwardLeftToCenterLeft;
 import com.team2052.deepspace.auto.modes.LeftStart.ForwardLeftToLeftClose;
 import com.team2052.deepspace.auto.modes.RightHatchPickUp.RightSecondHatchBackUp;
 import com.team2052.deepspace.auto.modes.RightHatchPickUp.RightSecondHatchCenterRight;
 import com.team2052.deepspace.auto.modes.RightHatchPickUp.RightSecondHatchRightClose;
-import com.team2052.deepspace.auto.modes.RightHatchPickUp.RightSecondHatchRightMiddle;
 import com.team2052.deepspace.auto.modes.RightStart.ForwardRightToCenterRight;
 import com.team2052.deepspace.auto.modes.RightStart.ForwardRightToRightClose;
 import com.team2052.deepspace.auto.modes.Test;
@@ -156,7 +154,12 @@ public class AutoModeSelector {
                             secondAuto = new LeftSecondHatchLeftClose(position.startPos);
                             break;
                         case LMHATCH:
-                            secondAuto = new LeftSecondHatchLeftMiddle(position.startPos);
+                            if(first == FirstTargetSelection.FLCHATCH){
+                                selectedAuto = new LeftToLeftClose2Hatch(position.startPos);
+                                secondAuto = new LeftCloseToLeftMiddle2Hatch(position.startPos);
+                            }else {
+                                secondAuto = null;
+                            }
                             break;
                         case NONE:
                             secondAuto = new DontMove();
@@ -219,7 +222,12 @@ public class AutoModeSelector {
                             secondAuto = new RightSecondHatchRightClose(position.startPos);
                             break;
                         case RMHATCH:
-                            secondAuto = new RightSecondHatchRightMiddle(position.startPos);
+                            if(first == FirstTargetSelection.FRCHATCH){
+                                selectedAuto = new RightToRightClose2Hatch(position.startPos);
+                                secondAuto = new RightCloseToRightMiddle2Hatch(position.startPos);
+                            }else {
+                                secondAuto = null;
+                            }
                             break;
                         case NONE:
                             secondAuto = new DontMove();

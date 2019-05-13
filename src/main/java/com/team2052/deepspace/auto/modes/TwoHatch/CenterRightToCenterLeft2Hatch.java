@@ -3,7 +3,7 @@ package com.team2052.deepspace.auto.modes.TwoHatch;
 import com.team2052.deepspace.auto.AutoMode;
 import com.team2052.deepspace.auto.actions.*;
 import com.team2052.deepspace.auto.paths.CenterHatchStarts.CRightHatchStartLeftHatchPickUpPathTwoHatchCompoundPath;
-import com.team2052.deepspace.auto.paths.HatchPickUp.LHatchPickUpStartCenterLeftTwoHatchPathCompoundPath;
+import com.team2052.deepspace.auto.paths.LeftTwoHatch.LHatchPickUpStartCenterLeftTwoHatchPathCompoundPath;
 import com.team2052.lib.Autonomous.Position2d;
 
 import java.util.Arrays;

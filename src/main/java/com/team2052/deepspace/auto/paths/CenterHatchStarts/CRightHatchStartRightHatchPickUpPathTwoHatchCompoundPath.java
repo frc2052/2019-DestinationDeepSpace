@@ -42,8 +42,8 @@ public class CRightHatchStartRightHatchPickUpPathTwoHatchCompoundPath extends Co
             isHighGear = true;
             addWaypoint(new Waypoint(new Position2d(90,110),Constants.Autonomous.kHighGearAutoVelocity)); //110, 120
             addWaypoint(new Waypoint(new Position2d(70,110),Constants.Autonomous.kHighGearAutoVelocity));
-            addWaypoint(new Waypoint(new Position2d(30,123),Constants.Autonomous.kHighGearAutoVelocity));
-            addWaypoint(new Waypoint(new Position2d(0,128),Constants.Autonomous.kHighGearAutoVelocity));
+            addWaypoint(new Waypoint(new Position2d(30,120),Constants.Autonomous.kHighGearAutoVelocity));
+            addWaypoint(new Waypoint(new Position2d(0,123),Constants.Autonomous.kHighGearAutoVelocity));
             forceQuickOptimization();
         }
 

@@ -1,6 +1,7 @@
 package com.team2052.deepspace.auto.actions;
 
 
+import com.team2052.deepspace.Controls;
 import com.team2052.deepspace.RobotState;
 import com.team2052.deepspace.subsystems.DriveTrainController;
 import com.team2052.lib.DriveSignal;
@@ -8,6 +9,7 @@ import com.team2052.lib.DriveSignal;
 public class TurnInPlaceAction implements Action {
 
     private DriveTrainController driveTrainController;
+    private Controls controls = Controls.getInstance();
     private RobotState robotState;
     private double baseSpeedConstant = .2;
     private double turnAngle;
@@ -41,6 +43,7 @@ public class TurnInPlaceAction implements Action {
 
     @Override
     public void done() {
+        driveTrainController.stop();
     }
 
     @Override
@@ -60,6 +63,9 @@ public class TurnInPlaceAction implements Action {
     @Override
     public void update() {
 
+        if(Math.abs(controls.getDriveTank()) > 0 || Math.abs(controls.getDriveTurn()) > 0){
+            isFinished = true;
+        }
         if(mode == TurnMode.FIELDNONTURNSPECIFIC){
             angle = Math.IEEEremainder((robotState.getLatestPosition().getHeading() * 57.2958), 360); //angle communicates with the gyro to find the current angle
         }else {
@@ -67,7 +73,7 @@ public class TurnInPlaceAction implements Action {
         }
         error = target - angle; //setting the error angle to equal the difference of the target angle and current angle
 
-        if (Math.abs(error) < 2.5){ //if the robot is 2 degrees or less from the target position then finish, if not keep turning
+        if (Math.abs(error) < 4){ //if the robot is 2 degrees or less from the target position then finish, if not keep turning
             isFinished= true;
             driveTrainController.stop();
         }

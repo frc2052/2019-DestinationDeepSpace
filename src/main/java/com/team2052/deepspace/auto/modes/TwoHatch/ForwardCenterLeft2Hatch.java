@@ -2,7 +2,7 @@ package com.team2052.deepspace.auto.modes.TwoHatch;
 
 import com.team2052.deepspace.auto.AutoMode;
 import com.team2052.deepspace.auto.actions.*;
-import com.team2052.deepspace.auto.paths.CenterStart.CStartCenterLeftTwoHatchPath;
+import com.team2052.deepspace.auto.paths.LeftTwoHatch.CStartCenterLeftTwoHatchPath;
 import com.team2052.deepspace.auto.paths.Path;
 import com.team2052.lib.Autonomous.Position2d;
 

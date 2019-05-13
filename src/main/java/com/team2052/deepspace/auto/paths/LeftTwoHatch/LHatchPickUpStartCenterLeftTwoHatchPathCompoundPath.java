@@ -1,4 +1,4 @@
-package com.team2052.deepspace.auto.paths.HatchPickUp;
+package com.team2052.deepspace.auto.paths.LeftTwoHatch;
 
 import com.team2052.deepspace.Constants;
 import com.team2052.deepspace.auto.paths.CompoundPath;
@@ -21,9 +21,9 @@ public class LHatchPickUpStartCenterLeftTwoHatchPathCompoundPath extends Compoun
             isHighGear = true;
             //TODO: these points need to be fixed to allow for a turn
             addWaypoint(new Waypoint(new Position2d(-30,-134),100)); // d
-            addWaypoint(new Waypoint(new Position2d(0,-134),Constants.Autonomous.kHighGearAutoVelocity)); // d
+            addWaypoint(new Waypoint(new Position2d(40,-100),Constants.Autonomous.kHighGearAutoVelocity)); // d
             addWaypoint(new Waypoint(new Position2d(80,-60),Constants.Autonomous.kHighGearAutoVelocity)); // e
-            addWaypoint(new Waypoint(new Position2d(80,-25),Constants.Autonomous.kHighGearAutoVelocity)); // f
+            addWaypoint(new Waypoint(new Position2d(80,-30),Constants.Autonomous.kHighGearAutoVelocity)); // f
             forceQuickOptimization();
         }
 

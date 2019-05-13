@@ -1,4 +1,4 @@
-package com.team2052.deepspace.auto.paths.CenterStart;
+package com.team2052.deepspace.auto.paths.RightTwoHatch;
 
 import com.team2052.deepspace.auto.paths.Path;
 import com.team2052.lib.Autonomous.Position2d;
@@ -13,7 +13,7 @@ public class CStartCenterRightTwoHatchPath extends Path{
         isHighGear = true;
         addWaypoint(new Waypoint(new Position2d(0,10),100));
         addWaypoint(new Waypoint(new Position2d(85,10),50, "end"));
-        OptimizePath();
+        forceQuickOptimization();
     }
 
     @Override
