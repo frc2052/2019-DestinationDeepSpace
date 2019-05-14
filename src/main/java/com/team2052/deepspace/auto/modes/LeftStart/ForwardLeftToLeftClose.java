@@ -25,7 +25,9 @@ public class ForwardLeftToLeftClose extends AutoMode{
                         new FollowPathAction(new LStartSideLeftCloseHatchPath(startingPos, Path.Direction.FORWARD))
                 )),
                 //Vision
-                new VisionAction(true),
+                new ParallelWaitAction(Arrays.asList(
+                        new VisionAction(true)
+                ), new DriverButtonAction()),
                 // when true, ground outtake action
                 new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.OUTTAKE),
 //                //Turns robot around and drives back towards loading station
@@ -34,9 +36,10 @@ public class ForwardLeftToLeftClose extends AutoMode{
                         new FollowPathListAction(new LCloseHatchStartLeftHatchPickUpPathCompoundPath().getPaths())
                 )),
 
-                new VisionAction(true),
-                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE),
-                new WaitAction(1.0)
+                new ParallelWaitAction(Arrays.asList(
+                        new VisionAction(true)
+                ), new DriverButtonAction()),
+                new HatchIntakeAction(HatchIntakeAction.hatchIntakeStateEnum.INTAKE)
 
         )));
     }

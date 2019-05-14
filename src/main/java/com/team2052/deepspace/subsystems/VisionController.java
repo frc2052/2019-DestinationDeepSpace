@@ -37,7 +37,7 @@ public class VisionController {
     private boolean isBack;
 
     private static double xOffset = 0;
-    private static double defaultXOffset = -3.4;
+    private static double defaultXOffset = -37;//-13.4;
 
     private boolean isTarget = false;
 
@@ -52,16 +52,19 @@ public class VisionController {
 
     public DriveSignal getMotorOutput(double speed){
         getValues();
+        speed = speed > .5 ? .5 : speed;
+        System.out.println("speed : "  + speed);
         if(getIsTarget()) {
-
+            double correctingRatio = 1.15;
 //            System.out.println("vision L: " + ((pidController.getOutput(xPercent, .5))) + " vision R " + pidController.getOutput(xPercent, .5) + " xP: " + xPercent);
 //            return new DriveSignal((pidController.getOutput(xPercent, .5)), pidController.getOutput(xPercent, .5) * speed);
 
             if(!isBack) {
                 System.out.println("vision L: " + (xPercent * speed) + " vision R " + ((1 - xPercent) * speed) + " xP: " + xPercent);
                 xPercent = ((xPercent - .5) * 1.0) + .5;
-                return new DriveSignal(xPercent * speed * 1.1, (1 - xPercent) * speed * 1.1);
-            }else {
+                System.out.println("left: " + (xPercent * (1.1 * (xPercent > .5 ? correctingRatio : 1))) + " right: " + ((1 - xPercent) * 1.1 * (xPercent < .5 ? correctingRatio : 1)));
+                return new DriveSignal(xPercent * speed * 1.1 * (xPercent > .5 ? correctingRatio : 1), (1 - xPercent) * speed * 1.1  * (xPercent < .5 ? correctingRatio : 1));
+                 }else {
                 System.out.println("vision L: " + (xPercent * speed) + " vision R " + ((1 - xPercent) * speed) + " xP: " + xPercent);
                 xPercent = ((xPercent - .5) * 1.0) + .5;
                 return new DriveSignal((1-xPercent) * speed * 1.1, xPercent * speed * 1.1);
@@ -87,7 +90,7 @@ public class VisionController {
         y = SmartDashboard.getNumber("targetY",-1);
         //System.out.println("x is " + x);
         if(x > 0) {
-            xPercent = (x + defaultXOffset + xOffset) / 150;
+            xPercent = (x + defaultXOffset + xOffset) / 100; ///150
         }
         SmartDashboard.putNumber("xPercent", xPercent);
         //System.out.println("match offset:" + xOffset);
@@ -101,7 +104,7 @@ public class VisionController {
 
     public boolean isClose(){
         if(!isBack) {
-            return y >= 32.0;
+            return y >= 31.0;
         }else {
             return y >=55;
         }

@@ -54,7 +54,6 @@ public class LifterController {
 
     public void setLegsDown(boolean isPressed) {
 
-        double timeLeft = Timer.getMatchTime(); //this SHOULD be the time remaining in the match
 
         if (isPressed && !wasLastPressed){ //button state has changed, was up and is now down
             lifterButtonPressCount++; //keep track of how many times the button was pressed
@@ -63,7 +62,7 @@ public class LifterController {
         //keep track of whether button is up or down
         wasLastPressed = isPressed;
 
-        if ((timeLeft < 30 && lifterButtonPressCount > 0) || lifterButtonPressCount > 10) {
+        if ((Timer.getMatchTime() < 30 && lifterButtonPressCount > 0) || lifterButtonPressCount > 10) {
             System.out.println("Lifter setting to " + isPressed);
             liftOutSolenoid.set(isPressed);
         }
@@ -77,7 +76,9 @@ public class LifterController {
 
     public void setRampDown(boolean isPressed) {
         if(isPressed) {
-            rampMotor.set(ControlMode.Position, KDownEncoderPosition);
+            rampMotor.set(ControlMode.PercentOutput, -.2);
+        }else{
+            rampMotor.set(ControlMode.PercentOutput, 0);
         }
     }
 }
