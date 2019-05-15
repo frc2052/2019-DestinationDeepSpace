@@ -15,8 +15,6 @@ public class DriverControlledAction implements Action{
     private RobotState robotstate;
     private IntakeController intake;
     private GroundIntakeController groundIntake;
-    private boolean wasPressed = false;
-    private boolean finished = false;
 
     private boolean intakeToggle;
 
@@ -53,13 +51,6 @@ public class DriverControlledAction implements Action{
 
     private void driverControlled(){
         if (controls.getLightFollow()) {
-            /*if (lineFollower != null && controls.getDriveTank() > 0 && lineFollower.getLineSensed()) {
-                System.out.println("Front Sensors");
-                driveTrain.drive(lineFollower.getLightSensorMotorTurn(controls.getDriveTank()));
-            } else if (backLineFollower != null && backLineFollower.getLineSensed()) {
-                System.out.println("Back Sensors");
-                driveTrain.drive(backLineFollower.getLightSensorMotorTurn(controls.getDriveTank()));
-            }else */
             if(visionController.getIsTarget()){
                 driveTrain.drive(visionController.getMotorOutput(controls.getDriveTank()));
             } else {
@@ -93,24 +84,6 @@ public class DriverControlledAction implements Action{
                 //only stop motors if we're not doing cargo intake
                 intake.setShootCargo(IntakeController.ShootSpeed.NONE);
             }
-
-            //hatches
-            //if primary driver had pulled trigger to place a hatch on the front
-//            if (controls.getHatchOuttake()) {
-//            System.out.println(intakeToggle);
-//            intake.setHatchPlace(intakeToggle);
-//            if(controls.getHatchOuttake() && !wasPressed){
-//                intakeToggle = !intakeToggle;
-//                finished = true;
-//                wasPressed = true;
-//                System.out.println("TOGGLEING HATCH" + finished);
-//            }
-//            } else {  //primary driver not holding front hatch trigger
-
-//                if (!groundIntake.getIsPlacing()) {
-//                    intake.setHatchPlace(false); //only close the jaws based on primary driver trigger if ground pickup not in the process of placing
-//                }
-//            }
 
             if (controls.getRocket1Shoot()) {
                 SmartDashboard.putString("LedStatus", "rocket1");

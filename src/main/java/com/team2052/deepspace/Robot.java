@@ -104,9 +104,8 @@ public class Robot extends TimedRobot {
         if(controls.getAutoOverride()){
             autoModeRunner.stop();
             driveTrain.stop();
-            System.out.println("WHAT THE FUCK AUTO IS DONE");
         }
-        //System.out.println("is auto done: " + autoModeRunner.isFinished());
+        System.out.println("is auto done: " + autoModeRunner.isFinished());
 
         if(autoModeRunner.isFinished()){
             driverControlled();

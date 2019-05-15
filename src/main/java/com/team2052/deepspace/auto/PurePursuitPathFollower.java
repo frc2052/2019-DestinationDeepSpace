@@ -266,7 +266,8 @@ public class PurePursuitPathFollower{
      */
     public boolean isPathComplete(){
         if(currentPos != null && path != null) {
-            return getDistanceFromEnd() < Constants.Autonomous.kRequiredDistanceFromEnd || ranOutOfPath || closestPointIndex == path.getWaypoints().size()- Constants.Autonomous.kNumOfFakePts; //check if we are 6 inches from last point and we are done with the path
+            //added logic to stop robot if over midline, or if the robot acidently skips over the "final" point
+            return getDistanceFromEnd() < Constants.Autonomous.kRequiredDistanceFromEnd || ranOutOfPath || closestPointIndex >= path.getWaypoints().size()- Constants.Autonomous.kNumOfFakePts || robotState.getLatestPosition().getForward() > 300.0; //check if we are 6 inches from last point and we are done with the path
         }else {
             return false;
         }
