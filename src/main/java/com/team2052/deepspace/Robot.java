@@ -10,6 +10,9 @@ import com.team2052.lib.DriveHelper;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -275,6 +278,21 @@ public class Robot extends TimedRobot {
             } else {
                 SmartDashboard.putString("LedStatus", "");
             }
+
+            NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+            NetworkTableEntry tx = table.getEntry("tx");
+            NetworkTableEntry ty = table.getEntry("ty");
+            NetworkTableEntry ta = table.getEntry("ta");
+
+//read values periodically
+            double x = tx.getDouble(0.0);
+            double y = ty.getDouble(0.0);
+            double area = ta.getDouble(0.0);
+
+//post to smart dashboard periodically
+            System.out.println(x);
+            System.out.println(y);
+            System.out.println(area);
         }
     }
 }
