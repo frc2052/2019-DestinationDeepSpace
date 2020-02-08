@@ -7,16 +7,15 @@ import com.team2052.deepspace.auto.modes.DontMove;
 import com.team2052.deepspace.auto.modes.LeftHatchPickUp.LeftSecondHatchBackUp;
 import com.team2052.deepspace.auto.modes.LeftHatchPickUp.LeftSecondHatchCenterLeft;
 import com.team2052.deepspace.auto.modes.LeftHatchPickUp.LeftSecondHatchLeftClose;
-import com.team2052.deepspace.auto.modes.LeftHatchPickUp.LeftSecondHatchLeftMiddle;
 import com.team2052.deepspace.auto.modes.LeftStart.ForwardLeftToCenterLeft;
 import com.team2052.deepspace.auto.modes.LeftStart.ForwardLeftToLeftClose;
 import com.team2052.deepspace.auto.modes.RightHatchPickUp.RightSecondHatchBackUp;
 import com.team2052.deepspace.auto.modes.RightHatchPickUp.RightSecondHatchCenterRight;
 import com.team2052.deepspace.auto.modes.RightHatchPickUp.RightSecondHatchRightClose;
-import com.team2052.deepspace.auto.modes.RightHatchPickUp.RightSecondHatchRightMiddle;
 import com.team2052.deepspace.auto.modes.RightStart.ForwardRightToCenterRight;
 import com.team2052.deepspace.auto.modes.RightStart.ForwardRightToRightClose;
 import com.team2052.deepspace.auto.modes.Test;
+import com.team2052.deepspace.auto.modes.TwoHatch.*;
 import com.team2052.deepspace.auto.modes.WaitToStart;
 import com.team2052.lib.Autonomous.Position2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -155,7 +154,12 @@ public class AutoModeSelector {
                             secondAuto = new LeftSecondHatchLeftClose(position.startPos);
                             break;
                         case LMHATCH:
-                            secondAuto = new LeftSecondHatchLeftMiddle(position.startPos);
+                            if(first == FirstTargetSelection.FLCHATCH){
+                                selectedAuto = new LeftToLeftClose2Hatch(position.startPos);
+                                secondAuto = new LeftCloseToLeftMiddle2Hatch(position.startPos);
+                            }else {
+                                secondAuto = null;
+                            }
                             break;
                         case NONE:
                             secondAuto = new DontMove();
@@ -218,7 +222,12 @@ public class AutoModeSelector {
                             secondAuto = new RightSecondHatchRightClose(position.startPos);
                             break;
                         case RMHATCH:
-                            secondAuto = new RightSecondHatchRightMiddle(position.startPos);
+                            if(first == FirstTargetSelection.FRCHATCH){
+                                selectedAuto = new RightToRightClose2Hatch(position.startPos);
+                                secondAuto = new RightCloseToRightMiddle2Hatch(position.startPos);
+                            }else {
+                                secondAuto = null;
+                            }
                             break;
                         case NONE:
                             secondAuto = new DontMove();
@@ -263,7 +272,60 @@ public class AutoModeSelector {
                             break;
                     }
                     break;
+                case CENTERLEFT:
+                    switch (first){
+                        case FCLHATCH:
+                            selectedAuto = new ForwardCenterLeft2Hatch(position.startPos);
+                            break;
+                        default:
+                            selectedAuto = null;
+                            break;
+                    }
+
+                    switch (second){
+                        case RHATCH:
+                            secondAuto = new CenterLeftToCenterRight2Hatch(position.startPos);
+                            break;
+                        case LCHATCH:
+                            secondAuto = new CenterLeftToLeftClose2Hatch(position.startPos);
+                            break;
+                        default:
+                            secondAuto = null;
+                            break;
+                    }
+                    break;
+                case CENTERRIGHT:
+                    switch (first){
+                        case FCRHATCH:
+                            selectedAuto = new ForwardCenterRight2Hatch(position.startPos);
+                            break;
+                        default:
+                            selectedAuto = null;
+                            break;
+                    }
+
+                    switch (second){
+                        case LHATCH:
+                            secondAuto = new CenterRightToCenterLeft2Hatch(position.startPos);
+                            break;
+                        case RCHATCH:
+                            secondAuto = new CenterRightToRightClose2Hatch(position.startPos);
+                            break;
+                        default:
+                            secondAuto = null;
+                            break;
+                    }
+                    break;
                 case NONE:
+                    switch (first){
+                        case NONE:
+                            selectedAuto = new DontMove();
+                            break;
+                        default:
+                            selectedAuto = null;
+                            break;
+                    }
+
                 default:
                     selectedAuto = null; //set null because we check if its null on line for smart dashboard
             }
@@ -301,12 +363,14 @@ public class AutoModeSelector {
 
     public enum PositionSelection {
         NONE("Select Start", new Position2d(0, 0)),
-        LEFT("StartLeft", new Position2d(0, Constants.Autonomous.kStartLeftInchOffset)),
         CENTER("StartCenter", new Position2d(0, 0)),
-        RIGHT("StartRight", new Position2d(0, Constants.Autonomous.kStartRightInchOffset)),
+        CENTERLEFT("StartCenterLeft", new Position2d(0,-10)),
+        CENTERRIGHT("StartCenterRight", new Position2d(0,10)),
+        LEFT("StartLeft", new Position2d(0, Constants.Autonomous.kStartLeftInchOffset)),
         LEFTHAB2("startLeftHab2", new Position2d(Constants.Autonomous.kStartHab2Offset, Constants.Autonomous.kStartLeftInchOffset)),
+        RIGHT("StartRight", new Position2d(0, Constants.Autonomous.kStartRightInchOffset)),
         RIGHTHAB2("startRightHab2", new Position2d(Constants.Autonomous.kStartHab2Offset, Constants.Autonomous.kStartRightInchOffset)),
-        TEST("test", new Position2d(0, 0));
+        TEST("test", new Position2d(0, Constants.Autonomous.kStartLeftInchOffset));
 
         public String name;
         public Position2d startPos;

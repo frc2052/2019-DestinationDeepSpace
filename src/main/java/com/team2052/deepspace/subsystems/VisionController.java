@@ -37,7 +37,7 @@ public class VisionController {
     private boolean isBack;
 
     private static double xOffset = 0;
-    private static double defaultXOffset = -37;//-13.4;
+    private static double defaultXOffset = -27;//-13.4;
 
     private boolean isTarget = false;
 

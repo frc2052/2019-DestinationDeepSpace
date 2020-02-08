@@ -105,7 +105,7 @@ public class Robot extends TimedRobot {
             autoModeRunner.stop();
             driveTrain.stop();
         }
-        //System.out.println("is auto done: " + autoModeRunner.isFinished());
+        System.out.println("is auto done: " + autoModeRunner.isFinished());
 
         if(autoModeRunner.isFinished()){
             driverControlled();
@@ -186,7 +186,7 @@ public class Robot extends TimedRobot {
         visionController.showBackPiCamera(controls.getShowBackCamera());
         visionController.getValues();
         if (legClimberController != null) {
-            legClimberController.printEncoder();
+            //legClimberController.printEncoder();
             //always pass the button for climb to the leg climber
             //it needs to keep track of how many times the button was pressed
             //pressed 10 times will allow us to climb even if the match isn't in its last 30 seconds
@@ -276,5 +276,20 @@ public class Robot extends TimedRobot {
                 SmartDashboard.putString("LedStatus", "");
             }
         }
+
+//        if(false && controls.getAutoInterrupt()){
+//            AutoMode currentMode;
+//            if(robotstate.getLatestPosition().getLateral() < 0) {
+//                currentMode = new TeleopLeftTest(robotstate.getLatestPosition());
+//            }else{
+//                currentMode = new TeleopRightTest(robotstate.getLatestPosition());
+//            }
+//            System.out.println("Teleop return to hatch");
+//            System.out.println("starting x: " + robotstate.getLatestPosition().getLateral() + " y: "+ robotstate.getLatestPosition().getForward());
+//            //start running the auto mode
+//            autoModeRunner.start(currentMode);
+//        }else if(!autoModeRunner.isFinished()){
+//            autoModeRunner.stop();
+//        }
     }
 }

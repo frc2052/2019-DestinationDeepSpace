@@ -60,11 +60,11 @@ public class Constants {
         public static final double kHighGearturnSpeed = 2.5; //constant from 1-5     higher = faster
         public static final double kHighGearMaxAccel = 120; //how fast the robot accelerates and decelerates
         public static final double kHighGearLookaheadDistance = 30; //12-25 // changes how smooth it follows path. lower = curves back and forth/fishtail, higher = less accurate
-        public static final double kHighGearAutoVelocity = 12 * 12 * 1.0;
+        public static final double kHighGearAutoVelocity = 13 * 12 * 1.0;
 
         //the physical max velocity the robot can drive
         public static final double kMaxAutoVelocity = 7 * 12.0; //13 ft/s is high, 7 ft/s is low
-        public static final double kMaxHighGearAutoVelocity = 12 *12; //13 ft/s is high, 7 ft/s is low
+        public static final double kMaxHighGearAutoVelocity = 13 * 12.0; //13 ft/s is high, 7 ft/s is low
 
         public static final long kloopPeriodMs = 50;
         public static final double kloopPeriodSec = kloopPeriodMs/1000.0; //int devision
